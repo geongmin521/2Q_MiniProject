@@ -1,14 +1,16 @@
 #pragma once
 #include "../D2DEngine/FSMState.h"
 
+class TowerBase;
 class TowerFSM : public FSMState
 {
 public:
 	TowerFSM(FiniteStateMachine* pOwner, std::string Name);
-	~TowerFSM();
+	 ~TowerFSM();
 	virtual void EnterState()override;
 	virtual void Update(float DeltaTime) override;
 	virtual void ExitState() override;
+	TowerBase* tower;
 };
 
 class TowerShared : public TowerFSM //공유전이입니다. 현재 상태를 업데이트하기전에 호출되어 공유전이의 특정조건을 만족하면 상태를 전이합니다. 
@@ -31,3 +33,12 @@ private:
 	virtual void ExitState() override;
 };
 
+class TowerAttack : public TowerFSM
+{
+public:
+	TowerAttack(FiniteStateMachine* pOwner, std::string Name) : TowerFSM(pOwner, Name) {};
+private:
+	virtual void EnterState() override;
+	virtual void Update(float DeltaTime) override;
+	virtual void ExitState() override;
+};

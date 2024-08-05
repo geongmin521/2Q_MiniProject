@@ -18,11 +18,11 @@ WinGameApp::WinGameApp()
 
 WinGameApp::~WinGameApp()
 {
-	if (m_pResourceManager)
+	/*if (m_pResourceManager)
 	{
 		delete m_pResourceManager;
 		m_pResourceManager = nullptr;
-	}
+	}*/
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -91,6 +91,9 @@ void WinGameApp::Run()
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
+			if (msg.message == WM_QUIT)
+				break;
+			
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 

@@ -1,6 +1,7 @@
 #include "../D2DEngine/pch.h"
 #include "TowerBase.h"
 
+
 TowerBase::TowerBase()
 {
 }
@@ -17,4 +18,8 @@ void TowerBase::Update(float deltaTime)
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+}
+
+void TowerBase::Attack(float deltaTime)
+{
 }
