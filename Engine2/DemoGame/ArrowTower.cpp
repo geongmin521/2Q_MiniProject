@@ -27,6 +27,7 @@ ArrowTower::ArrowTower()
 	fsm->CreateState<TowerAttack>("Attack");
 	fsm->CreateState<TowerShared>("Shared");
 
+	GetComponent<Animation>()->SetAnimation(0,true);
 	fsm->SetNextState("Attack");                    //적이없어서 일단 attack만 테스트 
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 200.0f;
@@ -57,11 +58,15 @@ void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void ArrowTower::Attack(float deltaTime)
 { 
+	static int a = 0;
 	attacktime -= deltaTime;
 	if (attacktime <= 0)
 	{
 		arrows.push_back(owner->CreateGameObject<Arrow>());
 		arrows.back()->transform->relativeLocation = { GetWorldLocation().x + 40.f, GetWorldLocation().y };
+		a += 1;
+		a = a% 2;
+		GetComponent<Animation>()->SetAnimation(0, a);
 		attacktime = 3.0f;
 	}
 }
