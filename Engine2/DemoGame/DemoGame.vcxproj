@@ -130,12 +130,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Arrow.h" />
     <ClInclude Include="ArrowTower.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DemoGame.h" />
     <ClInclude Include="DemoGameApp.h" />
     <ClInclude Include="EnemyBase.h" />
+    <ClInclude Include="EnemyFSM.h" />
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Shop.h" />
@@ -146,12 +148,14 @@
     <ClInclude Include="Vampire.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="ArrowTower.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DemoGame.cpp" />
     <ClCompile Include="DemoGameApp.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
+    <ClCompile Include="EnemyFSM.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Shop.cpp" />
