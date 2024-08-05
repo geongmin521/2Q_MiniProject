@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include "../D2DEngine/pch.h"
 #include "../D2DEngine/BoxCollider.h"
 #include "../D2DEngine/Bitmap.h"
@@ -7,6 +8,9 @@
 #include "../D2DEngine/AABB.h"
 #include "../D2DEngine/Movement.h"
 #include "../D2DEngine/Music.h"
+
+
+#include <cmath>
 #include "Arrow.h"
 
 Arrow::Arrow()
@@ -27,8 +31,6 @@ void Arrow::Update(float deltaTime)
 {
 	GetComponent<Movement>()->SetVelocity({ speed,  0 });
 	__super::Update(deltaTime);
-	
-	
 }
 
 void Arrow::Render(ID2D1HwndRenderTarget* pRenderTarget)
@@ -38,14 +40,18 @@ void Arrow::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void Arrow::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
+	
+	speed = 0;
 }
 
 void Arrow::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
+
 }
 
 void Arrow::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
+
 }
 
 void Arrow::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)

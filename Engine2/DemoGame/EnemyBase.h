@@ -16,6 +16,7 @@ public:
 
 public:
     // 일단 퍼블릭
+
     EnemyData enemyData;
 };
 

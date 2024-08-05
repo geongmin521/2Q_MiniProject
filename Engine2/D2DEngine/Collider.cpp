@@ -4,7 +4,6 @@
 
 Collider::Collider()
 {
-	CollisionManager::GetInstance()->pushCollider(this);
 }
 
 Collider::~Collider()

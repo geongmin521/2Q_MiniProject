@@ -3,6 +3,7 @@
 
 EnemyBase::EnemyBase()
 {
+	name = "Enemy";
 }
 
 EnemyBase::~EnemyBase()

@@ -18,7 +18,8 @@ ArrowTower::ArrowTower()
 
 	
 	//이미지가 정해지면.. 자동으로 회전의 중심좌표를 저장하기.. 
-	AddComponent(new BoxCollider(boundBox ,CollisionType::Block, this, CollisionLayer::Tower));
+	AddComponent(new BoxCollider(boundBox ,CollisionType::NoCollision, this, CollisionLayer::Tower));
+	//AddComponent(new BoxCollider( , CollisionType::Overlap, this, CollisionLayer::Tower));
 	//박스는 이전에 줄어들기 전의 위치로 회전하는데 왜그러지>? 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
@@ -27,10 +28,9 @@ ArrowTower::ArrowTower()
 	fsm->CreateState<TowerAttack>("Attack");
 	fsm->CreateState<TowerShared>("Shared");
 
-	GetComponent<Animation>()->SetAnimation(0,true);
 	fsm->SetNextState("Attack");                    //적이없어서 일단 attack만 테스트 
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
-	towerData.attackRange = 200.0f;
+	towerData.attackRange = 500.0f;
 	renderOrder = 100;
 	transform->relativeLocation = { 200,200 };
 }
@@ -58,15 +58,12 @@ void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void ArrowTower::Attack(float deltaTime)
 { 
-	static int a = 0;
 	attacktime -= deltaTime;
 	if (attacktime <= 0)
 	{
 		arrows.push_back(owner->CreateGameObject<Arrow>());
-		arrows.back()->transform->relativeLocation = { GetWorldLocation().x + 40.f, GetWorldLocation().y };
-		a += 1;
-		a = a% 2;
-		GetComponent<Animation>()->SetAnimation(0, a);
+		arrows.back()->transform->relativeLocation = { GetWorldLocation().x + 100.f, GetWorldLocation().y -20.f };
+	
 		attacktime = 3.0f;
 	}
 }
@@ -82,6 +79,11 @@ void ArrowTower::OnBeginOverlap(Collider* ownedComponent, Collider* otherCompone
 
 void ArrowTower::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
+	if (target == nullptr)
+	{
+		
+		
+	}
 }
 
 void ArrowTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)

@@ -26,7 +26,7 @@ enum class CollisionLayer //레이어로 구분해서 필요한 애들만 충돌검사를 하도록 만
 	추상 클래스
 */
 class AABB;
-class Collider
+class Collider 
 {
 public:
 	Collider(); //추상클래스라도 생성자는 호출될때니까 여기서 월드한테 등록할수있게하면될듯?

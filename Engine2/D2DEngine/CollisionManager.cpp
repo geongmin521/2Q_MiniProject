@@ -7,7 +7,7 @@ CollisionManager* CollisionManager::inst = nullptr;
 CollisionManager::CollisionManager()
 {
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Enemy));
-	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Bullet));
+	//collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Bullet));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Enemy,CollisionLayer::Bullet));
 }
 
@@ -31,7 +31,12 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 		{
 			for (int target = source; target < colliders[val.second].size(); target++)
 			{
-				
+				if (!colliders[val.first][source]->IsCollide(colliders[val.second][target]))
+					continue;
+				if(colliders[val.first][source]->GetCollisionType() == CollisionType::NoCollision ||
+				   colliders[val.second][target]->GetCollisionType() == CollisionType::NoCollision)
+					continue;
+
 				if (colliders[val.first][source]->GetCollisionType() == CollisionType::Block &&
 					colliders[val.second][target]->GetCollisionType() == CollisionType::Block)
 				{

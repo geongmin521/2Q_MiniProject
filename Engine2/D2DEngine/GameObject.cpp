@@ -58,6 +58,7 @@ void GameObject::AddComponent(Component* pComponent)
 {
 	pComponent->SetOwner(this);
 	ownedComponents.push_back(pComponent);
+
 }
 
 D2D1_VECTOR_2F GameObject::GetWorldLocation()

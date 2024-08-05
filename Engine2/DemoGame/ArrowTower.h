@@ -11,7 +11,7 @@ public:
     ArrowTower();
     virtual ~ArrowTower();
 
-
+    
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
     virtual void Attack(float deltaTime) override;

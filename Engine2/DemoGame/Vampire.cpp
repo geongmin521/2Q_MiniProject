@@ -21,14 +21,13 @@ Vampire::Vampire()
 	AddComponent(new Movement(transform));
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
-
 	fsm->CreateState<VampireIdle>("Idle");
 	fsm->CreateState<VampireShared>("Shared");
 	fsm->SetNextState("Idle");
 
 	renderOrder = 100;
 	transform->relativeScale = { 3, 3 };
-	transform->relativeLocation = { 0, 100 };
+	transform->relativeLocation = { 1000, 100 };
 } 
 
 Vampire::~Vampire()
@@ -37,7 +36,7 @@ Vampire::~Vampire()
 
 void Vampire::Update(float deltaTime)
 {
-	GetComponent<Movement>()->SetVelocity({ 50.f , 0 });
+	GetComponent<Movement>()->SetVelocity({ -50.f , 0 });
 	__super::Update(deltaTime);
 }
 

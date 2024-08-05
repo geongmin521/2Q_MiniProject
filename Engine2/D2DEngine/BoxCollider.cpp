@@ -5,6 +5,7 @@
 #include "Movement.h"
 #include "Transform.h"
 #include "AABB.h"
+#include "CollisionManager.h"
 #include "D2DRenderer.h"
 
 
@@ -15,6 +16,7 @@ BoxCollider::BoxCollider(AABB* aabb, CollisionType type, IColliderNotify* notify
     collisionType = type;
     this->layer = layer;
     this->notify = notify;
+    CollisionManager::GetInstance()->pushCollider(this);
 }
 
 BoxCollider::~BoxCollider()
