@@ -29,7 +29,7 @@ ArrowTower::~ArrowTower()
 void ArrowTower::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	Music::soundManager->GetInstance()->PlayMusic();
+	//Music::soundManager->GetInstance()->PlayMusic();
 	//테스트용으로 회전걸어놓고 중앙을 기준으로 회전하도록만들기
 	transform->AddRelativeRotation(1);
 }

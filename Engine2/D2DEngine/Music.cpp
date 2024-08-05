@@ -32,12 +32,12 @@ namespace Music
     void SoundManager::LoadMusic(eSoundList soundlist, bool loopcheck, const std::string& path)
     {
 
-        std::string filepath = "data\\" + path;
+        //path;
  
         if (loopcheck)
-            mSystem->createSound(filepath.c_str(), FMOD_LOOP_NORMAL, 0, &mSoundList[static_cast<int>(soundlist)]);
+            mSystem->createSound(path.c_str(), FMOD_LOOP_NORMAL, 0, &mSoundList[static_cast<int>(soundlist)]);
         else
-            mSystem->createSound(filepath.c_str(), FMOD_LOOP_OFF, 0, &mSoundList[static_cast<int>(soundlist)]);
+            mSystem->createSound(path.c_str(), FMOD_LOOP_OFF, 0, &mSoundList[static_cast<int>(soundlist)]);
     }
 
     void SoundManager::PlayMusic(eSoundList soundlist, eSoundChannel channel)
