@@ -45,6 +45,9 @@
     <Filter Include="소스 파일\Music">
       <UniqueIdentifier>{3f921605-fe71-40eb-b644-4b1925682ec2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\UI">
+      <UniqueIdentifier>{108591be-143d-47bb-bd5d-ce6d9249444c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movement.h">
@@ -152,6 +155,15 @@
     <ClInclude Include="Music.h">
       <Filter>소스 파일\Music</Filter>
     </ClInclude>
+    <ClInclude Include="EventSystem.h">
+      <Filter>소스 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>소스 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IDragAble.h">
+      <Filter>소스 파일\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -246,6 +258,12 @@
     </ClCompile>
     <ClCompile Include="Music.cpp">
       <Filter>소스 파일\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>소스 파일\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>소스 파일\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

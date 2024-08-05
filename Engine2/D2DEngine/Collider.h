@@ -39,6 +39,7 @@ protected:
 	IColliderNotify* notify;
 	CollisionLayer layer;
 	bool isBlock[2] = { false,false }; //0 x축 1 y축;
+	bool onStay = false; //겹침 중인 콜라이더에 겹침중인지를 계속 호출할지말지.. 
 	std::set<Collider*> collideStateCurr;    // 현재 충돌 상태
 	std::set<Collider*> collideStatePrev;	 // 이전 충돌 상태
 public:
@@ -47,7 +48,8 @@ public:
 	ColliderType GetColliderType() { return colliderType; }
 	CollisionLayer GetCollisionLayer() { return layer; }
 	void SetCollisionType(CollisionType Type) { collisionType = Type; }
-
+	void SetOnStay(bool onStay) { this->onStay = onStay; }
+	bool GetOnStay() { return onStay; }
 	D2D1_COLOR_F GetColor() const { return color; }
 	void SetColor(D2D1_COLOR_F val) { color = val; }
 

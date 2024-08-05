@@ -12,8 +12,8 @@ Map::Map()
 	AddComponent(new Bitmap(L"..\\Data\\map.png"));
 	//D2D1_SIZE_F size = GetComponent<Bitmap>()->Bitmap->GetSize();
 	//SetBoundBox(0, 0, size.width, size.height);
-	transform->relativeScale = { 3,2.4 };
-	transform->relativeLocation = { WinHalfSizeX, WinHalfSizeY };
+	transform->SetRelativeScale({ 3,2.4 });
+	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
 	LoadCollider();
 }
 

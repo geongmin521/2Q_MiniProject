@@ -16,10 +16,10 @@ void Movement::Update(float DeltaTime)
 	transform->SetRelativeLocation(Location);
 }
 
-void Movement::PrevPosition(bool prevX, bool prevY)
+void Movement::PrevPosition(bool prevX, bool prevY) //트랜스폼에서 처리할까?
 {
-	if (prevX) transform->relativeLocation.x = prevRelativeLocation.x;	
-	if (prevY) transform->relativeLocation.y = prevRelativeLocation.y;
+	if (prevX) transform->SetRelativeLocation({ prevRelativeLocation.x, transform->GetRelativeLocation().y });
+	if (prevY)  transform->SetRelativeLocation({ transform->GetRelativeLocation().x, prevRelativeLocation.y });
 }
 
 

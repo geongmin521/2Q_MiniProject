@@ -22,6 +22,9 @@
     <Filter Include="GameStart">
       <UniqueIdentifier>{4074c382-4d29-4aa0-a19b-ceaa86eab241}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{afc37081-30c5-4cca-9f67-53a1d720fa7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowTower.h">
@@ -57,15 +60,22 @@
     <ClInclude Include="Shop.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="EnemySpawner.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="DemoGameApp.h">
       <Filter>GameStart</Filter>
     </ClInclude>
+    <ClInclude Include="MoveIcon.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleWorld.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleWorld.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -98,14 +108,21 @@
     <ClCompile Include="Shop.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="EnemySpawner.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="DemoGameApp.cpp">
       <Filter>GameStart</Filter>
     </ClCompile>
+    <ClCompile Include="MoveIcon.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleWorld.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleWorld.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp" />
   </ItemGroup>
 </Project>

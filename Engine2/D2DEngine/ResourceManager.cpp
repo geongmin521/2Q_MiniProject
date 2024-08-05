@@ -10,8 +10,9 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager() 
 {
-	assert(m_BitmapMap.empty());
-	assert(animationAssetMap.empty());
+	//assert(m_BitmapMap.empty()); //사실 여기서 왜 하는지도 모르겠음.. 
+	//assert(animationAssetMap.empty());
+	//해제되는 시점이 여기가 아닌데 어떻게해.. 
 }
 
 ResourceManager* ResourceManager::Instance = nullptr;

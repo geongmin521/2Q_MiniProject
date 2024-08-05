@@ -9,17 +9,18 @@
 
 ArrowTower::ArrowTower()
 {
-	SetBoundBox(0, 0, 100, 100);
-	AddComponent(new Bitmap(L"..\\Data\\Image\\castle.png"));
-
-	//이미지가 정해지면.. 자동으로 회전의 중심좌표를 저장하기.. 
-	transform->SetImageCenter({
-		GetComponent<Bitmap>()->bitmap->GetSize().width*0.2f / 2 ,GetComponent<Bitmap>()->bitmap->GetSize().height * 0.2f / 2 });
-	AddComponent(new BoxCollider(boundBox ,CollisionType::Block, this, CollisionLayer::Tower));
-	//박스는 이전에 줄어들기 전의 위치로 회전하는데 왜그러지>? 
-
-	renderOrder = 100;
-	transform->relativeScale = { 0.2f,0.2f };
+	//SetBoundBox(0, 0, 100, 100);
+	//AddComponent(new Bitmap(L"..\\Data\\Image\\castle.png"));
+	//
+	////이미지가 정해지면.. 자동으로 회전의 중심좌표를 저장하기.. 
+	//transform->SetImageCenter({
+	//	GetComponent<Bitmap>()->bitmap->GetSize().width*0.2f / 2 ,GetComponent<Bitmap>()->bitmap->GetSize().height * 0.2f / 2 });
+	//AddComponent(new BoxCollider(boundBox ,CollisionType::Block, this, CollisionLayer::Tower));
+	////박스는 이전에 줄어들기 전의 위치로 회전하는데 왜그러지>? 
+	//
+	//renderOrder = 100;
+	//transform->SetRelativeLocation({ 0.2f,0.2f });
+	////회전시킬때 트랜스폼의 월드 좌표가 어떻게 변경되는거지? 
 }
 
 ArrowTower::~ArrowTower()

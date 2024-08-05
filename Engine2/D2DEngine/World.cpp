@@ -7,6 +7,7 @@
 #include "Collider.h"
 #include "BoxCollider.h"
 #include "CollisionManager.h"
+#include "EventSystem.h"
 
 
 World::World()
@@ -19,7 +20,27 @@ World::World()
 
 World::~World()
 {
+	for (auto ele : m_GameObjects)
+	{
+		delete ele;
+	}
+}
 
+void World::InsertGameObject(GameObject* obj)
+{
+
+	obj->SetOwner(this); 
+
+	for (auto it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
+	{
+		if ((*it)->renderOrder > obj->renderOrder)
+		{
+			m_GameObjects.insert(it, obj); //렌더 순서대로 넣기.. 
+			return;
+		}
+	}
+
+	m_GameObjects.push_back(obj); //나머지 상황에 대해서는 뒤에 넣기
 }
 
 
@@ -33,7 +54,7 @@ void World::Update(float deltaTime)
 			continue;
 		obj->Update(deltaTime);
 	}
-	
+	EventSystem::GetInstance().get()->Updata(deltaTime);
 	CollisionManager::GetInstance()->CollisionCheck();
 }
 
@@ -43,15 +64,16 @@ void World::Render(ID2D1HwndRenderTarget* pRenderTarget)
 	{		
 		if (!obj->isActive)
 			continue;
-		if (this->m_pCullingBound->CheckIntersect(obj->GetBoundBox())) 
-		{
+		//if (this->m_pCullingBound->CheckIntersect(obj->GetBoundBox())) 
+		//{
 			obj->Render(pRenderTarget);
-		}		
+		//}		
 	}
 }
 
 void World::Clear()
 {
+
 	m_GameObjects.clear();
 }
 

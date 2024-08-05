@@ -7,10 +7,9 @@ class ResourceManager;
 class World;
 class WinGameApp
 {
-	
 	HINSTANCE hInst;
 public:
-	World* world;
+	static World* curWorld; //씬매니저를 만들어야할까.. 이걸 스태틱으로 처리할수있을까.. 
 	HWND hWnd;  
 	WinGameApp();
 	virtual ~WinGameApp();
@@ -22,4 +21,5 @@ public:
 	void Render(ID2D1HwndRenderTarget* pRenderTarget);
 	ResourceManager* m_pResourceManager = nullptr;
 };
+
 

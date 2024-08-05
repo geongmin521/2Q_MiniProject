@@ -2,6 +2,31 @@
 #include <windows.h>
 #define inputSystem InputSystem::GetInstance()
 
+class MouseState {
+public:
+	int _x;
+	int _y;
+	int _wheel;
+	bool _left;
+	bool _right;
+	bool _middle;
+
+	MouseState() {
+		_x = 0;
+		_y = 0;
+		_wheel = 0;
+		_left = false;
+		_right = false;
+		_middle = false;
+	}
+
+	MathHelper::Vector2F GetMousePos() const {
+		float x = _x;
+		float y = _y;
+		return { x, y };
+	}
+};
+
 class InputSystem
 {
 public:
@@ -16,30 +41,7 @@ public:
 	bool isKeyUp(const unsigned int key) const { return _isKeyUp[key]; }
 	bool isKey(const unsigned int key) const { return _isKey[key]; }
 
-	class MouseState {
-	public:
-		int _x;
-		int _y;
-		int _wheel;
-		bool _left;
-		bool _right;
-		bool _middle;
-		
-		MouseState() {
-			_x = 0;
-			_y = 0;
-			_wheel = 0;
-			_left = false;
-			_right = false;
-			_middle = false;
-		}
 
-		MathHelper::Vector2F GetMousePos() const {
-			float x = _x;
-			float y = _y;
-			return { x, y };
-		} //const라 형변환도안된다? 그럼 옮겨담아야하나?
-	};
 
 	void InitMouse();
 	void UpdateMouse(HWND handle);
