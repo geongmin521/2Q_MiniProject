@@ -69,6 +69,9 @@
     <ClInclude Include="EnemyFSM.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="EnemyFSM.cpp">
       <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>Tower</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
