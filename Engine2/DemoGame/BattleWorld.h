@@ -6,5 +6,6 @@ private:
 public:
 	BattleWorld(); 
 	~BattleWorld();
+	void MakeObject() override;
 };
 

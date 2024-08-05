@@ -20,7 +20,7 @@ public:
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
 	void Clear();
 	void SetCullingBound(AABB* pBound) { m_pCullingBound = pBound; }
-
+	virtual void MakeObject();
 	template<typename T>
 	T* CreateGameObject()
 	{

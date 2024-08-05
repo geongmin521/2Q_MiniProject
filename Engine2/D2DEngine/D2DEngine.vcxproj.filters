@@ -164,6 +164,9 @@
     <ClInclude Include="IDragAble.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>소스 파일\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">

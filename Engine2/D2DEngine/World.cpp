@@ -77,6 +77,10 @@ void World::Clear()
 	m_GameObjects.clear();
 }
 
+void World::MakeObject()
+{
+}
+
 void World::removeElements(std::list<GameObject*>& origin, const std::list<GameObject*>& remove) { //지울객체를 실제로 지우기
 	for (auto it = remove.begin(); it != remove.end(); ++it) {
 		origin.remove(*it); 
