@@ -34,7 +34,7 @@ void VampireIdle::EnterState()
 {
 	ani->SetAnimation(0, false);
 	ani->isLoop = true;
-	//ani->Reverse();
+	ani->Reverse();
 }
 
 void VampireIdle::Update(float deltaTime)
