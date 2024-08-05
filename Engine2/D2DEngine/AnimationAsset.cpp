@@ -29,13 +29,12 @@ bool AnimationAsset::LoadAnimation(std::wstring FilePath)
 	{
 		LoadAnimationFromCSV(0, L"..\\Data\\CSV\\padong.csv");
 	}
-
 	return true;
 }
 
-bool AnimationAsset::LoadAnimationFromCSV(int index, const wchar_t* fileName)
+bool AnimationAsset::LoadAnimationFromCSV(int index, const wchar_t* fileName)  
 {
-	std::wifstream file(fileName);
+	std::wifstream file(fileName); 
 	if (!file.is_open()) {
 		std::cout << "파일을 열 수 없습니다." << std::endl;
 		return false;
@@ -79,7 +78,7 @@ bool AnimationAsset::LoadAnimationFromCSV(int index, const wchar_t* fileName)
 				animations[i].Frames[j].Duration = std::wcstod(token.c_str(), nullptr);
 			}
 		}
-	}
+	}		
 	return true;
 }
 
