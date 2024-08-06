@@ -35,6 +35,7 @@ ArrowTower::ArrowTower()
 	
 	renderOrder = 100;
 	transform->SetRelativeLocation({200,200});
+	isActive = false;
 }
 
 ArrowTower::~ArrowTower()

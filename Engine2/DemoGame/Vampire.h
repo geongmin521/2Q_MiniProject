@@ -1,14 +1,14 @@
 #pragma once
 #include "EnemyBase.h"
 #include "../D2DEngine/IColliderNotify.h"
-#include "../D2DEngine/Animation.h"
+
 
 
 class Vampire :
     public EnemyBase , public IColliderNotify
 {
 private:
-    AABB* AttackBox;
+    AABB* attackBox;
 public:
     Vampire();
     virtual ~Vampire();

@@ -1,9 +1,8 @@
 #include "../D2DEngine/pch.h"
 #include "Vampire.h"
-#include "../D2DEngine/Animation.h"
-#include "../D2DEngine/RigidBody.h"
 #include "../D2DEngine/Transform.h"
 #include "../D2DEngine/FiniteStateMachine.h"
+#include "../D2DEngine/Animation.h"
 #include "../D2DEngine/Movement.h"
 #include "../D2DEngine/D2DRenderer.h"
 #include "../D2DEngine/AABB.h"
@@ -31,10 +30,10 @@ Vampire::Vampire()
 	enemyData.speed = 400.0f;
 	transform->SetRelativeLocation( { 2000, 100 });
 
-	AttackBox = new AABB;
-	enemyData.attackRange = 10.f;
-	AttackBox->SetExtent(100.f + enemyData.attackRange, 60.f + enemyData.attackRange);
-	AddComponent(new BoxCollider(AttackBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
+	attackBox = new AABB;
+	enemyData.attackRange = 30.f;
+	attackBox->SetExtent(enemyData.attackRange + 100.f, enemyData.attackRange + 50.f);
+	AddComponent(new BoxCollider(attackBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
 } 
 
 Vampire::~Vampire()
@@ -45,6 +44,7 @@ void Vampire::Update(float deltaTime)
 {
 	GetComponent<Movement>()->SetVelocity({-enemyData.speed , 0 });
 	__super::Update(deltaTime);
+	attackBox->SetCenter(boundBox->Center.x - 100, boundBox->Center.y);
 }
 
 void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
@@ -67,6 +67,7 @@ void Vampire::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 	if (otherComponent->GetCollisionLayer() == CollisionLayer::Tower)
 	{
 		GetComponent<FiniteStateMachine>()->SetNextState("Attack");
+		// 데미지 관련 코드 추가할 예정
 	}
 }
 

@@ -11,6 +11,7 @@
 EnemyFSM::EnemyFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
 	ani = owner->owner->GetComponent<Animation>();
+	// 애니메이션 공격이 setanimation 0번 대기가 1번 추후에 바꿀것
 	move = owner->owner->GetComponent<Movement>();
 	vam = (Vampire*)owner->owner;
 }

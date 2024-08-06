@@ -8,8 +8,10 @@ class EnemySpawner : public GameObject
 private:
 	float Timer;
 	float spawnTimer;
+	int spawnCount;
 public:
 	WaveData waveData;
+	EnemyData enemyData;
 
 	Transform* target;
 	EnemySpawner();
