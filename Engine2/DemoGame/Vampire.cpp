@@ -15,7 +15,7 @@ Vampire::Vampire()
 	// Datamanager·Î ÀÐ±â
 	//enemyData.speed;
 	SetBoundBox(0, 0, 80, 180);
-	AddComponent(new Animation(L"..\\Data\\Image\\Zombie.png", L"Zombie"));
+	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
 	AddComponent(new RigidBody());
 	AddComponent(new BoxCollider(boundBox, CollisionType::Block, this, CollisionLayer::Enemy));
 	AddComponent(new Movement(transform));
@@ -26,6 +26,7 @@ Vampire::Vampire()
 	fsm->SetNextState("Idle");
 	renderOrder = 100;
 	transform->SetRelativeScale ({ 3, 3 });
+	enemyData.speed = -100.0f;
 	transform->SetRelativeLocation( { 2000, 100 });
 } 
 
@@ -35,7 +36,7 @@ Vampire::~Vampire()
 
 void Vampire::Update(float deltaTime)
 {
-	GetComponent<Movement>()->SetVelocity({ -00.f , 0 });
+	GetComponent<Movement>()->SetVelocity({enemyData.speed , 0 });
 	__super::Update(deltaTime);
 }
 
@@ -46,6 +47,7 @@ void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
+	enemyData.speed = 0;
 }
 
 void Vampire::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)

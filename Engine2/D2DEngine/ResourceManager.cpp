@@ -66,6 +66,7 @@ bool ResourceManager::CreateAnimationAsset(std::wstring strFilePath, AnimationAs
 	else
 	{
 		*asset = pTemp;
+		(*asset)->AddRef();
 	}
 	// 생성한 애니메이션 에셋을 맵에 저장한다.
 	animationAssetMap[strFilePath] = *asset;

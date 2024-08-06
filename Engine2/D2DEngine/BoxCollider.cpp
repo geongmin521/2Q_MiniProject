@@ -43,8 +43,8 @@ void BoxCollider::ProcessBlock(Collider* ownedComponent, Collider* otherComponen
 
 void BoxCollider::Update(float deltaTime)
 {
-    //if (owner->transform)
-    //    aabb->Center = owner->transform->GetWorldLocation();
+    if (owner->transform)
+        aabb->Center = owner->transform->GetWorldLocation();
 }
 
 //그리고 겹치는 상태일때도 만들어야함
