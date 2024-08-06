@@ -25,8 +25,8 @@ Vampire::Vampire()
 	fsm->CreateState<VampireShared>("Shared");
 	fsm->SetNextState("Idle");
 	renderOrder = 100;
-	transform->relativeScale = { 3, 3 };
-	transform->relativeLocation = { 2000, 100 };
+	transform->SetRelativeScale ({ 3, 3 });
+	transform->SetRelativeLocation( { 2000, 100 });
 } 
 
 Vampire::~Vampire()

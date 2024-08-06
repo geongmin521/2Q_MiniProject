@@ -17,9 +17,6 @@
 void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 {
 	__super::Initialize(hInstance, nShowCmd);	 // 윈도우 생성 , Direct2D 초기화
-	world->CreateGameObject<ArrowTower>(); 
-	world->CreateGameObject<Vampire>();
-	world->CreateGameObject<EnemySpawner>();
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::BGM,true,"../Data/Sound/bonfire.mp3");
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::BGM,Music::eSoundChannel::BGM);
 	//여기서는 필요한 월드만 생성해주면되는거지? 
