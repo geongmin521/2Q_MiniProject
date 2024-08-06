@@ -4,6 +4,7 @@
 
 Collider::Collider()
 {
+    
 }
 
 Collider::~Collider()

@@ -6,6 +6,7 @@
 #include "D2DRenderer.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "CollisionManager.h"
 
 CircleCollider::CircleCollider(AABB* aabb, Circle* circle, CollisionType type, IColliderNotify* notify, CollisionLayer layer) : aabb(aabb), circle(circle)
 {
@@ -13,6 +14,7 @@ CircleCollider::CircleCollider(AABB* aabb, Circle* circle, CollisionType type, I
 	collisionType = type; //아래 부분은 겹치니까 부모생성자에서 처리해도 될듯? 
 	this->layer = layer;
 	this->notify = notify;
+	CollisionManager::GetInstance()->pushCollider(this);
 }
 
 CircleCollider::~CircleCollider()

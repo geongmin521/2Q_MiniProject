@@ -3,7 +3,7 @@
 #include "Component.h"
 class AABB;
 class IColliderNotify;
-class BoxCollider :public Collider, public Component
+class BoxCollider :public Collider
 {
 public:
 	BoxCollider(AABB* aabb, CollisionType type, IColliderNotify* notify, CollisionLayer layer);

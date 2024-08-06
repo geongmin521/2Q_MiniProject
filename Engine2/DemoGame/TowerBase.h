@@ -1,7 +1,6 @@
 #pragma once
 #include "../D2DEngine/GameObject.h"
 #include "../D2DEngine/DataManager.h"
-#include "EnemyBase.h"
 class TowerBase :
     public GameObject
 {
@@ -10,7 +9,7 @@ private:
 
 public:
     
-    EnemyBase* target = nullptr ;
+    GameObject* target = nullptr ;
     TowerBase();
     virtual ~TowerBase();
     TowerData towerData;

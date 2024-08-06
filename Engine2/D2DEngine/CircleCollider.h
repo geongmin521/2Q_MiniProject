@@ -6,7 +6,7 @@ class AABB;
 class Circle;
 class IColliderNotify;
 class CircleCollider :
-    public Collider , public Component
+    public Collider
 {
 public:
 	AABB* aabb; //박스콜라이더랑 충돌할때는 이걸로 계산하기
