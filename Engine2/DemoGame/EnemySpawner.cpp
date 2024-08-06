@@ -26,7 +26,7 @@ EnemySpawner::~EnemySpawner()
 void EnemySpawner::CreateEnemy()
 {
 	Vampire* newVampire = new Vampire();
-	VampireBomb* newVamBomb = new VampireBomb();
+	//VampireBomb* newVamBomb = new VampireBomb();
 	// 스폰조건 추후에 생각
 	std::random_device rd;
 	std::mt19937 gen(rd());

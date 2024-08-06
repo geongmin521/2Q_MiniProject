@@ -6,7 +6,6 @@
 #include "../D2DEngine/Movement.h"
 #include "../D2DEngine/D2DRenderer.h"
 #include "../D2DEngine/AABB.h"
-#include "../D2DEngine/BoxCollider.h"
 #include "EnemyFSM.h"
 
 Vampire::Vampire()
@@ -31,10 +30,19 @@ Vampire::Vampire()
 	enemyData.speed = 400.0f;
 	transform->SetRelativeLocation( { 2000, 100 });
 
-	attackBox = new AABB;
+	searchBox = new AABB;
 	enemyData.attackRange = 30.f;
-	attackBox->SetExtent(enemyData.attackRange + 100.f, enemyData.attackRange + 50.f);
-	AddComponent(new BoxCollider(attackBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
+	searchBox->SetExtent(enemyData.attackRange + 100.f, enemyData.attackRange + 50.f);
+	searchBound = CreateComponent<BoxCollider>();
+	searchBound->aabb = searchBox;
+	searchBound->SetCollisionLayer(CollisionLayer::Enemy);
+	searchBound->SetCollisionType(CollisionType::Overlap);
+	searchBound->SetNotify(this);
+	searchBound->PushCollider();
+	searchBound->name = "EnemyAtk";
+
+	//attackBound = new AABB
+	//AddComponent(new BoxCollider(attackBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
 } 
 
 Vampire::~Vampire()
@@ -45,7 +53,7 @@ void Vampire::Update(float deltaTime)
 {
 	GetComponent<Movement>()->SetVelocity({-enemyData.speed , 0 });
 	__super::Update(deltaTime);
-	attackBox->SetCenter(boundBox->Center.x - 100, boundBox->Center.y);
+	//attackBox->SetCenter(boundBox->Center.x - 100, boundBox->Center.y);
 }
 
 void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
@@ -55,7 +63,7 @@ void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
-	enemyData.speed = 0;
+	//enemyData.speed = 0;
 
 	if (otherComponent->GetCollisionLayer() == CollisionLayer::Tower)
 	{
@@ -65,9 +73,12 @@ void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 
 void Vampire::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
-	enemyData.speed = 0;
-	if (otherComponent->GetCollisionLayer() == CollisionLayer::Tower)
+
+	if (otherComponent->name== "attackbox" && ownedComponent->name == "EnemyAtk")
 	{
+		enemyData.speed = 0;
+		
+		objs.push_back(otherComponent->owner);
 		GetComponent<FiniteStateMachine>()->SetNextState("Attack");
 		// 데미지 관련 코드 추가할 예정
 	}

@@ -10,7 +10,7 @@ private:
 
 public:
     
-    GameObject* target = nullptr ;
+    GameObject* target = nullptr;
     std::vector<GameObject*> objs;
     TowerBase();
     virtual ~TowerBase();

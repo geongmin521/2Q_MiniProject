@@ -4,6 +4,7 @@
 class Animation;
 class Movement;
 class Vampire;
+class EnemyBase;
 class EnemyFSM : public FSMState
 {
 public:
@@ -19,6 +20,7 @@ public:
 	// 모든 타입의 적을 enemyfsm에 정리?
 	// 그렇다면 적의 종류가 추가 될때마다 코드가 길어짐
 	Vampire* vam;	// 일단 기본형
+	EnemyBase* enemy;
 };
 
 class VampireIdle : public EnemyFSM

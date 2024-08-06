@@ -7,13 +7,15 @@
 #include "../D2DEngine/Movement.h"
 #include "../D2DEngine/Transform.h"
 #include "../D2DEngine/InputSystem.h"
+#include "EnemyBase.h"
 
 EnemyFSM::EnemyFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
 	ani = owner->owner->GetComponent<Animation>();
 	// 애니메이션 공격이 setanimation 0번 대기가 1번 추후에 바꿀것
 	move = owner->owner->GetComponent<Movement>();
-	vam = (Vampire*)owner->owner;
+	//vam = (Vampire*)owner->owner;
+	enemy = (EnemyBase*)owner->owner;
 }
 
 EnemyFSM::~EnemyFSM()
@@ -40,7 +42,23 @@ void VampireIdle::EnterState()
 
 void VampireIdle::Update(float deltaTime)
 {
-	__super::Update(deltaTime);
+	if (enemy->target == nullptr && !enemy->objs.empty())
+	{
+		enemy->ExploreTarget(enemy, enemy->objs);
+	}
+
+	if(enemy->target != nullptr && enemy->isAttack == false)
+	{
+		owner->SetNextState("Attack");
+	}
+
+	enemy->enemyData.attackSpeed -= deltaTime;
+	if (enemy->enemyData.attackSpeed < 0)
+	{
+		enemy->isAttack = false;
+		enemy->enemyData.attackSpeed = 1.0f;
+		// 고칠 것
+	}
 
 }
 
@@ -60,7 +78,7 @@ void VampireShared::EnterState()
 
 void VampireShared::Update(float deltaTime)
 {
-	__super::Update(deltaTime);
+
 }
 
 void VampireShared::ExitState()
@@ -76,9 +94,10 @@ void VampireAttack::EnterState()
 
 void VampireAttack::Update(float deltaTime)
 {
-	__super::Update(deltaTime);
 	if (ani->IsEnd())
 	{
+		enemy->isAttack = true;
+		enemy->target = nullptr;
 		owner->SetNextState("Idle");
 	}
 }
