@@ -41,9 +41,7 @@ void VampireIdle::EnterState()
 void VampireIdle::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	
-	
-	
+
 }
 
 void VampireIdle::ExitState()
@@ -72,16 +70,20 @@ void VampireShared::ExitState()
 void VampireAttack::EnterState()
 {
 	ani->SetAnimation(0, true);
-	ani->isLoop = true;
+	ani->isLoop = false;
 	//ani->Reverse();
 }
 
 void VampireAttack::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	
+	if (ani->IsEnd())
+	{
+		owner->SetNextState("Idle");
+	}
 }
 
 void VampireAttack::ExitState()
 {
+	
 }

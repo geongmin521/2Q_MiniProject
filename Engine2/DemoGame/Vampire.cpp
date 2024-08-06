@@ -64,6 +64,7 @@ void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 
 void Vampire::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
+	enemyData.speed = 0;
 	if (otherComponent->GetCollisionLayer() == CollisionLayer::Tower)
 	{
 		GetComponent<FiniteStateMachine>()->SetNextState("Attack");
