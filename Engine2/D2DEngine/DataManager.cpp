@@ -28,7 +28,7 @@ std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveDat
         return {}; // Unreachable code; returns an empty variant to suppress compiler warnings
     }
 }
-
+// 이걸 플레이 씬에 왔을때 시작에서 데이터를 전부 넣어 놓는다
 std::vector<EnemyData> DataManager::EnemyDataRead()
 {
 	std::wifstream file(L"..\\Data\\EnemyData.csv"); //읽기

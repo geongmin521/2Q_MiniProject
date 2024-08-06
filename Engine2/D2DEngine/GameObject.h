@@ -15,6 +15,8 @@ public:
 	World* owner = nullptr;					// 이 게임 오브젝트가 속한 월드
 	AABB* boundBox;							// 컬링을 위한 박스
 	int renderOrder;							//이거는 누가한테 줘야할까.. 각 클래스가 들고있을까?
+	std::string gameObjectName;
+
 public:
 	virtual void Update(float deltaTime);
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);

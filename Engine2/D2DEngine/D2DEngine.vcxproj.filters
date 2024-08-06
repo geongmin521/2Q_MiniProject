@@ -152,6 +152,9 @@
     <ClInclude Include="Music.h">
       <Filter>소스 파일\Music</Filter>
     </ClInclude>
+    <ClInclude Include="Pools.h">
+      <Filter>소스 파일\Factory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -246,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="Music.cpp">
       <Filter>소스 파일\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="Pools.cpp">
+      <Filter>소스 파일\Factory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
