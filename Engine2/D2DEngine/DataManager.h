@@ -37,6 +37,7 @@ struct TowerData {
 struct WaveData {
     int id;
     int level;
+
     //float 간격도 물어봐야함. 아마 가능한 종류의 벡터로 처리할듯?
 };
 
