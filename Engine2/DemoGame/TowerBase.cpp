@@ -24,9 +24,9 @@ void TowerBase::Attack(float deltaTime)
 {
 }
 
-void TowerBase::ExploreTarget(TowerBase& tower,std::vector<GameObject*>& objs)
+void TowerBase::ExploreTarget(TowerBase* tower,std::vector<GameObject*>& objs)
 {
-	float min = 0;
+	float min = 1000;
 	float curMin;
 	float xDistance;
 	float yDistance;
@@ -34,11 +34,12 @@ void TowerBase::ExploreTarget(TowerBase& tower,std::vector<GameObject*>& objs)
 	for (auto& obj : objs)
 	{
 		
-		xDistance = std::abs(tower.GetWorldLocation().x - obj->GetWorldLocation().x);
-		yDistance = std::abs(tower.GetWorldLocation().y - obj->GetWorldLocation().y);
+		xDistance = (tower->GetWorldLocation().x - obj->GetWorldLocation().x);
+		if (xDistance > 0) continue; //일단 타워뒤로가면 공격못하게
+		yDistance = std::abs(tower->GetWorldLocation().y - obj->GetWorldLocation().y);
 		curMin = std::min(xDistance, yDistance);
 
-		if (min < curMin)
+		if (min > curMin)
 		min = curMin;
 
 		curTarget = obj;

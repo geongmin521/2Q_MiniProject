@@ -12,7 +12,7 @@
 Vampire::Vampire()
 {
 	// Datamanager·Î ÀÐ±â
-	//enemyData.speed;
+	// enemyData.speed;
 	SetBoundBox(0, 0, 80, 180);
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Block, this, CollisionLayer::Enemy));
@@ -26,6 +26,7 @@ Vampire::Vampire()
 	fsm->SetNextState("Idle");
 
 	renderOrder = 100;
+	enemyData.ATK = 10;
 	transform->SetRelativeScale ({ 3, 3 });
 	enemyData.speed = 400.0f;
 	transform->SetRelativeLocation( { 2000, 100 });

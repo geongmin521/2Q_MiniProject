@@ -120,18 +120,19 @@ namespace MathHelper
 			return (this->x * this->x + this->y * this->y);
 		}
 
-		Vector2F& Normalize() const //반환하지말고 본인에 적용하는게 더 편할려나?
+		Vector2F& Normalize()  //반환하지말고 본인에 적용하는게 더 편할려나?
 		{
 			float length = Length();
 
-			//if (length > 0.0f)
-			//{
-			//	float invLength = 1.0f / length;
-			//	this->x *= invLength;
-			//	this->y *= invLength;
-			//}
-			Vector2F nor = { this->x / length, this->y / length };
-			return nor;
+			if (length > 0.0f)
+			{
+				float invLength = 1.0f / length;
+				this->x *= invLength;
+				this->y *= invLength;
+			}
+			//Vector2F nor = { this->x / length, this->y / length };
+			//return nor;
+			return *this;
 		}
 
 	};

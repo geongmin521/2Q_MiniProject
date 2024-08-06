@@ -6,7 +6,7 @@ class Vampire;
 class EnemySpawner : public GameObject
 {
 private:
-	float Timer;
+	float Timer =3.0f;
 	float spawnTimer;
 	int spawnCount;
 public:
