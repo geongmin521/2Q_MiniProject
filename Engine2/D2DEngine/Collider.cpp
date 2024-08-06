@@ -24,20 +24,22 @@ void Collider::ClearAndBackupCollideState()
 void Collider::ProcessOverlap()
 {
     //충돌이 시작 상태
-    for (auto* collider : collideStateCurr) {
+    for (auto& collider : collideStateCurr) {
         if (collideStatePrev.find(collider) == collideStatePrev.end()) {
+            if (notify)
             notify->OnBeginOverlap(this, collider);
         }
     }
 
     // 충돌이 끝난 상태
-    for (auto* collider : collideStatePrev) {
+    for (auto& collider : collideStatePrev) {
         if (collideStateCurr.find(collider) == collideStateCurr.end()) {
             notify->OnEndOverlap(this, collider);
         }
     }
-    for (auto* collider : collideStateCurr) {
-        notify->OnStayOverlap(this, collider);
+    for (auto& collider : collideStateCurr) {
+        if(onStay)
+            notify->OnStayOverlap(this, collider);
     }
     ClearAndBackupCollideState();
 }

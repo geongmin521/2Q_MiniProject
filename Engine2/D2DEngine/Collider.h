@@ -1,5 +1,6 @@
 #pragma once
 #include "IColliderNotify.h"
+#include "CollisionManager.h"
 #include "Component.h"
 enum class CollisionType //충돌 타입
 {
@@ -43,11 +44,14 @@ protected:
 	std::set<Collider*> collideStateCurr;    // 현재 충돌 상태
 	std::set<Collider*> collideStatePrev;	 // 이전 충돌 상태
 public:
-
+	std::string name;
 	CollisionType GetCollisionType() { return collisionType; }
 	ColliderType GetColliderType() { return colliderType; }
 	CollisionLayer GetCollisionLayer() { return layer; }
 	void SetCollisionType(CollisionType Type) { collisionType = Type; }
+	void SetCollisionLayer(CollisionLayer layer) { this->layer = layer; }
+	void SetNotify(IColliderNotify* notify) { this->notify = notify; }
+	void PushCollider() { CollisionManager::GetInstance()->pushCollider(this); }
 	void SetOnStay(bool onStay) { this->onStay = onStay; }
 	bool GetOnStay() { return onStay; }
 	D2D1_COLOR_F GetColor() const { return color; }

@@ -6,6 +6,7 @@ class IColliderNotify;
 class BoxCollider :public Collider
 {
 public:
+	BoxCollider() {}
 	BoxCollider(AABB* aabb, CollisionType type, IColliderNotify* notify, CollisionLayer layer);
 	~BoxCollider();
 	AABB* aabb;

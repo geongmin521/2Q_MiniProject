@@ -17,7 +17,7 @@ Vampire::Vampire()
 	SetBoundBox(0, 0, 80, 180);
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
 	AddComponent(new RigidBody());
-	AddComponent(new BoxCollider(boundBox, CollisionType::Block, this, CollisionLayer::Enemy));
+	AddComponent(new BoxCollider(boundBox, CollisionType::Block,this, CollisionLayer::Enemy));
 	AddComponent(new Movement(transform));
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
@@ -25,9 +25,12 @@ Vampire::Vampire()
 	fsm->CreateState<VampireShared>("Shared");
 	fsm->SetNextState("Idle");
 	renderOrder = 100;
+	enemyData.ATK = 10;
 	transform->SetRelativeScale ({ 3, 3 });
-	enemyData.speed = -100.0f;
+	enemyData.speed = -200.0f;
 	transform->SetRelativeLocation( { 2000, 100 });
+	name = "Enemy";
+	
 } 
 
 Vampire::~Vampire()
@@ -47,11 +50,12 @@ void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
-	enemyData.speed = 0;
+	//enemyData.speed = 0;
 }
 
 void Vampire::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
+	
 }
 
 void Vampire::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)

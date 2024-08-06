@@ -9,6 +9,7 @@ CollisionManager::CollisionManager()
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Enemy));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Bullet));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Enemy,CollisionLayer::Bullet));
+	//collisonLayer.insert(std::make_pair(CollisionLayer::Bullet, CollisionLayer::Enemy));
 }
 
 CollisionManager::~CollisionManager()
@@ -29,7 +30,7 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 	{
 		for (int source = 0; source < colliders[val.first].size(); source++)  
 		{
-			for (int target = source; target < colliders[val.second].size(); target++)
+			for (int target = 0; target < colliders[val.second].size(); target++)
 			{
 				if (!colliders[val.first][source]->IsCollide(colliders[val.second][target]))
 					continue;
@@ -56,8 +57,7 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 	{
 		for (int i = 0; i < cols.second.size(); i++)
 		{
-			if(cols.second[i]->GetOnStay())
-				cols.second[i]->ProcessOverlap(); //모든 전처리후 중첩상태에 대한 처리를 돌려주기...
+			cols.second[i]->ProcessOverlap(); //모든 전처리후 중첩상태에 대한 처리를 돌려주기...
 		}
 	}
 }
