@@ -5,6 +5,7 @@
 #include "Button.h"
 #include "DemoGameApp.h"
 #include "../D2DEngine/Factory.h"
+#include "../D2DEngine/Transform.h"
 
 TitleWorld::TitleWorld()
 {
@@ -20,11 +21,12 @@ TitleWorld::~TitleWorld()
 
 }
 
-void TitleWorld::MakeObject()
+void TitleWorld::MakeObject() //월드가 변경될때 기존에 월드에 있던거는 삭제하도록 만들기.. 
 {
-	Factory::GetInstance().get()->CreateGameObject<Button>();//기존의 방식을 그대로 쓰기보다는 
-	Factory::GetInstance().get()->CreateGameObject<Button>();//기존의 방식을 그대로 쓰기보다는 //매개변수를 넣고싶으면 어떻게 처리할까? 
-	//생성할 오브젝트의 종류에따라 다르게 처리했으면좋겠는데.. 
-	InsertGameObject(new Image(L"../Data/Image/Title_main.png")); //이것도 각자가 앞에 경로를
-	CreateGameObject<Button>()->AddListener([]() { DemoGameApp::ChangeCurWorld(new BattleWorld); });
+	Image* img = new Image(L"../Data/Image/title.png");
+	img->transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
+	InsertGameObject(img);
+	Button* btn = Factory::GetInstance().get()->CreateGameObject<Button>();
+	btn->AddListener([]() { DemoGameApp::ChangeCurWorld(new BattleWorld); });
+	btn->transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY + 300 });
 }
