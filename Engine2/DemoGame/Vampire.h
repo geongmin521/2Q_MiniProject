@@ -8,7 +8,7 @@ class Vampire :
     public EnemyBase , public IColliderNotify
 {
 private:
-
+    AABB* AttackBox;
 public:
     Vampire();
     virtual ~Vampire();

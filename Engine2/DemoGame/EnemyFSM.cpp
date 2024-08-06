@@ -6,7 +6,7 @@
 #include "../D2DEngine/Animation.h"
 #include "../D2DEngine/Movement.h"
 #include "../D2DEngine/Transform.h"
-
+#include "../D2DEngine/InputSystem.h"
 
 EnemyFSM::EnemyFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
@@ -32,15 +32,16 @@ void EnemyFSM::ExitState()
 }
 void VampireIdle::EnterState()
 {
-	ani->SetAnimation(0, false);
+	ani->SetAnimation(1, true);
 	ani->isLoop = true;
-	ani->Reverse();
+	//ani->Reverse();
 }
 
 void VampireIdle::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	// 범위에 닿는다면 state를 Attack으로 변경
+	
+	
 	
 }
 
@@ -64,5 +65,22 @@ void VampireShared::Update(float deltaTime)
 }
 
 void VampireShared::ExitState()
+{
+}
+
+void VampireAttack::EnterState()
+{
+	ani->SetAnimation(0, true);
+	ani->isLoop = true;
+	//ani->Reverse();
+}
+
+void VampireAttack::Update(float deltaTime)
+{
+	__super::Update(deltaTime);
+	
+}
+
+void VampireAttack::ExitState()
 {
 }

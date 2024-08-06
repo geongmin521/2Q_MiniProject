@@ -29,7 +29,7 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 	{
 		for (int source = 0; source < colliders[val.first].size(); source++)  
 		{
-			for (int target = source; target < colliders[val.second].size(); target++)
+			for (int target = 0; target < colliders[val.second].size(); target++)
 			{
 				if (!colliders[val.first][source]->IsCollide(colliders[val.second][target]))
 					continue;
