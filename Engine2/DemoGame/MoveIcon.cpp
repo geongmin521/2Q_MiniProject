@@ -6,13 +6,9 @@
 #include "../D2DEngine/D2DRenderer.h"
 #include "MoveIcon.h"
 
-MoveIcon::MoveIcon() //부모 생성자는 어차피 호출될테니까.. 자동으로 등록될듯?
+MoveIcon::MoveIcon(std::wstring filePath) 
 {
-
-	//이거는 콜라이더도 아니고 그냥 처리하면될듯? 
-	AddComponent(new Bitmap(L"..\\Data\\Image\\castle.png"));
-	transform->SetRelativeScale({ 0.1f, 0.1f });
-	transform->SetRelativeLocation({500,100});
+	AddComponent(new Bitmap(filePath));
 	SetBoundBox(0, 0, GetComponent<Bitmap>()->GetSize());//음.. 
 }
 

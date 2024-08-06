@@ -12,7 +12,7 @@
 #endif
 
 World* WinGameApp::curWorld = nullptr;
-
+HWND WinGameApp::hWnd = nullptr;
 WinGameApp::WinGameApp()
 {
 	m_pResourceManager = new ResourceManager;

@@ -157,7 +157,6 @@
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="EventSystem.h" />
-    <ClInclude Include="Factory.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSMState.h" />
@@ -199,7 +198,6 @@
     <ClCompile Include="D2DRenderer.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="EventSystem.cpp" />
-    <ClCompile Include="Factory.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="FSMState.cpp" />
     <ClCompile Include="GameObject.cpp" />
