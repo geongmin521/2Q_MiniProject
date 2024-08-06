@@ -72,6 +72,17 @@ void ArrowTower::Attack(float deltaTime)
 	arrows.back()->transform->relativeLocation = { GetWorldLocation().x + 100.f, GetWorldLocation().y - 20.f };
 }
 
+void ArrowTower::Attack(float deltaTime)
+{ 
+	attacktime -= deltaTime;
+	if (attacktime <= 0)
+	{
+		arrows.push_back(owner->CreateGameObject<Arrow>());
+		arrows.back()->transform->relativeLocation = { GetWorldLocation().x + 40.f, GetWorldLocation().y };
+		attacktime = 3.0f;
+	}
+}
+
 void ArrowTower::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
 }

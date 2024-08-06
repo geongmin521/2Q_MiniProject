@@ -21,7 +21,7 @@ void EnemySpawner::CreateEnemy()
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> spawnPos(1, 5);
 	float posY = (float)spawnPos(gen) * 150;
-	//newVampire->transform->SetRelativeLocation({ 100.f,  posY });
+	newVampire->transform->SetRelativeLocation({ 2000,  posY });
 	newVampire->owner = this->owner;
 
 	owner->m_GameObjects.push_back(newVampire);

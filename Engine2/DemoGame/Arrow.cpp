@@ -31,6 +31,8 @@ void Arrow::Update(float deltaTime)
 {
 	GetComponent<Movement>()->SetVelocity({ speed,  0 });
 	__super::Update(deltaTime);
+	
+	
 }
 
 void Arrow::Render(ID2D1HwndRenderTarget* pRenderTarget)
