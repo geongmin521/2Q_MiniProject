@@ -150,6 +150,7 @@
     <ClInclude Include="TowerBase.h" />
     <ClInclude Include="TowerFsm.h" />
     <ClInclude Include="Vampire.h" />
+    <ClInclude Include="VampireBomb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrow.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="TowerBase.cpp" />
     <ClCompile Include="TowerFSM.cpp" />
     <ClCompile Include="Vampire.cpp" />
+    <ClCompile Include="VampireBomb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\D2DEngine\D2DEngine.vcxproj">

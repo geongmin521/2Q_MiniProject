@@ -82,6 +82,9 @@
     <ClInclude Include="Arrow.h">
       <Filter>Tower</Filter>
     </ClInclude>
+    <ClInclude Include="VampireBomb.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -135,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="VampireBomb.cpp">
+      <Filter>Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
