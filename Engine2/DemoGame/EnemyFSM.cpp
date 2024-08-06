@@ -32,7 +32,7 @@ void EnemyFSM::ExitState()
 }
 void VampireIdle::EnterState()
 {
-	ani->SetAnimation(0, false);
+	ani->SetAnimation(1, false);
 	ani->isLoop = true;
 	ani->Reverse();
 }

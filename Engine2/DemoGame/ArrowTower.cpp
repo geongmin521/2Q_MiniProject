@@ -22,13 +22,11 @@ ArrowTower::ArrowTower()
 	AABB* attackRange = new AABB;
 	attackRange->SetExtent(towerData.attackRange, towerData.attackRange);
 	//이미지가 정해지면.. 자동으로 회전의 중심좌표를 저장하기.. 
-	AddComponent(new BoxCollider(boundBox ,CollisionType::NoCollision, this, CollisionLayer::Tower));
+	AddComponent(new BoxCollider(boundBox ,CollisionType::Block, this, CollisionLayer::Tower));
 	AddComponent(new BoxCollider(attackRange, CollisionType::Overlap, this, CollisionLayer::Tower));
-	BoxCollider* attackBox = GetComponent<BoxCollider>();
 	//박스는 이전에 줄어들기 전의 위치로 회전하는데 왜그러지>? 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
-
 	fsm->CreateState<TowerIdle>("Idle");
 	fsm->CreateState<TowerAttack>("Attack");
 	fsm->CreateState<TowerShared>("Shared");
@@ -47,6 +45,12 @@ void ArrowTower::Update(float deltaTime)
 {
 	
 	__super::Update(deltaTime);
+	if (target == nullptr && !objs.empty())
+	{
+
+		ExploreTarget(*this, objs);
+
+	}
 	//Music::soundManager->GetInstance()->PlayMusic();
 
 }
@@ -79,18 +83,16 @@ void ArrowTower::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 
 void ArrowTower::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
-	
+	if(otherComponent->owner->name == "enemy")
+	objs.push_back(otherComponent->owner);
 }
 
 void ArrowTower::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
-	if (target == nullptr)
-	{
-		target = otherComponent->owner;
-		
-	}
 }
 
 void ArrowTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
+	if (otherComponent->owner->name == "enemy")
+	objs.erase(std::remove(objs.begin(),objs.end(),otherComponent->owner));
 }

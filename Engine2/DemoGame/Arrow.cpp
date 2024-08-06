@@ -1,4 +1,3 @@
-#define NOMINMAX
 #include "../D2DEngine/pch.h"
 #include "../D2DEngine/BoxCollider.h"
 #include "../D2DEngine/Bitmap.h"
@@ -10,7 +9,7 @@
 #include "../D2DEngine/Music.h"
 
 
-#include <cmath>
+
 #include "Arrow.h"
 
 Arrow::Arrow()
