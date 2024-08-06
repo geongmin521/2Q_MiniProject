@@ -1,14 +1,17 @@
 #pragma once
-#include "UI.h"
-class Button: public UI //드래그 에이블 드롭 에이블 만들어서 상속받게하고... 클릭 노티피도 만들고.. 인터페이스를 상속받고있는 모든 
-	//옵서버 패턴이 되는건가? 입력 눌렀을때.. 입력받기.. 
+#include "../D2DEngine/UI.h"
+#include "../D2DEngine/IClickAble.h"
+class Button: public UI , public IClickAble //드래그랑 단순클릭은 어떻게 구분할지도 생각해봐야함.. 
 {
 private:
 
-public:
+public://UI로 묶어서 관리한다면.. 노티피랑 aabb랑 묶어서 저장할까? 
 	Button();
 	~Button();
+	std::function<void(void)> clickFunc;//여기에 함수정의하기.. 
 	virtual void Update(float deltaTime) override;
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override;
+	virtual void OnClick() override;
+	void AddListener(std::function<void(void)> func) { clickFunc = func; }
 };
 

@@ -154,7 +154,9 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="D2DRenderer.h" />
+    <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
+    <ClInclude Include="EventSystem.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="framework.h" />
@@ -163,6 +165,7 @@
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IClickAble.h" />
     <ClInclude Include="IColliderNotify.h" />
+    <ClInclude Include="IDragAble.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="Movement.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="TimeSystem.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="WinGameApp.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
@@ -194,6 +198,7 @@
     <ClCompile Include="D2DEngine.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
     <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="FSMState.cpp" />
@@ -215,6 +220,7 @@
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="TimeSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="WinGameApp.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>

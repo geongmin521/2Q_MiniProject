@@ -30,8 +30,8 @@ void GameObject::Update(float deltaTime)
 		if(pComponent->getActive())
 			pComponent->Update(deltaTime);
 	}
-	//if (transform)
-	//	boundBox->Center = transform->GetWorldLocation(); //이부분은 각 콜라이더로 이전한다 //카메라로 컬링을 할일이 있을까? 우리게임에서? 
+	if (transform)
+		boundBox->Center = transform->GetWorldLocation(); //이부분은 각 콜라이더로 이전한다 //카메라로 컬링을 할일이 있을까? 우리게임에서? 
 }
 
 
@@ -53,6 +53,15 @@ void GameObject::SetBoundBox(int x, int y,int weight, int height)
 	boundBox->SetExtent(weight / 2, height / 2);
 	boundBox->SetCenter(x,y);
 }
+
+void GameObject::SetBoundBox(int x, int y, MathHelper::Vector2F bound)
+{
+	if (boundBox == nullptr)
+		boundBox = new AABB();
+	boundBox->SetExtent(bound.x / 2, bound.y / 2);
+	boundBox->SetCenter(x, y);
+}
+
 
 void GameObject::AddComponent(Component* pComponent)
 {

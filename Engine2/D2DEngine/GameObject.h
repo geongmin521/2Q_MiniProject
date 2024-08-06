@@ -13,8 +13,8 @@ public:
 	std::string name;
 	std::vector<Component*> ownedComponents;	// 소유한 컴포넌트들
 	Transform* transform = nullptr;				
-	World* owner = nullptr;					// 이 게임 오브젝트가 속한 월드
-	AABB* boundBox;							// 컬링을 위한 박스
+	World* owner = nullptr;						// 이 게임 오브젝트가 속한 월드 //각 객체가 월드를 알필요가있나? 
+	AABB* boundBox;								// 컬링을 위한 박스
 	int renderOrder;							//이거는 누가한테 줘야할까.. 각 클래스가 들고있을까?
 	std::string gameObjectName;
 
@@ -23,6 +23,7 @@ public:
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
 	const AABB& GetBoundBox() const { return *boundBox; }
 	void SetBoundBox(int x, int y, int weight, int height);
+	void SetBoundBox(int x, int y, MathHelper::Vector2F bound);
 	void AddComponent(Component* pComponent);
 	void SetOwner(World* pOwner) { owner = pOwner; } 
 	

@@ -11,6 +11,8 @@
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")//디버거가 남겨져있어서그런듯? 
 #endif
 
+World* WinGameApp::curWorld = nullptr;
+
 WinGameApp::WinGameApp()
 {
 	m_pResourceManager = new ResourceManager;
@@ -79,8 +81,7 @@ void WinGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	RegisterClassExW(&wcex);
 	InitInstance(hInstance, nShowCmd);
 
-	D2DRenderer::GetInstance(hWnd); //이거 구조 너무 맘에 안드니까 수정바람
-	world = new World;
+	D2DRenderer::GetInstance(hWnd);
 }
 
 void WinGameApp::Run() 
@@ -92,7 +93,11 @@ void WinGameApp::Run()
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT)
+			{
+				delete curWorld; //여기는 뭐든 월드를 지워야하고.. 
 				break;
+			}
+			
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 
@@ -114,14 +119,14 @@ void WinGameApp::Run()
 
 void WinGameApp::Update(float fTimeElapsed)
 {
-	world->Update(fTimeElapsed);
+	curWorld->Update(fTimeElapsed);
 }
 
 void WinGameApp::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	D2DRenderer::GetInstance()->GetRenderTarget()->BeginDraw();
 	D2DRenderer::GetInstance()->GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::CadetBlue));
-	world->Render(pRenderTarget);
+	curWorld->Render(pRenderTarget);
 	D2DRenderer::GetInstance()->GetRenderTarget()->EndDraw();
 }
 

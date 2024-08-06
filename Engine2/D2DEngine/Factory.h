@@ -1,6 +1,6 @@
 #pragma once
-#include "DataManager.h"
-//#include "SingletonBase.h"
+#include "SingletonBase.h"
+#include "Data.h"
 
 
 struct VariantVisitor {
@@ -17,49 +17,35 @@ struct VariantVisitor {
     }
 };
 
+class World;
+class GameObject;
 class Factory : public SingletonBase<Factory> 
 {
-	std::vector<TowerData> towerData; //포인터로 처리하던가.. 아무튼 값복사가 일어나지않게.. 참조로 처리하기.. 
+	std::vector<TowerData> towerData; 
 	std::vector<EnemyData> enemyData;
 	std::vector<WaveData> waveData;
-	void GetData() { 
 
-        std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> data =
-            DataManager::GetInstance().get()->CSVReader(typeid(TowerData));
+public:
+	World* curWorld;
+	void GetData();
+    template<typename T>
+	T* CreateGameObject() //매개변수가 없는경우에는 여기서 처리하면될거고.. 
+	{
+		bool bIsBase = std::is_base_of<GameObject, T>::value;
+		assert(bIsBase == true);
+		T* newObject = new T();
+		InsertWorld(newObject);
+		return newObject;
+	}//아니면 특수화를 시킬까? 그래도 매개변수는 못받으니까 패스.. 
 
-        if (std::holds_alternative<std::vector<EnemyData>>(data)) {
-            enemyData = std::get<std::vector<EnemyData>>(data);
-        }
-        else if (std::holds_alternative<std::vector<TowerData>>(data)) {
-            towerData = std::get<std::vector<TowerData>>(data);
-        }
-        else if (std::holds_alternative<std::vector<WaveData>>(data)) {
-            waveData = std::get<std::vector<WaveData>>(data);
-        }
-    } 
+	void CreateImage(std::wstring filePath); //매개변수 필요한애들을따로만들기? 
+	void CreateEnemy(int id); 
+	void CreateTower(int id); 
+	void CreateButton(std::wstring filePath); //버튼은.. 생성자의 매개변수를 함수랑 기타등등 생각해보자.. 
+	
+	//단순 팩토리로 만들어서.. 각각의 구체클래스에 대해서 다양한 생성방식을 둬야겠다.. 
+	//멤버변수로 들고있다면.. 매개변수가 필요없지않을까? 그렇다면 추상클래스로 묶인 서브 팩토리를 자유롭게 만들수있을지도? 
+	void InsertWorld(GameObject* obj);
 
-    //template<typename T>
-	//T* CreateGameObject() //월드에 있는 함수 그대로 가져옴.. 
-	//{
-	//	bool bIsBase = std::is_base_of<GameObject, T>::value;
-	//	assert(bIsBase == true);
-	//	T* newObject = new T();
-	//	newObject->SetOwner(this); //이건 어떻게되는거지 도대체.. 
-	//	
-	//	for (auto it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
-	//	{
-	//		if ((*it)->renderOrder > newObject->renderOrder)
-	//		{
-	//			m_GameObjects.insert(it, newObject); 
-	//			return newObject; 
-	//		}			
-	//	}
-	//	
-	//	m_GameObjects.push_back(newObject); //나머지 상황에 대해서는 뒤에 넣기
-	//
-	//	return newObject;
-	//}
-    //지금 월드에서 처리하는 인스턴스의 생성을 얘한테 위임하고싶음
-    //일단 함수만 가져와서 만들어놓고 사용은 하지말아보자.
 };
 

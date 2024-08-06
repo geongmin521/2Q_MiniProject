@@ -1,5 +1,7 @@
 #pragma once
-class Shop
+#include "../D2DEngine/UI.h"
+
+class Shop: public UI
 {
 };
 

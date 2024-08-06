@@ -36,8 +36,8 @@ bool CircleCollider::IsCollide(Collider* otherComponent)
 
 void CircleCollider::Update(float deltaTime)
 {
-	if (owner->transform)
-		aabb->Center = owner->transform->GetWorldLocation(); //이부분은 각 콜라이더로 이전한다
+	//if (owner->transform)
+	//	aabb->Center = owner->transform->GetWorldLocation(); //이부분은 각 콜라이더로 이전한다 대체왜 이전한거임?
 }
 
 void CircleCollider::Render(ID2D1RenderTarget* pRenderTarget)

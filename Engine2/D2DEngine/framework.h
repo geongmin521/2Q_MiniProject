@@ -26,4 +26,5 @@
 #include <type_traits>
 #include <cassert>
 #include <variant>
+#include <climits> 
 //#include <dxgi.h>

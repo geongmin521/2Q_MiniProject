@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="ArrowTower.h" />
+    <ClInclude Include="BattleWorld.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DemoGame.h" />
@@ -139,17 +141,20 @@
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyFSM.h" />
     <ClInclude Include="EnemySpawner.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MoveIcon.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TitleWorld.h" />
     <ClInclude Include="TowerBase.h" />
     <ClInclude Include="TowerFsm.h" />
-    <ClInclude Include="UI.h" />
     <ClInclude Include="Vampire.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="ArrowTower.cpp" />
+    <ClCompile Include="BattleWorld.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DemoGame.cpp" />
@@ -157,11 +162,13 @@
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyFSM.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MoveIcon.cpp" />
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="TitleWorld.cpp" />
     <ClCompile Include="TowerBase.cpp" />
     <ClCompile Include="TowerFSM.cpp" />
-    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Vampire.cpp" />
   </ItemGroup>
   <ItemGroup>

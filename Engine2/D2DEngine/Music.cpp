@@ -24,10 +24,7 @@ namespace Music
     {
         System_Create(&mSystem);
         mSystem->init(20, FMOD_INIT_NORMAL, 0);
-
-
     }
-
 
     void SoundManager::LoadMusic(eSoundList soundlist, bool loopcheck, const std::string& path)
     {

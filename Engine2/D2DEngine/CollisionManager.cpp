@@ -56,7 +56,8 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 	{
 		for (int i = 0; i < cols.second.size(); i++)
 		{
-			cols.second[i]->ProcessOverlap(); //모든 전처리후 중첩상태에 대한 처리를 돌려주기...
+			if(cols.second[i]->GetOnStay())
+				cols.second[i]->ProcessOverlap(); //모든 전처리후 중첩상태에 대한 처리를 돌려주기...
 		}
 	}
 }
