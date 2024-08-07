@@ -10,5 +10,6 @@ public:
 	~Map(); //¿œ¥‹¿∫ 
 	bool LoadCollider();
 	std::vector<Collider*> boxCols;
+
 };
 

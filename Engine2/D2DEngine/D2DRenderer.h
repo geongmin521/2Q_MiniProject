@@ -22,11 +22,13 @@ public:
 	void DrawAABB(AABB& aabb);
 	void DrawLine(MathHelper::Vector2F start, MathHelper::Vector2F end);
 	void DrawCircle(Circle& circle);
+
 public:
 	ID2D1Factory* D2DFactory;			// D2D 개체 인터페이스 포인터 변수
 	ID2D1HwndRenderTarget* RenderTarget; //그리는 렌더타겟								//이미지 생성에필요
 	IWICImagingFactory* WICFactory;		// D2D비트맵 생성을 위한 이미지 처리 인터페이스 //이미지 생성에필요 
 	ID2D1SolidColorBrush* greenBrush;	//뭔가를 그리기위한 객체
+
 	IDWriteFactory* DWriteFactory;		// TextFormat생성을 위한 팩토리
 	IDWriteTextFormat* DWriteTextFormat; // 기본 텍스트 출력을 위한 Format
 	ID2D1SolidColorBrush* Brush;			// 렌더타겟이 생성하는 리소스 역시 장치의존

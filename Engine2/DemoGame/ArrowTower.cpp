@@ -37,6 +37,17 @@ ArrowTower::ArrowTower()
 	
 	renderOrder = 100;
 	transform->SetRelativeLocation({200,200});
+
+	// test
+	test.SetBoxSize(300, 100);
+	test.SetPos(20, 20);
+	test.LoadFont(L"Calibri");
+	test.CreateLayoutText(L"폰트 테스트입니다.");
+	test.Sort(Setting::RIGHT);
+	test.SetFontLocation(Setting::BOTTOM);
+	test.SetSize(50.f, {2, 4});
+	test.OnTransform();
+	test.GetTransform()->SetParent(transform);
 }
 
 ArrowTower::~ArrowTower()
@@ -45,15 +56,16 @@ ArrowTower::~ArrowTower()
 
 void ArrowTower::Update(float deltaTime)
 {
-	
 	__super::Update(deltaTime);
-	//Music::soundManager->GetInstance()->PlayMusic();
-
 }
 
 void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+	// test
+	test.DrawFont(D2D1::ColorF(D2D1::ColorF::Black));
+
+
 	//GetComponent<BoxCollider>()->aabb->Center = { 300,300 };
 
 }

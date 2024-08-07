@@ -2,6 +2,10 @@
 #include "TowerBase.h"
 #include "../D2DEngine/IColliderNotify.h"
 #include "Arrow.h"
+
+// test ¿ë
+#include "../D2DEngine/D2DFont.h"
+
 class ArrowTower : public TowerBase, public IColliderNotify
 {
 private:
@@ -19,6 +23,8 @@ public:
     virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent) override;
+
+    D2DFont test;
 };
 
 

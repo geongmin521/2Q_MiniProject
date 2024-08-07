@@ -170,6 +170,7 @@
     <ClInclude Include="Pools.h">
       <Filter>소스 파일\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="D2DFont.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -273,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="Pools.cpp">
       <Filter>소스 파일\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DFont.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
