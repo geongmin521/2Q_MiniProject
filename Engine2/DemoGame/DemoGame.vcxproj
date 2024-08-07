@@ -143,6 +143,7 @@
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MeleeTower.h" />
     <ClInclude Include="MoveIcon.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="targetver.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MeleeTower.cpp" />
     <ClCompile Include="MoveIcon.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="TitleWorld.cpp" />

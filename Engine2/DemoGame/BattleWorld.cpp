@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Camera.h"
 #include "ArrowTower.h"
+#include "MeleeTower.h"
 #include "Button.h"
 #include "MoveIcon.h"
 #include "EnemySpawner.h"
@@ -20,6 +21,7 @@ BattleWorld::~BattleWorld()
 void BattleWorld::MakeObject()
 {
 	CreateGameObject<ArrowTower>(); //각월드에 초기 필요한 오브젝트 생성하기
+	CreateGameObject<MeleeTower>();
 	CreateGameObject<Button>();
 	CreateGameObject<MoveIcon>();
 	CreateGameObject<EnemySpawner>();

@@ -64,18 +64,13 @@ void TowerIdle::Update(float DeltaTime)
 	}
 	if (tower->isAttack == true)
 	{
-		tower->towerData.attackSpeed -= DeltaTime;
-		if (tower->towerData.attackSpeed < 0)
+		cooldown += DeltaTime;
+		if (cooldown > tower->towerData.attackSpeed)
 		{
 			tower->isAttack = false;
-			tower->towerData.attackSpeed = 1.0f; //?
+			cooldown = 0;
 		}
 	}
-	//if (tower->target == nullptr && !tower->objs.empty())
-	//{
-
-	//	tower->ExploreTarget(tower, tower->objs);
-	//}
 }
 
 void TowerIdle::ExitState()
@@ -89,7 +84,7 @@ void TowerAttack::EnterState()
 }
 \
 
-void TowerAttack::Update(float DeltaTime) //한번쏘고 가장가까운적? 이건 기획한테 물어보기.. 
+void TowerAttack::Update(float DeltaTime) //한번쏘고 가장가까운적? 이건 기획한테 물어보기..   //투사체공격을 따로 만들어야하나 타워마다 fsm을 새로주는게 나은가
 {
 	//공격한번후엔 idle로 보내고 다시 attack?
 	if (ani->IsEnd())

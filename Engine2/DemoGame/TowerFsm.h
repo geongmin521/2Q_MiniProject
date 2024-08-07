@@ -27,6 +27,7 @@ private:
 
 class TowerIdle : public TowerFSM //모든 타워가 같은 상태머신을 공유하지않을까?  여기서 다른 매커니즘으로 작동하는 타워가존재할수있을까?
 {
+	 float cooldown = 0;
 public:
 	TowerIdle(FiniteStateMachine* pOwner, std::string Name) : TowerFSM(pOwner, Name) {};
 private:

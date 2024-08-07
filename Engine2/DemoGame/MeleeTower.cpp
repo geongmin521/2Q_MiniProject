@@ -1,7 +1,5 @@
 #include "../D2DEngine/pch.h"
 #include "../D2DEngine/BoxCollider.h"
-#include "../D2DEngine/CircleCollider.h"
-#include "../D2DEngine/Circle.h"
 #include "../D2DEngine/Bitmap.h"
 #include "../D2DEngine/Animation.h"
 #include "../D2DEngine/Transform.h"
@@ -12,37 +10,37 @@
 #include "../D2DEngine/Music.h"
 #include "../D2DEngine/World.h" 
 #include "EnemyBase.h"
-#include "ArrowTower.h"
+#include "MeleeTower.h"
 
-ArrowTower::ArrowTower()
+MeleeTower::MeleeTower()
 {
-	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
-	towerData.attackRange = 500.0f;
-	towerData.attackSpeed = 2.0f;
+	towerData.name = "MeleeTower";                    //csv에서 읽어와서 다넣어지게끔 
+	towerData.attackRange = 200.0f;
+	towerData.attackSpeed = 1.0f;
 	towerData.HP = 200.0f;
 
-	SetBoundBox(0, 0, towerData.attackRange, towerData.attackRange);
-	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
+	SetBoundBox(0, 0, towerData.attackRange, 100); // 근접타워 높이는 자기 몸체크기만큼
+	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"MeleeTower")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
 	fsm->CreateState<TowerAttack>("Attack");
-	fsm->CreateState<TowerShared>("Shared"); 
+	fsm->CreateState<TowerShared>("Shared");
 	fsm->CreateState<TowerDeath>("Death");
-	fsm->SetNextState("Idle");                 
-	
+	fsm->SetNextState("Idle");
+
 	renderOrder = 100;
-	transform->SetRelativeLocation({200,300});
+	transform->SetRelativeLocation({ 200,100 });
 
 }
 
-ArrowTower::~ArrowTower()
+MeleeTower::~MeleeTower()
 {
 }
 
-void ArrowTower::Update(float deltaTime)
+void MeleeTower::Update(float deltaTime)
 {
 
 	__super::Update(deltaTime);
@@ -61,46 +59,43 @@ void ArrowTower::Update(float deltaTime)
 }
 
 
-void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void MeleeTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
 
-	
-	
+
+
 }
 
-void ArrowTower::Attack(float deltaTime)
-{ 
-	Arrow* arrow = new Arrow;
-	arrow->owner = this->owner;
-	arrow->Inits(target, GetWorldLocation());
-	owner->m_GameObjects.push_back(arrow);
+void MeleeTower::Attack(float deltaTime)
+{
+	                             //여기서 적 피격적용?
 }
 
 //좀더 확실하고 통제된 환경을 만들어야한다. 
 
-void ArrowTower::OnBlock(Collider* ownedComponent, Collider* otherComponent)
-{
-	std::cout << "test";
-}
-
-void ArrowTower::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
+void MeleeTower::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
 	
 }
 
-
-void ArrowTower::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)
+void MeleeTower::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
-	
+
 }
 
-void ArrowTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
+
+void MeleeTower::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
-	
+
 }
 
-void ArrowTower::Hit(GameObject* obj)
+void MeleeTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
+{
+
+}
+
+void MeleeTower::Hit(GameObject* obj)
 {
 	EnemyBase* enemy;
 	enemy = dynamic_cast<EnemyBase*>(obj);
