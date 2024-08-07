@@ -33,8 +33,8 @@ void EnemySpawner::CreateEnemy()
 	std::uniform_int_distribution<> spawnPos(1, 5);
 	float posY = static_cast<float>(spawnPos(gen)) * 150;
 	static int y = 1;
-	y = (y + 1);
-	y = y % 10;
+	y++;
+	y = (y % 10) + 2;
 	newVampire->transform->SetRelativeLocation({ 2000,  float(y * 50) });
 	newVampire->owner = this->owner;
 

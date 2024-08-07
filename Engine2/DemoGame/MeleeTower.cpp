@@ -15,11 +15,11 @@
 MeleeTower::MeleeTower()
 {
 	towerData.name = "MeleeTower";                    //csv에서 읽어와서 다넣어지게끔 
-	towerData.attackRange = 200.0f;
+	towerData.attackRange = 500.0f;
 	towerData.attackSpeed = 1.0f;
 	towerData.HP = 200.0f;
 
-	SetBoundBox(0, 0, towerData.attackRange, 100); // 근접타워 높이는 자기 몸체크기만큼
+	SetBoundBox(0, 0, towerData.attackRange, towerData.attackRange); // 근접타워 높이는 자기 몸체크기만큼
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"MeleeTower")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
 
@@ -77,13 +77,9 @@ void MeleeTower::Attack(float deltaTime)
 	for (auto& enemy : enemys)
 	{
 		                          //계산기 추가필요
-		enemy->Hit(0);
+		enemy->Hit(50);
 		std::cout << enemy->curHP << std::endl;
 	}
-	
-	
-	
-		
 }
 
 

@@ -12,8 +12,8 @@ Vampire::Vampire()
 {
 	// Datamanager·Î ÀÐ±â
 	// enemyData.speed;
-	enemyData.speed = 100.f;
-	enemyData.attackRange = 50.f;
+	enemyData.speed = 300.f;
+	enemyData.attackRange = 10.f;
 	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 50.f;
 	curHP = enemyData.HP;

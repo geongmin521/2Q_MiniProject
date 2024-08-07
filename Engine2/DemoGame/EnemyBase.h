@@ -22,5 +22,6 @@ public:
     GameObject* target = nullptr;
     bool isAttack = false;
     EnemyData enemyData;
+    WaveData waveData;
 };
 

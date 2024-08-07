@@ -46,39 +46,32 @@ void VampireIdle::EnterState()
 void VampireIdle::Update(float deltaTime)
 {
 	// 몸통크기 165.f 
-
+	
 	if (enemy->target != nullptr)
 	{
-		MathHelper::Vector2F posT = enemy->target->GetWorldLocation();
+		MathHelper::Vector2F targetPos = enemy->target->GetWorldLocation();
 		MathHelper::Vector2F curPos = enemy->GetWorldLocation();
-		std::cout << curPos.x - posT.x << std::endl;
-		if (std::abs(curPos.x - posT.x) < 165.f)
+		// 추적범위 일정하게 설정할것 
+		// 눈대중으로 대충 맞춤 스피드가 달라지면 판정값도 달라져야만 일정 범위를 유지할수있음
+
+		
+		if (std::abs(targetPos.x + enemy->enemyData.attackRange - curPos.x) <= 90.f)
 		{
-			enemy->GetComponent<Movement>()->SetVelocity({ 0 , 0});
+			enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
+			if (enemy->isAttack == false)
+			{
+				owner->SetNextState("Attack");
+			}
 		}
 		else
 		{
-			enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed, posT.y - curPos.y });
+			enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed, targetPos.y - curPos.y });
 		}
-
 	}
 	else
 	{
 		enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed , 0 });
 	}
-	if (enemy->target != nullptr && enemy->isAttack == false &&
-		std::abs(enemy->target->GetWorldLocation().x - enemy->GetWorldLocation().x) <= dynamic_cast<TowerBase*>(enemy->target)->towerData.attackRange / 4 + (enemy->enemyData.attackRange / 2))
-		// csv에 몸통 크기 넣을것
-	{
-		owner->SetNextState("Attack");
-	}
-
-	if (enemy->target != nullptr &&
-		enemy->target->GetWorldLocation().y != enemy->GetWorldLocation().y)
-	{
-
-	}
-
 
 	if (enemy->isAttack == true)
 	{
@@ -90,8 +83,6 @@ void VampireIdle::Update(float deltaTime)
 			// 고칠 것
 		}
 	}
-
-
 }
 
 void VampireIdle::ExitState()
@@ -123,7 +114,7 @@ void VampireShared::ExitState()
 
 void VampireAttack::EnterState()
 {
-	enemy->enemyData.speed = 0;
+	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	ani->SetAnimation(0, true);
 	ani->isLoop = false;
 	//ani->Reverse();
@@ -134,7 +125,7 @@ void VampireAttack::Update(float deltaTime)
 	if (ani->IsEnd())
 	{
 		enemy->isAttack = true;
-		enemy->target = nullptr;
+		//enemy->target = nullptr;
 		owner->SetNextState("Idle");
 	}
 }
