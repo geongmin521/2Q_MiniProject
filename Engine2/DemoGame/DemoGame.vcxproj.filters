@@ -25,6 +25,12 @@
     <Filter Include="World">
       <UniqueIdentifier>{afc37081-30c5-4cca-9f67-53a1d720fa7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{fe0a3922-dc80-45fe-a406-19c574ecbf17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UIBase">
+      <UniqueIdentifier>{6aff8257-2e2b-460c-a1c0-9169bfdbe870}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowTower.h">
@@ -54,9 +60,6 @@
     <ClInclude Include="TowerFsm.h">
       <Filter>Tower</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="Shop.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -66,21 +69,44 @@
     <ClInclude Include="DemoGameApp.h">
       <Filter>GameStart</Filter>
     </ClInclude>
-    <ClInclude Include="MoveIcon.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="BattleWorld.h">
       <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="TitleWorld.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h" />
     <ClInclude Include="EnemyFSM.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Arrow.h">
       <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Compensation.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowWave.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Victory.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveIcon.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Combination.h">
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="VampireBomb.h">
       <Filter>Enemy</Filter>
@@ -111,9 +137,6 @@
     <ClCompile Include="TowerFSM.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="Shop.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -123,21 +146,44 @@
     <ClCompile Include="DemoGameApp.cpp">
       <Filter>GameStart</Filter>
     </ClCompile>
-    <ClCompile Include="MoveIcon.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="BattleWorld.cpp">
       <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="TitleWorld.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp" />
     <ClCompile Include="EnemyFSM.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Compensation.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowWave.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Victory.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveIcon.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Combination.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="VampireBomb.cpp">
       <Filter>Enemy</Filter>

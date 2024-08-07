@@ -23,6 +23,7 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void Render(ID2D1RenderTarget* pRenderTarget);
 
+
 };
 
 //pch가 항상위면 생기지않지않나?

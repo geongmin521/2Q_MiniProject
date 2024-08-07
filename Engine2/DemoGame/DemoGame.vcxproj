@@ -136,20 +136,26 @@
     <ClInclude Include="BattleWorld.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Combination.h" />
+    <ClInclude Include="Compensation.h" />
     <ClInclude Include="DemoGame.h" />
     <ClInclude Include="DemoGameApp.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyFSM.h" />
     <ClInclude Include="EnemySpawner.h" />
+    <ClInclude Include="Factory.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MoveIcon.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="ShowWave.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TitleWorld.h" />
     <ClInclude Include="TowerBase.h" />
     <ClInclude Include="TowerFsm.h" />
     <ClInclude Include="Vampire.h" />
+    <ClInclude Include="Victory.h" />
     <ClInclude Include="VampireBomb.h" />
   </ItemGroup>
   <ItemGroup>
@@ -158,19 +164,25 @@
     <ClCompile Include="BattleWorld.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Combination.cpp" />
+    <ClCompile Include="Compensation.cpp" />
     <ClCompile Include="DemoGame.cpp" />
     <ClCompile Include="DemoGameApp.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyFSM.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
+    <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MoveIcon.cpp" />
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="ShowWave.cpp" />
     <ClCompile Include="TitleWorld.cpp" />
     <ClCompile Include="TowerBase.cpp" />
     <ClCompile Include="TowerFSM.cpp" />
     <ClCompile Include="Vampire.cpp" />
+    <ClCompile Include="Victory.cpp" />
     <ClCompile Include="VampireBomb.cpp" />
   </ItemGroup>
   <ItemGroup>

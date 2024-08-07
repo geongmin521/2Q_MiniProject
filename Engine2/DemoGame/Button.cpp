@@ -5,11 +5,10 @@
 #include "../D2DEngine/Transform.h"
 #include "Button.h"
 
-Button::Button()
+Button::Button(std::wstring imagePath)
 {
-	AddComponent(new Bitmap(L"..\\Data\\Image\\Button_Start_Click.png")); 
-	//transform->SetRelativeScale({ 0.1f,0.1f }); //아 이게 변경되면.. 월드에도 반영되게 한다고했지?
-	SetBoundBox(0, 0, GetComponent<Bitmap>()->GetSize()); //바운드 박스의 크기도 따라갈수있도록만들고
+	AddComponent(new Bitmap(imagePath));
+	SetBoundBox(0, 0, GetComponent<Bitmap>()->GetSize());
 }
 
 Button::~Button()

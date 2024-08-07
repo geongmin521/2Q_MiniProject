@@ -39,14 +39,14 @@
     <Filter Include="소스 파일\Data">
       <UniqueIdentifier>{7ab90d68-0d40-44a4-9eb3-0aed11a98a11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Factory">
-      <UniqueIdentifier>{6b5cf0ad-05b8-4d6e-b511-6a6e94678e6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Music">
       <UniqueIdentifier>{3f921605-fe71-40eb-b644-4b1925682ec2}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\UI">
       <UniqueIdentifier>{108591be-143d-47bb-bd5d-ce6d9249444c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Factory">
+      <UniqueIdentifier>{2f3c0325-5226-4e5d-bf8a-4edba4db259d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,9 +148,6 @@
     </ClInclude>
     <ClInclude Include="IClickAble.h">
       <Filter>소스 파일\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>소스 파일\Factory</Filter>
     </ClInclude>
     <ClInclude Include="Music.h">
       <Filter>소스 파일\Music</Filter>
@@ -262,9 +259,6 @@
     </ClCompile>
     <ClCompile Include="DataManager.cpp">
       <Filter>소스 파일\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Factory.cpp">
-      <Filter>소스 파일\Factory</Filter>
     </ClCompile>
     <ClCompile Include="Music.cpp">
       <Filter>소스 파일\Music</Filter>

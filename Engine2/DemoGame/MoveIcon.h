@@ -7,7 +7,7 @@ class MoveIcon : public UI, public IDragAble //아 추상클래스로 만들까? 그럼 공통
 private:
 
 public://UI로 묶어서 관리한다면.. 노티피랑 aabb랑 묶어서 저장할까? 
-	MoveIcon();
+	MoveIcon(std::wstring filePath);
 	~MoveIcon();
 	virtual void Update(float deltaTime) override;
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override;
