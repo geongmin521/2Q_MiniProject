@@ -18,6 +18,7 @@ public:
     bool isAttack = false;
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+    virtual void Find();
     virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
     void ExploreTarget(TowerBase* tower,std::vector<GameObject*>& objs); //타워타겟 정하는부분
 };

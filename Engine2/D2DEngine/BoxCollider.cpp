@@ -24,7 +24,18 @@ BoxCollider::~BoxCollider()
 
 }
 
-bool BoxCollider::IsCollide(Collider* otherComponent) 
+void BoxCollider::Init(AABB* aabb, CollisionType type,IColliderNotify* notify, CollisionLayer layer)
+{
+    this->aabb = aabb;
+    this->colliderType = ColliderType::Box;
+    this-> collisionType = type;
+    this->layer = layer;
+    this->notify = notify;
+
+    CollisionManager::GetInstance()->pushCollider(this);
+}
+
+bool BoxCollider::IsCollide(Collider* otherComponent)
 {
     if (otherComponent->GetColliderType() == ColliderType::Box) //상대가 박스일때
     {

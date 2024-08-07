@@ -58,26 +58,24 @@ void TowerIdle::EnterState()
 
 void TowerIdle::Update(float DeltaTime)
 {
-	
-	
-	if (tower->target == nullptr && !tower->objs.empty())
-	{
-
-		tower->ExploreTarget(tower, tower->objs);
-	}
-
 	if (tower->target != nullptr && tower->isAttack == false)
 	{
 		owner->SetNextState("Attack");
 	}
-	
-	tower->towerData.attackSpeed -= DeltaTime;
-	if (tower->towerData.attackSpeed < 0)
+	if (tower->isAttack == true)
 	{
-		tower->isAttack = false;
-		tower->towerData.attackSpeed = 1.0f;
+		tower->towerData.attackSpeed -= DeltaTime;
+		if (tower->towerData.attackSpeed < 0)
+		{
+			tower->isAttack = false;
+			tower->towerData.attackSpeed = 1.0f; //?
+		}
 	}
+	//if (tower->target == nullptr && !tower->objs.empty())
+	//{
 
+	//	tower->ExploreTarget(tower, tower->objs);
+	//}
 }
 
 void TowerIdle::ExitState()
@@ -91,13 +89,12 @@ void TowerAttack::EnterState()
 }
 \
 
-void TowerAttack::Update(float DeltaTime)
+void TowerAttack::Update(float DeltaTime) //한번쏘고 가장가까운적? 이건 기획한테 물어보기.. 
 {
 	//공격한번후엔 idle로 보내고 다시 attack?
 	if (ani->IsEnd())
 	{
 		tower->Attack(DeltaTime);
-		tower->target = nullptr;
 		tower->isAttack = true;
 		owner->SetNextState("Idle");
 	}

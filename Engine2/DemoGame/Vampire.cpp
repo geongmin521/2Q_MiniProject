@@ -65,6 +65,7 @@ void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
 	//enemyData.speed = 0;
 
+
 	if (otherComponent->GetCollisionLayer() == CollisionLayer::Tower)
 	{
 		//GetComponent<FiniteStateMachine>()->SetNextState("Attack");
@@ -74,9 +75,9 @@ void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 void Vampire::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
 
-	if (otherComponent->name== "attackbox" && ownedComponent->name == "EnemyAtk")
+	if (otherComponent->name== "tower" && ownedComponent->name == "EnemyAtk")
 	{
-		enemyData.speed = 0;
+		
 		
 		objs.push_back(otherComponent->owner);
 		GetComponent<FiniteStateMachine>()->SetNextState("Attack");

@@ -33,6 +33,11 @@ void Arrow::Init(MathHelper::Vector2F velocity, MathHelper::Vector2F location)
 	transform->SetRelativeLocation({ location.x + 50.0f,location.y - 20.f });
 }
 
+void Arrow::Init(GameObject* target)
+{
+
+}
+
 void Arrow::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
@@ -54,7 +59,10 @@ void Arrow::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
 	if (otherComponent->owner->name == "Enemy")
 	{
-		this->isActive = false; //지우진않고 끄기만
+		otherComponent->SetCollisionType(CollisionType::NoCollision);
+		
+		//GetComponent<BoxCollider>()->SetCollisionType(CollisionType::NoCollision);
+		//this->isActive = false; //지우진않고 끄기만
 		std::cout << "적 충돌" << std::endl;
 	}
 }

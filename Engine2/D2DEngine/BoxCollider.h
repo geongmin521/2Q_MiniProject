@@ -10,7 +10,7 @@ public:
 	BoxCollider(AABB* aabb, CollisionType type, IColliderNotify* notify, CollisionLayer layer);
 	~BoxCollider();
 	AABB* aabb;
-
+	void Init(AABB* aabb, CollisionType type, IColliderNotify* notify, CollisionLayer layer);
 	virtual bool IsCollide   (Collider* ownedComponent) override; //어? 이거 자체는 상대꺼만 들어오면되잖아.. 
 	virtual	void ProcessBlock(Collider* ownedComponent, Collider* otherComponent) override;
 	virtual void Update(float deltaTime) override;

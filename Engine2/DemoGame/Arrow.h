@@ -11,6 +11,7 @@ public:
     virtual ~Arrow();
     
     void Init(MathHelper::Vector2F velocity, MathHelper::Vector2F location); //방향, 위치?
+    void Init(GameObject* target); //방향, 위치?
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
 
