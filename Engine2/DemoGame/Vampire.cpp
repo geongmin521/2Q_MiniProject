@@ -58,6 +58,7 @@ void Vampire::Update(float deltaTime)
 void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+	
 }
 
 void Vampire::Attack(float deltaTime)
@@ -66,7 +67,7 @@ void Vampire::Attack(float deltaTime)
 	//std::cout << tower->curHP;
 	if (target != nullptr)
 	{
-		//tower->Hit(enemyData.ATK);
+		tower->Hit(enemyData.ATK);
 	}
 }
 

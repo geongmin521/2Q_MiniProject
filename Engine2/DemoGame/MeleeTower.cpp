@@ -17,7 +17,7 @@ MeleeTower::MeleeTower()
 	towerData.name = "MeleeTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 100.0f;
 	towerData.attackSpeed = 1.0f;
-	curHP = 200.0f;
+	curHP = 20000.0f;
 
 	SetBoundBox(0, 0, 500, 500); // 
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"MeleeTower")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게

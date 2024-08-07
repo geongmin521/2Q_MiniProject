@@ -101,7 +101,7 @@ void D2DRenderer::Initialize(HWND hWnd)
 			DWRITE_FONT_WEIGHT_NORMAL,
 			DWRITE_FONT_STYLE_NORMAL,
 			DWRITE_FONT_STRETCH_NORMAL,
-			50.0f,   // Font Size
+			25.0f,   // Font Size
 			L"", //locale
 			&DWriteTextFormat
 		);

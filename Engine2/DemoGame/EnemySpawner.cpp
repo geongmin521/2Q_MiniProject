@@ -41,7 +41,7 @@ void EnemySpawner::CreateEnemy()
 	if (spawnCount % 3 == 1)
 	{
 		VampireBomb* newVamBomb = new VampireBomb();
-		newVamBomb->transform->SetRelativeLocation({ 2000, float(y * 50) });
+		newVamBomb->transform->SetRelativeLocation({ 2000, float(y * 33) });
 		newVamBomb->owner = this->owner;
 		owner->m_GameObjects.push_back(newVamBomb);
 		spawnCount++;
@@ -56,7 +56,7 @@ void EnemySpawner::Update(float deltaTime)
 	if (Timer < 0.f)
 	{
 		Timer = spawnTimer;
-		if (spawnCount < 20)
+		if (spawnCount < 100)
 		{
 			CreateEnemy();
 		}

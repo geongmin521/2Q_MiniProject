@@ -53,6 +53,7 @@ void VampireBomb::Update(float deltaTime)
 void VampireBomb::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+	
 }
 
 void VampireBomb::OnBlock(Collider* ownedComponent, Collider* otherComponent)
@@ -81,7 +82,7 @@ void VampireBomb::Attack(float deltaTime)
 	//std::cout << tower->curHP;
 	if (target != nullptr)
 	{
-		//tower->Hit(enemyData.ATK);
+		tower->Hit(enemyData.ATK);
 		curHP -= enemyData.HP;
 	}
 }
