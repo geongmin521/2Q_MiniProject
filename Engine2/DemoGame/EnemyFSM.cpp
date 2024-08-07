@@ -47,7 +47,7 @@ void VampireIdle::Update(float deltaTime)
 	// 몸통크기 165.f 
 
 	if(enemy->target != nullptr && enemy->isAttack == false && 
-		std::abs(enemy->target->GetWorldLocation().x   - enemy->GetWorldLocation().x) < dynamic_cast<TowerBase*>(enemy->target)->towerData.attackRange / 4)
+		std::abs(enemy->target->GetWorldLocation().x   - enemy->GetWorldLocation().x) <= dynamic_cast<TowerBase*>(enemy->target)->towerData.attackRange / 4)
 		// csv에 몸통 크기 넣을것
 	{
 		owner->SetNextState("Attack");

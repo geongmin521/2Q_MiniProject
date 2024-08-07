@@ -53,11 +53,10 @@ void ArrowTower::Update(float deltaTime)
 	//Getwroldlocation  거리비교
 	//	>> 제일작은걸 타겟으로
 	//	얘가 죽으면 target null 아니면 타겟;
-	if (target == nullptr)
-	{
-		FindTarget(GetComponent<BoxCollider>());
-	}
-
+	
+	FindTarget(GetComponent<BoxCollider>());
+	
+	
 }
 
 
@@ -81,7 +80,7 @@ void ArrowTower::Attack(float deltaTime)
 
 void ArrowTower::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
-	std::cout << "test";
+	
 }
 
 void ArrowTower::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)

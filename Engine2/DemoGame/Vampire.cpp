@@ -48,10 +48,9 @@ void Vampire::Update(float deltaTime)
 	__super::Update(deltaTime);
 	GetComponent<Movement>()->SetVelocity({ -enemyData.speed , 0 });
 	//attackBox->SetCenter(boundBox->Center.x - 100, boundBox->Center.y);
-	if (target == nullptr)
-	{
-		Find(GetComponent<BoxCollider>());
-	}
+	
+	Find(GetComponent<BoxCollider>());
+	
 }
 
 void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)

@@ -46,7 +46,7 @@ void TowerBase::FindTarget(Collider* col)
 	{
 		for (auto& enemy : enemys)
 		{
-			std::cout << " 적 있음";
+			//std::cout << " 적 있음";
 			xDistance = (GetWorldLocation().x - enemy->GetWorldLocation().x);
 			//if (xDistance > 0) continue; //일단 타워뒤로가면 공격못하게
 			yDistance = std::abs(GetWorldLocation().y - enemy->GetWorldLocation().y);
