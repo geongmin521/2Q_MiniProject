@@ -18,7 +18,7 @@ Vampire::Vampire()
 	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 50.f;
 	curHP = enemyData.HP;
-	
+	enemyData.ATK = 10.f;
 	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)
 	SetBoundBox(0, 0, 150, 180); //기본 적 이미지 사이즈
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
@@ -66,7 +66,7 @@ void Vampire::Attack(float deltaTime)
 	//std::cout << tower->curHP;
 	if (target != nullptr)
 	{
-		//tower->Hit(50);
+		//tower->Hit(enemyData.ATK);
 	}
 }
 
