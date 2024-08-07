@@ -73,7 +73,7 @@ void ArrowTower::Attack(float deltaTime)
 	Arrow* arrow = new Arrow;
 	arrow->owner = this->owner;
 	arrow->Inits(target, GetWorldLocation());
-	owner->m_GameObjects.push_back(arrow);
+	owner->m_GameObjects.push_back(arrow);    //투사체는 타겟 hit처리를 투사체에서
 }
 
 //좀더 확실하고 통제된 환경을 만들어야한다. 
@@ -99,10 +99,7 @@ void ArrowTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent
 	
 }
 
-void ArrowTower::Hit(GameObject* obj)
+void ArrowTower::Hit(float damage)
 {
-	EnemyBase* enemy;
-	enemy = dynamic_cast<EnemyBase*>(obj);
-	towerData.HP -= enemy->enemyData.ATK;
-	std::cout << std::endl << towerData.HP << std::endl;
+	
 }

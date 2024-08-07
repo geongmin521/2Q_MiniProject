@@ -42,18 +42,16 @@ void EnemyBase::Find(Collider* othercomponent)
 	{
 		for (auto& tower : towers)
 		{
-			xDistance = (GetWorldLocation().x - tower->GetWorldLocation().x);
+			xDistance = std::abs((GetWorldLocation().x - tower->GetWorldLocation().x));
 			yDistance = std::abs(GetWorldLocation().y - tower->GetWorldLocation().y);
 			curMin = std::min(xDistance, yDistance);
 
 			if (min > curMin)
 			{
 				min = curMin;
+				curTarget = tower;
 			}
 
-			curTarget = tower;
-
-			
 		}
 	}
 

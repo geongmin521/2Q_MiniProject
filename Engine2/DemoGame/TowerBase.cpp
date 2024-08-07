@@ -53,9 +53,10 @@ void TowerBase::FindTarget(Collider* col)
 			curMin = std::min(xDistance, yDistance);
 
 			if (min > curMin)
+			{
 				min = curMin;
-
-			curTarget = enemy;
+				curTarget = enemy;
+			}
 		}
 	}
 	if (curTarget != nullptr)
@@ -67,11 +68,39 @@ void TowerBase::FindTarget(Collider* col)
 
 void TowerBase::FindTargets(Collider* col)
 {
+
+
 	std::vector<GameObject*> enemys;
 	for (auto& col : col->collideStatePrev)
 	{
 		if (col->owner->name == "Enemy" && col->owner->isActive == true)
 			enemys.push_back(col->owner);
+	}
+	float min = 1000;
+	float curMin;
+	float xDistance;
+	float yDistance;
+	GameObject* curTarget = nullptr;
+	if (!enemys.empty())
+	{
+		for (auto& enemy : enemys)
+		{
+			//std::cout << " 적 있음";
+			xDistance = (GetWorldLocation().x - enemy->GetWorldLocation().x);
+			//if (xDistance > 0) continue; //일단 타워뒤로가면 공격못하게
+			yDistance = std::abs(GetWorldLocation().y - enemy->GetWorldLocation().y);
+			curMin = std::min(xDistance, yDistance);
+
+			if (min > curMin)
+			{
+				min = curMin;
+				curTarget = enemy;
+			}
+		}
+	}
+	if (curTarget != nullptr)
+	{
+		target = curTarget;
 	}
 	targets = enemys; //타겟이안바껴도 범위공격의 영향을받는 타겟들은 계속 바꿔줘야하는대
 }

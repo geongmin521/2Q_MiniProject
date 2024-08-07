@@ -51,10 +51,9 @@ void MeleeTower::Update(float deltaTime)
 	//Getwroldlocation  거리비교
 	//	>> 제일작은걸 타겟으로
 	//	얘가 죽으면 target null 아니면 타겟;
-	if (target == nullptr)
-	{
-		FindTarget(GetComponent<BoxCollider>());
-	}
+	
+	FindTargets(GetComponent<BoxCollider>());
+	
 
 }
 
@@ -69,10 +68,24 @@ void MeleeTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void MeleeTower::Attack(float deltaTime)
 {
-	                             //여기서 적 피격적용?
+	std::vector<EnemyBase*> enemys;
+	for (auto& enemy : targets)
+	{
+		enemys.push_back(dynamic_cast<EnemyBase*>(enemy));
+	}
+	
+	for (auto& enemy : enemys)
+	{
+		                          //계산기 추가필요
+		enemy->Hit(40);
+		std::cout << enemy->curHP << std::endl;
+	}
+	
+	
+	
+		
 }
 
-//좀더 확실하고 통제된 환경을 만들어야한다. 
 
 void MeleeTower::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
@@ -95,10 +108,8 @@ void MeleeTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent
 
 }
 
-void MeleeTower::Hit(GameObject* obj)
+void MeleeTower::Hit(float damage)
 {
-	EnemyBase* enemy;
-	enemy = dynamic_cast<EnemyBase*>(obj);
-	towerData.HP -= enemy->enemyData.ATK;
-	std::cout << std::endl << towerData.HP << std::endl;
+	
+	curHP -= damage; 
 }

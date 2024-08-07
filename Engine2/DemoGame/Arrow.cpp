@@ -42,11 +42,17 @@ void Arrow::Inits(GameObject* target, MathHelper::Vector2F location)
 void Arrow::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	MathHelper::Vector2F dir = MathHelper::Vector2F(target->GetWorldLocation()) - MathHelper::Vector2F(GetWorldLocation());
-	dir.Normalize();
-	GetComponent<Movement>()->SetVelocity(dir * speed);
-
-	if (std::abs(target->GetWorldLocation().x - GetWorldLocation().x <= 1.0f)||    //일단 타겟크기를 몰라서 1.0으로헀는대 타겟의 몸통 크기? 로하면 될듯함 isActive가 꺼질때 공격판정넣기?
+	if (target->isActive == true)
+	{
+		MathHelper::Vector2F dir = MathHelper::Vector2F(target->GetWorldLocation()) - MathHelper::Vector2F(GetWorldLocation());
+		dir.Normalize();
+		GetComponent<Movement>()->SetVelocity(dir * speed);
+	}
+	else
+	{
+		isActive = false;
+	}
+	if (std::abs(target->GetWorldLocation().x - GetWorldLocation().x) <= 1.0f||    //일단 타겟크기를 몰라서 1.0으로헀는대 타겟의 몸통 크기? 로하면 될듯함 isActive가 꺼질때 공격판정넣기?
 		std::abs(target->GetWorldLocation().y - GetWorldLocation().y) <= 1.0f)
 		isActive = false;
 	

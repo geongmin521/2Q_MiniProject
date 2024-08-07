@@ -83,6 +83,10 @@ void VampireShared::EnterState()
 
 void VampireShared::Update(float deltaTime)
 {
+	if (enemy->curHP <= 0)
+	{
+		enemy->isActive = false;
+	}
 
 }
 

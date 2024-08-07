@@ -10,7 +10,7 @@ private:
     
 
 public:
-    int curHP; //타워각자가 가질 현재 체력
+    float curHP; //타워각자가 가질 현재 체력
     GameObject* target = nullptr;      //원거리타워등 단일공격
     std::vector<GameObject*> targets;  //근접타워용등 여러명 공격 따로 뺄까
     TowerBase();
