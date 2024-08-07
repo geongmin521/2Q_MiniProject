@@ -1,7 +1,7 @@
 #pragma once
 #include "../D2DEngine/GameObject.h"
 #include "../D2DEngine/DataManager.h"
-
+#include "../D2DEngine/Collider.h"
 class EnemyBase :
     public GameObject
 {
@@ -13,11 +13,10 @@ public:
 
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
-    void ExploreTarget(EnemyBase* enemy, std::vector<GameObject*>& objs);
+    virtual void Find(Collider* othercomponent);
 public:
     // 일단 퍼블릭
     GameObject* target = nullptr;
-    std::vector<GameObject*> objs;
     bool isAttack = false;
     EnemyData enemyData;
 };

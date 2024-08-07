@@ -4,7 +4,7 @@
 
 TowerBase::TowerBase()
 {
-
+	name = "Tower";
 }
 
 TowerBase::~TowerBase()

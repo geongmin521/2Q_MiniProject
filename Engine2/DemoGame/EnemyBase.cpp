@@ -1,6 +1,6 @@
 #include "../D2DEngine/pch.h"
 #include "EnemyBase.h"
-
+#include "../D2DEngine/AABB.h"
 EnemyBase::EnemyBase()
 {
 	name = "Enemy";
@@ -20,30 +20,45 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
 	__super::Render(pRenderTarget);
 }
 
-void EnemyBase::ExploreTarget(EnemyBase* enemy, std::vector<GameObject*>& objs)
+
+void EnemyBase::Find(Collider* othercomponent)
 {
+	std::vector<GameObject*> towers;
+	for (auto& col : othercomponent->collideStatePrev)
+	{
+		if (col->owner->name == "Tower")
+		{
+			towers.push_back(col->owner);
+		}
+	}
+
 	float min = 1000;
 	float curMin;
 	float xDistance;
 	float yDistance;
 	GameObject* curTarget = nullptr;
 
-	for (auto& obj : objs)
+	if (!towers.empty())
 	{
-		xDistance = (enemy->GetWorldLocation().x - obj->GetWorldLocation().x);
-		yDistance = std::abs(enemy->GetWorldLocation().y - obj->GetWorldLocation().y);
-		curMin = std::min(xDistance, yDistance);
-
-		if (min > curMin)
+		for (auto& tower : towers)
 		{
-			min = curMin;
-		}
+			xDistance = (GetWorldLocation().x - tower->GetWorldLocation().x);
+			yDistance = std::abs(GetWorldLocation().y - tower->GetWorldLocation().y);
+			curMin = std::min(xDistance, yDistance);
 
-		curTarget = obj;
+			if (min > curMin)
+			{
+				min = curMin;
+			}
+
+			curTarget = tower;
+
+			
+		}
 	}
+
 	if (curTarget != nullptr)
 	{
 		target = curTarget;
-	}
-
+	}	
 }
