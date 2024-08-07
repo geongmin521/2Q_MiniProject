@@ -8,13 +8,22 @@
 #include "../D2DEngine/AABB.h"
 #include "../D2DEngine/BoxCollider.h"
 #include "EnemyFSM.h"
+#include "TowerBase.h"
 
 VampireBomb::VampireBomb()
 {
-	SetBoundBox(0, 0, 80, 180);
-	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
-	AddComponent(new BoxCollider(boundBox, CollisionType::Block, this, CollisionLayer::Enemy));
-	AddComponent(new Movement(transform));
+	enemyData.speed = 300.f;
+	enemyData.attackRange = 10.f;
+	enemyData.attackSpeed = 1.f;
+	enemyData.HP = 10.f;
+	enemyData.ATK = 100.f;
+	curHP = enemyData.HP;
+
+	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)
+	SetBoundBox(0, 0, 150, 180); //기본 적 이미지 사이즈
+	AddComponent(new Animation(L"..\\Data\\Image\\zombie3.png", L"Zombie2"));
+	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
+
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
@@ -23,14 +32,11 @@ VampireBomb::VampireBomb()
 	fsm->CreateState<VampireAttack>("Attack");
 	fsm->SetNextState("Idle");
 
-	renderOrder = 100;
-	enemyData.speed = 400.0f;
+	AddComponent(new Movement(transform));
+
 	transform->SetRelativeLocation({ 2000, 100 });
 
-	attackBox = new AABB;
-	enemyData.attackRange = 10.f;
-	attackBox->SetExtent(100.f + enemyData.attackRange, 60.f + enemyData.attackRange);
-	AddComponent(new BoxCollider(attackBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
+	renderOrder = 100;
 }
 
 VampireBomb::~VampireBomb()
@@ -40,8 +46,8 @@ VampireBomb::~VampireBomb()
 
 void VampireBomb::Update(float deltaTime)
 {
-	GetComponent<Movement>()->SetVelocity({ -enemyData.speed , 0 });
 	__super::Update(deltaTime);
+	Find(GetComponent<BoxCollider>());
 }
 
 void VampireBomb::Render(ID2D1HwndRenderTarget* pRenderTarget)
@@ -51,20 +57,12 @@ void VampireBomb::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void VampireBomb::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
-	enemyData.speed = 0;
-
-	if (otherComponent->GetCollisionLayer() == CollisionLayer::Tower)
-	{
-		//GetComponent<FiniteStateMachine>()->SetNextState("Attack");
-	}
+	
 }
 
 void VampireBomb::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
-	if (otherComponent->GetCollisionLayer() == CollisionLayer::Tower)
-	{
-		GetComponent<FiniteStateMachine>()->SetNextState("Attack");
-	}
+
 }
 
 void VampireBomb::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)
@@ -75,4 +73,15 @@ void VampireBomb::OnStayOverlap(Collider* ownedComponent, Collider* otherCompone
 void VampireBomb::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
 
+}
+
+void VampireBomb::Attack(float deltaTime)
+{
+	TowerBase* tower = dynamic_cast<TowerBase*>(target);
+	//std::cout << tower->curHP;
+	if (target != nullptr)
+	{
+		//tower->Hit(enemyData.ATK);
+		curHP -= enemyData.HP;
+	}
 }

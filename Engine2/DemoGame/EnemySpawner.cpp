@@ -26,7 +26,7 @@ EnemySpawner::~EnemySpawner()
 void EnemySpawner::CreateEnemy()
 {
 	Vampire* newVampire = new Vampire();
-	//VampireBomb* newVamBomb = new VampireBomb();
+	
 	// 스폰조건 추후에 생각
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -37,8 +37,16 @@ void EnemySpawner::CreateEnemy()
 	y = (y % 10) + 2;
 	newVampire->transform->SetRelativeLocation({ 2000,  float(y * 50) });
 	newVampire->owner = this->owner;
-
 	owner->m_GameObjects.push_back(newVampire);
+	if (spawnCount % 3 == 1)
+	{
+		VampireBomb* newVamBomb = new VampireBomb();
+		newVamBomb->transform->SetRelativeLocation({ 2000, float(y * 50) });
+		newVamBomb->owner = this->owner;
+		owner->m_GameObjects.push_back(newVamBomb);
+		spawnCount++;
+	}
+	
 	spawnCount++;
 }
 
