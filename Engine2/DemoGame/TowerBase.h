@@ -19,8 +19,7 @@ public:
     bool isAttack = false;
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
-    virtual void FindTarget(Collider* col); //타겟찾기 여기서 targets로 같이넣어주긴하는대
-    virtual void FindTargets(Collider* col); //여러명찾기 따로만들까
+    virtual void FindTarget(Collider* col, bool isTargets = false); 
     virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
     virtual void Hit(float damage) { curHP -= damage; }
 };

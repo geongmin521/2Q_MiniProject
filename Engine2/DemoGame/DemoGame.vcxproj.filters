@@ -88,6 +88,12 @@
     <ClInclude Include="MeleeTower.h">
       <Filter>Tower</Filter>
     </ClInclude>
+    <ClInclude Include="HealingTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -146,6 +152,12 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="MeleeTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HealingTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyTower.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
   </ItemGroup>

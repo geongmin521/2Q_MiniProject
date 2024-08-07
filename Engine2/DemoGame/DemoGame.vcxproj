@@ -141,6 +141,8 @@
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyFSM.h" />
     <ClInclude Include="EnemySpawner.h" />
+    <ClInclude Include="HealingTower.h" />
+    <ClInclude Include="HolyTower.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MeleeTower.h" />
@@ -164,6 +166,8 @@
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyFSM.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
+    <ClCompile Include="HealingTower.cpp" />
+    <ClCompile Include="HolyTower.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MeleeTower.cpp" />

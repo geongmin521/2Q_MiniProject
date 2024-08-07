@@ -48,7 +48,7 @@ void EnemySpawner::Update(float deltaTime)
 	if (Timer < 0.f)
 	{
 		Timer = spawnTimer;
-		if (spawnCount < 500)
+		if (spawnCount < 20)
 		{
 			CreateEnemy();
 		}

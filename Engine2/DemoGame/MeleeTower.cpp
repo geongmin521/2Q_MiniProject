@@ -19,7 +19,7 @@ MeleeTower::MeleeTower()
 	towerData.attackSpeed = 1.0f;
 	curHP = 200.0f;
 
-	SetBoundBox(0, 0, 500, 500); // 근접타워 높이는 자기 몸체크기만큼
+	SetBoundBox(0, 0, 500, 500); // 
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"MeleeTower")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
 
@@ -52,7 +52,7 @@ void MeleeTower::Update(float deltaTime)
 	//	>> 제일작은걸 타겟으로
 	//	얘가 죽으면 target null 아니면 타겟;
 	
-	FindTargets(GetComponent<BoxCollider>());
+	FindTarget(GetComponent<BoxCollider>(),true);
 	
 
 }
@@ -102,9 +102,4 @@ void MeleeTower::OnStayOverlap(Collider* ownedComponent, Collider* otherComponen
 void MeleeTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
 
-}
-
-void MeleeTower::Hit(float damage)
-{
-	curHP -= damage; 
 }
