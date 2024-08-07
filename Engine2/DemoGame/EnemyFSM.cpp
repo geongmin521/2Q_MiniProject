@@ -53,6 +53,13 @@ void VampireIdle::Update(float deltaTime)
 		owner->SetNextState("Attack");
 	}
 
+	if (enemy->target != nullptr &&
+		enemy->target->GetWorldLocation().y != enemy->GetWorldLocation().y)
+	{
+		
+	}
+
+
 	if (enemy->isAttack == true)
 	{
 		enemy->enemyData.attackSpeed -= deltaTime;

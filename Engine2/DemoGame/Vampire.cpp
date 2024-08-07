@@ -46,7 +46,25 @@ void Vampire::Update(float deltaTime)
 {
 	
 	__super::Update(deltaTime);
-	GetComponent<Movement>()->SetVelocity({ -enemyData.speed , 0 });
+	if (target != nullptr)
+	{
+		float posY = target->GetWorldLocation().y;
+		float curPosY = GetWorldLocation().y;
+
+		if (posY != curPosY)
+		{
+			GetComponent<Movement>()->SetVelocity({ -enemyData.speed , posY - curPosY });
+		}
+		else
+		{
+			GetComponent<Movement>()->SetVelocity({ -enemyData.speed , 0 });
+		}
+	}	
+	else
+	{
+		GetComponent<Movement>()->SetVelocity({ -enemyData.speed , 0 });
+	}
+
 	//attackBox->SetCenter(boundBox->Center.x - 100, boundBox->Center.y);
 	
 	Find(GetComponent<BoxCollider>());
