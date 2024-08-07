@@ -46,7 +46,7 @@ void BattleWorld::MakeUI() //앞에 경로는 다정해져있으니까 위에서 처리하자..
 
 	
 	CreateGameObject<ArrowTower>(); //각월드에 초기 필요한 오브젝트 생성하기
-	CreateGameObject<Button>();
-	CreateGameObject<MoveIcon>();
+	//CreateGameObject<Button>();
+	//CreateGameObject<MoveIcon>();
 	CreateGameObject<EnemySpawner>();
 }
