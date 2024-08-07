@@ -2,19 +2,19 @@
 #include "EnemySpawner.h"
 #include "../D2DEngine/Transform.h"
 #include "../D2DEngine/World.h"
+#include "../D2DEngine/Pools.h"
+#include "../D2DEngine/DataManager.h"
 #include "Vampire.h"
 #include "VampireBomb.h"
 
 EnemySpawner::EnemySpawner()
 {
-	// 임시
-	// 스폰카운트 50까지만
-	waveData.level = 1;
-	spawnTimer = 3.f;
+	std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> data =
+		DataManager::GetInstance().get()->CSVReader(L"WaveData");
 
-	if (enemyData.id == waveData.id)
-	{
-
+	if (std::holds_alternative<std::vector<WaveData>>(data)) { //처음 웨이브 데이터 읽기.. 
+		for (auto var : std::get<std::vector<WaveData>>(data))
+			waveData[var.level].push_back(var);
 	}
 }
 
@@ -25,17 +25,21 @@ EnemySpawner::~EnemySpawner()
 
 void EnemySpawner::CreateEnemy()
 {
-	Vampire* newVampire = new Vampire();
+	//스폰데이터를 읽어야함.. 
+	//Pools::GetInstance().get()->PopPool(); //여기서 값 빼기.. 
+	//몬스터의 종류마다 타이머가 하나씩있고.. 생성하기.. 
+	//아이디로 받아서 생성하기.. 아이디가 전부 달라야하지않을까?? 
+	
 	//VampireBomb* newVamBomb = new VampireBomb();
 	// 스폰조건 추후에 생각
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> spawnPos(1, 5);
 	float posY = (float)spawnPos(gen) * 150;
-	newVampire->transform->SetRelativeLocation({ 2000,  100 });
-	newVampire->owner = this->owner;
+	//newVampire->transform->SetRelativeLocation({ 2000,  100 });
+	//newVampire->owner = this->owner;
 
-	owner->m_GameObjects.push_back(newVampire);
+	//owner->m_GameObjects.push_back(newVampire);
 	spawnCount++;
 }
 

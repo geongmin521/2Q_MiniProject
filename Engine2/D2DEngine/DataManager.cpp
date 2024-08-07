@@ -1,77 +1,169 @@
 #include "pch.h"
 #include "DataManager.h"
-
+#include <locale>
+#include <codecvt>
 DataManager::DataManager()
 {
+	CSVReader(L"EnemyData");
+	CSVReader(L"TowerData");
+	CSVReader(L"WaveData");
 }
 
 DataManager::~DataManager()
 {
 }
 
-std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> DataManager::CSVReader(const std::type_info& typeInfo)
-{
-    //이걸 실행하기 전에.. 파일을 여는과정도 겹치기 때문에.. 이걸어떻게 처리하고 가고싶은데..
-    // 그리고 csv읽을때.. 시트가 다른건 어떻게 처리되는지 궁금함.. 애니메이션도 여기서 처리할수있게 만들기.. 
+template <typename T>
+T convertFromString(const std::wstring& str);//csv의 모든 형식은 int, float, wstring 이 3개로 구분됨
 
-    if (typeInfo == typeid(EnemyData)) {
-        return EnemyDataRead();
-    }
-    else if (typeInfo == typeid(TowerData)) {
-        return TowerDataRead();
-    }
-    else if (typeInfo == typeid(WaveData)) {
-        return WaveDataRead();
-    }
+// 특수화: int형 변환
+template <>
+int convertFromString<int>(const std::wstring& str) {
+	return _wtoi(str.c_str());
+}
+
+// 특수화: float형 변환
+template <>
+float convertFromString<float>(const std::wstring& str) {
+	return static_cast<float>(_wtof(str.c_str()));
+}
+
+// 특수화: string //와이드 스트링을 일반 스트링으로변경
+template <>
+std::string convertFromString<std::string>(const std::wstring& wstr) { //어뭐야.. wstring에서 string형변환하니까.. 한글이 들어오네? 
+	std::string str;
+	str.assign(wstr.begin(), wstr.end());
+	return str;
+}
+
+// 파싱 함수
+template <typename T>
+void parseToken(std::wstringstream& wss, T& var) {
+	std::wstring token;
+	std::getline(wss, token, L',');
+	var = convertFromString<T>(token);
+}
+
+// 파싱 함수
+template <typename T>
+void parseTokens(std::wstringstream& wss, std::vector<T>& var) { //토큰내에 여러개 가져오기.. 
+	std::wstring token;
+	std::getline(wss, token, L',');
+
+	std::wstringstream tokenStream(token);
+	std::wstring subToken;
+	while (std::getline(tokenStream, subToken, L'_')) {
+		var.push_back(convertFromString<T>(subToken));
+	}
+}
+
+std::wifstream DataManager::FileOften(std::wstring fileName)
+{
+	std::wifstream file(L"..\\Data\\CSV\\"+ fileName + L".csv"); //읽기
+	if (!file.is_open()) {
+		assert(false && "파일이 존재하지 않습니다.");
+	}
+	std::wstring line;			
+	std::getline(file, line); //첫 두줄은 날리기
+	std::getline(file, line);
+	return file;
+}
+
+//데이터 매니저가 전부 들고있는게 좋아? 아니면.. 필요한 각자가 들고있는게 맞긴하지? 
+//팩토리가 처음에 저것들을 요청하고.. 오케이.. 
+//반환값이 3개중에 하나가 가능한거지? 
+std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> DataManager::CSVReader(std::wstring fileName)
+{
+	std::wifstream file = FileOften(fileName); //얘가 다들고있을거면 variation은 왜함? 이게 싱글톤이면.. 쌉가능이지
+    if (fileName == L"EnemyData") 
+        return EnemyDataRead(file);
+    else if (fileName == L"TowerData") 
+        return TowerDataRead(file);
+    else if (fileName == L"WaveData") 
+        return WaveDataRead(file);
     else {
         assert(false && "Unsupported type in CSVReader");
         return {}; // Unreachable code; returns an empty variant to suppress compiler warnings
     }
 }
-// 이걸 플레이 씬에 왔을때 시작에서 데이터를 전부 넣어 놓는다
-std::vector<EnemyData> DataManager::EnemyDataRead()
-{
-	std::wifstream file(L"..\\Data\\EnemyData.csv"); //읽기
-	if (!file.is_open()) {
-		assert(false && "파일이 존재하지 않습니다.");
-	}
-	std::wstring line;			// 한줄의 문자열	
-	int DataCount = 0;			
-	{
-		std::getline(file, line);		// 첫번째 줄 읽기
-		std::wstringstream wss(line);
-		wss >> DataCount;
-	}//윗부분은 모두 중복이라 제거할 방법 생각하기
-	std::vector<EnemyData> result;
-	for (int j = 0; j < DataCount; j++)
-	{
-		EnemyData data;
 
-		getline(file, line);			// 한줄 읽기
-		std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
-		std::wstring token;
-		{
-			getline(wss, token, L',');	// wss의 내용을 ,를 기준으로 문자열을 분리
-			//col->m_Center.x = (float)_wtoi(token.c_str()); //데이터의 순서에 맞게 순서대로 넣어주면됨
-			getline(wss, token, L',');
-			//col->m_Center.y = (float)_wtoi(token.c_str());
-			getline(wss, token, L',');
-			//col->m_Extent.x = (float)_wtoi(token.c_str());
-			getline(wss, token, L',');
-			//col->m_Extent.y = (float)_wtoi(token.c_str());
+std::vector<EnemyData> DataManager::EnemyDataRead(std::wifstream& file)
+{
+	std::vector<EnemyData> result;
+	std::wstring line;
+	while (std::getline(file, line)) {
+	
+		if (!line.empty()) {
+			EnemyData data;
+			std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
+			std::wstring token;
+			{
+				parseToken(wss, data.id);
+				parseToken(wss, data.name);
+				parseToken(wss, data.level);
+				parseToken(wss, data.Type);
+				parseToken(wss, data.ATK);
+				parseToken(wss, data.attackRange);
+				parseToken(wss, data.HP);
+				parseToken(wss, data.attackSpeed);
+				parseToken(wss, data.speed);
+				parseToken(wss, data.ability);
+			}
+			result.push_back(data);
 		}
-		result.push_back(data);  //값을 그냥 가지고 있는거보단.. 동적할당으로 가지고있는게 맞겠지? 
 	}
 	return result;
 
 }
 
-std::vector<TowerData> DataManager::TowerDataRead()
+std::vector<TowerData> DataManager::TowerDataRead(std::wifstream& file)
 {
-	return std::vector<TowerData>();
+	std::vector<TowerData> result;
+	std::wstring line;
+	while (std::getline(file, line)) {
+
+		if (!line.empty()) {
+			TowerData data;
+			std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
+			std::wstring token;
+			{
+				parseToken(wss, data.id);
+				parseToken(wss, data.name);
+				parseToken(wss, data.level);
+				parseToken(wss, data.Type);
+				parseToken(wss, data.ATK);
+				parseToken(wss, data.attackRange);
+				parseToken(wss, data.HP);
+				parseToken(wss, data.attackSpeed);
+				parseToken(wss, data.attackArea);
+				parseToken(wss, data.ability);
+			}
+			result.push_back(data);
+		}
+	}
+	return result;
 }
 
-std::vector<WaveData> DataManager::WaveDataRead()
+std::vector<WaveData> DataManager::WaveDataRead(std::wifstream& file)
 {
-	return std::vector<WaveData>();
+	std::vector<WaveData> result;
+	std::wstring line;
+	while (std::getline(file, line)) {
+
+		if (!line.empty()) {
+			WaveData data;
+			std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
+			std::wstring token;
+			{
+				parseToken(wss, data.id);
+				parseToken(wss, data.level);
+				parseToken(wss, data.levelPower);
+				parseTokens(wss, data.enemyId); //s에 주의하기.. 이거는 여러개가져오는거다
+				parseTokens(wss, data.spawnTime);
+				parseTokens(wss, data.enemyCount);
+			}
+			result.push_back(data);
+		}
+	}
+	return result;
 }

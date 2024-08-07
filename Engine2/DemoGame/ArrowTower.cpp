@@ -14,19 +14,19 @@
 #include "EnemyBase.h"
 #include "ArrowTower.h"
 
-ArrowTower::ArrowTower()
+ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 {
 	SetBoundBox(0, 0, 102, 82);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
 
-	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
-	towerData.attackRange = 300.0f;
-	towerData.attackSpeed = 1.0f;
-	towerData.HP = 200.0f;
+	//towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
+	//towerData.attackRange = 300.0f;
+	//towerData.attackSpeed = 1.0f;
+	//towerData.HP = 200.0f;
 	attackRange = new AABB;
 	attackRange->SetExtent(towerData.attackRange, towerData.attackRange);
 	//이미지가 정해지면.. 자동으로 회전의 중심좌표를 저장하기.. 
-	//BoxCollider* attack;
+	BoxCollider* attack;
 	box = CreateComponent<BoxCollider>();
 	box->aabb = attackRange;
 	box->SetCollisionType(CollisionType::Overlap);

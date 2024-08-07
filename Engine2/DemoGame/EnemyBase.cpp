@@ -1,8 +1,9 @@
 #include "../D2DEngine/pch.h"
 #include "EnemyBase.h"
 
-EnemyBase::EnemyBase()
+EnemyBase::EnemyBase(EnemyData data)
 {
+	this->enemyData = data;
 	name = "Enemy";
 }
 

@@ -3,6 +3,7 @@
 
 class IClickAble;
 class IDragAble;
+class IOnMouse;
 class UI;
 class EventSystem : public SingletonBase<EventSystem>
 {
@@ -14,12 +15,12 @@ public:
 	~EventSystem() = default;
 	std::set<UI*> Ui;
 	IDragAble* curDrag;
-	
-
+	IOnMouse* curOnMouse;
 	void Updata(float deltaTime);
-
-	void ClickEvent();
 	void DragEvent();
-	void FindTargetUI();
+	UI* FindTargetUI();
+	void DropEvent(UI* ui);
+	void ClickEvent();
+	void OnMouseEvent();
 };
 

@@ -11,7 +11,7 @@ private:
     AABB* searchBox;
 public:
     BoxCollider* searchBound;
-    Vampire();
+    Vampire(EnemyData data);
     virtual ~Vampire();
 
     virtual void Update(float deltaTime);

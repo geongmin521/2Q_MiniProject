@@ -8,7 +8,7 @@
 #include "../D2DEngine/AABB.h"
 #include "EnemyFSM.h"
 
-Vampire::Vampire()
+Vampire::Vampire(EnemyData data) : EnemyBase(data)
 {
 	// Datamanager·Î ÀÐ±â
 	// enemyData.speed;

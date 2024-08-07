@@ -1,6 +1,6 @@
 #pragma once
 #include "../D2DEngine/GameObject.h"
-#include "../D2DEngine/DataManager.h"
+#include "../D2DEngine/Data.h"
 #include "../D2DEngine/IDamageNotify.h"
 class TowerBase :
     public GameObject , IDamageNotify
@@ -12,7 +12,7 @@ public:
     
     GameObject* target = nullptr;
     std::vector<GameObject*> objs;
-    TowerBase();
+    TowerBase(TowerData data);
     virtual ~TowerBase();
     TowerData towerData;
     bool isAttack = false;

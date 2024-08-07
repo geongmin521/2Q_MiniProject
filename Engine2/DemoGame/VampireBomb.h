@@ -8,7 +8,7 @@ class VampireBomb
 private:
 	AABB* attackBox;
 public:
-	VampireBomb();
+	VampireBomb(EnemyData data);
 	virtual ~VampireBomb();
 
 	virtual void Update(float deltaTime);

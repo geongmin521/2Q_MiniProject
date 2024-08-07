@@ -9,7 +9,7 @@
 #include "../D2DEngine/BoxCollider.h"
 #include "EnemyFSM.h"
 
-VampireBomb::VampireBomb()
+VampireBomb::VampireBomb(EnemyData data) :EnemyBase(data)
 {
 	SetBoundBox(0, 0, 80, 180);
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));

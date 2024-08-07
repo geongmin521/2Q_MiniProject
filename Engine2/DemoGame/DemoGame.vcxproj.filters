@@ -111,6 +111,10 @@
     <ClInclude Include="VampireBomb.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -188,5 +192,9 @@
     <ClCompile Include="VampireBomb.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
 </Project>

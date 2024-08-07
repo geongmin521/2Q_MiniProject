@@ -167,8 +167,19 @@
     <ClInclude Include="Pools.h">
       <Filter>소스 파일\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="D2DFont.h" />
     <ClInclude Include="IDamageNotify.h">
+      <Filter>소스 파일\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>소스 파일\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DFont.h">
+      <Filter>소스 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IDropAble.h">
+      <Filter>소스 파일\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IOnMouse.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
   </ItemGroup>
@@ -272,8 +283,11 @@
     <ClCompile Include="Pools.cpp">
       <Filter>소스 파일\Factory</Filter>
     </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>소스 파일\Helper</Filter>
+    </ClCompile>
     <ClCompile Include="D2DFont.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@ private:
     float attacktime = 1.0f; // 임시로 어택타임 지금실험용
     std::vector<Arrow*> arrows; //투사체 기본인대 그냥 해당타워에만 넣기? attack함수를 따로 만들어줘서 각 타워에서 다르게 동작하게끔?
 public:
-    ArrowTower();
+    ArrowTower(TowerData data);
     virtual ~ArrowTower();
 
     BoxCollider* box;

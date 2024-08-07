@@ -2,8 +2,9 @@
 #include "TowerBase.h"
 
 
-TowerBase::TowerBase()
+TowerBase::TowerBase(TowerData data)
 {
+	this->towerData = data;
 }
 
 TowerBase::~TowerBase()
