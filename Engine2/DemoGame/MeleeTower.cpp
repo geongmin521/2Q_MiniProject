@@ -77,7 +77,7 @@ void MeleeTower::Attack(float deltaTime)
 	for (auto& enemy : enemys)
 	{
 		                          //계산기 추가필요
-		enemy->Hit(40);
+		enemy->Hit(0);
 		std::cout << enemy->curHP << std::endl;
 	}
 	

@@ -12,14 +12,14 @@ Vampire::Vampire()
 {
 	// Datamanager로 읽기
 	// enemyData.speed;
-	enemyData.speed = 400.0f;
-	enemyData.attackRange = 100.f;
-	enemyData.attackSpeed = 1.0f;
+	enemyData.speed = 100.f;
+	enemyData.attackRange = 50.f;
+	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 50.f;
 	curHP = enemyData.HP;
 	
 	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)
-	SetBoundBox(0, 0, 80, 180);
+	SetBoundBox(0, 0, 80, 160);
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
 
@@ -46,24 +46,7 @@ void Vampire::Update(float deltaTime)
 {
 	
 	__super::Update(deltaTime);
-	if (target != nullptr)
-	{
-		float posY = target->GetWorldLocation().y;
-		float curPosY = GetWorldLocation().y;
-
-		if (posY != curPosY)
-		{
-			GetComponent<Movement>()->SetVelocity({ -enemyData.speed , posY - curPosY });
-		}
-		else
-		{
-			GetComponent<Movement>()->SetVelocity({ -enemyData.speed , 0 });
-		}
-	}	
-	else
-	{
-		GetComponent<Movement>()->SetVelocity({ -enemyData.speed , 0 });
-	}
+	
 
 	//attackBox->SetCenter(boundBox->Center.x - 100, boundBox->Center.y);
 	
