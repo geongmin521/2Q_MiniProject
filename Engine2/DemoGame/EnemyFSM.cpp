@@ -30,6 +30,7 @@ void EnemyFSM::EnterState()
 
 void EnemyFSM::Update(float deltaTime)
 {
+
 }
 
 void EnemyFSM::ExitState()
@@ -46,12 +47,38 @@ void VampireIdle::Update(float deltaTime)
 {
 	// ¸öÅëÅ©±â 165.f 
 
-	if(enemy->target != nullptr && enemy->isAttack == false && 
-		std::abs(enemy->target->GetWorldLocation().x   - enemy->GetWorldLocation().x) <= dynamic_cast<TowerBase*>(enemy->target)->towerData.attackRange / 4)
+	if (enemy->target != nullptr)
+	{
+		MathHelper::Vector2F posT = enemy->target->GetWorldLocation();
+		MathHelper::Vector2F curPos = enemy->GetWorldLocation();
+		std::cout << curPos.x - posT.x << std::endl;
+		if (std::abs(curPos.x - posT.x) < 165.f)
+		{
+			enemy->GetComponent<Movement>()->SetVelocity({ 0 , 0});
+		}
+		else
+		{
+			enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed, posT.y - curPos.y });
+		}
+
+	}
+	else
+	{
+		enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed , 0 });
+	}
+	if (enemy->target != nullptr && enemy->isAttack == false &&
+		std::abs(enemy->target->GetWorldLocation().x - enemy->GetWorldLocation().x) <= dynamic_cast<TowerBase*>(enemy->target)->towerData.attackRange / 4 + (enemy->enemyData.attackRange / 2))
 		// csv¿¡ ¸öÅë Å©±â ³ÖÀ»°Í
 	{
 		owner->SetNextState("Attack");
 	}
+
+	if (enemy->target != nullptr &&
+		enemy->target->GetWorldLocation().y != enemy->GetWorldLocation().y)
+	{
+
+	}
+
 
 	if (enemy->isAttack == true)
 	{
@@ -63,7 +90,7 @@ void VampireIdle::Update(float deltaTime)
 			// °íÄ¥ °Í
 		}
 	}
-	
+
 
 }
 
@@ -114,5 +141,5 @@ void VampireAttack::Update(float deltaTime)
 
 void VampireAttack::ExitState()
 {
-	
+
 }
