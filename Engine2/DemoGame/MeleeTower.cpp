@@ -110,6 +110,5 @@ void MeleeTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent
 
 void MeleeTower::Hit(float damage)
 {
-	
 	curHP -= damage; 
 }
