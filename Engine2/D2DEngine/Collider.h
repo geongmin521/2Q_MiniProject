@@ -41,9 +41,9 @@ protected:
 	CollisionLayer layer;
 	bool isBlock[2] = { false,false }; //0 x축 1 y축;
 	bool onStay = false; //겹침 중인 콜라이더에 겹침중인지를 계속 호출할지말지.. 
+public:
 	std::set<Collider*> collideStateCurr;    // 현재 충돌 상태
 	std::set<Collider*> collideStatePrev;	 // 이전 충돌 상태
-public:
 	std::string name;
 	CollisionType GetCollisionType() { return collisionType; }
 	ColliderType GetColliderType() { return colliderType; }

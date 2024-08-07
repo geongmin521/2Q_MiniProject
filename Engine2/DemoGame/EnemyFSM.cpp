@@ -8,6 +8,8 @@
 #include "../D2DEngine/Transform.h"
 #include "../D2DEngine/InputSystem.h"
 #include "EnemyBase.h"
+#include "../D2DEngine/AABB.h"
+#include "TowerBase.h"
 
 EnemyFSM::EnemyFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
@@ -42,23 +44,26 @@ void VampireIdle::EnterState()
 
 void VampireIdle::Update(float deltaTime)
 {
-	if (enemy->target == nullptr && !enemy->objs.empty())
-	{
-		enemy->ExploreTarget(enemy, enemy->objs);
-	}
+	// ¸öÅëÅ©±â 165.f 
 
-	if(enemy->target != nullptr && enemy->isAttack == false)
+	if(enemy->target != nullptr && enemy->isAttack == false && 
+		std::abs(enemy->target->GetWorldLocation().x   - enemy->GetWorldLocation().x) < dynamic_cast<TowerBase*>(enemy->target)->towerData.attackRange / 4)
+		// csv¿¡ ¸öÅë Å©±â ³ÖÀ»°Í
 	{
 		owner->SetNextState("Attack");
 	}
 
-	enemy->enemyData.attackSpeed -= deltaTime;
-	if (enemy->enemyData.attackSpeed < 0)
+	if (enemy->isAttack == true)
 	{
-		enemy->isAttack = false;
-		enemy->enemyData.attackSpeed = 1.0f;
-		// °íÄ¥ °Í
+		enemy->enemyData.attackSpeed -= deltaTime;
+		if (enemy->enemyData.attackSpeed < 0)
+		{
+			enemy->isAttack = false;
+			enemy->enemyData.attackSpeed = 1.0f;
+			// °íÄ¥ °Í
+		}
 	}
+	
 
 }
 
@@ -87,6 +92,7 @@ void VampireShared::ExitState()
 
 void VampireAttack::EnterState()
 {
+	enemy->enemyData.speed = 0;
 	ani->SetAnimation(0, true);
 	ani->isLoop = false;
 	//ani->Reverse();

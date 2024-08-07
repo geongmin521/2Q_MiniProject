@@ -16,26 +16,18 @@
 
 ArrowTower::ArrowTower()
 {
-	SetBoundBox(0, 0, 102, 82);
-	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
-
-	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
+	//towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 300.0f;
 	towerData.attackSpeed = 1.0f;
 	towerData.HP = 200.0f;
-	attackRange = new AABB;
-	attackRange->SetExtent(towerData.attackRange, towerData.attackRange);
+	SetBoundBox(0, 0, towerData.attackRange, towerData.attackRange);
+	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
+
+	
 	//이미지가 정해지면.. 자동으로 회전의 중심좌표를 저장하기.. 
 	//BoxCollider* attack;
-	box = CreateComponent<BoxCollider>();
-	box->aabb = attackRange;
-	box->SetCollisionType(CollisionType::Overlap);
-	box->SetCollisionLayer(CollisionLayer::Tower);
-	box->SetNotify(this);
-	box->PushCollider();
-	box->name = "attackbox";
 	//AddComponent(new BoxCollider(attackRange,CollisionType::Overlap, this, CollisionLayer::Tower));
-	AddComponent(new BoxCollider(boundBox ,CollisionType::Block, this, CollisionLayer::Tower));
+	AddComponent(new BoxCollider(boundBox ,CollisionType::Overlap, this, CollisionLayer::Tower));
 	//GetComponent<CircleCollider>()->SetOnStay(true);
 	//박스는 이전에 줄어들기 전의 위치로 회전하는데 왜그러지>? 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
