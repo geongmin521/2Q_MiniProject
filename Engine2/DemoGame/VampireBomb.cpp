@@ -24,7 +24,6 @@ VampireBomb::VampireBomb()
 	fsm->SetNextState("Idle");
 
 	renderOrder = 100;
-	transform->SetRelativeScale({ 3, 3 });
 	enemyData.speed = 400.0f;
 	transform->SetRelativeLocation({ 2000, 100 });
 

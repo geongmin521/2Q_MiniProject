@@ -19,7 +19,7 @@ ArrowTower::ArrowTower()
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 500.0f;
 	towerData.attackSpeed = 2.0f;
-	towerData.HP = 200.0f;
+	curHP = 200.0f;
 
 	SetBoundBox(0, 0, towerData.attackRange, towerData.attackRange);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
@@ -99,7 +99,3 @@ void ArrowTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent
 	
 }
 
-void ArrowTower::Hit(float damage)
-{
-	
-}

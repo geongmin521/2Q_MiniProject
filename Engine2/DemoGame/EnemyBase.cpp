@@ -13,6 +13,10 @@ EnemyBase::~EnemyBase()
 void EnemyBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
+	if (target != nullptr && target->isActive == false)
+	{
+		target = nullptr;
+	}
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
@@ -24,9 +28,9 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
 void EnemyBase::Find(Collider* othercomponent)
 {
 	std::vector<GameObject*> towers;
-	for (auto& col : othercomponent->collideStatePrev)
+	for (auto& col : othercomponent->collideStatePrev )
 	{
-		if (col->owner->name == "Tower")
+		if (col->owner->name == "Tower" && col->owner->isActive ==true)
 		{
 			towers.push_back(col->owner);
 		}
@@ -59,4 +63,9 @@ void EnemyBase::Find(Collider* othercomponent)
 	{
 		target = curTarget;
 	}	
+}
+
+void EnemyBase::Attack(float deltaTime)
+{
+
 }

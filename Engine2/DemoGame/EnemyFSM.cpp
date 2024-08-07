@@ -117,6 +117,7 @@ void VampireAttack::EnterState()
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	ani->SetAnimation(0, true);
 	ani->isLoop = false;
+
 	//ani->Reverse();
 }
 
@@ -126,6 +127,8 @@ void VampireAttack::Update(float deltaTime)
 	{
 		enemy->isAttack = true;
 		//enemy->target = nullptr;
+		enemy->Attack(deltaTime);
+	
 		owner->SetNextState("Idle");
 	}
 }

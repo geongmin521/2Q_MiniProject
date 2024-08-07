@@ -7,6 +7,7 @@
 #include "../D2DEngine/D2DRenderer.h"
 #include "../D2DEngine/AABB.h"
 #include "EnemyFSM.h"
+#include "TowerBase.h"
 
 Vampire::Vampire()
 {
@@ -19,7 +20,7 @@ Vampire::Vampire()
 	curHP = enemyData.HP;
 	
 	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)
-	SetBoundBox(0, 0, 80, 160);
+	SetBoundBox(0, 0, 150, 180); //기본 적 이미지 사이즈
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
 
@@ -32,7 +33,7 @@ Vampire::Vampire()
 	fsm->SetNextState("Idle");
 
 	AddComponent(new Movement(transform));
-	transform->SetRelativeScale ({ 3, 3 });
+
 	transform->SetRelativeLocation( { 2000, 100 });
 
 	renderOrder = 100;
@@ -57,6 +58,16 @@ void Vampire::Update(float deltaTime)
 void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+}
+
+void Vampire::Attack(float deltaTime)
+{
+	TowerBase* tower = dynamic_cast<TowerBase*>(target);
+	//std::cout << tower->curHP;
+	if (target != nullptr)
+	{
+		//tower->Hit(50);
+	}
 }
 
 void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)

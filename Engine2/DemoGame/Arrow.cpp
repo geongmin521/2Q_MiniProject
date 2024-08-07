@@ -42,6 +42,7 @@ void Arrow::Inits(GameObject* target, MathHelper::Vector2F location)
 void Arrow::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
+	
 	if (target->isActive == true)
 	{
 		MathHelper::Vector2F dir = MathHelper::Vector2F(target->GetWorldLocation()) - MathHelper::Vector2F(GetWorldLocation());

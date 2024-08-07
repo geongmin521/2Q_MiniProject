@@ -16,6 +16,7 @@ public:
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
     virtual void Find(Collider* othercomponent);
     virtual void Hit(float damage) { curHP -= damage; }
+    virtual void Attack(float deltaTime);
 public:
     // 일단 퍼블릭
     float curHP;

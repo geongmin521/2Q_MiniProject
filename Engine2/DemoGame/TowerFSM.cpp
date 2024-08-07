@@ -41,7 +41,7 @@ void TowerShared::EnterState()
 
 void TowerShared::Update(float DeltaTime)
 {
-	if(tower->towerData.HP <= 0)
+	if(tower->curHP <= 0)
 	{
 		owner->SetNextState("Death");
 	}
@@ -106,10 +106,11 @@ void TowerDeath::EnterState()
 
 void TowerDeath::Update(float DeltaTime)
 {
-	if (ani->IsEnd())
-	{
-		tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
-	}
+	//if (ani->IsEnd())
+	//{
+	//	tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
+	//}
+	tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
 }
 
 void TowerDeath::ExitState()

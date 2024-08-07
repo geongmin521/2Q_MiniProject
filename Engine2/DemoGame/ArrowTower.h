@@ -17,7 +17,6 @@ public:
     virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent) override;
-    virtual void Hit(float damage)override;
     
 };
 

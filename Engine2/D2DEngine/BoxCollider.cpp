@@ -9,7 +9,7 @@
 #include "D2DRenderer.h"
 
 
-BoxCollider::BoxCollider(AABB* aabb, CollisionType type, IColliderNotify* notify, CollisionLayer layer = CollisionLayer::Default)
+BoxCollider::BoxCollider(AABB* aabb, CollisionType type, IColliderNotify* notify = nullptr, CollisionLayer layer = CollisionLayer::Default)
     : aabb(aabb)
 {
     colliderType = ColliderType::Box;

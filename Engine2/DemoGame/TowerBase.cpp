@@ -35,7 +35,13 @@ void TowerBase::FindTarget(Collider* col)
 	for (auto& col : col->collideStatePrev)
 	{
 		if (col->owner->name == "Enemy" && col->owner->isActive == true)
-			enemys.push_back(col->owner);
+		{
+			if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
+				std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
+			{
+				enemys.push_back(col->owner);
+			}
+		}
 	}
 	float min = 1000;
 	float curMin;
@@ -47,7 +53,7 @@ void TowerBase::FindTarget(Collider* col)
 		for (auto& enemy : enemys)
 		{
 			//std::cout << " 적 있음";
-			xDistance = (GetWorldLocation().x - enemy->GetWorldLocation().x);
+			xDistance = std::abs(GetWorldLocation().x - enemy->GetWorldLocation().x);
 			//if (xDistance > 0) continue; //일단 타워뒤로가면 공격못하게
 			yDistance = std::abs(GetWorldLocation().y - enemy->GetWorldLocation().y);
 			curMin = std::min(xDistance, yDistance);
@@ -74,7 +80,13 @@ void TowerBase::FindTargets(Collider* col)
 	for (auto& col : col->collideStatePrev)
 	{
 		if (col->owner->name == "Enemy" && col->owner->isActive == true)
-			enemys.push_back(col->owner);
+		{
+			if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
+				std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
+			{
+				enemys.push_back(col->owner);
+			}
+		}
 	}
 	float min = 1000;
 	float curMin;
@@ -86,7 +98,7 @@ void TowerBase::FindTargets(Collider* col)
 		for (auto& enemy : enemys)
 		{
 			//std::cout << " 적 있음";
-			xDistance = (GetWorldLocation().x - enemy->GetWorldLocation().x);
+			xDistance = std::abs(GetWorldLocation().x - enemy->GetWorldLocation().x);
 			//if (xDistance > 0) continue; //일단 타워뒤로가면 공격못하게
 			yDistance = std::abs(GetWorldLocation().y - enemy->GetWorldLocation().y);
 			curMin = std::min(xDistance, yDistance);
