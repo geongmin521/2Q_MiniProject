@@ -171,6 +171,9 @@
       <Filter>소스 파일\Factory</Filter>
     </ClInclude>
     <ClInclude Include="D2DFont.h" />
+    <ClInclude Include="IDamageNotify.h">
+      <Filter>소스 파일\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">

@@ -1,15 +1,16 @@
 #pragma once
 #include "EnemyBase.h"
 #include "../D2DEngine/IColliderNotify.h"
-#include "../D2DEngine/Animation.h"
+#include "../D2DEngine/BoxCollider.h"
 
 
 class Vampire :
     public EnemyBase , public IColliderNotify
 {
 private:
-
+    AABB* searchBox;
 public:
+    BoxCollider* searchBound;
     Vampire();
     virtual ~Vampire();
 

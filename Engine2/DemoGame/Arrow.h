@@ -5,11 +5,12 @@
 class Arrow : public GameObject, IColliderNotify
 {
 private:
-    float speed = 50.0f;
+    float speed = 1000.0f;
 public:
     Arrow();
     virtual ~Arrow();
-
+    
+    void Init(MathHelper::Vector2F velocity, MathHelper::Vector2F location); //방향, 위치?
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
 
