@@ -19,7 +19,8 @@ ArrowTower::ArrowTower()
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 500.0f;
 	towerData.attackSpeed = 2.0f;
-	curHP = 20000.0f;
+	towerData.HP = 20000.0f;
+	curHP = towerData.HP;
 
 	SetBoundBox(0, 0, towerData.attackRange, towerData.attackRange);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
@@ -34,7 +35,7 @@ ArrowTower::ArrowTower()
 	fsm->SetNextState("Idle");                 
 	
 	renderOrder = 100;
-	transform->SetRelativeLocation({200,300});
+	transform->SetRelativeLocation({400,300});
 
 }
 
@@ -53,7 +54,7 @@ void ArrowTower::Update(float deltaTime)
 	//Getwroldlocation  거리비교
 	//	>> 제일작은걸 타겟으로
 	//	얘가 죽으면 target null 아니면 타겟;
-	
+	//transform->AddRelativeRotation(1);
 	FindTarget(GetComponent<BoxCollider>());
 	
 	

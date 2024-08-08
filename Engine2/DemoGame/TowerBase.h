@@ -19,7 +19,8 @@ public:
     bool isAttack = false;
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
-    virtual void FindTarget(Collider* col, bool isTargets = false); 
+    virtual void FindTarget(Collider* col, bool isTargets = false, bool isHeal =false); 
     virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
-    virtual void Hit(float damage) { curHP -= damage; }
+    virtual void Hit(float damage) override;
+    virtual void Heal(float heal)override; //최대체력넘기면 최대체력되게끔
 };

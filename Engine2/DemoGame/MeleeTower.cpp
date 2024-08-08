@@ -17,8 +17,8 @@ MeleeTower::MeleeTower()
 	towerData.name = "MeleeTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 100.0f;
 	towerData.attackSpeed = 1.0f;
-	curHP = 20000.0f;
-
+	towerData.HP = 20000.0f;
+	curHP = towerData.HP;
 	SetBoundBox(0, 0, 500, 500); // 
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"MeleeTower")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
@@ -32,7 +32,7 @@ MeleeTower::MeleeTower()
 	fsm->SetNextState("Idle");
 
 	renderOrder = 100;
-	transform->SetRelativeLocation({ 200,100 });
+	transform->SetRelativeLocation({ 400,100 });
 
 }
 

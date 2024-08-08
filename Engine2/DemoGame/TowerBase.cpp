@@ -32,23 +32,42 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 
 
-void TowerBase::FindTarget(Collider* col, bool isTargets)
+void TowerBase::FindTarget(Collider* col, bool isTargets,bool isHeal)
 {
 	// 타워 뒤로 넘어간적은 타겟에 안잡히게 수정필요
 
 
 	std::vector<GameObject*> enemys;
-	for (auto& col : col->collideStatePrev)
+
+	if(isHeal == false)
 	{
-		if (col->owner->name == "Enemy" && col->owner->isActive == true)
+		for (auto& col : col->collideStatePrev)
 		{
-			if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
-				std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
+			if (col->owner->name == "Enemy" && col->owner->isActive == true)
 			{
-				enemys.push_back(col->owner);
+				if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
+					std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
+				{
+					enemys.push_back(col->owner);
+				}
 			}
 		}
 	}
+	else
+	{
+		for (auto& col : col->collideStatePrev)
+		{
+			if (col->owner->isActive == true)
+			{
+				if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
+					std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
+				{
+					enemys.push_back(col->owner);
+				}
+			}
+		}
+	}
+	
 	float min = 1000;
 	float curMin;
 	float xDistance;
@@ -83,6 +102,21 @@ void TowerBase::FindTarget(Collider* col, bool isTargets)
 
 void TowerBase::Attack(float deltaTime)
 {
+}
+
+void TowerBase::Hit(float damage)
+{
+	curHP -= damage;
+}
+
+void TowerBase::Heal(float heal)
+{
+	float healHP = curHP;
+	healHP += heal;
+	if (healHP >= towerData.HP)
+		curHP = towerData.HP;
+	else
+		curHP += heal;
 }
 
 
