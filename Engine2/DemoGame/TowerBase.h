@@ -23,4 +23,6 @@ public:
     virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
     virtual void Hit(float damage) override;
     virtual void Heal(float heal)override; //최대체력넘기면 최대체력되게끔
+
+    std::vector<ArtifactData> ownedArtifact;
 };

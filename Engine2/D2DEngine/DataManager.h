@@ -9,6 +9,7 @@ private:
     std::vector<EnemyData> EnemyDataRead(std::wifstream& file);
     std::vector<TowerData> TowerDataRead(std::wifstream& file);
     std::vector<WaveData> WaveDataRead(std::wifstream& file);
+    std::vector<ArtifactData> ArtifactDataRead(std::wifstream& file);
 public:
     DataManager();
     ~DataManager();
