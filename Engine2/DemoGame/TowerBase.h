@@ -12,7 +12,7 @@ private:
 public:
     float curHP; //타워각자가 가질 현재 체력
     GameObject* target = nullptr;
-    std::vector<GameObject*> objs;
+    std::vector<GameObject*> targets;
     TowerBase(TowerData data);
     virtual ~TowerBase();
     TowerData towerData;

@@ -64,12 +64,12 @@ void Animation::Update(float fTimeElapsed)
 	if (mirror) //x 축 스케일은 좌우 반전 , Translation 은 출력할 이미지의 원점 정보
 	{
 		imageTransform = D2D1::Matrix3x2F::Scale(-1.0f, 1.0f, D2D1::Point2F(Frame.Center.x, Frame.Center.y)) *
-			D2D1::Matrix3x2F::Translation(0, 0);
+			D2D1::Matrix3x2F::Translation(-Frame.Center.x, -Frame.Center.y);
 	}
 	else
 	{
 		imageTransform = D2D1::Matrix3x2F::Scale(1.0f, 1.0f, D2D1::Point2F(Frame.Center.x, Frame.Center.y)) *
-			D2D1::Matrix3x2F::Translation(0, 0);
+			D2D1::Matrix3x2F::Translation(-Frame.Center.x, -Frame.Center.y);
 	}
 	srcRect = Frame.Source;
 	DstRect = { 0,0,srcRect.right - srcRect.left,srcRect.bottom - srcRect.top };
