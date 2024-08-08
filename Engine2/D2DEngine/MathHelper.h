@@ -56,11 +56,13 @@ namespace MathHelper
 			return Vector2F(this->x - vector.x, this->y - vector.y);
 		}
 
+
 		Vector2F operator*(float scalar) const
 		{
 			return Vector2F(this->x * scalar, this->y * scalar);
 		}
 
+		
 		Vector2F operator/(float scalar) const
 		{
 			return Vector2F(this->x / scalar, this->y / scalar);
@@ -94,7 +96,7 @@ namespace MathHelper
 			this->y /= scalar;
 			return *this;
 		}
-
+		
 		bool operator==(const Vector2F& vector) const
 		{
 			return (this->x == vector.x && this->y == vector.y);
@@ -262,4 +264,5 @@ namespace MathHelper
 			value = low;
 		}			
 	}
+
 }

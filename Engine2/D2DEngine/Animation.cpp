@@ -99,24 +99,24 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget)
 	__super::Render(pRenderTarget);
 
 
-	if (Testbool == true)
-	{
+//	if (Testbool == true)
+//	{
 		pRenderTarget->DrawBitmap(bitmap, DstRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
-	}
-	else
-	{
-		// Test 몬스터 피격효과 
-		D2D1_MATRIX_5X4_F redEmphasis =
-		{
-		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
-		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
-		};
-
-		D2DRenderer::GetInstance()->CreateColorMatrixEffect(bitmap, redEmphasis);
-		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DRenderer::GetInstance()->ApplyColorEffect, { 0,0 }, srcRect);
-	}
+//	}
+//	else
+//	{
+//		// Test 몬스터 피격효과 
+//		D2D1_MATRIX_5X4_F redEmphasis =
+//		{
+//		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
+//		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+//		};
+//
+//		D2DRenderer::GetInstance()->CreateColorMatrixEffect(bitmap, redEmphasis);
+//		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DRenderer::GetInstance()->ApplyColorEffect, { 0,0 }, srcRect);
+//	}
 
 	pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }

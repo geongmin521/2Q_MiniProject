@@ -8,8 +8,6 @@
 #include "../D2DEngine/Movement.h"
 #include "../D2DEngine/Music.h"
 #include "EnemyBase.h"
-
-
 #include "Arrow.h"
 
 Arrow::Arrow()
@@ -17,8 +15,6 @@ Arrow::Arrow()
 	SetBoundBox(0, 0, 40, 36);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Arrow"));
 	AddComponent(new Movement(transform));
-	//AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Bullet));
-	
 	renderOrder = 100;
 }
 
@@ -26,47 +22,82 @@ Arrow::~Arrow()
 {
 }
 
-void Arrow::Init(MathHelper::Vector2F velocity, MathHelper::Vector2F location)
-{
-	velocity = velocity * speed;
-	GetComponent<Movement>()->SetVelocity(velocity);
-	transform->SetRelativeLocation({ location.x + 50.0f,location.y - 20.f });
-}
 
-void Arrow::Inits(GameObject* target, MathHelper::Vector2F location)
+
+void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 {
 	this->target = target;
 	transform->SetRelativeLocation({ location.x + 50.0f,location.y - 20.f });
+
+	position[2] = target->GetWorldLocation();
+	position[0] = transform->GetRelativeLocation();
+	MathHelper::Vector2F mid = (position[2] + position[0]) / 2;
+	if (position[2].x - position[0].x > 800.f)
+	{
+		sec = 3.0f;
+		height = 300.f;
+	}
+	else if (position[2].x - position[0].x > 200.f)
+	{
+		sec = 1.0f;
+		height = 80.f;
+	}
+	else
+	{
+		sec = 0.15f;
+		height = 5.f;
+	}
+	mid.y += -height;
+	position[1] = mid;
 }
 
 void Arrow::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	
+
+
 	if (target->isActive == true)
 	{
-		MathHelper::Vector2F dir = MathHelper::Vector2F(target->GetWorldLocation()) - MathHelper::Vector2F(GetWorldLocation());
-		dir.Normalize();
-		GetComponent<Movement>()->SetVelocity(dir * speed);
+
+		position[2] = target->GetWorldLocation();
+		ellipsedTime += deltaTime;
+		t = ellipsedTime / sec;
+		if (t >= 1.0f)
+		{
+			t = 1;
+		}
+		transform->SetRelativeLocation(QuadraticBezierPoint(t, position));
 	}
 	else
 	{
 		isActive = false;
 	}
 
-	if (std::abs(target->GetWorldLocation().x - GetWorldLocation().x) <= 1.0f ||    //일단 타겟크기를 몰라서 1.0으로헀는대 타겟의 몸통 크기? 로하면 될듯함 isActive가 꺼질때 공격판정넣기?
+	if (std::abs(target->GetWorldLocation().x - GetWorldLocation().x) <= 1.0f ||
 		std::abs(target->GetWorldLocation().y - GetWorldLocation().y) <= 1.0f)
 	{
 		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);
 		enemy->Hit(60);
 		isActive = false;
-		
 	}
-	
+
 }
 
 void Arrow::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+}
+
+MathHelper::Vector2F Arrow::QuadraticBezierPoint(float t, MathHelper::Vector2F position[])
+{
+	MathHelper::Vector2F p0 = LinearInterpolate(t, position[0], position[1]);
+	MathHelper::Vector2F p1 = LinearInterpolate(t, position[1], position[2]);
+
+	return MathHelper::Vector2F((1 - t) * p0.x, (1 - t) * p0.y) + MathHelper::Vector2F(t * p1.x, t * p1.y);
+}
+
+MathHelper::Vector2F Arrow::LinearInterpolate(float t, MathHelper::Vector2F p0, MathHelper::Vector2F p1)
+{
+	return MathHelper::Vector2F((1 - t) * p0.x, (1 - t) * p0.y) + MathHelper::Vector2F(t * p1.x, t * p1.y);
 }
 

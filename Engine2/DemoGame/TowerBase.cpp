@@ -5,7 +5,8 @@
 
 TowerBase::TowerBase(TowerData data)
 {
-	this->towerData = data;
+	name = "Tower";
+	this->towerData = data;	
 }
 
 TowerBase::~TowerBase()

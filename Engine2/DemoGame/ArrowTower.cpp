@@ -16,8 +16,10 @@
 
 ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 {
+
+
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
-	towerData.attackRange = 500.0f;
+	towerData.attackRange = 5000.0f;
 	towerData.attackSpeed = 2.0f;
 	towerData.HP = 20000.0f;
 	curHP = towerData.HP;
@@ -53,7 +55,7 @@ void ArrowTower::Update(float deltaTime)
 	//Getwroldlocation  거리비교
 	//	>> 제일작은걸 타겟으로
 	//	얘가 죽으면 target null 아니면 타겟;
-	transform->AddRelativeRotation(1);
+	//transform->AddRelativeRotation(1);
 	FindTarget(GetComponent<BoxCollider>());
 	
 	
@@ -69,7 +71,7 @@ void ArrowTower::Attack(float deltaTime)
 { 
 	Arrow* arrow = new Arrow;
 	arrow->owner = this->owner;
-	arrow->Inits(target, GetWorldLocation());
+	arrow->Init(target, GetWorldLocation());
 	owner->m_GameObjects.push_back(arrow);    //투사체는 타겟 hit처리를 투사체에서
 }
 
