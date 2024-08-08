@@ -4,9 +4,6 @@
 #include <codecvt>
 DataManager::DataManager()
 {
-	CSVReader(L"EnemyData");
-	CSVReader(L"TowerData");
-	CSVReader(L"WaveData");
 }
 
 DataManager::~DataManager()

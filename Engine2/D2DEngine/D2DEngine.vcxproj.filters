@@ -45,9 +45,6 @@
     <Filter Include="소스 파일\UI">
       <UniqueIdentifier>{108591be-143d-47bb-bd5d-ce6d9249444c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Factory">
-      <UniqueIdentifier>{2f3c0325-5226-4e5d-bf8a-4edba4db259d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movement.h">
@@ -164,9 +161,6 @@
     <ClInclude Include="Data.h">
       <Filter>소스 파일\Data</Filter>
     </ClInclude>
-    <ClInclude Include="Pools.h">
-      <Filter>소스 파일\Factory</Filter>
-    </ClInclude>
     <ClInclude Include="IDamageNotify.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
@@ -282,9 +276,6 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>소스 파일\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Pools.cpp">
-      <Filter>소스 파일\Factory</Filter>
     </ClCompile>
     <ClCompile Include="Utility.cpp">
       <Filter>소스 파일\Helper</Filter>

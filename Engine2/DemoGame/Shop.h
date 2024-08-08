@@ -24,7 +24,7 @@ public:
 	virtual ~Shop();
 	void Reroll();
 	void Spawn(); //여기서 조합식 처리하는것도 만들어야하고.. 
-	void MakeText(std::wstring name,int count);
+	void MakeText(int order,int count); //석궁,성수,말뚝,십자가 // {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" };
 	virtual void Update(float deltaTime) override;
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override;
 	void SetOtherUI(std::vector<Container*> container, Combination* combination) { this->Containers = container; this->combination = combination;}

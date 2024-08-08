@@ -11,6 +11,7 @@
 #include "ArrowTower.h"
 #include "Button.h"
 #include "MoveIcon.h"
+#include "Vampire.h"
 
 
 Factory::Factory()
@@ -56,6 +57,15 @@ MoveIcon* Factory::CreateMoveIcon(std::wstring filePath, MathHelper::Vector2F po
     icon->transform->SetRelativeLocation(pos); 
     InsertWorld(icon);
     return icon;
+}
+
+GameObject* Factory::CreateGameObjectFromId(int id)
+{
+    if (id == 100)
+        return CreateEnemy<Vampire>(id);
+
+    if (id == 0)
+        return CreateTower<ArrowTower>(id);
 }
 
 //어떤 UI든 위치와 이동 조정등이 달라질수있고.. 

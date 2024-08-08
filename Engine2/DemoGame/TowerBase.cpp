@@ -1,21 +1,25 @@
 #include "../D2DEngine/pch.h"
 #include "TowerBase.h"
 #include "../D2DEngine/D2DRenderer.h"
+#include "../D2DEngine/InputSystem.h"
+#include "Transform.h"
+#include "Container.h"
+#include "EventSystem.h"
 
 
 TowerBase::TowerBase(TowerData data)
 {
 	this->towerData = data;
-}
-
-TowerBase::~TowerBase()
-{
+	EventSystem::GetInstance().get()->Ui.insert(this);
 }
 
 void TowerBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-
+	if (isMoving)
+	{
+		transform->SetRelativeLocation(inputSystem->GetMouseState().GetMousePos());
+	}
 	if (target != nullptr && target->isActive == false)  
 	{
 		target = nullptr;
@@ -121,3 +125,20 @@ void TowerBase::Heal(float heal)
 }
 
 
+void TowerBase::BeginDrag(const MouseState& state) //이거는 마우스로 하는거니까 마우스 정보가 계속 들어오면좋을거같은데? 
+{
+	std::cout << "BeginDrag";
+	transform->SetRelativeLocation(state.GetMousePos());
+	if (container)
+		container->Clear();//담겨있는공간에 비워주기.. 서로 상호참조하고있는게 맞을까? 
+}
+
+void TowerBase::StayDrag(const MouseState& state)
+{
+	transform->SetRelativeLocation(state.GetMousePos());
+}
+
+void TowerBase::EndDrag(const MouseState& state)
+{
+	std::cout << "EndDrag";
+}

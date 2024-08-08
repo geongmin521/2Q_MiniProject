@@ -1,7 +1,7 @@
-#include "../D2DEngine/pch.h"
-#include "../D2DEngine/D2DRenderer.h"
-#include "../D2DEngine/Pools.h"
-#include "../D2DEngine/Transform.h"
+#include "pch.h"
+#include "D2DRenderer.h"
+#include "Pools.h"
+#include "Transform.h"
 #include "Factory.h"
 #include "Shop.h"
 #include "Image.h"
@@ -10,14 +10,14 @@
 
 Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까? 
 {
-	ImagePath = { L"arrow.png",L"sungsu.png",L"wood.png",L"heal.png",L"vampire.png" };//태그를 만들게 되면 이걸쓸듯? 아몰라.. 바뀔수도있는거지.. 
+	ImagePath = { L"Crossbow.png",L"Water.png",L"Pile.png",L"HolyCross.png",L"vampire.png" };//태그를 만들게 되면 이걸쓸듯? 아몰라.. 바뀔수도있는거지.. 
 	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" }; //걍 enum으로 만들까? 
 	//enum int로 변환해서 3곱하고 성급을 -1 빼서 더해주면 끝아닌가? 
 	renderOrder = 80;
 	Fac->CreateImage(L"BigBack.png", WinHalfSizeXY, {2,2}, &subUi);
 	float LeftPadding = 700; 
 	for (int i = 0; i < 5; i++)//아이콘
-		Icons.push_back(Fac->CreateImage(L"arrow.png", { LeftPadding + i * 130 ,WinHalfSizeY - 200}, {1,1}, &subUi));
+		Icons.push_back(Fac->CreateImage(L"Crossbow.png", { LeftPadding + i * 130 ,WinHalfSizeY - 200}, {1,1}, &subUi));
 	for (int i = 0; i < 5; i++)//리롤 잠그기
 		Fac->CreateButton(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }, { LeftPadding + i * 130, WinHalfSizeY - 100 },&subUi);
 
@@ -61,7 +61,7 @@ void Shop::Reroll() //맨처음에는 어떻게 처리하는지 올라온거 봤었는데 그거대로 처
 
 	for (int i = 0; i < 4; i++)
 	{
-		MakeText(TowerName[i], count[i]);
+		MakeText(i, count[i]);
 	}
 	if (Text == L"")
 		Text = L"꽝";
@@ -70,48 +70,54 @@ void Shop::Reroll() //맨처음에는 어떻게 처리하는지 올라온거 봤었는데 그거대로 처
 void Shop::Spawn() //이제 텍스트도 띄우고 좀더 이쁘게 만들어야겠다.. 
 {
 	int inven = 0;
+	compensationList.clear(); //테스트용
+	compensationList.push_back(0);
 	for (auto var : compensationList)
 	{
 		//Pools::GetInstance().get()->PopPool(); //아이콘은 만들어야하나? 움직이는 아이콘도 오브젝트풀을 쓸필요가있나? 모르겠다.. 
-		Fac->CreateMoveIcon(ImagePath[var/3], Containers[inven]->transform->GetWorldLocation()); //가지고 있는 인벤토리의 위치도 넣어주기 
+		//Fac->CreateMoveIcon(ImagePath[var/3], Containers[inven]->transform->GetWorldLocation()); /아이콘을 소환하는게아니라. 타워를 소환
+		GameObject* tower =  Fac->CreateGameObjectFromId(var);  // 아이콘을 소환하는게아니라.타워를 소환
+		if (tower != nullptr) //현재 모든 타워가 미완이라 터질수있으니 일단 이렇게 처리함
+			tower->transform->SetRelativeLocation(Containers[inven]->transform->GetWorldLocation());
 		inven++;
+
 	}
 	compensationList.clear();
 	isActive = false; //꺼주기.. 
 }
 
-void Shop::MakeText(std::wstring name, int count) //내 생각에는 될거같은데 테스트는 해봐야할듯.. 
+void Shop::MakeText(int order, int count) //내 생각에는 될거같은데 테스트는 해봐야할듯.. //이름으로 받지말고.. 아이디로 받자
 {
 	
 	if (count == 2)
 	{
 		if (Text != L"") //아 중복 개싫다
 			Text += L"+";
-		compensationList.push_back(TowerNameToID(name) + 0);
-		compensationList.push_back(TowerNameToID(name) + 0);
-		Text += L"1성" + name + L"2개";
+		compensationList.push_back(order * 3 + 0);
+		compensationList.push_back(order * 3 + 0);
+		Text += L"1성" + TowerName[order] + L"2개"; //타워의 종류가 늘어나면 버그니까 알아서 잘 그전에 고치셈
 	}
 	else if (count == 3)
 	{
 		if (Text != L"") 
 			Text += L"+";
-		compensationList.push_back(TowerNameToID(name) + 1);
-		Text += L"2성" + name;
+		compensationList.push_back(order * 3 + 1);
+		Text += L"2성" + TowerName[order];
 	}
 	else if (count == 4)
 	{
 		if (Text != L"")
 			Text += L"+";
-		compensationList.push_back(TowerNameToID(name) + 1);
-		compensationList.push_back(TowerNameToID(name) + 1);
-		Text += L"2성" + name + L"2개"; //인벤토리에 띄워야함.. 위에 별도 가지고있는 방식으로.. 보상을 push 하는방식으로? 그럼 레벨에 종류를 들고있는 페어정보를 저장하면되겠네.. 
+		compensationList.push_back(order * 3 + 1);
+		compensationList.push_back(order * 3 + 1);
+		Text += L"2성" + TowerName[order] + L"2개"; //인벤토리에 띄워야함.. 위에 별도 가지고있는 방식으로.. 보상을 push 하는방식으로? 그럼 레벨에 종류를 들고있는 페어정보를 저장하면되겠네.. 
 	}
 	else if (count == 5)
 	{
 		if (Text != L"") 
 			Text += L"+";
-		compensationList.push_back(TowerNameToID(name) + 2);
-		Text += L"3성" + name;
+		compensationList.push_back(order * 3 + 2);
+		Text += L"3성" + TowerName[order];
 	}
 } 
 

@@ -48,7 +48,7 @@ public:
 
 	Image* CreateImage(wstring filePath, Vector2F pos = { 0,0 }, Vector2F scale = { 1,1 }, std::vector<GameObject*>* Root = nullptr);
 	MoveIcon* CreateMoveIcon(wstring filePath, Vector2F pos = { 0,0 }); //이거는 그럴필요는 없을거같고.. 
-
+	GameObject* CreateGameObjectFromId(int id);
 	template<typename T>
 	T* CreateEnemy(int id);
 
@@ -71,6 +71,7 @@ T* Factory::CreateEnemy(int id) //애네들은 특히 데이터가 필요하고..
 
 }
 
+//아이디만 있는데.. 흠.. //아이디로 통하는 애들은 한번더 매핑해버릴까? 
 template<typename T> //이게 템플릿이라 모르는건가? //남들이랑 다른게 이것밖에없는데.. 
 T* Factory::CreateTower(int id) //일단 데이터만 다르게 끼는 방식으로 생각했었는데.. 작동 방식이좀 다를수도있을거같아서. 걍 베이스를 상속받아서 만들어야겠네.. 
 {

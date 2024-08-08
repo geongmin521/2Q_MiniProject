@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "EventSystem.h"
 #include "InputSystem.h"
-#include "IClickAble.h".h"
+#include "IClickAble.h"
 #include "IDragAble.h"
 #include "IDropAble.h"
 #include "IOnMouse.h"
@@ -26,9 +26,9 @@ void EventSystem::Updata(float deltaTime)
 
 
 
-UI* EventSystem::FindTargetUI()
+GameObject* EventSystem::FindTargetUI()
 {
-	UI* curUi = nullptr;
+	GameObject* curUi = nullptr;
 	int maxOrder = INT_MIN;
 	for (auto ele : Ui) 
 	{
@@ -75,7 +75,7 @@ IDropAble* EventSystem::FindDrop() //드랍만 특수한로직으로 검사.. 이거 다이나믹�
 	return nullptr;
 }
 
-void EventSystem::DropEvent(UI* ui)
+void EventSystem::DropEvent(GameObject* ui)
 {
 	IDropAble* dropAble = FindDrop();
 	if (dropAble == nullptr)
@@ -86,7 +86,7 @@ void EventSystem::DropEvent(UI* ui)
 
 void EventSystem::ClickEvent()
 {
-	UI* curUi = FindTargetUI();
+	GameObject* curUi = FindTargetUI();
 	if (curUi == nullptr)
 		return;
 	IDragAble* dragAble = dynamic_cast<IDragAble*>(curUi);
@@ -103,7 +103,7 @@ void EventSystem::ClickEvent()
 
 void EventSystem::OnMouseEvent()
 {
-	UI* curUi = FindTargetUI();
+	GameObject* curUi = FindTargetUI();
 	if (curUi == nullptr)
 		return;
 

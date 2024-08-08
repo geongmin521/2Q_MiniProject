@@ -1,4 +1,4 @@
-#include "../D2DEngine/pch.h"
+#include "pch.h"
 #include "BattleWorld.h"
 #include "Camera.h"
 #include "ArrowTower.h"
@@ -9,9 +9,9 @@
 #include "ShowWave.h"
 #include "Combination.h"
 #include "Container.h"
-#include "../D2DEngine/TimeSystem.h"
-#include "../D2DEngine/DataManager.h"
-#include "../D2DEngine/Transform.h"
+#include "TimeSystem.h"
+#include "DataManager.h"
+#include "Transform.h"
 #include "EnemySpawner.h"
 #include "Map.h"
 
@@ -29,7 +29,7 @@ void BattleWorld::MakeObject() //월드의 좌표같은것들도 csv로 빼야할수도있을듯?
 {
 	MakeUI();
 	//Fac->CreateTower<ArrowTower>(1); //스트링만 넣어주면되나? 
-	Fac->CreateGameObject<EnemySpawner>();
+	Fac->CreateGameObject<EnemySpawner>()->StartWave();
 	Fac->CreateGameObject<Map>(); //결국헤더에 이것에 대한 참조가 있어야하니까.. 팩토리의 장점이 사라지는거같은데.. 아니면
 	//팩토리에 일관되게함수를 구성할수가없긴함.. 나중에 정리할수있을까? 
 	
