@@ -53,9 +53,14 @@ void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 
 void Arrow::Update(float deltaTime)
 {
+	preDir = curDir;
 	__super::Update(deltaTime);
 
+	curDir = GetWorldLocation();
 
+	float moveX = curDir.x - preDir.x;
+	float moveY = curDir.y - preDir.y;
+	float moveR = atan2(moveY, moveX) * (180.0f / PI);
 	if (target->isActive == true)
 	{
 
@@ -66,6 +71,9 @@ void Arrow::Update(float deltaTime)
 		{
 			t = 1;
 		}
+		MathHelper::Vector2F rotate = (QuadraticBezierPoint(t, position));
+		
+		transform->SetRelativeRotation(moveR);
 		transform->SetRelativeLocation(QuadraticBezierPoint(t, position));
 	}
 	else

@@ -11,17 +11,4 @@ Artifact::~Artifact()
 {
 }
 
-int Artifact::getArtifact()
-{
-	// 일단 id랑 count만 반환
-	
-}
 
-void Artifact::setArtifact(int id)
-{
-	if (artifactData.id == id)
-	{
-		ownArtifact.push_back(artifactData);
-	}
-
-}

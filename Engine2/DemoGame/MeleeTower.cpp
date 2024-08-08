@@ -12,7 +12,7 @@
 #include "EnemyBase.h"
 #include "MeleeTower.h"
 
-MeleeTower::MeleeTower()
+MeleeTower::MeleeTower(TowerData data) : TowerBase(data)
 {
 	towerData.name = "MeleeTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 100.0f;

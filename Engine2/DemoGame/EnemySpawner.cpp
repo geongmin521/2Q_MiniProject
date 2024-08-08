@@ -9,7 +9,7 @@
 
 EnemySpawner::EnemySpawner()
 {
-	std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> data =
+	std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>, std::vector<ArtifactData>> data =
 		DataManager::GetInstance().get()->CSVReader(L"WaveData");
 
 	if (std::holds_alternative<std::vector<WaveData>>(data)) { //처음 웨이브 데이터 읽기.. 

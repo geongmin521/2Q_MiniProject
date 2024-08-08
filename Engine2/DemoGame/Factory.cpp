@@ -25,7 +25,7 @@ Factory::~Factory()
 
 void Factory::GetData(std::wstring DataPath)//variant 처리한게 잘한걸까? 일관성으로 코드를 줄인거같기도하고 아닌거같기도하고.. 
 { 
-    std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> data =
+    std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>, std::vector<ArtifactData>> data =
         DataManager::GetInstance().get()->CSVReader(DataPath);
     
     if (std::holds_alternative<std::vector<EnemyData>>(data)) {

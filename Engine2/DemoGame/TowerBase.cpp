@@ -108,6 +108,7 @@ void TowerBase::Attack(float deltaTime)
 
 void TowerBase::Hit(float damage)
 {
+
 	curHP -= damage;
 }
 

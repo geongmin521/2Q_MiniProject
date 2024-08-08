@@ -116,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Artifact.h" />
+    <ClInclude Include="MeleeTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -198,5 +201,8 @@
     </ClCompile>
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Artifact.cpp" />
+    <ClCompile Include="MeleeTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
