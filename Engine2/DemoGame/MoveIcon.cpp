@@ -4,12 +4,14 @@
 #include "../D2DEngine/EventSystem.h"
 #include "../D2DEngine/Bitmap.h"
 #include "../D2DEngine/D2DRenderer.h"
+#include "Container.h"
 #include "MoveIcon.h"
 
 MoveIcon::MoveIcon(std::wstring filePath) 
 {
 	AddComponent(new Bitmap(filePath));
 	SetBoundBox(0, 0, GetComponent<Bitmap>()->GetSize());//음.. 
+	renderOrder = 50;
 }
 
 MoveIcon::~MoveIcon()
@@ -33,6 +35,8 @@ void MoveIcon::BeginDrag(const MouseState& state) //이거는 마우스로 하는거니까 �
 {
 	std::cout << "BeginDrag";
 	transform->SetRelativeLocation(state.GetMousePos());
+	if (container)
+		container->Clear();//담겨있는공간에 비워주기.. 서로 상호참조하고있는게 맞을까? 
 }
 
 void MoveIcon::StayDrag(const MouseState& state)

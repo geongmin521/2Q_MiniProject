@@ -1,6 +1,6 @@
 #pragma once
 #include "../D2DEngine/GameObject.h"
-#include "../D2DEngine/DataManager.h"
+#include "../D2DEngine/Data.h"
 #include "../D2DEngine/IDamageNotify.h"
 #include "../D2DEngine/Collider.h"
 class TowerBase :
@@ -11,9 +11,9 @@ private:
 
 public:
     float curHP; //타워각자가 가질 현재 체력
-    GameObject* target = nullptr;      //원거리타워등 단일공격
-    std::vector<GameObject*> targets;  //근접타워용등 여러명 공격 따로 뺄까
-    TowerBase();
+    GameObject* target = nullptr;
+    std::vector<GameObject*> objs;
+    TowerBase(TowerData data);
     virtual ~TowerBase();
     TowerData towerData;
     bool isAttack = false;

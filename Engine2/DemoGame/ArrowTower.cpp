@@ -14,7 +14,7 @@
 #include "EnemyBase.h"
 #include "ArrowTower.h"
 
-ArrowTower::ArrowTower()
+ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 {
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 500.0f;

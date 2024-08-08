@@ -2,9 +2,10 @@
 #include "TowerBase.h"
 #include "../D2DEngine/D2DRenderer.h"
 
-TowerBase::TowerBase()
+
+TowerBase::TowerBase(TowerData data)
 {
-	name = "Tower";
+	this->towerData = data;
 }
 
 TowerBase::~TowerBase()

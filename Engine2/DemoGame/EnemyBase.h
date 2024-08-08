@@ -9,7 +9,7 @@ class EnemyBase :
 private:
     
 public:
-    EnemyBase();
+    EnemyBase(EnemyData data);
     virtual ~EnemyBase();
 
     virtual void Update(float deltaTime);

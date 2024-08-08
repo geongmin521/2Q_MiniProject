@@ -9,7 +9,7 @@
 #include "EnemyFSM.h"
 #include "TowerBase.h"
 
-Vampire::Vampire()
+Vampire::Vampire(EnemyData data) : EnemyBase(data)
 {
 	// Datamanager·Î ÀÐ±â
 	// enemyData.speed;

@@ -7,7 +7,7 @@ class ArrowTower : public TowerBase, public IColliderNotify
 {
 private:
 public:
-    ArrowTower();
+    ArrowTower(TowerData data);
     virtual ~ArrowTower();
 
     virtual void Update(float deltaTime);

@@ -5,6 +5,8 @@
 class Collider;
 class Map : public GameObject
 {
+private:
+
 public:
 	Map();
 	~Map(); //¿œ¥‹¿∫ 

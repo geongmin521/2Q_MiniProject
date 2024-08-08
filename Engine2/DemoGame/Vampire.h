@@ -10,7 +10,7 @@ class Vampire :
 private:
 
 public:
-    Vampire();
+    Vampire(EnemyData data);
     virtual ~Vampire();
 
     virtual void Update(float deltaTime);

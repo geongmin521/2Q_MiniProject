@@ -32,5 +32,6 @@
 
 #include <d2d1effects_2.h> // 이펙트 관련 헤더
 
+#include "Utility.h"
 #include <cmath>
 //#include <dxgi.h>

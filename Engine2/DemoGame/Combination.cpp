@@ -8,8 +8,7 @@ Combination::Combination()
 	Fac->CreateButton(L"smallBack.png", [this]() {isActive = false; }, { WinHalfSizeX + 500, WinHalfSizeY - 400 }, &subUi);
 	//조합표 이미지 하나로?
 	Fac->CreateImage(L"Combination.png", { WinHalfSizeX , WinHalfSizeY  }, { 1,1 }, &subUi);
-	this->renderOrder = 10;
-
+	renderOrder = 100;
 }
 
 Combination::~Combination()

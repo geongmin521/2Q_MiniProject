@@ -8,27 +8,37 @@
 #include "Image.h"
 #include "EnemyBase.h"
 #include "TowerBase.h"
+#include "ArrowTower.h"
 #include "Button.h"
 #include "MoveIcon.h"
 
 
-void Factory::GetData()
+Factory::Factory()
+{
+    GetData(L"TowerData"); //생성되는시점에 데이터들고있기
+    GetData(L"EnemyData");
+}
+
+Factory::~Factory()
+{
+}
+
+void Factory::GetData(std::wstring DataPath)//variant 처리한게 잘한걸까? 일관성으로 코드를 줄인거같기도하고 아닌거같기도하고.. 
 { 
     std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> data =
-        DataManager::GetInstance().get()->CSVReader(typeid(TowerData));
-
+        DataManager::GetInstance().get()->CSVReader(DataPath);
+    
     if (std::holds_alternative<std::vector<EnemyData>>(data)) {
-        enemyData = std::get<std::vector<EnemyData>>(data);
+        for(auto var : std::get<std::vector<EnemyData>>(data))        
+            enemyData[var.id] = var;        
     }
     else if (std::holds_alternative<std::vector<TowerData>>(data)) {
-        towerData = std::get<std::vector<TowerData>>(data);
-    }
-    else if (std::holds_alternative<std::vector<WaveData>>(data)) {
-        waveData = std::get<std::vector<WaveData>>(data);
+        for (auto var : std::get<std::vector<TowerData>>(data))
+            towerData[var.id] = var;     //아이디를 키값으로 맵에 넣어주기   
     }
 }
 
-GameObject* Factory::CreateImage(std::wstring filePath, MathHelper::Vector2F pos, MathHelper::Vector2F scale, std::vector<GameObject*>* Root) //크기값도 조절 많이할거같은데.. 
+Image* Factory::CreateImage(std::wstring filePath, MathHelper::Vector2F pos, MathHelper::Vector2F scale, std::vector<GameObject*>* Root) //크기값도 조절 많이할거같은데.. 
 {
     Image* img = new Image(L"../Data/Image/" + filePath);
     img->transform->SetRelativeLocation(pos);
@@ -40,7 +50,7 @@ GameObject* Factory::CreateImage(std::wstring filePath, MathHelper::Vector2F pos
     return img;
 }
 
-GameObject* Factory::CreateMoveIcon(std::wstring filePath, MathHelper::Vector2F pos) //UI는 생성할때 위치랑 크기조정을할거같아서 만들었는데 굳이 여기서 다 처리하는게 맞나 싶네.. 
+MoveIcon* Factory::CreateMoveIcon(std::wstring filePath, MathHelper::Vector2F pos) //UI는 생성할때 위치랑 크기조정을할거같아서 만들었는데 굳이 여기서 다 처리하는게 맞나 싶네.. 
 {
     MoveIcon* icon = new MoveIcon(L"../Data/Image/"+filePath);
     icon->transform->SetRelativeLocation(pos); 
@@ -48,21 +58,9 @@ GameObject* Factory::CreateMoveIcon(std::wstring filePath, MathHelper::Vector2F 
     return icon;
 }
 
-GameObject* Factory::CreateEnemy(int id)
-{
-    //InsertWorld(btn);
-    //return new EnemyBase(id); 
-    return nullptr;
-}
 
-GameObject* Factory::CreateTower(int id)
-{
-    //InsertWorld(btn);
-    //return new TowerBase(id);
-    return nullptr;
-}
 
-GameObject* Factory::CreateButton(std::wstring filePath , std::function<void(void)> func, MathHelper::Vector2F pos, std::vector<GameObject*>* Root)
+Button* Factory::CreateButton(std::wstring filePath , std::function<void(void)> func, MathHelper::Vector2F pos, std::vector<GameObject*>* Root)
 {
     Button* btn = new Button(L"../Data/Image/" + filePath);
     btn->AddListener(func);

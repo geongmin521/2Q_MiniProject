@@ -10,7 +10,7 @@
 #include "EnemyFSM.h"
 #include "TowerBase.h"
 
-VampireBomb::VampireBomb()
+VampireBomb::VampireBomb(EnemyData data) :EnemyBase(data)
 {
 	enemyData.speed = 300.f;
 	enemyData.attackRange = 10.f;

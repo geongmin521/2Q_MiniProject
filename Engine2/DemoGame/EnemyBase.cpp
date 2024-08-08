@@ -3,8 +3,9 @@
 #include "../D2DEngine/AABB.h"
 #include "../D2DEngine/D2DRenderer.h"
 
-EnemyBase::EnemyBase()
+EnemyBase::EnemyBase(EnemyData data)
 {
+	this->enemyData = data;
 	name = "Enemy";
 }
 
