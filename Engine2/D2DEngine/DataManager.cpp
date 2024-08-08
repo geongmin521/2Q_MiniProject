@@ -7,6 +7,7 @@ DataManager::DataManager()
 	CSVReader(L"EnemyData");
 	CSVReader(L"TowerData");
 	CSVReader(L"WaveData");
+	CSVReader(L"ArtifactData");
 }
 
 DataManager::~DataManager()
@@ -72,7 +73,7 @@ std::wifstream DataManager::FileOften(std::wstring fileName)
 //데이터 매니저가 전부 들고있는게 좋아? 아니면.. 필요한 각자가 들고있는게 맞긴하지? 
 //팩토리가 처음에 저것들을 요청하고.. 오케이.. 
 //반환값이 3개중에 하나가 가능한거지? 
-std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> DataManager::CSVReader(std::wstring fileName)
+std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>, std::vector<ArtifactData>> DataManager::CSVReader(std::wstring fileName)
 {
 	std::wifstream file = FileOften(fileName); //얘가 다들고있을거면 variation은 왜함? 이게 싱글톤이면.. 쌉가능이지
     if (fileName == L"EnemyData") 
@@ -81,6 +82,8 @@ std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveDat
         return TowerDataRead(file);
     else if (fileName == L"WaveData") 
         return WaveDataRead(file);
+	else if (fileName == L"ArtifactData")
+		return ArtifactDataRead(file);
     else {
         assert(false && "Unsupported type in CSVReader");
         return {}; // Unreachable code; returns an empty variant to suppress compiler warnings
@@ -161,6 +164,31 @@ std::vector<WaveData> DataManager::WaveDataRead(std::wifstream& file)
 				parseTokens(wss, data.enemyId); //s에 주의하기.. 이거는 여러개가져오는거다
 				parseTokens(wss, data.spawnTime);
 				parseTokens(wss, data.enemyCount);
+			}
+			result.push_back(data);
+		}
+	}
+	return result;
+}
+
+std::vector<ArtifactData> DataManager::ArtifactDataRead(std::wifstream& file)
+{
+	std::vector<ArtifactData> result;
+	std::wstring line;
+	while (std::getline(file, line)) {
+
+		if (!line.empty()) {
+			ArtifactData data;
+			std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
+			std::wstring token;
+			{
+				parseToken(wss, data.id);
+				parseToken(wss, data.level);
+				parseToken(wss, data.towerDamage);
+				parseToken(wss, data.enemyDamage);
+				parseToken(wss, data.count);
+				parseToken(wss, data.name);
+				parseToken(wss, data.ability);
 			}
 			result.push_back(data);
 		}

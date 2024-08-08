@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="ArrowTower.h" />
+    <ClInclude Include="Artifact.h" />
     <ClInclude Include="BattleWorld.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="ArrowTower.cpp" />
+    <ClCompile Include="Artifact.cpp" />
     <ClCompile Include="BattleWorld.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />

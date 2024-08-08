@@ -12,7 +12,7 @@ private:
 public:
     float curHP; //타워각자가 가질 현재 체력
     GameObject* target = nullptr;
-    std::vector<GameObject*> objs;
+    std::vector<GameObject*> targets;
     TowerBase(TowerData data);
     virtual ~TowerBase();
     TowerData towerData;
@@ -23,4 +23,6 @@ public:
     virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
     virtual void Hit(float damage) override;
     virtual void Heal(float heal)override; //최대체력넘기면 최대체력되게끔
+
+    std::vector<ArtifactData> ownedArtifact;
 };

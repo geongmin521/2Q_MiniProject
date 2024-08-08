@@ -1,11 +1,12 @@
 #include "../D2DEngine/pch.h"
 #include "TowerBase.h"
 #include "../D2DEngine/D2DRenderer.h"
-
+#include "Artifact.h"
 
 TowerBase::TowerBase(TowerData data)
 {
 	this->towerData = data;
+	Artifact().GetInstance().get()->artifactData;
 }
 
 TowerBase::~TowerBase()
