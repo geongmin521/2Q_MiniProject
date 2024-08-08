@@ -48,7 +48,7 @@ ArrowTower::ArrowTower()
 
 	fsm->SetNextState("Idle");                    //적이없어서 일단 attack만 테스트 
 	
-	renderOrder = 100;
+	renderOrder = 0;
 	transform->SetRelativeLocation({200,200});
 
 	// test
@@ -61,6 +61,10 @@ ArrowTower::ArrowTower()
 	test.SetSize(50.f, {2, 4});
 	test.OnTransform();
 	test.GetTransform()->SetParent(transform);
+
+
+//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
+	
 }
 
 ArrowTower::~ArrowTower()
@@ -78,9 +82,9 @@ void ArrowTower::Update(float deltaTime)
 void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+
 	// test
 	test.DrawFont(D2D1::ColorF(D2D1::ColorF::Black));
-
 
 	//GetComponent<BoxCollider>()->aabb->Center = { 300,300 };
 
@@ -95,6 +99,9 @@ void ArrowTower::Attack(float deltaTime)
 	dir.Normalize();
 	arrow->Init({ dir }, GetWorldLocation());
 	owner->m_GameObjects.push_back(arrow);
+
+
+
 }
 
 

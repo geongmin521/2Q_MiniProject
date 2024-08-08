@@ -24,7 +24,6 @@ Vampire::Vampire()
 	fsm->CreateState<VampireAttack>("Attack");
 	fsm->SetNextState("Idle");
 
-	renderOrder = 100;
 	enemyData.ATK = 10;
 	transform->SetRelativeScale ({ 3, 3 });
 	enemyData.speed = 400.0f;
@@ -41,8 +40,14 @@ Vampire::Vampire()
 	searchBound->PushCollider();
 	searchBound->name = "EnemyAtk";
 
+	this->renderOrder = 0;
+	
 	//attackBound = new AABB
 	//AddComponent(new BoxCollider(attackBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
+
+//  이펙트 테스트
+//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
+//	D2DRenderer::GetInstance()->CreateColorMatrixEffect(GetComponent<Animation>()->bitmap, redEmphasis);
 } 
 
 Vampire::~Vampire()
@@ -54,11 +59,19 @@ void Vampire::Update(float deltaTime)
 	GetComponent<Movement>()->SetVelocity({-enemyData.speed , 0 });
 	__super::Update(deltaTime);
 	//attackBox->SetCenter(boundBox->Center.x - 100, boundBox->Center.y);
+
+
 }
 
 void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+
+
+//	pRenderTarget->SetTransform(transform->worldTransform);
+//	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DRenderer::GetInstance()->GaussianBlurEffect);
+//	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DRenderer::GetInstance()->ApplyColorEffect);
+	
 }
 
 void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)

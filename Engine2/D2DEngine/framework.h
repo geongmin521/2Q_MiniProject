@@ -30,5 +30,7 @@
 #include <unordered_map>
 #include "algorithm"
 
+#include <d2d1effects_2.h> // 이펙트 관련 헤더
+
 #include <cmath>
 //#include <dxgi.h>
