@@ -32,5 +32,8 @@ public:
 	virtual void Render(ID2D1RenderTarget* pRenderTarget) override;
 	void SetAnimation(int index, bool mirror);
 	void Reverse(); 
+
+	// 이펙트 test로 만든 불값
+	bool Testbool = true;
 };
 

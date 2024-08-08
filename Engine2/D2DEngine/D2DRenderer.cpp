@@ -9,6 +9,10 @@
 #pragma comment(lib, "DXGI.lib")
 #pragma comment(lib, "Dwrite.lib")
 
+// 이펙트 관련
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxguid.lib")
+
 D2DRenderer::D2DRenderer()
 {
 }
@@ -32,7 +36,7 @@ D2DRenderer* D2DRenderer::GetInstance(HWND hWnd)
 
 void D2DRenderer::Initialize(HWND hWnd) 
 {
-	hWnd = hWnd;
+	this->hWnd = hWnd;
 	HRESULT hr = S_OK;
 	// COM 사용 시작
 	hr = CoInitialize(NULL);
@@ -85,6 +89,11 @@ void D2DRenderer::Initialize(HWND hWnd)
 		hr = RenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Green), &greenBrush);
 	}
 
+	if (SUCCEEDED(hr)) // 타겟을 디바이스컨텍트로 변경
+	{
+		hr = RenderTarget->QueryInterface(&DeviceContext);
+	}
+
 	if (SUCCEEDED(hr))
 	{
 		// DirectWrite 팩터리를 만듭니다.
@@ -135,6 +144,7 @@ void D2DRenderer::Uninitialize()
 	SAFE_RELEASE(DXGIFactory);
 	SAFE_RELEASE(DXGIAdapter);
 	SAFE_RELEASE(greenBrush);
+	SAFE_RELEASE(DeviceContext);
 	CoUninitialize();
 }
 
@@ -181,6 +191,56 @@ void D2DRenderer::DrawCircle(Circle& circle)
 
 	RenderTarget->DrawEllipse(&ellipse, greenBrush); //브러쉬가 또 몇개필요할려나.. 초록색? 중심도 그렸으면 좋겠어.. 
 }
+
+void D2DRenderer::CreateGaussianBlurEffect(ID2D1Bitmap* _Bitmap, const float blurVal)
+{  // https://learn.microsoft.com/ko-kr/windows/win32/direct2d/gaussian-blur#optimization-modes 참고
+	
+	if (nullptr == DeviceContext) { return; }
+
+	if (GaussianBlurEffect != nullptr) { GaussianBlurEffect->Release(); }
+	DeviceContext->CreateEffect(CLSID_D2D1GaussianBlur, &GaussianBlurEffect);
+	if (GaussianBlurEffect == nullptr) { return; }
+
+	GaussianBlurEffect->SetInput(0, _Bitmap); //이미지 인덱스 https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-setinput
+	GaussianBlurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, blurVal);
+
+	GaussianBlurEffect->GetOutput(&D2D1Image); // 렌더링 효과를 전달 https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-getoutput
+}
+
+void D2DRenderer::CreateColorMatrixEffect(ID2D1Bitmap* _Bitmap, D2D1_MATRIX_5X4_F _ColorMatrix)
+{
+	if (nullptr == DeviceContext) { return; }
+
+//	D2D1_MATRIX_5X4_F redEmphasis = {
+//	0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
+//	0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
+//	0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
+//	0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+//	};
+
+	if (ApplyColorEffect != nullptr) { ApplyColorEffect->Release(); }
+	DeviceContext->CreateEffect(CLSID_D2D1ColorMatrix, &ApplyColorEffect);
+	if (ApplyColorEffect == nullptr) { return; }
+
+	ApplyColorEffect->SetInput(0, _Bitmap);
+	ApplyColorEffect->SetValue(D2D1_COLORMATRIX_PROP_COLOR_MATRIX, _ColorMatrix);
+
+	ApplyColorEffect->GetOutput(&D2D1Image);
+
+
+	//	D2D1_MATRIX_5X4_F colorMatrix = {
+//	  0.0f, 0.0f, 0.0f, 0.0f,			//targetColor.r,  // Red 채널
+//	  0.0f, 0.0f, 0.0f, 0.0f,			//targetColor.g,  // Green 채널
+//	  0.0f, 0.0f, 0.0f, 0.0f,			//targetColor.b,  // Blue 채널
+//	  0.0f, 0.0f, 0.0f, 1.0f, 0.0f      // Alpha 채널
+//	};
+}
+
+// | Red Multiplier | Green Multiplier | Blue Multiplier | Alpha Multiplier | Red Offset   |
+// |-------------------- | -------------------- | -------------------- | -------------------- | --------------|
+// | Green Multiplier | Red Multiplier | Blue Multiplier | Alpha Multiplier | Green Offset |
+// | Blue Multiplier | Green Multiplier | Red Multiplier | Alpha Multiplier | Blue Offset  |
+// | Alpha Multiplier | Green Multiplier | Blue Multiplier | Red Multiplier | Alpha Offset |
 
 void D2DRenderer::DrawAABB(AABB& aabb)
 {

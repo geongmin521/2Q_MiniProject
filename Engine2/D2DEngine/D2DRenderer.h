@@ -38,8 +38,17 @@ public:
 	HWND hWnd;							// 렌더타겟을 생성할 윈도우 핸들
 	D2D_SIZE_U	ClientSize;				// 렌더타겟의 크기
 
+	ID2D1DeviceContext* DeviceContext; // 이펙트 https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1devicecontext
+	ID2D1Effect* GaussianBlurEffect; // 가우시안 흐림 효과
+	ID2D1Effect* ApplyColorEffect;  // 비트맵에 색 조정
+	ID2D1Image* D2D1Image; // 비트맵을 이미지로 변경용
+
 private:
 	static D2DRenderer* inst;
+
+public:
+	void CreateGaussianBlurEffect(ID2D1Bitmap* _Bitmap ,const float blurVal);
+	void CreateColorMatrixEffect(ID2D1Bitmap* _Bitmap, D2D1_MATRIX_5X4_F _ColorMatrix);
 };
 
 

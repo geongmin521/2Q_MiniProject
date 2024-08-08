@@ -37,6 +37,20 @@ ArrowTower::ArrowTower()
 	renderOrder = 100;
 	transform->SetRelativeLocation({400,300});
 
+	// test
+	test.SetBoxSize(300, 100);
+	test.SetPos(20, 20);
+	test.LoadFont(L"Calibri");
+	test.CreateLayoutText(L"폰트 테스트입니다.");
+	test.Sort(Setting::RIGHT);
+	test.SetFontLocation(Setting::BOTTOM);
+	test.SetSize(50.f, {2, 4});
+	test.OnTransform();
+	test.GetTransform()->SetParent(transform);
+
+
+//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
+	
 }
 
 ArrowTower::~ArrowTower()
@@ -64,6 +78,9 @@ void ArrowTower::Update(float deltaTime)
 void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
+
+	// test
+	test.DrawFont(D2D1::ColorF(D2D1::ColorF::Black));
 
 	
 	
