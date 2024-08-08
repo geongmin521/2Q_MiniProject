@@ -4,6 +4,7 @@
 #include "../D2DEngine/FiniteStateMachine.h"
 #include "../D2DEngine/World.h"
 #include "../D2DEngine/Animation.h"
+#include "../D2DEngine/Transform.h"
 #include "EnemyBase.h"
 
 TowerFSM::TowerFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
@@ -41,7 +42,7 @@ void TowerShared::EnterState()
 
 void TowerShared::Update(float DeltaTime)
 {
-	if(tower->towerData.HP <= 0)
+	if(tower->curHP <= 0)
 	{
 		owner->SetNextState("Death");
 	}
@@ -58,26 +59,20 @@ void TowerIdle::EnterState()
 
 void TowerIdle::Update(float DeltaTime)
 {
-	
-	
-	if (tower->target == nullptr && !tower->objs.empty())
-	{
-
-		tower->ExploreTarget(tower, tower->objs);
-	}
 
 	if (tower->target != nullptr && tower->isAttack == false)
 	{
 		owner->SetNextState("Attack");
 	}
-	
-	tower->towerData.attackSpeed -= DeltaTime;
-	if (tower->towerData.attackSpeed < 0)
+	if (tower->isAttack == true)
 	{
-		tower->isAttack = false;
-		tower->towerData.attackSpeed = 1.0f;
+		cooldown += DeltaTime;
+		if (cooldown > tower->towerData.attackSpeed)
+		{
+			tower->isAttack = false;
+			cooldown = 0;
+		}
 	}
-
 }
 
 void TowerIdle::ExitState()
@@ -91,13 +86,12 @@ void TowerAttack::EnterState()
 }
 \
 
-void TowerAttack::Update(float DeltaTime)
+void TowerAttack::Update(float DeltaTime) //한번쏘고 가장가까운적? 이건 기획한테 물어보기..   //투사체공격을 따로 만들어야하나 타워마다 fsm을 새로주는게 나은가
 {
 	//공격한번후엔 idle로 보내고 다시 attack?
 	if (ani->IsEnd())
 	{
 		tower->Attack(DeltaTime);
-		tower->target = nullptr;
 		tower->isAttack = true;
 		owner->SetNextState("Idle");
 	}
@@ -114,10 +108,11 @@ void TowerDeath::EnterState()
 
 void TowerDeath::Update(float DeltaTime)
 {
-	if (ani->IsEnd())
-	{
-		tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
-	}
+	//if (ani->IsEnd())
+	//{
+	//	tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
+	//}
+	tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
 }
 
 void TowerDeath::ExitState()
