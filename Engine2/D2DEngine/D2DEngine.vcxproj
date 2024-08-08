@@ -161,6 +161,7 @@
     <ClInclude Include="D2DFont.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSMState.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IClickAble.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="D2DFont.cpp" />
     <ClCompile Include="FSMState.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="InputSystem.cpp" />

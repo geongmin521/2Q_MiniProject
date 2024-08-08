@@ -152,7 +152,6 @@
     <ClInclude Include="Shop.h" />
     <ClInclude Include="ShowWave.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Tile.h" />
     <ClInclude Include="TitleWorld.h" />
     <ClInclude Include="TowerBase.h" />
     <ClInclude Include="TowerFsm.h" />
@@ -181,7 +180,6 @@
     <ClCompile Include="MoveIcon.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShowWave.cpp" />
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TitleWorld.cpp" />
     <ClCompile Include="TowerBase.cpp" />
     <ClCompile Include="TowerFSM.cpp" />

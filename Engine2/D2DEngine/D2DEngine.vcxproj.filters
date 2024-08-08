@@ -182,6 +182,9 @@
     <ClInclude Include="IOnMouse.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>소스 파일\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -288,6 +291,9 @@
     </ClCompile>
     <ClCompile Include="D2DFont.cpp">
       <Filter>소스 파일\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>소스 파일\System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

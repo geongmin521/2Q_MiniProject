@@ -111,19 +111,9 @@
     <ClInclude Include="VampireBomb.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="MeleeTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="HealingTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="HolyTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="Container.h">
       <Filter>UIBase</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -201,18 +191,8 @@
     <ClCompile Include="VampireBomb.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="MeleeTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="HealingTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="HolyTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="Container.cpp">
       <Filter>UIBase</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
 </Project>

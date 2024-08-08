@@ -7,7 +7,7 @@
 
 Container::Container()
 {
-	boundBox->SetExtent(75,75);
+	boundBox->SetExtent(75,75); //이것도 생성자에서 처리해야하는거 아닌가? 
 }
 
 Container::~Container()

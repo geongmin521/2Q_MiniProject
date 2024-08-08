@@ -13,6 +13,7 @@ Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까?
 	ImagePath = { L"arrow.png",L"sungsu.png",L"wood.png",L"heal.png",L"vampire.png" };//태그를 만들게 되면 이걸쓸듯? 아몰라.. 바뀔수도있는거지.. 
 	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" }; //걍 enum으로 만들까? 
 	//enum int로 변환해서 3곱하고 성급을 -1 빼서 더해주면 끝아닌가? 
+	renderOrder = 80;
 	Fac->CreateImage(L"BigBack.png", WinHalfSizeXY, {2,2}, &subUi);
 	float LeftPadding = 700; 
 	for (int i = 0; i < 5; i++)//아이콘

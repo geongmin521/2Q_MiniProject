@@ -3,6 +3,7 @@
 
 class IClickAble;
 class IDragAble;
+class IDropAble;
 class IOnMouse;
 class UI;
 class EventSystem : public SingletonBase<EventSystem>
@@ -19,8 +20,11 @@ public:
 	void Updata(float deltaTime);
 	void DragEvent();
 	UI* FindTargetUI();
+	IDropAble* FindDrop();
 	void DropEvent(UI* ui);
 	void ClickEvent();
 	void OnMouseEvent();
+
+	
 };
 

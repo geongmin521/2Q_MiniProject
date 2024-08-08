@@ -91,7 +91,7 @@ void D2DFont::CreateLayoutText(std::wstring detail)
 		&DWriteTextLayout
 	); // https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1/ne-d2d1-d2d1_draw_text_options
 
-
+	//DWriteTextLayout.set
 	if (FAILED(hr))
 	{
 		OutputDebugString(L"CreateTextLayout ½ÇÆÐ");
