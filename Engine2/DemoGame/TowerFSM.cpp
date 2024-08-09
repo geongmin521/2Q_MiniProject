@@ -60,19 +60,19 @@ void TowerIdle::EnterState()
 void TowerIdle::Update(float DeltaTime)
 {
 
-	if (tower->target != nullptr && tower->isAttack == false)
-	{
-		owner->SetNextState("Attack");
-	}
-	if (tower->isAttack == true)
-	{
-		cooldown += DeltaTime;
-		if (cooldown > tower->towerData.attackSpeed)
-		{
-			tower->isAttack = false;
-			cooldown = 0;
-		}
-	}
+	//if (tower->target != nullptr && tower->isAttack == false)
+	//{
+	//	owner->SetNextState("Attack");
+	//}
+	//if (tower->isAttack == true)
+	//{
+	//	cooldown += DeltaTime;
+	//	if (cooldown > tower->towerData.attackSpeed)
+	//	{
+	//		tower->isAttack = false;
+	//		cooldown = 0;
+	//	}
+	//}
 }
 
 void TowerIdle::ExitState()
@@ -92,7 +92,7 @@ void TowerAttack::Update(float DeltaTime) //한번쏘고 가장가까운적? 이건 기획한테
 	if (ani->IsEnd())
 	{
 		tower->Attack(DeltaTime);
-		tower->isAttack = true;
+		//tower->isAttack = true;
 		owner->SetNextState("Idle");
 	}
 }

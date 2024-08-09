@@ -109,7 +109,7 @@ void WinGameApp::Run()
 			inputSystem->UpdateKey();
 			inputSystem->UpdateMouse(hWnd);
 
-			Update(timeManager->GetDeltaTime());
+ 			Update(timeManager->GetDeltaTime());
 			Render(D2DRenderer::GetInstance()->GetRenderTarget());
 			inputSystem->ResetInput();
 		}	

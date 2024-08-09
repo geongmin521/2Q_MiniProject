@@ -145,15 +145,16 @@ float EaseInOutBounce(float x)
             : (1 + EaseOutBounce(2 * x - 1)) / 2;
     }
 
-DOTween::DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation) : Data(_Data), Function(EasingFunction[_EasingEffect]), Type(_StepAnimation)
+DOTween::DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation, float duration, float startpoint, float endpoint) : Data(_Data), Function(EasingFunction[_EasingEffect]), Type(_StepAnimation)
 {
     DOTweenManager::GetInstance().get()->PushTween(this);
-    StartPoint = 0;
-    EndPoint = 1;
-    Duration = 2;      // N초 동안
+    StartPoint = startpoint; //생성자에서 여기를 하도록하고.. 
+    EndPoint = endpoint;
+    Duration = duration;      // N초 동안
 }
 
 DOTween::~DOTween()
 {
+    Data = EndPoint;
     DOTweenManager::GetInstance().get()->EraseTween(this);
 }

@@ -22,9 +22,7 @@ Arrow::~Arrow()
 {
 }
 
-
-
-void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
+void Arrow::Init(GameObject* target, MathHelper::Vector2F location) //이거는 바꿔야지.. 
 {
 	this->target = target;
 	transform->SetRelativeLocation({ location.x + 50.0f,location.y - 20.f });

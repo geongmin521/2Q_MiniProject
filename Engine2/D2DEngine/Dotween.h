@@ -184,7 +184,7 @@ enum StepAnimation
 class DOTween
 {
 public:
-    DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation = StepOnceForward);
+    DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation = StepOnceForward, float duration = 1, float startpoint = 0, float endpoint = 1);
     ~DOTween();
 
     void   SetStartPoint(float _StartPoint) { StartPoint = _StartPoint; } //이거 초기값 세팅해줘야함. 
@@ -209,7 +209,11 @@ private:
     void OnceForward(const float& _DeltaTime) //once는 한번만이고 loop 반복..   Forward 함수그래프의 시작이 앞에서 Back뒤에서 PingPong 앞에서 뒤로 왔다 갔다
     {
         if (CurTime > Duration)
+        {
+            delete this;
             return;
+        }
+          
         float CurStepTime;
         float CurStep;
 
@@ -222,7 +226,10 @@ private:
     void OnceBack(const float& _DeltaTime)
     {
         if (CurTime > Duration)
+        {
+            delete this;
             return;
+        }
         float CurStepTime;
         float CurStep;
 
@@ -235,7 +242,10 @@ private:
     void OncePingPong(const float& _DeltaTime)
     {
         if (CurTime > Duration)
+        {
+            delete this;
             return;
+        }
         float CurStepTime;
         float CurStep;
 
@@ -247,7 +257,7 @@ private:
 
         Data = StartPoint + CurStep * Function(CurStepTime);
     }
-    void LoopForward(const float& _DeltaTime)
+    void LoopForward(const float& _DeltaTime) //루프는 종료조건이 없음
     {
         if (CurTime > Duration)
             CurTime -= Duration;

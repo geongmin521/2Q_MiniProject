@@ -1,6 +1,5 @@
 #pragma once
 #include "Collider.h"
-#include "Component.h"
 
 class AABB;
 class Circle;

@@ -8,40 +8,49 @@
 #include "UI.h"
 #include "TowerStar.h"
 #include "HPBar.h"
-class Container;
 
-class TowerBase :
-    public GameObject ,public IDamageNotify , public IDragAble //이런 개같은 public을 안붙였었네.. 됬다.. 이제모든 오브젝트도 드래그할수있어. 
+enum class TowerType
 {
-private:
-   
+    Crossbow,
+    Water,
+    Pile,
+    HolyCross
+}; 
 
-public:
-
-    Container* container;
-    bool isMoving;//일단 제일 단순한 bool값으로 처리하기
-    TowerStar* star; //기본타워에서 star하나씩가지고있게
-    HPBar* HPbar;
-    float curHP; //타워각자가 가질 현재 체력
-    GameObject* target = nullptr;
-    std::vector<GameObject*> targets;
-    TowerBase(TowerData data);
-    virtual ~TowerBase() = default;
+class Container;
+class TowerBase :
+    public GameObject ,public IDamageNotify , public IDragAble, public IColliderNotify
+{
+protected:
     TowerData towerData;
+    
+    bool isMoving;      //일단 제일 단순한 bool값으로 처리하기
+    TowerStar* star;    //기본타워에서 star하나씩가지고있게
+    HPBar* HPbar;
     bool isAttack = false;
+    Container* container; //드래그를 위해 컨테이너는 들고있는게 맞을까? 
+    std::vector<GameObject*> target;
+    std::function<void(void)> Search; //아이디로 타입구분해서 각각의 타워에 맞는 기능을 넣어주기
+    std::function<void(void)> AttackFunc;
+public:
+    float curHP;        //타워각자가 가질 현재 체력
 
-    float testEffect;
+    TowerBase(TowerData data);
+    virtual ~TowerBase() = default; //진짜 어떻게 해야할지를 모르겠네 허 허.. //불렛만 다르면 되는거지 적 불렛이랑 다른게 뭐지?  
 
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
-    virtual void FindTarget(Collider* col, bool isTargets = false, bool isHeal =false); 
-    virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
-    virtual void Hit(float damage) override;
-    virtual void Heal(float heal)override; //최대체력넘기면 최대체력되게끔
 
-    std::vector<ArtifactData> ownedArtifact;
+    virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
+    virtual void Hit(float damage);
+    virtual void Heal(float heal); //최대체력넘기면 최대체력되게끔
 
     virtual void BeginDrag(const MouseState& state) override;
     virtual void StayDrag(const MouseState& state) override;
     virtual void EndDrag(const MouseState& state) override;
+
+    virtual void OnBlock(Collider* ownedComponent, Collider* otherComponent)        override;
+    virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
+    virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)  override;
+    virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)   override;
 };
