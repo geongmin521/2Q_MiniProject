@@ -55,7 +55,8 @@ void EnemyIdle::Update(float deltaTime)
 		// 눈대중으로 대충 맞춤 스피드가 달라지면 판정값도 달라져야만 일정 범위를 유지할수있음
 
 		
-		if (std::abs(targetPos.x  - curPos.x) <= enemy->enemyData.attackRange / 2)
+		if (std::abs(targetPos.x  - curPos.x) <= enemy->enemyData.attackRange / 2 &&
+			std::abs(targetPos.y - curPos.y ) <= enemy->enemyData.attackRange / 2 )
 		{
 			enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 			if (enemy->isAttack == false)

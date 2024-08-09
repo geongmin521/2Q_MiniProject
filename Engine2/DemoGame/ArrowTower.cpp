@@ -25,18 +25,21 @@
 ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 {
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
-	towerData.attackRange = 500.0f;
+	towerData.attackRange = 5000.0f;
 	towerData.attackSpeed = 0.3f;
 	towerData.HP = 20000.0f;
 	curHP = towerData.HP;
 
-	SetBoundBox(0, 0, 100, 100);
+	SetBoundBox(0, 0, 5000, 5000);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
 
 	star = Fac->CreateGameObject<TowerStar>();
 	towerData.level = 1;
 	star->Init(this, towerData.level); //여기서 주인으로 자기를 줘서 자기 트랜스폼 찾게끔
+
+	HPbar = Fac->CreateGameObject<HPBar>();
+	HPbar->Init(this); //여기서 주인으로 자기를 줘서 자기 트랜스폼 찾게끔
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);

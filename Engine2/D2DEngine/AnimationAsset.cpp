@@ -33,6 +33,10 @@ bool AnimationAsset::LoadAnimation(std::wstring FilePath)
 	{
 		LoadAnimationFromCSV(0, L"..\\Data\\CSV\\MeleeTower.csv");
 	}
+	if (FilePath == std::wstring(L"Example"))
+	{
+		LoadAnimationFromCSV(0, L"..\\Data\\CSV\\Example.csv");
+	}
 	
 	return true;
 }

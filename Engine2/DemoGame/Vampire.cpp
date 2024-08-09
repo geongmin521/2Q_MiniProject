@@ -18,8 +18,9 @@ Vampire::Vampire(EnemyData data) : EnemyBase(data)
 	enemyData.attackRange = 100.f;
 	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 500.f;
+	enemyData.Type = "방어형";
 	curHP = enemyData.HP;
-	enemyData.ATK = 500.f;
+	enemyData.ATK = 50.f;
 	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)
 	SetBoundBox(0, 0, 500, 500); //기본 적 이미지 사이즈
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
@@ -75,25 +76,13 @@ void Vampire::Attack(float deltaTime)
 
 void Vampire::OnBlock(Collider* ownedComponent, Collider* otherComponent)
 {
-	//enemyData.speed = 0;
 
-	//if (otherComponent->GetCollisionLayer() == CollisionLayer::Tower)
-	//{
-	//	//GetComponent<FiniteStateMachine>()->SetNextState("Attack");
-	//}
 }
 
 void Vampire::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
 
-	//if (otherComponent->name== "attackbox" && ownedComponent->name == "EnemyAtk")
-	//{
-	//	enemyData.speed = 0;
-	//	
-	//	objs.push_back(otherComponent->owner);
-	//	GetComponent<FiniteStateMachine>()->SetNextState("Attack");
-	//	// 데미지 관련 코드 추가할 예정
-	//}
+
 }
 
 void Vampire::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)

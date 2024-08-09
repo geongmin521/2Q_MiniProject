@@ -18,8 +18,9 @@ HealingTower::HealingTower(TowerData data) : TowerBase(data)
 	towerData.attackSpeed = 5.0f;
 	towerData.HP = 20000.0f;
 	curHP = towerData.HP;
-	SetBoundBox(0, 0, 500, 500); // 근접타워 높이는 자기 몸체크기만큼
-	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"MeleeTower")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게
+	SetBoundBox(0, 0, 200, 200); // 근접타워 높이는 자기 몸체크기만큼
+	AddComponent(new Animation(L"..\\Data\\Image\\Example.png", L"Example")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게
+	transform->SetRelativeScale({ 0.0001f,0.00001f });
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);

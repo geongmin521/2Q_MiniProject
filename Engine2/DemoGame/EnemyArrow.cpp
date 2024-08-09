@@ -9,6 +9,7 @@
 #include "../D2DEngine/Music.h"
 #include "TowerBase.h"
 #include "EnemyArrow.h"
+#include "Bitmap.h"
 
 EnemyArrow::EnemyArrow()
 {
