@@ -49,8 +49,10 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 	renderOrder = 100;
 	transform->SetRelativeLocation({ 400,300 });
 
-	D2DEffect::GetInstance()->CreateMorphologyEffect(L"as", GetComponent<Animation>()->bitmap, 10);
+	//  D2DEffect::GetInstance()->CreateMorphologyEffect(L"as", GetComponent<Animation>()->bitmap, 10);
 	//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
+	D2DEffect::GetInstance()->Create2DLightEffect(L"as", GetComponent<Animation>()->bitmap);
+
 	AddComponent(new D2DFont(L"æ»≥Á«œººø‰"));
 	GetComponent<D2DFont>()->SetPos(100, 100);
 }
@@ -79,7 +81,7 @@ void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 	test.dx += 100;
 	test.dy += 100;
 	pRenderTarget->SetTransform(test);
-//	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"as"));	
+
 }
 
 void ArrowTower::Attack(float deltaTime)

@@ -27,6 +27,16 @@ ID2D1Effect* D2DEffect::FindEffect(const std::wstring& keyName)
 	return nullptr;
 }
 
+void D2DEffect::Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_3X2_F* matrix)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	ID2D1Effect * affineTransform;
+	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D12DAffineTransform, &affineTransform);
+	affineTransform->SetInput(0, _Bitmap);
+	affineTransform->SetValue(D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX, matrix);
+	Effects.insert(std::make_pair(_KeyName, affineTransform));
+}
+
 void D2DEffect::CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; } // 예외처리 해당 키를 가진게 있으면 생성을 하지 않음
@@ -116,7 +126,7 @@ void D2DEffect::CreateBlendEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, I
 
 	blendEffect->SetInput(0, _Bitmap);
 	blendEffect->SetInput(1, _BitmapTwo);
-	blendEffect->SetValue(D2D1_BLEND_PROP_MODE, D2D1_BLEND_MODE_EXCLUSION);
+	blendEffect->SetValue(D2D1_BLEND_PROP_MODE, D2D1_BLEND_MODE_LINEAR_LIGHT);
 	Effects.insert(std::make_pair(_KeyName, blendEffect));
 }
 
@@ -130,4 +140,22 @@ void D2DEffect::CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitm
 	morphologyEffect->SetValue(D2D1_MORPHOLOGY_PROP_MODE, D2D1_MORPHOLOGY_MODE_ERODE);
 	morphologyEffect->SetValue(D2D1_MORPHOLOGY_PROP_WIDTH, val);
 	Effects.insert(std::make_pair(_KeyName, morphologyEffect));
+}
+
+void D2DEffect::CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	ID2D1Effect* DistantSpecularEffect;
+	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1DistantSpecular, &DistantSpecularEffect);
+	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_AZIMUTH, 180.0f);  // 방위각
+	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_ELEVATION, 90.0f); // 고도 (태양이 머리 위에서 비추는 효과)
+	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_SPECULAR_EXPONENT, 50.0f); // 반사 지수 (더 강한 반사)
+	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_SPECULAR_CONSTANT, 1.0f); // 반사 상수 (광원의 밝기 증가)
+	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_SURFACE_SCALE, 5.0f);    // 표면 스케일 (높이 증가)
+	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_COLOR, D2D1::Vector3F(1.0f, 0.95f, 0.8f)); // 조명 색상 (태양빛 색상)
+	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_KERNEL_UNIT_LENGTH, D2D1::Vector2F(1.0f, 1.0f)); // 커널 단위 길이
+	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_SCALE_MODE, D2D1_DISTANTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC); // 스케일 모드 (고품질)
+	
+	DistantSpecularEffect->SetInput(0, _Bitmap);
+	Effects.insert(std::make_pair(_KeyName, DistantSpecularEffect));
 }

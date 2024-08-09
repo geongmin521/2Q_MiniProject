@@ -17,5 +17,8 @@ public:
 	virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent);
 	virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent);
 	virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent);
+
+	Bitmap* firstBitmap = nullptr;
+	Bitmap * secondBitmap = nullptr;
 };
 
