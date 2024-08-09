@@ -25,12 +25,12 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 
 
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
-	towerData.attackRange = 500.0f;
+	towerData.attackRange = 5000.0f;
 	towerData.attackSpeed = 0.3f;
 	towerData.HP = 20000.0f;
 	curHP = towerData.HP;
 
-	SetBoundBox(0, 0, 200, 200);
+	SetBoundBox(0, 0, 5000, 5000);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
 

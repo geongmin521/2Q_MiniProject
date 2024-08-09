@@ -18,6 +18,7 @@ Vampire::Vampire(EnemyData data) : EnemyBase(data)
 	enemyData.attackRange = 100.f;
 	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 500.f;
+	enemyData.Type = "방어형";
 	curHP = enemyData.HP;
 	enemyData.ATK = 50.f;
 	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)

@@ -17,6 +17,7 @@ private:
    
 
 public:
+
     Container* container;
     bool isMoving;//일단 제일 단순한 bool값으로 처리하기
     TowerStar* star; //기본타워에서 star하나씩가지고있게
