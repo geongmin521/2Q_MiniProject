@@ -124,6 +124,9 @@
     <ClInclude Include="Artifact.h">
       <Filter>Artifact</Filter>
     </ClInclude>
+    <ClInclude Include="VampireRanged.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -210,6 +213,9 @@
     </ClCompile>
     <ClCompile Include="Artifact.cpp">
       <Filter>Artifact</Filter>
+    </ClCompile>
+    <ClCompile Include="VampireRanged.cpp">
+      <Filter>Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -26,9 +26,10 @@ VampireRanged::VampireRanged(EnemyData data) : EnemyBase(data)
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
-	fsm->CreateState<VampireIdle>("Idle");
-	fsm->CreateState<VampireShared>("Shared");
-	fsm->CreateState<VampireAttack>("Attack");
+	fsm->CreateState<EnemyIdle>("Idle");
+	fsm->CreateState<EnemyShared>("Shared");
+	fsm->CreateState<EnemyAttack>("Attack");
+	fsm->CreateState<EnemyDead>("Death");
 	fsm->SetNextState("Idle");
 
 	AddComponent(new Movement(transform));

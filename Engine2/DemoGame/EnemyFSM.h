@@ -43,9 +43,14 @@ private:
 	virtual void ExitState() override;
 };
 
-class EnemyeDead : public EnemyFSM
+class EnemyDead : public EnemyFSM
 {
-
+public:
+	EnemyDead(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name) {};
+private:
+	virtual void EnterState() override;
+	virtual void Update(float deltaTime) override;
+	virtual void ExitState() override;
 };
 
 class EnemyAttack : public EnemyFSM
@@ -56,9 +61,4 @@ private:
 	virtual void EnterState() override;
 	virtual void Update(float deltaTime) override;
 	virtual void ExitState() override;
-};
-
-class EnemyeHit : public EnemyFSM
-{
-
 };

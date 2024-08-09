@@ -103,7 +103,7 @@ void EnemyShared::Update(float deltaTime)
 {
 	if (enemy->curHP <= 0)
 	{
-		enemy->isActive = false;
+		owner->SetNextState("Death");
 	}
 
 }
@@ -117,18 +117,14 @@ void EnemyAttack::EnterState()
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	ani->SetAnimation(0, true);
 	ani->isLoop = false;
-
-	//ani->Reverse();
 }
 
 void EnemyAttack::Update(float deltaTime)
 {
 	if (ani->IsEnd())
 	{
-		enemy->isAttack = true;
-		//enemy->target = nullptr;
 		enemy->Attack(deltaTime);
-	
+		enemy->isAttack = true;
 		owner->SetNextState("Idle");
 	}
 }
@@ -136,4 +132,18 @@ void EnemyAttack::Update(float deltaTime)
 void EnemyAttack::ExitState()
 {
 
+}
+
+void EnemyDead::EnterState()
+{
+	// 데스 애니메이션
+}
+
+void EnemyDead::Update(float deltaTime)
+{
+	enemy->isActive = false;
+}
+
+void EnemyDead::ExitState()
+{
 }
