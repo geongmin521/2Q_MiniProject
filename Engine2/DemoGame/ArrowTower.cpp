@@ -35,44 +35,20 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
 	fsm->CreateState<TowerAttack>("Attack");
-	fsm->CreateState<TowerShared>("Shared"); 
+	fsm->CreateState<TowerShared>("Shared");
 	fsm->CreateState<TowerDeath>("Death");
-	fsm->SetNextState("Idle");                 
-	
+	fsm->SetNextState("Idle");
+
 	renderOrder = 100;
-	transform->SetRelativeLocation({400,300});
+	transform->SetRelativeLocation({ 400,300 });
 
 	D2DEffect::GetInstance()->CreateMorphologyEffect(L"as", GetComponent<Animation>()->bitmap, 10);
-	test.SetBoxSize(300, 100);
-	test.SetPos(20, 20);
-	test.LoadFont(L"Calibri");
-	test.CreateLayoutText(L"폰트 테스트입니다.");
-	test.Sort(Setting::RIGHT);
-	test.SetFontLocation(Setting::BOTTOM);
-	test.SetSize(50.f, {2, 4});
-	test.OnTransform();
-	test.GetTransform()->SetParent(transform);
+	//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
 
+}
 
-//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
-	
-	test.SetBoxSize(300, 100);
-	test.SetPos(20, 20);
-	test.LoadFont(L"Calibri");
-	test.CreateLayoutText(L"폰트 테스트입니다.");
-	test.Sort(Setting::RIGHT);
-	test.SetFontLocation(Setting::BOTTOM);
-	test.SetSize(50.f, {2, 4});
-	test.OnTransform();
-	test.GetTransform()->SetParent(transform);
-
-
-//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
-	__super::Render(pRenderTarget);
-	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"as"));
 void ArrowTower::Update(float deltaTime)
 {
-
 	__super::Update(deltaTime);
 
 	//target이 현재 없을때
@@ -89,12 +65,9 @@ void ArrowTower::Update(float deltaTime)
 
 void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
+
 	__super::Render(pRenderTarget);
-
-	// test
-	test.DrawFont(D2D1::ColorF(D2D1::ColorF::Black));
-
-	
+//	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"as"));
 	
 }
 

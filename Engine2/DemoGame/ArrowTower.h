@@ -9,7 +9,7 @@ private:
 
 public:
     ArrowTower(TowerData data);
-    virtual ~ArrowTower();
+    virtual ~ArrowTower() {};
 
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
