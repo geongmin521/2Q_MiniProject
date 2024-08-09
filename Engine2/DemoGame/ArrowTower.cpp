@@ -74,10 +74,13 @@ void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void ArrowTower::Attack(float deltaTime)
 { 
-	Arrow* arrow = new Arrow;
-	arrow->owner = this->owner;
-	arrow->Init(target, GetWorldLocation());
-	owner->m_GameObjects.push_back(arrow);    //투사체는 타겟 hit처리를 투사체에서
+	if (target != nullptr)
+	{
+		Arrow* arrow = new Arrow;
+		arrow->owner = this->owner;
+		arrow->Init(target, GetWorldLocation());
+		owner->m_GameObjects.push_back(arrow);    //투사체는 타겟 hit처리를 투사체에서
+	}
 }
 
 //좀더 확실하고 통제된 환경을 만들어야한다. 

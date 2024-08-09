@@ -145,6 +145,7 @@
     <ClInclude Include="EnemyArrow.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="HPBar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -253,5 +254,6 @@
     <ClCompile Include="EnemyArrow.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="HPBar.cpp" />
   </ItemGroup>
 </Project>

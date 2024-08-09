@@ -17,7 +17,7 @@ TowerBase::~TowerBase()
 void TowerBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-
+	perHP = (curHP / towerData.HP) * 100;
 	if (target != nullptr && target->isActive == false)  
 	{
 		target = nullptr;

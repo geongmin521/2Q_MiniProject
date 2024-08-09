@@ -151,6 +151,7 @@
     <ClInclude Include="HealingTower.h" />
     <ClInclude Include="HolyTower.h" />
     <ClInclude Include="HolyWater.h" />
+    <ClInclude Include="HPBar.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MeleeTower.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="HealingTower.cpp" />
     <ClCompile Include="HolyTower.cpp" />
     <ClCompile Include="HolyWater.cpp" />
+    <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MeleeTower.cpp" />

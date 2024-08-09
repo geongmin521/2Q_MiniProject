@@ -17,6 +17,7 @@ EnemyBase::~EnemyBase()
 void EnemyBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
+	perHP = (curHP / enemyData.HP) * 100;
 	if (target != nullptr && target->isActive == false)
 	{
 		target = nullptr;

@@ -73,8 +73,12 @@ void VampireRanged::OnEndOverlap(Collider* ownedComponent, Collider* otherCompon
 
 void VampireRanged::Attack(float deltaTime)
 {
-	EnemyArrow* arrow = new EnemyArrow;
-	arrow->owner = this->owner;
-	arrow->Init(target, GetWorldLocation());
-	owner->m_GameObjects.push_back(arrow);
+	
+	if (target != nullptr)
+	{
+		EnemyArrow* arrow = new EnemyArrow;
+		arrow->owner = this->owner;
+		arrow->Init(target, GetWorldLocation());
+		owner->m_GameObjects.push_back(arrow);
+	}
 }

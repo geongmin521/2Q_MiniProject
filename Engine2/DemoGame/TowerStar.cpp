@@ -19,8 +19,9 @@ TowerStar::~TowerStar()
 
 void TowerStar::Init(GameObject* obj,int level)
 {
-	SetStarOnwer(obj);
-	transform->SetParent(starOnwer->transform);
+	SetStarOwner(obj);
+	
+	transform->SetParent(starOwner->transform);
 	transform->SetRelativeLocation({ 0, -70.f });
 	isActive = true;
 	switch (level) {
@@ -38,7 +39,7 @@ void TowerStar::Init(GameObject* obj,int level)
 
 void TowerStar::Update(float deltaTime)
 {
-	if (starOnwer->isActive == false)
+	if (starOwner->isActive == false)
 	{
 		isActive = false;
 	}
