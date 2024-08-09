@@ -36,14 +36,14 @@ void EnemyFSM::Update(float deltaTime)
 void EnemyFSM::ExitState()
 {
 }
-void VampireIdle::EnterState()
+void EnemyIdle::EnterState()
 {
 	ani->SetAnimation(1, true);
 	ani->isLoop = true;
 	//ani->Reverse();
 }
 
-void VampireIdle::Update(float deltaTime)
+void EnemyIdle::Update(float deltaTime)
 {
 	// ¸öÅëÅ©±â 165.f 
 	
@@ -85,21 +85,21 @@ void VampireIdle::Update(float deltaTime)
 	}
 }
 
-void VampireIdle::ExitState()
+void EnemyIdle::ExitState()
 {
 }
 
-VampireShared::VampireShared(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name)
+EnemyShared::EnemyShared(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name)
 {
 	pOwner->SetSharedTransition(this);
 }
 
-void VampireShared::EnterState()
+void EnemyShared::EnterState()
 {
 
 }
 
-void VampireShared::Update(float deltaTime)
+void EnemyShared::Update(float deltaTime)
 {
 	if (enemy->curHP <= 0)
 	{
@@ -108,11 +108,11 @@ void VampireShared::Update(float deltaTime)
 
 }
 
-void VampireShared::ExitState()
+void EnemyShared::ExitState()
 {
 }
 
-void VampireAttack::EnterState()
+void EnemyAttack::EnterState()
 {
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	ani->SetAnimation(0, true);
@@ -121,7 +121,7 @@ void VampireAttack::EnterState()
 	//ani->Reverse();
 }
 
-void VampireAttack::Update(float deltaTime)
+void EnemyAttack::Update(float deltaTime)
 {
 	if (ani->IsEnd())
 	{
@@ -133,7 +133,7 @@ void VampireAttack::Update(float deltaTime)
 	}
 }
 
-void VampireAttack::ExitState()
+void EnemyAttack::ExitState()
 {
 
 }

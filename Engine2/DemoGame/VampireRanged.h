@@ -1,15 +1,15 @@
 #pragma once
 #include "EnemyBase.h"
 #include "../D2DEngine/IColliderNotify.h"
+#include "../D2DEngine/BoxCollider.h"
 
-class VampireBomb
-	: public EnemyBase, public IColliderNotify
+class VampireRanged 
+	: public EnemyBase, IColliderNotify
 {
-private:
-
 public:
-	VampireBomb(EnemyData data);
-	virtual ~VampireBomb();
+
+	VampireRanged(EnemyData data);
+	virtual ~VampireRanged();
 
 	virtual void Update(float deltaTime);
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
