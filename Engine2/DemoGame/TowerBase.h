@@ -12,7 +12,7 @@ private:
 
 public:
     
- 
+    Bitmap* star;
     float curHP; //타워각자가 가질 현재 체력
     GameObject* target = nullptr;
     std::vector<GameObject*> targets;
@@ -20,6 +20,7 @@ public:
     virtual ~TowerBase();
     TowerData towerData;
     bool isAttack = false;
+
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
     virtual void FindTarget(Collider* col, bool isTargets = false, bool isHeal =false); 

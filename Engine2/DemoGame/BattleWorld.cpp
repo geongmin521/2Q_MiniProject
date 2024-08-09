@@ -28,7 +28,9 @@ BattleWorld::~BattleWorld()
 
 void BattleWorld::MakeObject() //월드의 좌표같은것들도 csv로 빼야할수도있을듯? 
 {
+	Fac->CreateImage(L"낮.png", { WinHalfSizeX, WinHalfSizeY }); // 테스트용 배경출력
 	MakeUI();
+	
 	DataManager::GetInstance().get()->CSVReader(L"EnemyData");
 }
 

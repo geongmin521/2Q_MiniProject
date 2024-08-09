@@ -22,7 +22,11 @@ MeleeTower::MeleeTower(TowerData data) : TowerBase(data)
 	SetBoundBox(0, 0, 200, 200); // 
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"MeleeTower")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
-
+	
+	
+	//star = new Bitmap(L"..\\Data\\Image\\star.png"); //다른비트맵 추가하게되면 구별할려고 
+	//AddComponent(star);
+	//star->
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
