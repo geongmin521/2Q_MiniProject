@@ -31,6 +31,9 @@
     <Filter Include="UIBase">
       <UniqueIdentifier>{6aff8257-2e2b-460c-a1c0-9169bfdbe870}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Artifact">
+      <UniqueIdentifier>{db71fc4d-32cc-492d-b5e0-a86e1ca39fc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowTower.h">
@@ -115,9 +118,11 @@
       <Filter>UIBase</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h" />
-    <ClInclude Include="Artifact.h" />
     <ClInclude Include="MeleeTower.h">
       <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Artifact.h">
+      <Filter>Artifact</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +205,11 @@
       <Filter>UIBase</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="Artifact.cpp" />
     <ClCompile Include="MeleeTower.cpp">
       <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Artifact.cpp">
+      <Filter>Artifact</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

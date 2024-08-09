@@ -37,7 +37,7 @@ void EnemySpawner::CreateEnemy()
 	std::uniform_int_distribution<> spawnPos(1, 5);
 	float posY = (float)spawnPos(gen) * 150;
 	Vampire* newVampire = new Vampire(enemyData);
-	newVampire->transform->SetRelativeLocation({ 2000,  posY });
+	newVampire->transform->SetRelativeLocation({ 2000,  100 });
 	newVampire->owner = this->owner;
 
 	owner->m_GameObjects.push_back(newVampire);
@@ -50,7 +50,7 @@ void EnemySpawner::Update(float deltaTime)
 	if (Timer < 0.f)
 	{
 		Timer = spawnTimer;
-		if (spawnCount < 50)
+		if (spawnCount < 2)
 		{
 			CreateEnemy();
 		}
