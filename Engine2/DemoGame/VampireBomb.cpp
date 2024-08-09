@@ -20,7 +20,7 @@ VampireBomb::VampireBomb(EnemyData data) :EnemyBase(data)
 	curHP = enemyData.HP;
 
 	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)
-	SetBoundBox(0, 0, 150, 180); //기본 적 이미지 사이즈
+	SetBoundBox(0, 0, 500, 500); //기본 적 이미지 사이즈
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie3.png", L"Zombie2"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
 
@@ -84,6 +84,7 @@ void VampireBomb::Attack(float deltaTime)
 	if (target != nullptr)
 	{
 		tower->Hit(enemyData.ATK);
+		// 자살 공격
 		curHP -= enemyData.HP;
 	}
 }

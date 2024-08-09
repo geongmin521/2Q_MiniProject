@@ -2,7 +2,7 @@
 #include "EnemyBase.h"
 #include "../D2DEngine/IColliderNotify.h"
 #include "../D2DEngine/BoxCollider.h"
-
+#include "EnemyArrow.h"
 class VampireRanged 
 	: public EnemyBase, IColliderNotify
 {

@@ -7,20 +7,21 @@
 #include "../D2DEngine/D2DRenderer.h"
 #include "../D2DEngine/AABB.h"
 #include "../D2DEngine/BoxCollider.h"
+#include "../D2DEngine/World.h"
 #include "EnemyFSM.h"
 #include "TowerBase.h"
 
 VampireRanged::VampireRanged(EnemyData data) : EnemyBase(data)
 {
 	enemyData.speed = 300.f;
-	enemyData.attackRange = 10.f;
+	enemyData.attackRange = 1000.f;
 	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 10.f;
 	enemyData.ATK = 50.f;
 	curHP = enemyData.HP;
 
-	SetBoundBox(0, 0, 150, 180); //기본 적 이미지 사이즈
-	AddComponent(new Animation(L"..\\Data\\Image\\zombie3.png", L"Zombie2"));
+	SetBoundBox(0, 0, 500, 500); //기본 적 이미지 사이즈
+	AddComponent(new Animation(L"..\\Data\\Image\\zombie4.png", L"Zombie2"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
 
 
@@ -45,10 +46,13 @@ VampireRanged::~VampireRanged()
 
 void VampireRanged::Update(float deltaTime)
 {
+	__super::Update(deltaTime);
+	Find(GetComponent<BoxCollider>());
 }
 
 void VampireRanged::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
+	__super::Render(pRenderTarget);
 }
 
 void VampireRanged::OnBlock(Collider* ownedComponent, Collider* otherComponent)
@@ -69,4 +73,8 @@ void VampireRanged::OnEndOverlap(Collider* ownedComponent, Collider* otherCompon
 
 void VampireRanged::Attack(float deltaTime)
 {
+	EnemyArrow* arrow = new EnemyArrow;
+	arrow->owner = this->owner;
+	arrow->Init(target, GetWorldLocation());
+	owner->m_GameObjects.push_back(arrow);
 }

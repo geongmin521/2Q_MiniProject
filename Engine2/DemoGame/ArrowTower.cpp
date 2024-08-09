@@ -24,7 +24,7 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 	towerData.HP = 20000.0f;
 	curHP = towerData.HP;
 
-	SetBoundBox(0, 0, towerData.attackRange, towerData.attackRange);
+	SetBoundBox(0, 0, 100, 100);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
 
