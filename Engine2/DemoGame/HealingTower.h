@@ -6,7 +6,7 @@ class HealingTower : public TowerBase, IColliderNotify
 private:
 
 public:
-    HealingTower();
+    HealingTower(TowerData data);
     virtual ~HealingTower();
 
     virtual void Update(float deltaTime);

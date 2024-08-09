@@ -10,7 +10,7 @@
 #include "../D2DEngine/Music.h"
 #include "HealingTower.h"
 
-HealingTower::HealingTower()
+HealingTower::HealingTower(TowerData data) : TowerBase(data)
 {
 	towerData.name = "HealingTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 5000.0f;
@@ -60,9 +60,7 @@ void HealingTower::Attack(float deltaTime)
 
 	for (auto& tower : Towers)
 	{
-		//계산기 추가필요
 		tower->Heal(1000);
-		//std::cout << enemy->curHP << std::endl;
 	}
 }
 

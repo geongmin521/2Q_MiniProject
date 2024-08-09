@@ -19,8 +19,8 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 
 
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
-	towerData.attackRange = 7000.0f;
-	towerData.attackSpeed = 2.0f;
+	towerData.attackRange = 500.0f;
+	towerData.attackSpeed = 0.3f;
 	towerData.HP = 20000.0f;
 	curHP = towerData.HP;
 

@@ -7,6 +7,7 @@ CollisionManager* CollisionManager::inst = nullptr;
 CollisionManager::CollisionManager()
 {
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Enemy));
+	collisonLayer.insert(std::make_pair(CollisionLayer::Tower, CollisionLayer::Tower));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Bullet));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Enemy,CollisionLayer::Bullet));
 	

@@ -7,6 +7,7 @@ TowerBase::TowerBase(TowerData data)
 {
 	name = "Tower";
 	this->towerData = data;	
+	
 }
 
 TowerBase::~TowerBase()
@@ -41,34 +42,34 @@ void TowerBase::FindTarget(Collider* col, bool isTargets,bool isHeal)
 
 	std::vector<GameObject*> enemys;
 
-	if(isHeal == false)
-	{
+	
 		for (auto& col : col->collideStatePrev)
 		{
-			if (col->owner->name == "Enemy" && col->owner->isActive == true)
+			if (!isHeal)
 			{
-				if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
-					std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
+				if (col->owner->name == "Enemy" && col->owner->isActive == true)
 				{
-					enemys.push_back(col->owner);
+					if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
+						std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
+					{
+						enemys.push_back(col->owner);
+					}
+				}
+			}
+			else 
+			{
+				if (col->owner->name == "Tower" && col->owner->isActive == true)
+				{
+					if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
+						std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
+					{
+						enemys.push_back(col->owner);
+					}
 				}
 			}
 		}
-	}
-	else
-	{
-		for (auto& col : col->collideStatePrev)
-		{
-			if (col->owner->isActive == true)
-			{
-				if (std::abs(GetWorldLocation().x - col->owner->GetWorldLocation().x) <= towerData.attackRange &&
-					std::abs(GetWorldLocation().y - col->owner->GetWorldLocation().y) <= towerData.attackRange)
-				{
-					enemys.push_back(col->owner);
-				}
-			}
-		}
-	}
+	
+
 	
 	float min = 1000;
 	float curMin;

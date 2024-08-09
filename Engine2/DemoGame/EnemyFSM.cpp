@@ -65,7 +65,8 @@ void VampireIdle::Update(float deltaTime)
 		}
 		else
 		{
-			enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed, targetPos.y - curPos.y });
+			MathHelper::Vector2F moveDir = (targetPos - curPos).Normalize(); 
+			enemy->GetComponent<Movement>()->SetVelocity({ moveDir * enemy->enemyData.speed });
 		}
 	}
 	else

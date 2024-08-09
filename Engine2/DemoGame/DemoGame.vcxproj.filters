@@ -31,6 +31,9 @@
     <Filter Include="UIBase">
       <UniqueIdentifier>{6aff8257-2e2b-460c-a1c0-9169bfdbe870}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Artifact">
+      <UniqueIdentifier>{9fa061a9-80fd-4703-8872-b9f25197e095}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowTower.h">
@@ -115,8 +118,19 @@
       <Filter>UIBase</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h" />
-    <ClInclude Include="Artifact.h" />
     <ClInclude Include="MeleeTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Artifact.h">
+      <Filter>Artifact</Filter>
+    </ClInclude>
+    <ClInclude Include="HealingTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyWater.h">
       <Filter>Tower</Filter>
     </ClInclude>
   </ItemGroup>
@@ -200,8 +214,19 @@
       <Filter>UIBase</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="Artifact.cpp" />
     <ClCompile Include="MeleeTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Artifact.cpp">
+      <Filter>Artifact</Filter>
+    </ClCompile>
+    <ClCompile Include="HealingTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
   </ItemGroup>

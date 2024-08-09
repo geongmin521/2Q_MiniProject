@@ -2,6 +2,7 @@
 #include "../D2DEngine/GameObject.h"
 #include "../D2DEngine/Data.h"
 #include "../D2DEngine/IDamageNotify.h"
+#include "../D2DEngine/Bitmap.h"
 #include "../D2DEngine/Collider.h"
 class TowerBase :
     public GameObject , IDamageNotify
@@ -10,6 +11,8 @@ private:
     
 
 public:
+    
+ 
     float curHP; //타워각자가 가질 현재 체력
     GameObject* target = nullptr;
     std::vector<GameObject*> targets;

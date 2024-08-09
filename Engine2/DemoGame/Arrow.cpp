@@ -40,9 +40,9 @@ void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 	else if (position[2].x - position[0].x > 200.f)
 	{
 		sec = 1.0f;
-		height = 80.f;
+		height = 180.f;
 	}
-	else
+	else 
 	{
 		sec = 0.15f;
 		height = 5.f;
@@ -86,6 +86,7 @@ void Arrow::Update(float deltaTime)
 	{
 		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);
 		enemy->Hit(60);
+		//화살이변하면되
 		isActive = false;
 	}
 
