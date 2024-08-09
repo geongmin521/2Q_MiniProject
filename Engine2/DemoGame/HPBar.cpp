@@ -27,7 +27,6 @@ void HPBar::Init(GameObject* obj)
 
 }
 
-
 void HPBar::Update(float deltaTime)
 {
 	if (HPOwner->isActive == false)
