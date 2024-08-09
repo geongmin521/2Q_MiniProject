@@ -53,9 +53,9 @@ void TowerFunc::Heal(std::vector<GameObject*>& targets) //게임오브젝트의 벡터를 
 {
 	for (auto& tower : targets)
 	{
-		TowerBase* tower = dynamic_cast<TowerBase*>(tower); //타워에만 한정되지않을수도있으니까... 이것도 인터페이스로 뺄까?
+		TowerBase* healTower = dynamic_cast<TowerBase*>(tower); //타워에만 한정되지않을수도있으니까... 이것도 인터페이스로 뺄까?
 		if(tower != nullptr) 
-			tower->Heal(1000);
+			healTower->Heal(1000);
 	}
 }
 
@@ -63,9 +63,9 @@ void TowerFunc::MeleeAttack(std::vector<GameObject*>& targets)
 {
 	for (auto& enemy : targets)
 	{		
-		EnemyBase* enemy = dynamic_cast<EnemyBase*>(enemy); //타워에만 한정되지않을수도있으니까... 이것도 인터페이스로 뺄까?
+		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy); //타워에만 한정되지않을수도있으니까... 이것도 인터페이스로 뺄까?
 		//계산기도 여기서 거치고 가야지.. 헬퍼에 세환님이 만들었으니까 유틸로 접근해서 적 타입이랑 같이 보내서 계산하면될듯?
 		if (enemy != nullptr)
-			enemy->Hit(1000);
+			damageEnemy->Hit(1000);
 	}
 }
