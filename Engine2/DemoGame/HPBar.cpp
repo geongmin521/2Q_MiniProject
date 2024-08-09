@@ -21,8 +21,8 @@ HPBar::~HPBar()
 void HPBar::Init(GameObject* obj)
 {
 	SetHPOnwer(obj);
-	transform->SetParent(HPOwner->transform);
-	transform->SetRelativeLocation({ 0, 70.f });
+	//transform->SetParent(HPOwner->transform);
+	transform->SetRelativeLocation({ 500, 200});
 	isActive = true;
 
 }
@@ -38,7 +38,8 @@ void HPBar::Update(float deltaTime)
 	float origin = hpBar->GetSize().x;         // 원래 크기
 	float newOrigin = origin * scaleX;
 	float move = std::abs((origin - newOrigin) / 1.5f);
-	transform->SetRelativeLocation({ -move, 70.f });
+	
+	float pre = GetWorldLocation().x;
 	__super::Update(deltaTime);
 
 
@@ -49,7 +50,7 @@ void HPBar::Update(float deltaTime)
 
 	// 2. 왼쪽 기준으로 위치 보정
 	
-	transform->SetRelativeLocation({ -move, 70.f });
+	//transform->SetRelativeLocation({  - move, GetWorldLocation().y });
 }
 
 void HPBar::Render(ID2D1HwndRenderTarget* pRenderTarget)

@@ -32,6 +32,7 @@ void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 	position[2] = target->GetWorldLocation();
 	position[0] = transform->GetRelativeLocation();
 	MathHelper::Vector2F mid = (position[2] + position[0]) / 2;
+	
 	if (position[2].x - position[0].x > 800.f)
 	{
 		sec = 3.0f;
@@ -86,7 +87,7 @@ void Arrow::Update(float deltaTime)
 	{
 		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);
 		enemy->Hit(60);
-		//화살이변하면되
+		//
 		isActive = false;
 	}
 
