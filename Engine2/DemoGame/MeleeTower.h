@@ -5,7 +5,7 @@ class MeleeTower : public TowerBase,  IColliderNotify
 {
 private:
 public:
-    MeleeTower();
+    MeleeTower(TowerData data);
     virtual ~MeleeTower();
 
     virtual void Update(float deltaTime);

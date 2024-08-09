@@ -2,6 +2,8 @@
 #include "BattleWorld.h"
 #include "Camera.h"
 #include "ArrowTower.h"
+#include "HealingTower.h"
+#include "MeleeTower.h"
 #include "Button.h"
 #include "MoveIcon.h"
 #include "Factory.h"
@@ -18,7 +20,7 @@
 
 BattleWorld::BattleWorld()
 {
-
+	
 }
 
 BattleWorld::~BattleWorld()
@@ -28,7 +30,9 @@ BattleWorld::~BattleWorld()
 
 void BattleWorld::MakeObject() //월드의 좌표같은것들도 csv로 빼야할수도있을듯? 
 {
+	Fac->CreateImage(L"낮.png", { WinHalfSizeX, WinHalfSizeY }); // 테스트용 배경출력
 	MakeUI();
+	
 	DataManager::GetInstance().get()->CSVReader(L"EnemyData");
 }
 
@@ -52,7 +56,9 @@ void BattleWorld::MakeUI() //앞에 경로는 다정해져있으니까 위에서 처리하자..
 	showWave = Fac->CreateGameObject<ShowWave>(); showWave->isActive = false;
 	Fac->CreateButton(L"ImageBack.png", [this]() { shop->isActive = true; }, { WinSizeX - 200, WinSizeY - 100 }); //타워 소환 -> 상점을띄워주는 객체
 
+	Fac->CreateTower< MeleeTower>(1);
 	Fac->CreateTower<ArrowTower>(1); //스트링만 넣어주면되나? 
+	Fac->CreateTower<HealingTower>(1); //스트링만 넣어주면되나? 
 	Fac->CreateGameObject<EnemySpawner>();
 	Fac->CreateGameObject<Light>();
 }

@@ -9,7 +9,7 @@
 
 EnemySpawner::EnemySpawner()
 {
-	std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>> data =
+	std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>, std::vector<ArtifactData>> data =
 		DataManager::GetInstance().get()->CSVReader(L"WaveData");
 
 	if (std::holds_alternative<std::vector<WaveData>>(data)) { //처음 웨이브 데이터 읽기.. 
@@ -36,10 +36,11 @@ void EnemySpawner::CreateEnemy()
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> spawnPos(1, 5);
 	float posY = (float)spawnPos(gen) * 150;
-	//newVampire->transform->SetRelativeLocation({ 2000,  100 });
-	//newVampire->owner = this->owner;
+	Vampire* newVampire = new Vampire(enemyData);
+	newVampire->transform->SetRelativeLocation({ 2000,  posY });
+	newVampire->owner = this->owner;
 
-	//owner->m_GameObjects.push_back(newVampire);
+	owner->m_GameObjects.push_back(newVampire);
 	spawnCount++;
 }
 
@@ -49,7 +50,7 @@ void EnemySpawner::Update(float deltaTime)
 	if (Timer < 0.f)
 	{
 		Timer = spawnTimer;
-		if (spawnCount < 100)
+		if (spawnCount < 50)
 		{
 			CreateEnemy();
 		}

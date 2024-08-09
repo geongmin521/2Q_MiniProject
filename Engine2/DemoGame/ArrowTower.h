@@ -6,6 +6,7 @@
 class ArrowTower : public TowerBase, public IColliderNotify
 {
 private:
+
 public:
     ArrowTower(TowerData data);
     virtual ~ArrowTower();

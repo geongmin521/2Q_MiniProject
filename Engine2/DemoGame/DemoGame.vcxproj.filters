@@ -31,6 +31,9 @@
     <Filter Include="UIBase">
       <UniqueIdentifier>{6aff8257-2e2b-460c-a1c0-9169bfdbe870}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Artifact">
+      <UniqueIdentifier>{9fa061a9-80fd-4703-8872-b9f25197e095}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Light">
       <UniqueIdentifier>{2d3a1bcd-c88d-4172-a3be-071f65b54f63}</UniqueIdentifier>
     </Filter>
@@ -118,6 +121,24 @@
       <Filter>UIBase</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="MeleeTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Artifact.h">
+      <Filter>Artifact</Filter>
+    </ClInclude>
+    <ClInclude Include="HealingTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyWater.h">
+      <Filter>Tower</Filter>
+    <ClInclude Include="Container.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="Light.h">
       <Filter>Light</Filter>
     </ClInclude>
@@ -198,6 +219,24 @@
     <ClCompile Include="VampireBomb.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="MeleeTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Artifact.cpp">
+      <Filter>Artifact</Filter>
+    </ClCompile>
+    <ClCompile Include="HealingTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
+      <Filter>Tower</Filter>
     <ClCompile Include="Container.cpp">
       <Filter>UIBase</Filter>
     </ClCompile>

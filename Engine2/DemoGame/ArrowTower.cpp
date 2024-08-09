@@ -19,9 +19,11 @@
 
 ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 {
+
+
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 500.0f;
-	towerData.attackSpeed = 2.0f;
+	towerData.attackSpeed = 0.3f;
 	towerData.HP = 20000.0f;
 	curHP = towerData.HP;
 
@@ -41,12 +43,33 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 	transform->SetRelativeLocation({400,300});
 
 	D2DEffect::GetInstance()->CreateMorphologyEffect(L"as", GetComponent<Animation>()->bitmap, 10);
-}
+	test.SetBoxSize(300, 100);
+	test.SetPos(20, 20);
+	test.LoadFont(L"Calibri");
+	test.CreateLayoutText(L"폰트 테스트입니다.");
+	test.Sort(Setting::RIGHT);
+	test.SetFontLocation(Setting::BOTTOM);
+	test.SetSize(50.f, {2, 4});
+	test.OnTransform();
+	test.GetTransform()->SetParent(transform);
 
-ArrowTower::~ArrowTower()
-{
-}
 
+//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
+	
+	test.SetBoxSize(300, 100);
+	test.SetPos(20, 20);
+	test.LoadFont(L"Calibri");
+	test.CreateLayoutText(L"폰트 테스트입니다.");
+	test.Sort(Setting::RIGHT);
+	test.SetFontLocation(Setting::BOTTOM);
+	test.SetSize(50.f, {2, 4});
+	test.OnTransform();
+	test.GetTransform()->SetParent(transform);
+
+
+//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
+	__super::Render(pRenderTarget);
+	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"as"));
 void ArrowTower::Update(float deltaTime)
 {
 
@@ -67,14 +90,19 @@ void ArrowTower::Update(float deltaTime)
 void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
-	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"as"));
+
+	// test
+	test.DrawFont(D2D1::ColorF(D2D1::ColorF::Black));
+
+	
+	
 }
 
 void ArrowTower::Attack(float deltaTime)
 { 
 	Arrow* arrow = new Arrow;
 	arrow->owner = this->owner;
-	arrow->Inits(target, GetWorldLocation());
+	arrow->Init(target, GetWorldLocation());
 	owner->m_GameObjects.push_back(arrow);    //투사체는 타겟 hit처리를 투사체에서
 }
 

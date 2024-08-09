@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "Transform.h"
+#include "GameObject.h"
+#include "Bitmap.h"
+#include "Animation.h"
 
 Transform::Transform()
 {
@@ -14,7 +17,8 @@ Transform::~Transform()
 void Transform::Update(float deltaTime) //나는 모든 오브젝트의 중심이.. 이미지의중앙이었으면 좋겠단 말이야.. 
 {
 	relativeTransform = D2D1::Matrix3x2F::Scale(D2D1::SizeF(relativeScale.x, relativeScale.y)) *
-		D2D1::Matrix3x2F::Rotation(relativeRotation, imageCenter) * 
+		//D2D1::Matrix3x2F::Rotation(relativeRotation, imageCenter) * 
+		D2D1::Matrix3x2F::Rotation(relativeRotation) * 
 		D2D1::Matrix3x2F::Translation(relativeLocation.x, relativeLocation.y);
 	if (parentScene != nullptr)
 		worldTransform = relativeTransform * parentScene->worldTransform;
@@ -32,8 +36,8 @@ MathHelper::Vector2F Transform::GetWorldScale() { //월드행렬에서 순수하게 사이즈
 
 void Transform::SetRelativeScale(MathHelper::Vector2F scale)
 {
-	relativeScale = scale;
-	Update(1); //본인의 값이 변경되었을때.. 특히 스타트에서?
+	relativeScale = scale;	
+	Update(1); 
 }
 
 void Transform::SetRelativeRotation(float Rotation)

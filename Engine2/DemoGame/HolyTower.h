@@ -1,15 +1,20 @@
-#pragma once
-#include "TowerBase.h"
-class HolyTower : public TowerBase
-{
-private:
-
-public:
-    HolyTower();
-    virtual ~HolyTower();
-
-    virtual void Update(float deltaTime);
-    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
-    virtual void Attack(float deltaTime) override;
-};
-
+//#pragma once
+//#include "TowerBase.h"
+//#include "../D2DEngine/IColliderNotify.h"
+//class HolyTower : public TowerBase , IColliderNotify
+//{
+//private:
+//
+//public:
+//    HolyTower(TowerData data);
+//    virtual ~HolyTower();
+//
+//    virtual void Update(float deltaTime);
+//    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+//    virtual void Attack(float deltaTime) override;
+//    virtual void OnBlock(Collider* ownedComponent, Collider* otherComponent) override;
+//    virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
+//    virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent) override;
+//    virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent) override;
+//};
+//
