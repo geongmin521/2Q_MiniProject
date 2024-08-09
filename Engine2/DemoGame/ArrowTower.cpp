@@ -14,6 +14,9 @@
 #include "EnemyBase.h"
 #include "ArrowTower.h"
 
+#include "../D2DEngine/D2DEffect.h"
+
+
 ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 {
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
@@ -37,20 +40,7 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 	renderOrder = 100;
 	transform->SetRelativeLocation({400,300});
 
-	// test
-	test.SetBoxSize(300, 100);
-	test.SetPos(20, 20);
-	test.LoadFont(L"Calibri");
-	test.CreateLayoutText(L"폰트 테스트입니다.");
-	test.Sort(Setting::RIGHT);
-	test.SetFontLocation(Setting::BOTTOM);
-	test.SetSize(50.f, {2, 4});
-	test.OnTransform();
-	test.GetTransform()->SetParent(transform);
-
-
-//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
-	
+	D2DEffect::GetInstance()->CreateMorphologyEffect(L"as", GetComponent<Animation>()->bitmap, 10);
 }
 
 ArrowTower::~ArrowTower()
@@ -71,19 +61,13 @@ void ArrowTower::Update(float deltaTime)
 	//transform->AddRelativeRotation(1);
 	FindTarget(GetComponent<BoxCollider>());
 	
-	
 }
 
 
 void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
-
-	// test
-	test.DrawFont(D2D1::ColorF(D2D1::ColorF::Black));
-
-	
-	
+	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"as"));
 }
 
 void ArrowTower::Attack(float deltaTime)

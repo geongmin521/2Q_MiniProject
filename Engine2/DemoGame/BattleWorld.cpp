@@ -14,6 +14,8 @@
 #include "../D2DEngine/Transform.h"
 #include "EnemySpawner.h"
 
+#include "Light.h" // 라이트 테스트
+
 BattleWorld::BattleWorld()
 {
 
@@ -52,5 +54,5 @@ void BattleWorld::MakeUI() //앞에 경로는 다정해져있으니까 위에서 처리하자..
 
 	Fac->CreateTower<ArrowTower>(1); //스트링만 넣어주면되나? 
 	Fac->CreateGameObject<EnemySpawner>();
-	
+	Fac->CreateGameObject<Light>();
 }

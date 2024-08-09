@@ -48,6 +48,9 @@
     <Filter Include="소스 파일\Factory">
       <UniqueIdentifier>{2f3c0325-5226-4e5d-bf8a-4edba4db259d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Effect">
+      <UniqueIdentifier>{ba773014-037b-45c7-8c30-6347ea393688}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movement.h">
@@ -182,6 +185,9 @@
     <ClInclude Include="IOnMouse.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="D2DEffect.h">
+      <Filter>소스 파일\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -288,6 +294,9 @@
     </ClCompile>
     <ClCompile Include="D2DFont.cpp">
       <Filter>소스 파일\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DEffect.cpp">
+      <Filter>소스 파일\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -147,6 +147,7 @@
     <ClInclude Include="Factory.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MoveIcon.h" />
     <ClInclude Include="Shop.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MoveIcon.cpp" />
     <ClCompile Include="Shop.cpp" />

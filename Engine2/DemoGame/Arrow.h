@@ -15,6 +15,4 @@ public:
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
 
-
-   
 };

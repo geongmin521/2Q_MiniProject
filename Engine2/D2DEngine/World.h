@@ -25,5 +25,24 @@ public:
 	void removeElements(std::list<GameObject*>& origin, const std::list<GameObject*>& remove);
 	void DeleteGameObject(GameObject* gameObject);
 
+	template<typename T>
+	T* FindObject(const std::string& GameObjectName);
 };
 
+template<typename T>
+T* World::FindObject(const std::string& GameObjectName)
+{
+	if (m_GameObjects.empty())return nullptr;
+	for (auto& GameObject : this->m_GameObjects)
+	{
+		if (GameObject->name == GameObjectName)
+		{
+			T* foundObject = dynamic_cast<T*>(GameObject);
+			if (foundObject)
+			{
+				return foundObject;
+			}
+		}
+	}
+	return nullptr;
+}

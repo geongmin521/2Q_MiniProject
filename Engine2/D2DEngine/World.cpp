@@ -91,3 +91,4 @@ void World::DeleteGameObject(GameObject* gameObject) //지울 객체를 담아두기
 {
 	m_Remove.push_back(gameObject);
 }
+

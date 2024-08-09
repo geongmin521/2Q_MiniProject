@@ -31,6 +31,9 @@
     <Filter Include="UIBase">
       <UniqueIdentifier>{6aff8257-2e2b-460c-a1c0-9169bfdbe870}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{2d3a1bcd-c88d-4172-a3be-071f65b54f63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowTower.h">
@@ -111,19 +114,13 @@
     <ClInclude Include="VampireBomb.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="MeleeTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="HealingTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="HolyTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="Container.h">
       <Filter>UIBase</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Light.h">
+      <Filter>Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -201,18 +198,12 @@
     <ClCompile Include="VampireBomb.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="MeleeTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="HealingTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="HolyTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="Container.cpp">
       <Filter>UIBase</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Light.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

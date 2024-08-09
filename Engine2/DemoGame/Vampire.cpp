@@ -35,7 +35,6 @@ Vampire::Vampire(EnemyData data) : EnemyBase(data)
 	AddComponent(new Movement(transform));
 
 	transform->SetRelativeLocation( { 2000, 100 });
-
 	renderOrder = 100;
 } 
 
@@ -47,8 +46,6 @@ void Vampire::Update(float deltaTime)
 {
 	
 	__super::Update(deltaTime);
-	
-
 	//attackBox->SetCenter(boundBox->Center.x - 100, boundBox->Center.y);
 	
 	Find(GetComponent<BoxCollider>());
@@ -58,7 +55,6 @@ void Vampire::Update(float deltaTime)
 void Vampire::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
-	
 }
 
 void Vampire::Attack(float deltaTime)
