@@ -1,16 +1,16 @@
-#include "pch.h"
-#include "BoxCollider.h"
-#include "Bitmap.h"
-#include "Animation.h"
-#include "Transform.h"
-#include "D2DRenderer.h"
-#include "AABB.h"
-#include "Movement.h"
-#include "Music.h"
-#include "EnemyBase.h"
-#include "Arrow.h"
+#include "../D2DEngine/pch.h"
+#include "../D2DEngine/BoxCollider.h"
+#include "../D2DEngine/Bitmap.h"
+#include "../D2DEngine/Animation.h"
+#include "../D2DEngine/Transform.h"
+#include "../D2DEngine/D2DRenderer.h"
+#include "../D2DEngine/AABB.h"
+#include "../D2DEngine/Movement.h"
+#include "../D2DEngine/Music.h"
+#include "TowerBase.h"
+#include "EnemyArrow.h"
 
-Arrow::Arrow()
+EnemyArrow::EnemyArrow()
 {
 	SetBoundBox(0, 0, 40, 36);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Arrow"));
@@ -18,13 +18,11 @@ Arrow::Arrow()
 	renderOrder = 100;
 }
 
-Arrow::~Arrow()
+EnemyArrow::~EnemyArrow()
 {
 }
 
-
-
-void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
+void EnemyArrow::Init(GameObject* target, MathHelper::Vector2F location)
 {
 	this->target = target;
 	transform->SetRelativeLocation({ location.x + 50.0f,location.y - 20.f });
@@ -32,7 +30,6 @@ void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 	position[2] = target->GetWorldLocation();
 	position[0] = transform->GetRelativeLocation();
 	MathHelper::Vector2F mid = (position[2] + position[0]) / 2;
-	
 	if (position[2].x - position[0].x > 800.f)
 	{
 		sec = 3.0f;
@@ -41,9 +38,9 @@ void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 	else if (position[2].x - position[0].x > 200.f)
 	{
 		sec = 1.0f;
-		height = 180.f;
+		height = 80.f;
 	}
-	else 
+	else
 	{
 		sec = 0.15f;
 		height = 5.f;
@@ -52,7 +49,7 @@ void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 	position[1] = mid;
 }
 
-void Arrow::Update(float deltaTime)
+void EnemyArrow::Update(float deltaTime)
 {
 	preDir = curDir;
 	__super::Update(deltaTime);
@@ -73,7 +70,7 @@ void Arrow::Update(float deltaTime)
 			t = 1;
 		}
 		MathHelper::Vector2F rotate = (QuadraticBezierPoint(t, position));
-		
+
 		transform->SetRelativeRotation(moveR);
 		transform->SetRelativeLocation(QuadraticBezierPoint(t, position));
 	}
@@ -82,23 +79,21 @@ void Arrow::Update(float deltaTime)
 		isActive = false;
 	}
 
-	if (std::abs(target->GetWorldLocation().x - GetWorldLocation().x) <= 1.0f &&
+	if (std::abs(target->GetWorldLocation().x - GetWorldLocation().x) <= 1.0f ||
 		std::abs(target->GetWorldLocation().y - GetWorldLocation().y) <= 1.0f)
 	{
-		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);
-		enemy->Hit(60);
-		//
+		TowerBase* tower = dynamic_cast<TowerBase*>(target);
+		tower->Hit(30);
 		isActive = false;
 	}
-
 }
 
-void Arrow::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void EnemyArrow::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
 }
 
-MathHelper::Vector2F Arrow::QuadraticBezierPoint(float t, MathHelper::Vector2F position[])
+MathHelper::Vector2F EnemyArrow::QuadraticBezierPoint(float t, MathHelper::Vector2F position[])
 {
 	MathHelper::Vector2F p0 = LinearInterpolate(t, position[0], position[1]);
 	MathHelper::Vector2F p1 = LinearInterpolate(t, position[1], position[2]);
@@ -106,8 +101,7 @@ MathHelper::Vector2F Arrow::QuadraticBezierPoint(float t, MathHelper::Vector2F p
 	return MathHelper::Vector2F((1 - t) * p0.x, (1 - t) * p0.y) + MathHelper::Vector2F(t * p1.x, t * p1.y);
 }
 
-MathHelper::Vector2F Arrow::LinearInterpolate(float t, MathHelper::Vector2F p0, MathHelper::Vector2F p1)
+MathHelper::Vector2F EnemyArrow::LinearInterpolate(float t, MathHelper::Vector2F p0, MathHelper::Vector2F p1)
 {
 	return MathHelper::Vector2F((1 - t) * p0.x, (1 - t) * p0.y) + MathHelper::Vector2F(t * p1.x, t * p1.y);
 }
-

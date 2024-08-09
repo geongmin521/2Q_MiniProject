@@ -27,6 +27,7 @@ void TowerBase::Update(float deltaTime)
 	{
 		transform->SetRelativeLocation(inputSystem->GetMouseState().GetMousePos());
 	}
+	perHP = (curHP / towerData.HP) * 100;
 	if (target != nullptr && target->isActive == false)  
 	{
 		target = nullptr;
@@ -120,8 +121,8 @@ void TowerBase::Attack(float deltaTime)
 
 void TowerBase::Hit(float damage)
 {
-
-	curHP -= damage;
+	float plusArmor = Artifact::GetInstance().get()->towerPower.Armor;
+	curHP -= damage * plusArmor;
 }
 
 void TowerBase::Heal(float heal)

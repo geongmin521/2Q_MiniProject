@@ -146,6 +146,7 @@
     <ClInclude Include="Container.h" />
     <ClInclude Include="DemoGame.h" />
     <ClInclude Include="DemoGameApp.h" />
+    <ClInclude Include="EnemyArrow.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyFSM.h" />
     <ClInclude Include="EnemySpawner.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="HealingTower.h" />
     <ClInclude Include="HolyTower.h" />
     <ClInclude Include="HolyWater.h" />
+    <ClInclude Include="HPBar.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Map.h" />
@@ -166,7 +168,9 @@
     <ClInclude Include="TitleWorld.h" />
     <ClInclude Include="TowerBase.h" />
     <ClInclude Include="TowerFsm.h" />
+    <ClInclude Include="TowerStar.h" />
     <ClInclude Include="Vampire.h" />
+    <ClInclude Include="VampireRanged.h" />
     <ClInclude Include="Victory.h" />
     <ClInclude Include="VampireBomb.h" />
   </ItemGroup>
@@ -182,6 +186,7 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="DemoGame.cpp" />
     <ClCompile Include="DemoGameApp.cpp" />
+    <ClCompile Include="EnemyArrow.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyFSM.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
@@ -190,6 +195,7 @@
     <ClCompile Include="HealingTower.cpp" />
     <ClCompile Include="HolyTower.cpp" />
     <ClCompile Include="HolyWater.cpp" />
+    <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -201,7 +207,9 @@
     <ClCompile Include="TitleWorld.cpp" />
     <ClCompile Include="TowerBase.cpp" />
     <ClCompile Include="TowerFSM.cpp" />
+    <ClCompile Include="TowerStar.cpp" />
     <ClCompile Include="Vampire.cpp" />
+    <ClCompile Include="VampireRanged.cpp" />
     <ClCompile Include="Victory.cpp" />
     <ClCompile Include="VampireBomb.cpp" />
   </ItemGroup>

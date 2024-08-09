@@ -14,6 +14,7 @@
 #include "Music.h"
 #include "World.h" 
 #include "EnemyBase.h"
+#include "Factory.h"
 #include "ArrowTower.h"
 
 #include "D2DEffect.h"
@@ -29,9 +30,13 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 	towerData.HP = 20000.0f;
 	curHP = towerData.HP;
 
-	SetBoundBox(0, 0, towerData.attackRange, towerData.attackRange);
+	SetBoundBox(0, 0, 100, 100);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
+
+	star = Fac->CreateGameObject<TowerStar>();
+	towerData.level = 1;
+	star->Init(this, towerData.level); //여기서 주인으로 자기를 줘서 자기 트랜스폼 찾게끔
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
@@ -75,10 +80,13 @@ void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void ArrowTower::Attack(float deltaTime)
 { 
-	Arrow* arrow = new Arrow;
-	arrow->owner = this->owner;
-	arrow->Init(target, GetWorldLocation());
-	owner->m_GameObjects.push_back(arrow);    //투사체는 타겟 hit처리를 투사체에서
+	if (target != nullptr)
+	{
+		Arrow* arrow = new Arrow;
+		arrow->owner = this->owner;
+		arrow->Init(target, GetWorldLocation());
+		owner->m_GameObjects.push_back(arrow);    //투사체는 타겟 hit처리를 투사체에서
+	}
 }
 
 //좀더 확실하고 통제된 환경을 만들어야한다. 

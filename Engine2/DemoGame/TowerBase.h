@@ -6,6 +6,8 @@
 #include "Bitmap.h"
 #include "Collider.h"
 #include "UI.h"
+#include "TowerStar.h"
+#include "HPBar.h"
 class Container;
 
 class TowerBase :
@@ -17,7 +19,8 @@ private:
 public:
     Container* container;
     bool isMoving;//일단 제일 단순한 bool값으로 처리하기
-    Bitmap* star;
+    TowerStar* star; //기본타워에서 star하나씩가지고있게
+    HPBar* HPbar;
     float curHP; //타워각자가 가질 현재 체력
     GameObject* target = nullptr;
     std::vector<GameObject*> targets;

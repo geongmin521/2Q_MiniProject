@@ -23,42 +23,42 @@ public:
 	EnemyBase* enemy;
 };
 
-class VampireIdle : public EnemyFSM
+class EnemyIdle : public EnemyFSM
 {
 public:
-	VampireIdle(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name) {};
+	EnemyIdle(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name) {};
 private:
 	virtual void EnterState() override;
 	virtual void Update(float deltaTime) override;
 	virtual void ExitState() override;
 };
 
-class VampireShared : public EnemyFSM
+class EnemyShared : public EnemyFSM
 {
 public:
-	VampireShared(FiniteStateMachine* pOwner, std::string Name);
+	EnemyShared(FiniteStateMachine* pOwner, std::string Name);
 private:
 	virtual void EnterState() override;
 	virtual void Update(float deltaTime) override;
 	virtual void ExitState() override;
 };
 
-class VampireDead : public EnemyFSM
-{
-
-};
-
-class VampireAttack : public EnemyFSM
+class EnemyDead : public EnemyFSM
 {
 public:
-	VampireAttack(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name) {};
+	EnemyDead(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name) {};
 private:
 	virtual void EnterState() override;
 	virtual void Update(float deltaTime) override;
 	virtual void ExitState() override;
 };
 
-class VampireHit : public EnemyFSM
+class EnemyAttack : public EnemyFSM
 {
-
+public:
+	EnemyAttack(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name) {};
+private:
+	virtual void EnterState() override;
+	virtual void Update(float deltaTime) override;
+	virtual void ExitState() override;
 };

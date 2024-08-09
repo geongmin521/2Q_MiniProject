@@ -26,3 +26,5 @@ void Bitmap::Render(ID2D1RenderTarget* pRenderTarget)
 	pRenderTarget->DrawBitmap(bitmap);
 }
 
+
+

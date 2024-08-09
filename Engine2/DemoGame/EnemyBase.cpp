@@ -16,6 +16,7 @@ EnemyBase::~EnemyBase()
 void EnemyBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
+	perHP = (curHP / enemyData.HP) * 100;
 	if (target != nullptr && target->isActive == false)
 	{
 		target = nullptr;
@@ -35,9 +36,9 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
 void EnemyBase::Find(Collider* othercomponent)
 {
 	std::vector<GameObject*> towers;
-	for (auto& col : othercomponent->collideStatePrev )
+	for (auto& col : othercomponent->collideStatePrev)
 	{
-		if (col->owner->name == "Tower" && col->owner->isActive ==true)
+		if (col->owner->name == "Tower" && col->owner->isActive == true)
 		{
 			towers.push_back(col->owner);
 		}
@@ -69,7 +70,13 @@ void EnemyBase::Find(Collider* othercomponent)
 	if (curTarget != nullptr)
 	{
 		target = curTarget;
-	}	
+	}
+}
+
+void EnemyBase::Hit(float damage)
+{
+	float plusAttack = Artifact::GetInstance().get()->towerPower.Attack;
+	curHP -= damage * plusAttack;
 }
 
 void EnemyBase::Attack(float deltaTime)
