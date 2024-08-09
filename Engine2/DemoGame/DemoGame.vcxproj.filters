@@ -37,6 +37,9 @@
     <Filter Include="Light">
       <UniqueIdentifier>{2d3a1bcd-c88d-4172-a3be-071f65b54f63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="InGameUI">
+      <UniqueIdentifier>{ebd91ec1-360b-4ffe-a650-fb901a2de8d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TowerBase.h">
@@ -129,17 +132,23 @@
     <ClInclude Include="Pools.h">
       <Filter>Factory</Filter>
     </ClInclude>
-    <ClInclude Include="HPBar.h" />
-    <ClInclude Include="TowerStar.h" />
+    <ClInclude Include="VampireRanged.h" />
+    <ClInclude Include="EnemyArrow.h" />
+    <ClInclude Include="TowerFunc.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>InGameUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerStar.h">
+      <Filter>InGameUI</Filter>
+    </ClInclude>
     <ClInclude Include="EnemyArrow.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="VampireRanged.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="VampireRanged.h" />
-    <ClInclude Include="EnemyArrow.h" />
-    <ClInclude Include="TowerFunc.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">
@@ -229,16 +238,22 @@
     <ClCompile Include="Light.cpp">
       <Filter>Light</Filter>
     </ClCompile>
-    <ClCompile Include="HPBar.cpp" />
-    <ClCompile Include="TowerStar.cpp" />
+    <ClCompile Include="VampireRanged.cpp" />
+    <ClCompile Include="EnemyArrow.cpp" />
+    <ClCompile Include="TowerFunc.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>InGameUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerStar.cpp">
+      <Filter>InGameUI</Filter>
+    </ClCompile>
     <ClCompile Include="EnemyArrow.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="VampireRanged.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="VampireRanged.cpp" />
-    <ClCompile Include="EnemyArrow.cpp" />
-    <ClCompile Include="TowerFunc.cpp" />
   </ItemGroup>
 </Project>
