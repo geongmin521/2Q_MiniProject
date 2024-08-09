@@ -1,5 +1,5 @@
 #pragma once
-#include "../D2DEngine/GameObject.h"
+#include "GameObject.h"
 
 class Arrow : public GameObject
 {

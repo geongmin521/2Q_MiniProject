@@ -1,6 +1,6 @@
 #pragma once
-#include "../D2DEngine/World.h"
-#include "../D2DEngine/D2DFont.h"
+#include "World.h"
+#include "D2DFont.h"
 class Shop;
 class ShowWave;
 class Combination;

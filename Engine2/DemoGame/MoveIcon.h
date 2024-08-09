@@ -1,6 +1,6 @@
 #pragma once
-#include "../D2DEngine/UI.h"
-#include "../D2DEngine/IDragAble.h"
+#include "UI.h"
+#include "IDragAble.h"
 class Container;
 class MoveIcon : public UI, public IDragAble //아 추상클래스로 만들까? 그럼 공통된 정의를 가질수있을텐데.. 
 	//아 근데 인터페이스도 아니고 클래스의 다중상속은 좀그럼.. 문제 생길거같은데.. 

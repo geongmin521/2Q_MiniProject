@@ -1,6 +1,6 @@
-#include "../D2DEngine/pch.h"
-#include "../D2DEngine/Bitmap.h"
-#include "../D2DEngine/Bitmap.h"
+#include "pch.h"
+#include "Bitmap.h"
+#include "Bitmap.h"
 #include "Image.h"
 
 Image::Image(std::wstring ImagePath)

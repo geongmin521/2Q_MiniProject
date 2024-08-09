@@ -1,7 +1,7 @@
 #pragma once
-#include "../D2DEngine/UI.h"
-#include "../D2DEngine/IDropAble.h"
-#include "../D2DEngine/IClickAble.h"
+#include "UI.h"
+#include "IDropAble.h"
+#include "IClickAble.h"
 class MoveIcon;
 class Container: public UI ,public IDropAble, IClickAble//이친구는 UI가 맞을까나? dropAble 인터페이스를 상속받을거긴해
 {

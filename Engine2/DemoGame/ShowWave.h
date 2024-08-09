@@ -1,5 +1,5 @@
 #pragma once
-#include "../D2DEngine/UI.h"
+#include "UI.h"
 
 class WaveData;
 class ShowWave :public UI

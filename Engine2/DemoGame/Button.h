@@ -1,6 +1,6 @@
 #pragma once
-#include "../D2DEngine/UI.h"
-#include "../D2DEngine/IClickAble.h"
+#include "UI.h"
+#include "IClickAble.h"
 class D2DFont;
 
 class Button: public UI , public IClickAble //드래그랑 단순클릭은 어떻게 구분할지도 생각해봐야함.. 

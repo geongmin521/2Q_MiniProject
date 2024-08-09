@@ -1,4 +1,4 @@
-#include "../D2DEngine/pch.h"
+#include "pch.h"
 #include "Camera.h"
 #include "..//D2DEngine/CameraScene.h"
 #include "..//D2DEngine/Transform.h"

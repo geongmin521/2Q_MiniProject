@@ -1,6 +1,6 @@
 #pragma once
 #include "TowerBase.h"
-#include "../D2DEngine/IColliderNotify.h"
+#include "IColliderNotify.h"
 class HealingTower : public TowerBase, IColliderNotify
 {
 private:

@@ -1,11 +1,11 @@
 #pragma once
-#include "../D2DEngine/GameObject.h"
-#include "../D2DEngine/Data.h"
-#include "../D2DEngine/IDamageNotify.h"
-#include "../D2DEngine/IDragAble.h"
-#include "../D2DEngine/Bitmap.h"
-#include "../D2DEngine/Collider.h"
-#include "../D2DEngine/UI.h"
+#include "GameObject.h"
+#include "Data.h"
+#include "IDamageNotify.h"
+#include "IDragAble.h"
+#include "Bitmap.h"
+#include "Collider.h"
+#include "UI.h"
 class Container;
 class TowerBase :
     public GameObject ,public IDamageNotify , public IDragAble //이런 개같은 public을 안붙였었네.. 됬다.. 이제모든 오브젝트도 드래그할수있어. 

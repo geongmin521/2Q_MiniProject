@@ -1,4 +1,4 @@
-#include "../D2DEngine/pch.h"
+#include "pch.h"
 #include "TitleWorld.h" 
 #include "BattleWorld.h" //이것도 씬매니저에서 처리하면 여기서 처리 안해도될거임.. 
 #include "DemoGameApp.h"

@@ -1,7 +1,7 @@
-#include "../D2DEngine/pch.h"
-#include "../D2DEngine/Transform.h"
-#include "../D2DEngine/AABB.h"
-#include "../D2DEngine/D2DRenderer.h"
+#include "pch.h"
+#include "Transform.h"
+#include "AABB.h"
+#include "D2DRenderer.h"
 #include "Container.h"
 #include "MoveIcon.h"
 

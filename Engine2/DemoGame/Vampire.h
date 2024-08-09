@@ -1,7 +1,7 @@
 #pragma once
 #include "EnemyBase.h"
-#include "../D2DEngine/IColliderNotify.h"
-#include "../D2DEngine/BoxCollider.h"
+#include "IColliderNotify.h"
+#include "BoxCollider.h"
 
 
 class Vampire :

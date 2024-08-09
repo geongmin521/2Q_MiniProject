@@ -1,4 +1,4 @@
-#include "../D2DEngine/pch.h"
+#include "pch.h"
 #include "Factory.h"
 #include "ShowWave.h"
 

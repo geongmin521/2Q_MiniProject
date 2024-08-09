@@ -1,7 +1,7 @@
-#include "../D2DEngine/pch.h"
+#include "pch.h"
 #include "EnemyBase.h"
-#include "../D2DEngine/AABB.h"
-#include "../D2DEngine/D2DRenderer.h"
+#include "AABB.h"
+#include "D2DRenderer.h"
 
 EnemyBase::EnemyBase(EnemyData data)
 {

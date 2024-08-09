@@ -1,9 +1,9 @@
-#include "../D2DEngine/pch.h"
-#include "../D2DEngine/EventSystem.h"
-#include "../D2DEngine/Bitmap.h"
-#include "../D2DEngine/D2DRenderer.h"
-#include "../D2DEngine/Transform.h"
-#include "../D2DEngine/D2DFont.h"
+#include "pch.h"
+#include "EventSystem.h"
+#include "Bitmap.h"
+#include "D2DRenderer.h"
+#include "Transform.h"
+#include "D2DFont.h"
 #include "Button.h"
 
 Button::Button(std::wstring imagePath)

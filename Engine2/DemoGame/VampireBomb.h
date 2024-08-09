@@ -1,6 +1,6 @@
 #pragma once
 #include "EnemyBase.h"
-#include "../D2DEngine/IColliderNotify.h"
+#include "IColliderNotify.h"
 
 class VampireBomb
 	: public EnemyBase, public IColliderNotify

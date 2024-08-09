@@ -1,6 +1,6 @@
 #pragma once
-#include "../D2DEngine/SingletonBase.h"
-#include "../D2DEngine/Data.h"
+#include "SingletonBase.h"
+#include "Data.h"
 
 using namespace std;
 using namespace MathHelper;

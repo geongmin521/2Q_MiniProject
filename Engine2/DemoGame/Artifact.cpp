@@ -1,6 +1,6 @@
-#include "../D2DEngine/pch.h"
+#include "pch.h"
 #include "Artifact.h"
-#include "../D2DEngine/GameObject.h"
+#include "GameObject.h"
 
 Artifact::Artifact()
 {

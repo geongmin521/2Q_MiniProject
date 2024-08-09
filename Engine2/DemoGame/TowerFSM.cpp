@@ -1,10 +1,10 @@
-#include "../D2DEngine/pch.h"
+#include "pch.h"
 #include "TowerBase.h"
 #include "TowerFsm.h"
-#include "../D2DEngine/FiniteStateMachine.h"
-#include "../D2DEngine/World.h"
-#include "../D2DEngine/Animation.h"
-#include "../D2DEngine/Transform.h"
+#include "FiniteStateMachine.h"
+#include "World.h"
+#include "Animation.h"
+#include "Transform.h"
 #include "EnemyBase.h"
 
 TowerFSM::TowerFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)

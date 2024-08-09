@@ -1,8 +1,8 @@
 #pragma once
-#include "../D2DEngine/GameObject.h"
-#include "../D2DEngine/DataManager.h"
-#include "../D2DEngine/Collider.h"
-#include "../D2DEngine/IDamageNotify.h"
+#include "GameObject.h"
+#include "DataManager.h"
+#include "Collider.h"
+#include "IDamageNotify.h"
 class EnemyBase :
     public GameObject , IDamageNotify
 {

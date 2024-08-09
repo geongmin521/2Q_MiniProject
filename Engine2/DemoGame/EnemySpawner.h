@@ -1,6 +1,6 @@
 #pragma once
-#include "../D2DEngine/GameObject.h"
-#include "../D2DEngine/DataManager.h"
+#include "GameObject.h"
+#include "DataManager.h"
 
 struct  SpawnData
 {

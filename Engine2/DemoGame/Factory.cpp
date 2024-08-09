@@ -1,9 +1,9 @@
-#include "../D2DEngine/pch.h"
+#include "pch.h"
 #include "Factory.h"
 
-#include "../D2DEngine/DataManager.h"
-#include "../D2DEngine//Transform.h"
-#include "../D2DEngine/World.h"
+#include "DataManager.h"
+#include "Transform.h"
+#include "World.h"
 
 #include "Image.h"
 #include "EnemyBase.h"

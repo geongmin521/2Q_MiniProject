@@ -1,6 +1,6 @@
 #pragma once
-#include "../D2DEngine/SingletonBase.h"
-#include "../D2DEngine/DataManager.h"
+#include "SingletonBase.h"
+#include "DataManager.h"
 
 class GameObject;
 

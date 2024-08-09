@@ -1,7 +1,7 @@
 #pragma once
 #include "TowerBase.h"
-#include "../D2DEngine/AABB.h"
-#include "../D2DEngine/IColliderNotify.h"
+#include "AABB.h"
+#include "IColliderNotify.h"
 #include "Arrow.h"
 class ArrowTower : public TowerBase, public IColliderNotify 
 {

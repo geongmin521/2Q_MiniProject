@@ -1,5 +1,5 @@
 #pragma once
-#include "../D2DEngine/FSMState.h"
+#include "FSMState.h"
 
 class Animation;
 class Movement;

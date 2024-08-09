@@ -1,5 +1,5 @@
 #pragma once
-#include "../D2DEngine/World.h"
+#include "World.h"
 class TitleWorld : public World //월드는 그냥 오브젝트의 집합이라고 만 생각하고.. 
 {
 private:
