@@ -11,6 +11,7 @@
 #include "ArrowTower.h"
 #include "Button.h"
 #include "MoveIcon.h"
+#include "Vampire.h"
 
 
 Factory::Factory()
@@ -58,7 +59,27 @@ MoveIcon* Factory::CreateMoveIcon(std::wstring filePath, MathHelper::Vector2F po
     return icon;
 }
 
+GameObject* Factory::CreateGameObjectFromId(int id)
+{
+    if (id == 100)
+        return CreateEnemy<Vampire>(id);
 
+    if (id == 0)
+        return CreateTower<ArrowTower>(id);
+}
+
+//어떤 UI든 위치와 이동 조정등이 달라질수있고.. 
+//위치랑 크기조정은 생성자에서 하지말자.. 아니면 팩토리에 이어붙이면서 좀 할수있나? 좀더 확장성이 더필요할거같은데.. 
+
+//팩토리에 어떻게 해달라고 요청할건데.. 
+//저거를 이미지를 만들때 생성자에서 처리하는게맞나? 
+//이미지가있을수도있고 없을수도있고..
+//텍스트가 있을수도있고 없을수도있고? 
+//버튼이있을수도있고 없을수도있고? 가변인자를 활용해보고싶은데어떻게 해야할지를 잘모르겠잖아... 
+//지금 든 생각은 버퍼에 임시로 담아넣고 넣을때만 적용되는? 그런걸해보고싶었는데.. 
+
+//아니면 함수객체를 활용하는건 어때? 이것도 꽤 좋은 방법이 될수있을거같은데? 
+//꽤복잡한 함수를 객체를 사용해서.. 꽤 신박한 아이디어이긴한데.. 잘모르겠네.. 일단 패스? 
 
 Button* Factory::CreateButton(std::wstring filePath , std::function<void(void)> func, MathHelper::Vector2F pos, std::vector<GameObject*>* Root)
 {

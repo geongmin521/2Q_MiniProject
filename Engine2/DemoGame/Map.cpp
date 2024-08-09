@@ -9,16 +9,48 @@
 Map::Map()
 {
 	renderOrder = -100;
-	//AddComponent(new Bitmap(L"..\\Data\\map.png"));
-	//transform->SetRelativeScale({ 3,2.4 });
-	//Fac->CreateGameObject();
-	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
+	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png"));
 
-	//얘도 팩토리로 들고있을까? 
+	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
+	int LeftPadding = 400;
+	int TopPadding = 300;
+	float gridSize = 150;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			grid[i][j] = Fac->CreateGameObject<Container>();
+			grid[i][j]->transform->SetRelativeLocation({ LeftPadding + i * gridSize , TopPadding + j * gridSize });
+		}
+	}
 }
 
 Map::~Map()
 {
+}
+
+void Map::Update(float deltaTime)
+{
+	__super::Update(deltaTime);
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			grid[i][j]->Update(deltaTime);
+		}
+	}
+}
+
+void Map::Render(ID2D1HwndRenderTarget* pRenderTarget)
+{
+	__super::Render(pRenderTarget);
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			grid[i][j]->Render(pRenderTarget);
+		}
+	}
 }
 
 

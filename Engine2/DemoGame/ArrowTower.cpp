@@ -7,6 +7,8 @@
 #include "../D2DEngine/Transform.h"
 #include "../D2DEngine/D2DRenderer.h"
 #include "../D2DEngine/FiniteStateMachine.h"
+#include "../D2DEngine/InputSystem.h"
+#include "Container.h"
 #include "TowerFsm.h"
 #include "../D2DEngine/AABB.h"
 #include "../D2DEngine/Music.h"
@@ -100,5 +102,23 @@ void ArrowTower::OnStayOverlap(Collider* ownedComponent, Collider* otherComponen
 void ArrowTower::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
 	
+}
+
+void ArrowTower::BeginDrag(const MouseState& state) //이거는 마우스로 하는거니까 마우스 정보가 계속 들어오면좋을거같은데? 
+{
+	std::cout << "BeginDrag";
+	transform->SetRelativeLocation(state.GetMousePos());
+	if (container)
+		container->Clear();//담겨있는공간에 비워주기.. 서로 상호참조하고있는게 맞을까? 
+}
+
+void ArrowTower::StayDrag(const MouseState& state)
+{
+	transform->SetRelativeLocation(state.GetMousePos());
+}
+
+void ArrowTower::EndDrag(const MouseState& state)
+{
+	std::cout << "EndDrag";
 }
 

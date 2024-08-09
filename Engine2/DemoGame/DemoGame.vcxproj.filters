@@ -142,6 +142,9 @@
     <ClInclude Include="Light.h">
       <Filter>Light</Filter>
     </ClInclude>
+    <ClInclude Include="Pools.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -239,6 +242,9 @@
       <Filter>Tower</Filter>
     <ClCompile Include="Container.cpp">
       <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Pools.cpp">
+      <Filter>Factory</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Light.cpp">

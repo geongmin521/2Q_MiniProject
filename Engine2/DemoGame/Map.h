@@ -1,17 +1,16 @@
 #pragma once
 #include "../D2DEngine/GameObject.h"
-#include "../D2DEngine/IColliderNotify.h"
 
-class Collider;
+class Container;
 class Map : public GameObject
 {
 private:
-
+	//맵에경우는 변경가능성이적고 고정되니까 이차원배열로하자
+	Container* grid[4][4];
 public:
 	Map();
-	~Map(); //일단은 
-	bool LoadCollider();
-	std::vector<Collider*> boxCols;
-
+	~Map();
+	virtual void Update(float deltaTime);
+	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
 };
 

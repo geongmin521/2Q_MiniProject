@@ -7,10 +7,6 @@ UI::UI()
 	EventSystem::GetInstance().get()->Ui.insert(this);
 }
 
-UI::~UI()
-{
-}
-
 void UI::Update(float deltaTime)
 {
 	__super::Update(deltaTime);

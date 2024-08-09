@@ -33,7 +33,7 @@ struct WaveData {
     int level;
     float levelPower;
     std::vector<int> enemyId;
-    std::vector<int> spawnTime;
+    std::vector<float> spawnTime;
     std::vector<int> enemyCount;
     //float 간격도 물어봐야함. 아마 가능한 종류의 벡터로 처리할듯?
 };

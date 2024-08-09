@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ReferencePath>C:\Users\me\Documents\GitHub\2Q_MiniProject\Engine2\D2DEngine\x64\Debug;$(ReferencePath)</ReferencePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -113,7 +116,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -157,11 +160,13 @@
     <ClInclude Include="D2DRenderer.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
+    <ClInclude Include="Dotween.h" />
     <ClInclude Include="EventSystem.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="D2DFont.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSMState.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IClickAble.h" />
@@ -175,7 +180,6 @@
     <ClInclude Include="Movement.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Pools.h" />
     <ClInclude Include="ReferenceCounter.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resource.h" />
@@ -204,10 +208,12 @@
     <ClCompile Include="D2DEngine.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
     <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="Dotween.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="D2DFont.cpp" />
     <ClCompile Include="FSMState.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="InputSystem.cpp" />
@@ -219,7 +225,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Pools.cpp" />
     <ClCompile Include="ReferenceCounter.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

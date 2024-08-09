@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "EventSystem.h"
 #include "InputSystem.h"
-#include "IClickAble.h".h"
+#include "IClickAble.h"
 #include "IDragAble.h"
 #include "IDropAble.h"
 #include "IOnMouse.h"
@@ -24,11 +24,13 @@ void EventSystem::Updata(float deltaTime)
 	}
 }
 
-UI* EventSystem::FindTargetUI()
+
+
+GameObject* EventSystem::FindTargetUI()
 {
-	UI* curUi = nullptr;
+	GameObject* curUi = nullptr;
 	int maxOrder = INT_MIN;
-	for (auto ele : Ui)
+	for (auto ele : Ui) 
 	{
 		if (ele->isActive == false) //활성화중인것들만 검사
 			continue;
@@ -38,24 +40,44 @@ UI* EventSystem::FindTargetUI()
 		MathHelper::Vector2F mousePos{ xpos,ypos };
 		if (ele->boundBox->CheckPoint(mousePos)) 
 		{
-			if (ele->renderOrder > maxOrder) //랜더 순서가 같을수없다!
+			if (ele->renderOrder > maxOrder) //랜더 순서가 같을수없다! //대부분의 경우 위에있는것만 적용되는데.. 흠.. 함수로 처리하는걸로하자.. 
 			{
 				maxOrder = ele->renderOrder;
 				curUi = ele;
 			}
 		}
-	}//UI같은거는 처음에 생성되고 나면 문제없을테니까..  그냥 벡터에 순서대로 넣어놓을까? 
-
+	}
 	return curUi;
-	//위에를 재사용해야하고.. 아래거는 각각의 걸로 빼볼까? 그럼 템플리승로 만들수있을까? 근데 애들한테 접근해야함.. 
-	//즉 헤더에 만들면... UI의 기능을 못씀.. 
-
 }
 
-void EventSystem::DropEvent(UI* ui)
+IDropAble* EventSystem::FindDrop() //드랍만 특수한로직으로 검사.. 이거 다이나믹캐스드토 안하게템플릿으로하고 특수화할까? 
 {
-	UI* curUi = FindTargetUI();
-	IDropAble* dropAble = dynamic_cast<IDropAble*>(curUi);
+	IDropAble* curUi = nullptr;
+	int maxOrder = INT_MIN;
+	for (auto ele : Ui)
+	{
+		if (ele->isActive == false) //활성화중인것들만 검사
+			continue;
+
+		float xpos = inputSystem->GetMouseState()._x;
+		float ypos = inputSystem->GetMouseState()._y;
+		MathHelper::Vector2F mousePos{ xpos,ypos };
+
+		if (ele->boundBox->CheckPoint(mousePos))
+		{
+			curUi = dynamic_cast<IDropAble*>(ele);
+			if (curUi != nullptr)
+			{
+				return curUi;
+			}
+		}
+	}
+	return nullptr;
+}
+
+void EventSystem::DropEvent(GameObject* ui)
+{
+	IDropAble* dropAble = FindDrop();
 	if (dropAble == nullptr)
 		return;
 	dropAble->OnDrop(ui);
@@ -64,7 +86,7 @@ void EventSystem::DropEvent(UI* ui)
 
 void EventSystem::ClickEvent()
 {
-	UI* curUi = FindTargetUI();
+	GameObject* curUi = FindTargetUI();
 	if (curUi == nullptr)
 		return;
 	IDragAble* dragAble = dynamic_cast<IDragAble*>(curUi);
@@ -81,7 +103,7 @@ void EventSystem::ClickEvent()
 
 void EventSystem::OnMouseEvent()
 {
-	UI* curUi = FindTargetUI();
+	GameObject* curUi = FindTargetUI();
 	if (curUi == nullptr)
 		return;
 

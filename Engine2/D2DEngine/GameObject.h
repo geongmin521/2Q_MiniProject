@@ -17,7 +17,7 @@ public:
 	AABB* boundBox;								// 컬링을 위한 박스
 	int renderOrder;							//이거는 누가한테 줘야할까.. 각 클래스가 들고있을까?
 	std::string gameObjectName;
-
+	int id;//오브젝트 풀링을 위한 아이디
 public:
 	virtual void Update(float deltaTime);
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);

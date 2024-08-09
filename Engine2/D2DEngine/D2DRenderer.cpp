@@ -118,6 +118,7 @@ void D2DRenderer::Initialize(HWND hWnd)
 		// 텍스트를 수평 및 수직으로 중앙에 맞춥니다.
 		DWriteTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
 		DWriteTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+		//DWriteTextFormat.set
 	}
 
 	// VRAM 정보얻기 위한 개체 생성

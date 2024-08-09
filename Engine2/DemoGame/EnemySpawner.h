@@ -2,23 +2,39 @@
 #include "../D2DEngine/GameObject.h"
 #include "../D2DEngine/DataManager.h"
 
+struct  SpawnData
+{
+	// 생성자 기본 생성자를 그대로 사용
+	SpawnData() = default;
+	SpawnData(int count, float spawnTime, int id)
+		: Count(count), SpawnTime(spawnTime), id(id) {}
+
+	int Count;
+	float SpawnTime;
+	int id;
+};
 class Vampire;
 class EnemySpawner : public GameObject
 {
 private:
-	float Timer =3.0f;
+	int WaveIndex;
 	float spawnTimer;
-	int spawnCount;
-	std::map<int,std::vector<WaveData>> waveData; //맵뽑기를 편하게 하기위해 맵의 레벨별로 묶어서 웨이브데이터를 저장하기
+	std::vector<int> spawnPos; //아따 벡터도 참 많구만
+	std::vector<SpawnData> curSpawnData;
+	std::vector<float> Timer;
+	std::map<int,std::vector<WaveData>> waveData; 
+
+	//생성가능한 개수 스폰시간, 스폰 아이디 이 세가지를 묶어야하는데 자료구조만들기 아니다 만들자.. 
 public:
 	//WaveData waveData;
 	EnemyData enemyData;
-
+	
 	Transform* target;
 	EnemySpawner();
 	~EnemySpawner();
 
-	void CreateEnemy();
+	void CreateEnemy(int id);
+	void StartWave();
 	virtual void Update(float deltaTime) override;
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override;
 };
