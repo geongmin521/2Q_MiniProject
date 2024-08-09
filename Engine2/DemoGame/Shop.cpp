@@ -7,6 +7,7 @@
 #include "Image.h"
 #include "Container.h"
 #include "Combination.h"
+#include "EnemySpawner.h"
 
 Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까? 
 {
@@ -70,8 +71,6 @@ void Shop::Reroll() //맨처음에는 어떻게 처리하는지 올라온거 봤었는데 그거대로 처
 void Shop::Spawn() //이제 텍스트도 띄우고 좀더 이쁘게 만들어야겠다.. 
 {
 	int inven = 0;
-	compensationList.clear(); //테스트용
-	compensationList.push_back(0);
 	for (auto var : compensationList)
 	{
 		//Pools::GetInstance().get()->PopPool(); //아이콘은 만들어야하나? 움직이는 아이콘도 오브젝트풀을 쓸필요가있나? 모르겠다.. 
@@ -82,7 +81,8 @@ void Shop::Spawn() //이제 텍스트도 띄우고 좀더 이쁘게 만들어야겠다..
 		inven++;
 
 	}
-	compensationList.clear();
+	compensationList.clear(); 
+	spawner->StartWave();
 	isActive = false; //꺼주기.. 
 }
 

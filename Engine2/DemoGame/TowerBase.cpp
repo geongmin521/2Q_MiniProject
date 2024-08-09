@@ -24,10 +24,10 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	star->Init(this, towerData.level);
 	curHP = towerData.HP;
 	EventSystem::GetInstance().get()->Ui.insert(this);
-
+	SetBoundBox(0, 0, 150,150);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken")); //애니메이션은데이터의 이름으로 위치찾아서 가져오기
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
-	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
+	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Tower));
 	renderOrder = 100;
 
 	FiniteStateMachine* fsm = new FiniteStateMachine(); //fsm도 타워도 
@@ -43,17 +43,17 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	TowerType type = (TowerType)(towerData.id / 3);
 	if (type == TowerType::Crossbow || type == TowerType::Water) //같은 알고리즘
 	{
-		Search = [this]() { TowerFunc::FindTarget(*GetComponent<CircleCollider>(), "enemy", target); };
-		AttackFunc = [this]() { TowerFunc::FireBullet(target[0]); };
+		Search = [this]() { TowerFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target); };
+		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation()); };
 	}
 	if (type == TowerType::Pile)
 	{
-		Search = [this]() { TowerFunc::FindTargets(*GetComponent<CircleCollider>(), "enemy", target); };
+		Search = [this]() { TowerFunc::FindTargets(*GetComponent<CircleCollider>(), "Enemy", target); };
 		AttackFunc = [this]() { TowerFunc::MeleeAttack(target); };
 	}
 	if (type == TowerType::HolyCross)
 	{
-		Search = [this]() { TowerFunc::FindTargets(*GetComponent<CircleCollider>(), "enemy", target); };
+		Search = [this]() { TowerFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target); };
 		AttackFunc = [this]() { TowerFunc::Heal(target); };
 	}
 
@@ -85,6 +85,7 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void TowerBase::Attack(float deltaTime)
 {
+	AttackFunc();
 }
 
 void TowerBase::Hit(float damage)

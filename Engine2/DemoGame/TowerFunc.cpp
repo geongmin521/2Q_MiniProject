@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "TowerBase.h"
 #include "EnemyBase.h"
+#include "Arrow.h"
 #include "Pools.h"
 
  void TowerFunc::FindTarget(CircleCollider& myCol,std::string tag, std::vector<GameObject*>& target) //단일 타겟 검색
@@ -16,36 +17,36 @@
 	int minDistance = INT_MAX;
 	for (auto& tragetCol : myCol.collideStatePrev) //콜라이더가 감지범위일거고.. 거기에 들어왔다면.. 그냥 그중에서 제일 가까운것만 찾으면됨
 	{
-		if (tragetCol->owner->name != tag || tragetCol->owner->isActive != true)
-			continue;
-
-		float distance = myCol.circle->GetDistance(tragetCol->owner->transform->GetWorldLocation());
-		if (distance < minDistance)
+		if (tragetCol->owner->name == tag && tragetCol->owner->isActive == true)
 		{
-			minDistance = distance;
-			enemy = tragetCol->owner;
-		}
+			float distance = myCol.circle->GetDistance(tragetCol->owner->transform->GetWorldLocation());
+			if (distance < minDistance)
+			{
+				minDistance = distance;
+				enemy = tragetCol->owner;
+			}
+		}			
 	}
-	target.push_back(enemy);
+	if(enemy != nullptr)
+		target.push_back(enemy);
 }
  
 void TowerFunc::FindTargets(CircleCollider& myCol, std::string tag, std::vector<GameObject*>& targets) //여러 타겟 검사하기
 {
-
 	targets.clear();
 	for (auto& tragetCol : myCol.collideStatePrev) //콜라이더가 감지범위일거고.. 거기에 들어왔다면.. 그냥 그중에서 제일 가까운것만 찾으면됨
 	{
-		if (tragetCol->owner->name != tag || tragetCol->owner->isActive != true)
-			continue;
-		targets.push_back(tragetCol->owner);
+		if (tragetCol->owner->name == tag && tragetCol->owner->isActive == true)	
+			targets.push_back(tragetCol->owner);
 	}
 }
 
-void TowerFunc::FireBullet(GameObject* target) //총알도 팩토리로 만들어야지.. //성수인지.. 화살인지 구분해서요청을 보내야하고... //지금까지 한거라도 머지해서.. 베지어 커브사용해서 총알 날릴까? 
+void TowerFunc::FireBullet(GameObject* target, Vector2F pos) //총알도 팩토리로 만들어야지.. //성수인지.. 화살인지 구분해서요청을 보내야하고... //지금까지 한거라도 머지해서.. 베지어 커브사용해서 총알 날릴까? 
 {
 	if (target != nullptr)
 	{
-		Pools::GetInstance().get()->PopPool(500); //총알은 아이디없긴한데.. 
+		Arrow* arrow = dynamic_cast<Arrow*>(Pools::GetInstance().get()->PopPool(500)); //총알은 아이디없긴한데.. //여기서 총알만 잘가져오면되겠지? 
+		arrow->Init(target, pos);
 	}
 }
 

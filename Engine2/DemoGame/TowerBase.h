@@ -19,9 +19,9 @@ enum class TowerType
 
 class Container;
 class TowerBase :
-    public GameObject ,public IDamageNotify , public IDragAble, public IColliderNotify
+    public GameObject , public IDamageNotify , public IDragAble, public IColliderNotify
 {
-protected:
+public: //나중에 은닉화할 데이터는 빼기
     TowerData towerData;
     
     bool isMoving;      //일단 제일 단순한 bool값으로 처리하기

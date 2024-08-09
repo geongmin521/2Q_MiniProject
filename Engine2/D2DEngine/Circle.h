@@ -6,7 +6,7 @@ class Circle //원끼리의 충돌이 잘 되는지 테스트 먼저진행하기
 {
 public:
 	Circle() : Center{ 0,0 }, radius(0) {}
-	Circle(Vector2F center, float radius) : Center{ 0,0 }, radius(0) {}
+	Circle(Vector2F center, float radius) : Center(center), radius(radius) {}
 public:
 	Vector2F Center; 
 	float radius;

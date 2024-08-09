@@ -6,7 +6,7 @@ class BezierMovement : public Component
 {
 public:
     // 스피드 0.3이적당함
-    BezierMovement(Transform* transform, float speed, GameObject* target);
+    BezierMovement(Transform* transform, float speed);
    
     virtual ~BezierMovement() = default;
     Transform* transform;

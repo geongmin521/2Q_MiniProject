@@ -11,6 +11,7 @@
 #include "Button.h"
 #include "MoveIcon.h"
 #include "Vampire.h"
+#include "Arrow.h"
 
 
 Factory::Factory()
@@ -63,8 +64,12 @@ GameObject* Factory::CreateGameObjectFromId(int id)
     if (id == 100)
         return CreateEnemy<Vampire>(id);
 
-    //if (id == 0)
-        //return CreateTower<ArrowTower>(id);
+    if (id < 100)
+        return CreateTower(id);
+
+    //총알 아이디를 임의로 정함
+    if (id == 500)
+        return CreateBullet(id);
 }
 
 //어떤 UI든 위치와 이동 조정등이 달라질수있고.. 
@@ -104,6 +109,24 @@ void Factory::InsertWorld(GameObject* obj)
         }
     }
     curWorld->m_GameObjects.push_back(obj); 
+}
+
+TowerBase* Factory::CreateTower(int id)
+{
+    TowerBase* newObject = new TowerBase(towerData[id]); //각자에 맞는 데이터만 넣어주기.. 
+    InsertWorld(newObject);
+    return newObject;  
+}
+
+Arrow* Factory::CreateBullet(int id) //오브젝트풀한테 요청하는 과정도 복잡할거같은데.. 아닌가? 위치는 본인이 잡는걸로하고.. 아이디로 생성만 할수있게해볼까? 
+{
+    if (id == 500) //생성하는 시점에는 타겟은 알수가없겠구나...
+    {
+        Arrow* newObject = new Arrow(0.3f,L"..\\Data\\Image\\Crossbow.png"); //각자에 맞는 데이터만 넣어주기.. //총알은 데미지가 없고.. 아마 속도랑 이미지 크기?정도만 바뀌면 모두 만들수있을듯? 
+        InsertWorld(newObject);
+        return newObject;
+    }
+    return nullptr;
 }
 
 

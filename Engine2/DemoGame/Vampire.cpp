@@ -14,13 +14,13 @@ Vampire::Vampire(EnemyData data) : EnemyBase(data)
 {
 	// Datamanager로 읽기
 	// enemyData.speed;
-	enemyData.speed = 500.f;
+	enemyData.speed = 50.f;
 	enemyData.attackRange = 100.f;
 	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 500.f;
 	enemyData.Type = "방어형";
 	curHP = enemyData.HP;
-	enemyData.ATK = 50.f;
+	enemyData.ATK = 1;
 	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)
 	SetBoundBox(0, 0, 500, 500); //기본 적 이미지 사이즈
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));

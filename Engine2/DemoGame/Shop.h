@@ -4,6 +4,7 @@
 class Image;
 class Container;
 class Combination;
+class EnemySpawner;
 class Shop: public UI //샵클래스? 사실 그냥 UI오브젝트들의 집합이자 상점에 필요한 함수들의 집합임
 {
 private:
@@ -18,8 +19,11 @@ private:
 	std::wstring Text;
 	std::vector<Container*> Containers; //여기에 들고는있지만.. 생성은 외부에서 해야할듯? 
 	Combination* combination;
-public:
 
+	//직접 참조시키지말고.. 나중에 이벤트가 같은걸로빼서 알려줘도 좋을거같은데?
+	
+public:
+	EnemySpawner* spawner;
 	Shop();
 	virtual ~Shop();
 	void Reroll();

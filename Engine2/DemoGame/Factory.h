@@ -27,6 +27,8 @@ class TowerBase;
 class Image;
 class MoveIcon;
 class Button;
+class Arrow;
+
 class Factory : public SingletonBase<Factory>  
 {
 	map<int,TowerData> towerData; 
@@ -52,11 +54,12 @@ public:
 	template<typename T>
 	T* CreateEnemy(int id);
 
-	template<typename T>
-	T* CreateTower(int id);
 	Button* CreateButton(wstring filePath, function<void(void)> func, Vector2F pos = { 0,0 }, std::vector<GameObject*>* Root = nullptr); //버튼은.. 생성자의 매개변수를 함수랑 기타등등 생각해보자.. 
 	
 	void InsertWorld(GameObject* obj);
+
+	TowerBase* CreateTower(int id);
+	Arrow* CreateBullet(int id); //성수, 화살, 적들것도 다여기서 만들거임
 
 };
 
@@ -71,13 +74,3 @@ T* Factory::CreateEnemy(int id) //애네들은 특히 데이터가 필요하고..
 
 }
 
-//아이디만 있는데.. 흠.. //아이디로 통하는 애들은 한번더 매핑해버릴까? 
-template<typename T> //이게 템플릿이라 모르는건가? //남들이랑 다른게 이것밖에없는데.. 
-T* Factory::CreateTower(int id) //일단 데이터만 다르게 끼는 방식으로 생각했었는데.. 작동 방식이좀 다를수도있을거같아서. 걍 베이스를 상속받아서 만들어야겠네.. 
-{
-	bool bIsBase = is_base_of<TowerBase, T>::value;
-	assert(bIsBase == true);
-	T* newObject = new T(towerData[id]); //각자에 맞는 데이터만 넣어주기.. 
-	InsertWorld(newObject);
-	return newObject;
-}

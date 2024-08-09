@@ -6,7 +6,7 @@ class Arrow : public GameObject
 private:
     float speed = 0.3f;
 public:
-    Arrow();
+    Arrow( float speed, std::wstring imagePath);
     virtual ~Arrow();
     
     float ellipsedTime;

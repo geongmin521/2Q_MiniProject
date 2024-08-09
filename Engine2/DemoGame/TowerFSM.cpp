@@ -57,22 +57,22 @@ void TowerIdle::EnterState()
 	ani->SetAnimation(0, false);
 }
 
-void TowerIdle::Update(float DeltaTime)
+void TowerIdle::Update(float DeltaTime) //타겟으로 본인도 들어오나? 타겟은 등록된 태그만 먹게해놨는데.. 
 {
-
-	//if (tower->target != nullptr && tower->isAttack == false)
-	//{
-	//	owner->SetNextState("Attack");
-	//}
-	//if (tower->isAttack == true)
-	//{
-	//	cooldown += DeltaTime;
-	//	if (cooldown > tower->towerData.attackSpeed)
-	//	{
-	//		tower->isAttack = false;
-	//		cooldown = 0;
-	//	}
-	//}
+	tower->Search();
+	if (tower->target.empty() == false && tower->isAttack == false)
+	{
+		owner->SetNextState("Attack");
+	}
+	if (tower->isAttack == true)
+	{
+		cooldown += DeltaTime;
+		if (cooldown > tower->towerData.attackSpeed)
+		{
+			tower->isAttack = false;
+			cooldown = 0;
+		}
+	}
 }
 
 void TowerIdle::ExitState()
