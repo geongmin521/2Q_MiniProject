@@ -42,24 +42,24 @@ void EnemyBase::Find(Collider* othercomponent)
 	{
 		if (col->owner->name == "Tower" && col->owner->isActive == true)
 		{
-			towers.push_back(col->owner);
+			
+				towers.push_back(col->owner);
+			
 		}
 	}
 
 	float min = 1000;
 	float curMin;
-	float xDistance;
-	float yDistance;
+	MathHelper::Vector2F distance;
 	GameObject* curTarget = nullptr;
 
 	if (!towers.empty())
 	{
 		for (auto& tower : towers)
 		{
-			xDistance = std::abs((GetWorldLocation().x - tower->GetWorldLocation().x));
-			yDistance = std::abs(GetWorldLocation().y - tower->GetWorldLocation().y);
-			curMin = std::min(xDistance, yDistance);
-
+			distance = MathHelper::Vector2F(GetWorldLocation()) - MathHelper::Vector2F(tower->GetWorldLocation());
+			curMin = distance.Length();
+			
 			if (min > curMin)
 			{
 				min = curMin;
