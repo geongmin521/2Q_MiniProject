@@ -23,7 +23,11 @@ class Artifact : public SingletonBase<Artifact>
 		float Hp = 1;
 	};
 public:
-	artifactPower power;
+	artifactPower towerPower;
+	artifactPower enemyPower;
+
+	ArtifactData artifactData;
+
 	Artifact();
 	virtual ~Artifact();
 	ArtifactData artifactData;

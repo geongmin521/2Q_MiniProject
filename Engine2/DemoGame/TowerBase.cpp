@@ -1,7 +1,7 @@
 #include "../D2DEngine/pch.h"
 #include "TowerBase.h"
 #include "../D2DEngine/D2DRenderer.h"
-
+#include "Artifact.h"
 
 TowerBase::TowerBase(TowerData data)
 {
@@ -109,8 +109,8 @@ void TowerBase::Attack(float deltaTime)
 
 void TowerBase::Hit(float damage)
 {
-
-	curHP -= damage;
+	float plusArmor = Artifact::GetInstance().get()->towerPower.Armor;
+	curHP -= damage * plusArmor;
 }
 
 void TowerBase::Heal(float heal)

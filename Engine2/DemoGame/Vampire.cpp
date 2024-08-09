@@ -13,8 +13,8 @@ Vampire::Vampire(EnemyData data) : EnemyBase(data)
 {
 	// Datamanager·Î ÀÐ±â
 	// enemyData.speed;
-	enemyData.speed = 50.f;
-	enemyData.attackRange = 10.f;
+	enemyData.speed = 500.f;
+	enemyData.attackRange = 100.f;
 	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 50.f;
 	curHP = enemyData.HP;
@@ -27,9 +27,10 @@ Vampire::Vampire(EnemyData data) : EnemyBase(data)
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
-	fsm->CreateState<VampireIdle>("Idle");
-	fsm->CreateState<VampireShared>("Shared");
-	fsm->CreateState<VampireAttack>("Attack");
+	fsm->CreateState<EnemyIdle>("Idle");
+	fsm->CreateState<EnemyShared>("Shared");
+	fsm->CreateState<EnemyAttack>("Attack");
+	fsm->CreateState<EnemyDead>("Death");
 	fsm->SetNextState("Idle");
 
 	AddComponent(new Movement(transform));

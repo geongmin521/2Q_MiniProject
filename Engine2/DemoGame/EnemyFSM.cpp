@@ -36,14 +36,14 @@ void EnemyFSM::Update(float deltaTime)
 void EnemyFSM::ExitState()
 {
 }
-void VampireIdle::EnterState()
+void EnemyIdle::EnterState()
 {
 	ani->SetAnimation(1, true);
 	ani->isLoop = true;
 	//ani->Reverse();
 }
 
-void VampireIdle::Update(float deltaTime)
+void EnemyIdle::Update(float deltaTime)
 {
 	// 몸통크기 165.f 
 	
@@ -55,7 +55,7 @@ void VampireIdle::Update(float deltaTime)
 		// 눈대중으로 대충 맞춤 스피드가 달라지면 판정값도 달라져야만 일정 범위를 유지할수있음
 
 		
-		if (std::abs(targetPos.x + enemy->enemyData.attackRange - curPos.x) <= 90.f)
+		if (std::abs(targetPos.x  - curPos.x) <= enemy->enemyData.attackRange / 2)
 		{
 			enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 			if (enemy->isAttack == false)
@@ -86,55 +86,65 @@ void VampireIdle::Update(float deltaTime)
 	}
 }
 
-void VampireIdle::ExitState()
+void EnemyIdle::ExitState()
 {
 }
 
-VampireShared::VampireShared(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name)
+EnemyShared::EnemyShared(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name)
 {
 	pOwner->SetSharedTransition(this);
 }
 
-void VampireShared::EnterState()
+void EnemyShared::EnterState()
 {
 
 }
 
-void VampireShared::Update(float deltaTime)
+void EnemyShared::Update(float deltaTime)
 {
 	if (enemy->curHP <= 0)
 	{
-		enemy->isActive = false;
+		owner->SetNextState("Death");
 	}
 
 }
 
-void VampireShared::ExitState()
+void EnemyShared::ExitState()
 {
 }
 
-void VampireAttack::EnterState()
+void EnemyAttack::EnterState()
 {
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	ani->SetAnimation(0, true);
 	ani->isLoop = false;
-
-	//ani->Reverse();
 }
 
-void VampireAttack::Update(float deltaTime)
+void EnemyAttack::Update(float deltaTime)
 {
 	if (ani->IsEnd())
 	{
-		enemy->isAttack = true;
-		//enemy->target = nullptr;
 		enemy->Attack(deltaTime);
-	
+		enemy->isAttack = true;
 		owner->SetNextState("Idle");
 	}
 }
 
-void VampireAttack::ExitState()
+void EnemyAttack::ExitState()
 {
 
+}
+
+void EnemyDead::EnterState()
+{
+	// 데스 애니메이션
+}
+
+void EnemyDead::Update(float deltaTime)
+{
+	enemy->isActive = false;
+}
+
+void EnemyDead::ExitState()
+{
 }

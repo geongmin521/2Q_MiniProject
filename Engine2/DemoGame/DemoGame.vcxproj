@@ -142,6 +142,7 @@
     <ClInclude Include="Container.h" />
     <ClInclude Include="DemoGame.h" />
     <ClInclude Include="DemoGameApp.h" />
+    <ClInclude Include="EnemyArrow.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyFSM.h" />
     <ClInclude Include="EnemySpawner.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="TowerFsm.h" />
     <ClInclude Include="TowerStar.h" />
     <ClInclude Include="Vampire.h" />
+    <ClInclude Include="VampireRanged.h" />
     <ClInclude Include="Victory.h" />
     <ClInclude Include="VampireBomb.h" />
   </ItemGroup>
@@ -178,6 +180,7 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="DemoGame.cpp" />
     <ClCompile Include="DemoGameApp.cpp" />
+    <ClCompile Include="EnemyArrow.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyFSM.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
@@ -198,6 +201,7 @@
     <ClCompile Include="TowerFSM.cpp" />
     <ClCompile Include="TowerStar.cpp" />
     <ClCompile Include="Vampire.cpp" />
+    <ClCompile Include="VampireRanged.cpp" />
     <ClCompile Include="Victory.cpp" />
     <ClCompile Include="VampireBomb.cpp" />
   </ItemGroup>

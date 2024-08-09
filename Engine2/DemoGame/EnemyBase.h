@@ -15,7 +15,7 @@ public:
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
     virtual void Find(Collider* othercomponent);
-    virtual void Hit(float damage) override { curHP -= damage; }
+    virtual void Hit(float damage);
     virtual void Heal(float heal)override {}
     virtual void Attack(float deltaTime);
 public:
