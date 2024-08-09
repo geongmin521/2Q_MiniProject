@@ -10,6 +10,7 @@
 #include "../D2DEngine/Music.h"
 #include "../D2DEngine/World.h" 
 #include "EnemyBase.h"
+#include "Factory.h"
 #include "MeleeTower.h"
 
 MeleeTower::MeleeTower(TowerData data) : TowerBase(data)
@@ -23,10 +24,10 @@ MeleeTower::MeleeTower(TowerData data) : TowerBase(data)
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"MeleeTower")); //일단 켄 같이쓰고 근접공격 애니메이션만 다르게
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
 	
+	star = Fac->CreateGameObject<TowerStar>();
+	towerData.level = 2;
+	star->Init(this,towerData.level); //여기서 주인으로 자기를 줘서 자기 트랜스폼 찾게끔
 	
-	//star = new Bitmap(L"..\\Data\\Image\\star.png"); //다른비트맵 추가하게되면 구별할려고 
-	//AddComponent(star);
-	//star->
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
@@ -42,6 +43,7 @@ MeleeTower::MeleeTower(TowerData data) : TowerBase(data)
 
 MeleeTower::~MeleeTower()
 {
+	
 }
 
 void MeleeTower::Update(float deltaTime)
@@ -49,12 +51,6 @@ void MeleeTower::Update(float deltaTime)
 
 	__super::Update(deltaTime);
 
-	//target이 현재 없을때
-	//GetComponent<BoxCollider>()->collideStateCurr.begin() it;
-	//it = owner name enemy;
-	//Getwroldlocation  거리비교
-	//	>> 제일작은걸 타겟으로
-	//	얘가 죽으면 target null 아니면 타겟;
 	
 	FindTarget(GetComponent<BoxCollider>(),true);
 	

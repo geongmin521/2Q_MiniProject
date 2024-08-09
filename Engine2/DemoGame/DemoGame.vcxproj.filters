@@ -133,6 +133,9 @@
     <ClInclude Include="HolyWater.h">
       <Filter>Tower</Filter>
     </ClInclude>
+    <ClInclude Include="TowerStar.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowTower.cpp">
@@ -227,6 +230,9 @@
       <Filter>Tower</Filter>
     </ClCompile>
     <ClCompile Include="HolyWater.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerStar.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
   </ItemGroup>

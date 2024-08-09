@@ -4,6 +4,7 @@
 #include "../D2DEngine/IDamageNotify.h"
 #include "../D2DEngine/Bitmap.h"
 #include "../D2DEngine/Collider.h"
+#include "TowerStar.h"
 class TowerBase :
     public GameObject , IDamageNotify
 {
@@ -12,7 +13,7 @@ private:
 
 public:
     
-    Bitmap* star;
+    TowerStar* star; //기본타워에서 star하나씩가지고있게
     float curHP; //타워각자가 가질 현재 체력
     GameObject* target = nullptr;
     std::vector<GameObject*> targets;

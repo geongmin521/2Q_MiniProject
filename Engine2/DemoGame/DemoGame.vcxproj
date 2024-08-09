@@ -161,6 +161,7 @@
     <ClInclude Include="TitleWorld.h" />
     <ClInclude Include="TowerBase.h" />
     <ClInclude Include="TowerFsm.h" />
+    <ClInclude Include="TowerStar.h" />
     <ClInclude Include="Vampire.h" />
     <ClInclude Include="Victory.h" />
     <ClInclude Include="VampireBomb.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="TitleWorld.cpp" />
     <ClCompile Include="TowerBase.cpp" />
     <ClCompile Include="TowerFSM.cpp" />
+    <ClCompile Include="TowerStar.cpp" />
     <ClCompile Include="Vampire.cpp" />
     <ClCompile Include="Victory.cpp" />
     <ClCompile Include="VampireBomb.cpp" />

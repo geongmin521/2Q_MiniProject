@@ -12,6 +12,7 @@
 #include "../D2DEngine/Music.h"
 #include "../D2DEngine/World.h" 
 #include "EnemyBase.h"
+#include "Factory.h"
 #include "ArrowTower.h"
 
 ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
@@ -27,6 +28,10 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 	SetBoundBox(0, 0, towerData.attackRange, towerData.attackRange);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Tower));
+
+	star = Fac->CreateGameObject<TowerStar>();
+	towerData.level = 1;
+	star->Init(this, towerData.level); //여기서 주인으로 자기를 줘서 자기 트랜스폼 찾게끔
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
