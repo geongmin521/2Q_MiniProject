@@ -10,8 +10,6 @@
 #include "BoxCollider.h"
 #include "Light.h"
 
-#include "ArrowTower.h"
-
 Light::Light()
 {
 	AddComponent(new Bitmap(L"..\\Data\\Image\\Light.png"));

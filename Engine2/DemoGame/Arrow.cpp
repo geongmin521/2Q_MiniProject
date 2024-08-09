@@ -22,9 +22,7 @@ Arrow::~Arrow()
 {
 }
 
-
-
-void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
+void Arrow::Init(GameObject* target, MathHelper::Vector2F location) //이거는 바꿔야지.. 
 {
 	this->target = target;
 	transform->SetRelativeLocation({ location.x + 50.0f,location.y - 20.f });
@@ -33,7 +31,7 @@ void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 	position[0] = transform->GetRelativeLocation();
 	MathHelper::Vector2F mid = (position[2] + position[0]) / 2;
 	
-	if (position[2].x - position[0].x > 800.f)
+	if (position[2].x - position[0].x > 800.f) //이거는 뭘까.. 베지어곡선을 위한건가? 
 	{
 		sec = 3.0f;
 		height = 300.f;
@@ -85,9 +83,8 @@ void Arrow::Update(float deltaTime)
 	if (std::abs(target->GetWorldLocation().x - GetWorldLocation().x) <= 1.0f &&
 		std::abs(target->GetWorldLocation().y - GetWorldLocation().y) <= 1.0f)
 	{
-		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);
+		IDamageNotify* enemy = dynamic_cast<IDamageNotify*>(target);
 		enemy->Hit(60);
-		//
 		isActive = false;
 	}
 

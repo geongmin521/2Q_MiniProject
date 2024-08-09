@@ -136,7 +136,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Arrow.h" />
-    <ClInclude Include="ArrowTower.h" />
     <ClInclude Include="Artifact.h" />
     <ClInclude Include="BattleWorld.h" />
     <ClInclude Include="Button.h" />
@@ -152,14 +151,10 @@
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="GameOver.h" />
-    <ClInclude Include="HealingTower.h" />
-    <ClInclude Include="HolyTower.h" />
-    <ClInclude Include="HolyWater.h" />
     <ClInclude Include="HPBar.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="MeleeTower.h" />
     <ClInclude Include="MoveIcon.h" />
     <ClInclude Include="Pools.h" />
     <ClInclude Include="Shop.h" />
@@ -168,6 +163,7 @@
     <ClInclude Include="TitleWorld.h" />
     <ClInclude Include="TowerBase.h" />
     <ClInclude Include="TowerFsm.h" />
+    <ClInclude Include="TowerFunc.h" />
     <ClInclude Include="TowerStar.h" />
     <ClInclude Include="Vampire.h" />
     <ClInclude Include="VampireRanged.h" />
@@ -176,7 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrow.cpp" />
-    <ClCompile Include="ArrowTower.cpp" />
     <ClCompile Include="Artifact.cpp" />
     <ClCompile Include="BattleWorld.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -192,14 +187,10 @@
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameOver.cpp" />
-    <ClCompile Include="HealingTower.cpp" />
-    <ClCompile Include="HolyTower.cpp" />
-    <ClCompile Include="HolyWater.cpp" />
     <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MeleeTower.cpp" />
     <ClCompile Include="MoveIcon.cpp" />
     <ClCompile Include="Pools.cpp" />
     <ClCompile Include="Shop.cpp" />
@@ -207,6 +198,7 @@
     <ClCompile Include="TitleWorld.cpp" />
     <ClCompile Include="TowerBase.cpp" />
     <ClCompile Include="TowerFSM.cpp" />
+    <ClCompile Include="TowerFunc.cpp" />
     <ClCompile Include="TowerStar.cpp" />
     <ClCompile Include="Vampire.cpp" />
     <ClCompile Include="VampireRanged.cpp" />

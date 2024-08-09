@@ -39,9 +39,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArrowTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="TowerBase.h">
       <Filter>Tower</Filter>
     </ClInclude>
@@ -120,25 +117,12 @@
     <ClInclude Include="Container.h">
       <Filter>UIBase</Filter>
     </ClInclude>
-    <ClInclude Include="MeleeTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="Artifact.h">
       <Filter>Artifact</Filter>
-    </ClInclude>
-    <ClInclude Include="HealingTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="HolyTower.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="HolyWater.h">
-      <Filter>Tower</Filter>
     </ClInclude>
     <ClInclude Include="Container.h">
       <Filter>UIBase</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h" />
     <ClInclude Include="Light.h">
       <Filter>Light</Filter>
     </ClInclude>
@@ -149,11 +133,9 @@
     <ClInclude Include="TowerStar.h" />
     <ClInclude Include="VampireRanged.h" />
     <ClInclude Include="EnemyArrow.h" />
+    <ClInclude Include="TowerFunc.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ArrowTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="TowerBase.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
@@ -229,20 +211,8 @@
     <ClCompile Include="Container.cpp">
       <Filter>UIBase</Filter>
     </ClCompile>
-    <ClCompile Include="MeleeTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="Artifact.cpp">
       <Filter>Artifact</Filter>
-    </ClCompile>
-    <ClCompile Include="HealingTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="HolyTower.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="HolyWater.cpp">
-      <Filter>Tower</Filter>
     </ClCompile>
     <ClCompile Include="Container.cpp">
       <Filter>UIBase</Filter>
@@ -250,7 +220,6 @@
     <ClCompile Include="Pools.cpp">
       <Filter>Factory</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Light.cpp">
       <Filter>Light</Filter>
     </ClCompile>
@@ -258,5 +227,6 @@
     <ClCompile Include="TowerStar.cpp" />
     <ClCompile Include="VampireRanged.cpp" />
     <ClCompile Include="EnemyArrow.cpp" />
+    <ClCompile Include="TowerFunc.cpp" />
   </ItemGroup>
 </Project>

@@ -45,11 +45,11 @@
     <Filter Include="소스 파일\UI">
       <UniqueIdentifier>{108591be-143d-47bb-bd5d-ce6d9249444c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Factory">
-      <UniqueIdentifier>{2f3c0325-5226-4e5d-bf8a-4edba4db259d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Effect">
       <UniqueIdentifier>{ba773014-037b-45c7-8c30-6347ea393688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DOTween">
+      <UniqueIdentifier>{8f480394-a35b-4eb5-883b-a075fdc7472f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -189,9 +189,11 @@
       <Filter>소스 파일\System</Filter>
     </ClInclude>
     <ClInclude Include="Dotween.h">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\DOTween</Filter>
     </ClInclude>
-    <ClInclude Include="DOTweenManager.h" />
+    <ClInclude Include="DOTweenManager.h">
+      <Filter>소스 파일\DOTween</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -299,14 +301,14 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>소스 파일\System</Filter>
     </ClCompile>
-    <ClCompile Include="Dotween.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="D2DEffect.cpp">
       <Filter>소스 파일\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Dotween.cpp">
+      <Filter>소스 파일\DOTween</Filter>
+    </ClCompile>
     <ClCompile Include="DOTweenManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\DOTween</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
