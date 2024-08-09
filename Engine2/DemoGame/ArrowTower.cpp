@@ -18,11 +18,11 @@
 
 #include "D2DEffect.h"
 
+// test
+#include "D2DFont.h"
 
 ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 {
-
-
 	towerData.name = "ArrowTower";                    //csv에서 읽어와서 다넣어지게끔 
 	towerData.attackRange = 500.0f;
 	towerData.attackSpeed = 0.3f;
@@ -46,7 +46,8 @@ ArrowTower::ArrowTower(TowerData data) : TowerBase(data)
 
 	D2DEffect::GetInstance()->CreateMorphologyEffect(L"as", GetComponent<Animation>()->bitmap, 10);
 	//	D2DRenderer::GetInstance()->CreateGaussianBlurEffect(GetComponent<Animation>()->bitmap, 10.f);
-
+	AddComponent(new D2DFont(L"안녕하세요"));
+	GetComponent<D2DFont>()->SetPos(100, 100);
 }
 
 void ArrowTower::Update(float deltaTime)
@@ -61,7 +62,7 @@ void ArrowTower::Update(float deltaTime)
 	//	얘가 죽으면 target null 아니면 타겟;
 	//transform->AddRelativeRotation(1);
 	FindTarget(GetComponent<BoxCollider>());
-	
+
 }
 
 
@@ -69,8 +70,11 @@ void ArrowTower::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 
 	__super::Render(pRenderTarget);
-//	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"as"));
-	
+	D2D_MATRIX_3X2_F test = this->transform->worldTransform;
+	test.dx += 100;
+	test.dy += 100;
+	pRenderTarget->SetTransform(test);
+//	D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"as"));	
 }
 
 void ArrowTower::Attack(float deltaTime)
@@ -110,6 +114,7 @@ void ArrowTower::BeginDrag(const MouseState& state) //이거는 마우스로 하는거니까
 	transform->SetRelativeLocation(state.GetMousePos());
 	if (container)
 		container->Clear();//담겨있는공간에 비워주기.. 서로 상호참조하고있는게 맞을까? 
+
 }
 
 void ArrowTower::StayDrag(const MouseState& state)

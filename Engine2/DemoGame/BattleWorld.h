@@ -1,6 +1,6 @@
 #pragma once
 #include "World.h"
-#include "D2DFont.h"
+
 class Shop;
 class ShowWave;
 class Combination;
@@ -12,7 +12,7 @@ private:
 	ShowWave* showWave; //적 웨이브 UI
 	Combination* combination; //조합표UI
 	std::vector<Container*> IconInven;// 인벤토리
-	D2DFont test;
+
 public:
 	BattleWorld(); 
 	virtual ~BattleWorld();
