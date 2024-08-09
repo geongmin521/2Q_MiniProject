@@ -1,256 +1,262 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<Filter Include="Tower">
-			<UniqueIdentifier>{6704422f-0b36-4979-922f-dab347b45966}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Enemy">
-			<UniqueIdentifier>{a9302236-d13b-44ac-9f61-b910cec87025}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Etc">
-			<UniqueIdentifier>{7903c734-83b2-47aa-b878-80d2a42435af}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="OtherObject">
-			<UniqueIdentifier>{fde3c242-0469-4bbe-88de-5e2589aba287}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Map">
-			<UniqueIdentifier>{8a819bfe-dfbc-4e79-a6c4-71e9f8770a2b}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="UI">
-			<UniqueIdentifier>{5ff006f7-7b5d-4cc1-824d-9b91230a398e}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="GameStart">
-			<UniqueIdentifier>{4074c382-4d29-4aa0-a19b-ceaa86eab241}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="World">
-			<UniqueIdentifier>{afc37081-30c5-4cca-9f67-53a1d720fa7d}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Factory">
-			<UniqueIdentifier>{fe0a3922-dc80-45fe-a406-19c574ecbf17}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="UIBase">
-			<UniqueIdentifier>{6aff8257-2e2b-460c-a1c0-9169bfdbe870}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Artifact">
-			<UniqueIdentifier>{9fa061a9-80fd-4703-8872-b9f25197e095}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Light">
-			<UniqueIdentifier>{2d3a1bcd-c88d-4172-a3be-071f65b54f63}</UniqueIdentifier>
-		</Filter>
-	</ItemGroup>
-	<ItemGroup>
-		<ClInclude Include="ArrowTower.h">
-			<Filter>Tower</Filter>
-		</ClInclude>
-		<ClInclude Include="TowerBase.h">
-			<Filter>Tower</Filter>
-		</ClInclude>
-		<ClInclude Include="EnemyBase.h">
-			<Filter>Enemy</Filter>
-		</ClInclude>
-		<ClInclude Include="Vampire.h">
-			<Filter>Enemy</Filter>
-		</ClInclude>
-		<ClInclude Include="DemoGame.h">
-			<Filter>Etc</Filter>
-		</ClInclude>
-		<ClInclude Include="targetver.h">
-			<Filter>Etc</Filter>
-		</ClInclude>
-		<ClInclude Include="Map.h">
-			<Filter>Map</Filter>
-		</ClInclude>
-		<ClInclude Include="Camera.h">
-			<Filter>OtherObject</Filter>
-		</ClInclude>
-		<ClInclude Include="TowerFsm.h">
-			<Filter>Tower</Filter>
-		</ClInclude>
-		<ClInclude Include="Shop.h">
-			<Filter>UI</Filter>
-		</ClInclude>
-		<ClInclude Include="EnemySpawner.h">
-			<Filter>Enemy</Filter>
-		</ClInclude>
-		<ClInclude Include="DemoGameApp.h">
-			<Filter>GameStart</Filter>
-		</ClInclude>
-		<ClInclude Include="BattleWorld.h">
-			<Filter>World</Filter>
-		</ClInclude>
-		<ClInclude Include="TitleWorld.h">
-			<Filter>World</Filter>
-		</ClInclude>
-		<ClInclude Include="EnemyFSM.h">
-			<Filter>Enemy</Filter>
-		</ClInclude>
-		<ClInclude Include="Arrow.h">
-			<Filter>Tower</Filter>
-		</ClInclude>
-		<ClInclude Include="Factory.h">
-			<Filter>Factory</Filter>
-		</ClInclude>
-		<ClInclude Include="Compensation.h">
-			<Filter>UI</Filter>
-		</ClInclude>
-		<ClInclude Include="ShowWave.h">
-			<Filter>UI</Filter>
-		</ClInclude>
-		<ClInclude Include="Victory.h">
-			<Filter>UI</Filter>
-		</ClInclude>
-		<ClInclude Include="Button.h">
-			<Filter>UIBase</Filter>
-		</ClInclude>
-		<ClInclude Include="Image.h">
-			<Filter>UIBase</Filter>
-		</ClInclude>
-		<ClInclude Include="MoveIcon.h">
-			<Filter>UIBase</Filter>
-		</ClInclude>
-		<ClInclude Include="GameOver.h">
-			<Filter>UI</Filter>
-		</ClInclude>
-		<ClInclude Include="Combination.h">
-			<Filter>UI</Filter>
-		</ClInclude>
-		<ClInclude Include="VampireBomb.h">
-			<Filter>Enemy</Filter>
-		</ClInclude>
-		<ClInclude Include="Container.h">
-			<Filter>UIBase</Filter>
-		</ClInclude>
-		<ClInclude Include="Tile.h" />
-		<ClInclude Include="MeleeTower.h">
-			<Filter>Tower</Filter>
-		</ClInclude>
-		<ClInclude Include="Artifact.h">
-			<Filter>Artifact</Filter>
-		</ClInclude>
-		<ClInclude Include="HealingTower.h">
-			<Filter>Tower</Filter>
-		</ClInclude>
-		<ClInclude Include="HolyTower.h">
-			<Filter>Tower</Filter>
-		</ClInclude>
-		<ClInclude Include="HolyWater.h">		
-			<Filter>Tower</Filter>
-		</ClInclude>
-			<ClInclude Include="Container.h">
-				<Filter>UIBase</Filter>
-			</ClInclude>
-			<ClInclude Include="Tile.h" />
-			<ClInclude Include="Light.h">
-				<Filter>Light</Filter>
-			</ClInclude>
-			<ClInclude Include="Pools.h">
-				<Filter>Factory</Filter>
-			</ClInclude>
-		</ItemGroup>
-	<ItemGroup>
-		<ClCompile Include="ArrowTower.cpp">
-			<Filter>Tower</Filter>
-		</ClCompile>
-		<ClCompile Include="TowerBase.cpp">
-			<Filter>Tower</Filter>
-		</ClCompile>
-		<ClCompile Include="EnemyBase.cpp">
-			<Filter>Enemy</Filter>
-		</ClCompile>
-		<ClCompile Include="Vampire.cpp">
-			<Filter>Enemy</Filter>
-		</ClCompile>
-		<ClCompile Include="DemoGame.cpp">
-			<Filter>Etc</Filter>
-		</ClCompile>
-		<ClCompile Include="Map.cpp">
-			<Filter>Map</Filter>
-		</ClCompile>
-		<ClCompile Include="Camera.cpp">
-			<Filter>OtherObject</Filter>
-		</ClCompile>
-		<ClCompile Include="TowerFSM.cpp">
-			<Filter>Tower</Filter>
-		</ClCompile>
-		<ClCompile Include="Shop.cpp">
-			<Filter>UI</Filter>
-		</ClCompile>
-		<ClCompile Include="EnemySpawner.cpp">
-			<Filter>Enemy</Filter>
-		</ClCompile>
-		<ClCompile Include="DemoGameApp.cpp">
-			<Filter>GameStart</Filter>
-		</ClCompile>
-		<ClCompile Include="BattleWorld.cpp">
-			<Filter>World</Filter>
-		</ClCompile>
-		<ClCompile Include="TitleWorld.cpp">
-			<Filter>World</Filter>
-		</ClCompile>
-		<ClCompile Include="EnemyFSM.cpp">
-			<Filter>Enemy</Filter>
-		</ClCompile>
-		<ClCompile Include="Arrow.cpp">
-			<Filter>Tower</Filter>
-		</ClCompile>
-		<ClCompile Include="Factory.cpp">
-			<Filter>Factory</Filter>
-		</ClCompile>
-		<ClCompile Include="Compensation.cpp">
-			<Filter>UI</Filter>
-		</ClCompile>
-		<ClCompile Include="ShowWave.cpp">
-			<Filter>UI</Filter>
-		</ClCompile>
-		<ClCompile Include="Victory.cpp">
-			<Filter>UI</Filter>
-		</ClCompile>
-		<ClCompile Include="Button.cpp">
-			<Filter>UIBase</Filter>
-		</ClCompile>
-		<ClCompile Include="Image.cpp">
-			<Filter>UIBase</Filter>
-		</ClCompile>
-		<ClCompile Include="MoveIcon.cpp">
-			<Filter>UIBase</Filter>
-		</ClCompile>
-		<ClCompile Include="GameOver.cpp">
-			<Filter>UI</Filter>
-		</ClCompile>
-		<ClCompile Include="Combination.cpp">
-			<Filter>UI</Filter>
-		</ClCompile>
-		<ClCompile Include="VampireBomb.cpp">
-			<Filter>Enemy</Filter>
-		</ClCompile>
-		<ClCompile Include="Container.cpp">
-			<Filter>UIBase</Filter>
-		</ClCompile>
-		<ClCompile Include="Tile.cpp" />
-		<ClCompile Include="MeleeTower.cpp">
-			<Filter>Tower</Filter>
-		</ClCompile>
-		<ClCompile Include="Artifact.cpp">
-			<Filter>Artifact</Filter>
-		</ClCompile>
-		<ClCompile Include="HealingTower.cpp">
-			<Filter>Tower</Filter>
-		</ClCompile>
-		<ClCompile Include="HolyTower.cpp">
-			<Filter>Tower</Filter>
-		</ClCompile>
-		<ClCompile Include="HolyWater.cpp">
-			<Filter>Tower</Filter>
-		</ClCompile>
-			<ClCompile Include="Container.cpp">
-				<Filter>UIBase</Filter>
-			</ClCompile>
-			<ClCompile Include="Pools.cpp">
-				<Filter>Factory</Filter>
-			</ClCompile>
-			<ClCompile Include="Tile.cpp" />
-			<ClCompile Include="Light.cpp">
-				<Filter>Light</Filter>
-			</ClCompile>
-		</ItemGroup>
+  <ItemGroup>
+    <Filter Include="Tower">
+      <UniqueIdentifier>{6704422f-0b36-4979-922f-dab347b45966}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{a9302236-d13b-44ac-9f61-b910cec87025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{7903c734-83b2-47aa-b878-80d2a42435af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OtherObject">
+      <UniqueIdentifier>{fde3c242-0469-4bbe-88de-5e2589aba287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{8a819bfe-dfbc-4e79-a6c4-71e9f8770a2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{5ff006f7-7b5d-4cc1-824d-9b91230a398e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameStart">
+      <UniqueIdentifier>{4074c382-4d29-4aa0-a19b-ceaa86eab241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{afc37081-30c5-4cca-9f67-53a1d720fa7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{fe0a3922-dc80-45fe-a406-19c574ecbf17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UIBase">
+      <UniqueIdentifier>{6aff8257-2e2b-460c-a1c0-9169bfdbe870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Artifact">
+      <UniqueIdentifier>{9fa061a9-80fd-4703-8872-b9f25197e095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{2d3a1bcd-c88d-4172-a3be-071f65b54f63}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ArrowTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerBase.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBase.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Vampire.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoGame.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>OtherObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerFsm.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawner.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoGameApp.h">
+      <Filter>GameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleWorld.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleWorld.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyFSM.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Compensation.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowWave.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Victory.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveIcon.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Combination.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="VampireBomb.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Artifact.h">
+      <Filter>Artifact</Filter>
+    </ClInclude>
+    <ClInclude Include="HealingTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyTower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyWater.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="Light.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Pools.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h" />
+    <ClInclude Include="TowerStar.h" />
+    <ClInclude Include="VampireRanged.h" />
+    <ClInclude Include="EnemyArrow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ArrowTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerBase.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBase.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Vampire.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoGame.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>OtherObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerFSM.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpawner.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoGameApp.cpp">
+      <Filter>GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleWorld.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleWorld.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyFSM.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Compensation.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowWave.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Victory.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveIcon.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Combination.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="VampireBomb.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Artifact.cpp">
+      <Filter>Artifact</Filter>
+    </ClCompile>
+    <ClCompile Include="HealingTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyTower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Pools.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Light.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp" />
+    <ClCompile Include="TowerStar.cpp" />
+    <ClCompile Include="VampireRanged.cpp" />
+    <ClCompile Include="EnemyArrow.cpp" />
+  </ItemGroup>
 </Project>

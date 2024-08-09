@@ -3,6 +3,8 @@
 #include "DataManager.h"
 #include "Collider.h"
 #include "IDamageNotify.h"
+
+class HPBar;
 class EnemyBase :
     public GameObject , IDamageNotify
 {
@@ -20,6 +22,7 @@ public:
     virtual void Attack(float deltaTime);
 public:
     // 일단 퍼블릭
+    HPBar* HPbar;
     float curHP;
     GameObject* target = nullptr;
     bool isAttack = false;

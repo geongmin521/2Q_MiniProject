@@ -7,6 +7,7 @@
 #include "D2DRenderer.h"
 #include "AABB.h"
 #include "EnemyFSM.h"
+#include "Factory.h"
 #include "TowerBase.h"
 
 Vampire::Vampire(EnemyData data) : EnemyBase(data)
@@ -18,12 +19,16 @@ Vampire::Vampire(EnemyData data) : EnemyBase(data)
 	enemyData.attackSpeed = 1.f;
 	enemyData.HP = 500.f;
 	curHP = enemyData.HP;
-	enemyData.ATK = 10.f;
+	enemyData.ATK = 500.f;
 	// 임시 : 캐릭터의 기본 이미지의 크기 + attackrange x값만 (boundbox의 중심값 옮기기?)
 	SetBoundBox(0, 0, 500, 500); //기본 적 이미지 사이즈
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
 
+
+
+	HPbar = Fac->CreateGameObject<HPBar>();
+	HPbar->Init(this); //여기서 주인으로 자기를 줘서 자기 트랜스폼 찾게끔
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);

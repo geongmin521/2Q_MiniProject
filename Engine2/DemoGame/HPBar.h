@@ -1,5 +1,6 @@
 #pragma once
 #include "../D2DEngine/GameObject.h"
+class Bitmap;
 class HPBar : public GameObject
 {
 public:

@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "Container.h"
 #include "EventSystem.h"
+#include "Artifact.h"
 #include "Dotween.h" //이거 그럼 만드는것도 매니저한테 넘겨야겠네.. //와 동민이형왔다.. 나중에 물어보자.. 
 
 TowerBase::TowerBase(TowerData data)

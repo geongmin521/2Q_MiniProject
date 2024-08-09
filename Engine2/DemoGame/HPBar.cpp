@@ -21,8 +21,8 @@ HPBar::~HPBar()
 void HPBar::Init(GameObject* obj)
 {
 	SetHPOnwer(obj);
-	//transform->SetParent(HPOwner->transform);
-	transform->SetRelativeLocation({ 500, 200});
+	transform->SetParent(HPOwner->transform);
+	transform->SetRelativeLocation({ 0, 70.f });
 	isActive = true;
 
 }
@@ -34,15 +34,14 @@ void HPBar::Update(float deltaTime)
 	{
 		isActive = false;
 	}
-	float scaleX = (HPOwner->perHP / 100.f);  // 체력 퍼센트
-	float origin = hpBar->GetSize().x;         // 원래 크기
-	float newOrigin = origin * scaleX;
-	float move = std::abs((origin - newOrigin) / 1.5f);
 	
-	float pre = GetWorldLocation().x;
 	__super::Update(deltaTime);
 
 
+	float scaleX = (HPOwner->perHP / 100.f);  // 체력 퍼센트
+	float origin = GetWorldLocation().x;     // 원래 크기
+	float newOrigin = origin * scaleX;
+	float move = (origin - newOrigin) / 4;
 
 	// 1. 스케일 조정 (중앙 기준)
 	transform->SetRelativeScale({ scaleX , 0.65 });
@@ -50,7 +49,7 @@ void HPBar::Update(float deltaTime)
 
 	// 2. 왼쪽 기준으로 위치 보정
 	
-	//transform->SetRelativeLocation({  - move, GetWorldLocation().y });
+	transform->SetRelativeLocation({ - move,70.f });
 }
 
 void HPBar::Render(ID2D1HwndRenderTarget* pRenderTarget)

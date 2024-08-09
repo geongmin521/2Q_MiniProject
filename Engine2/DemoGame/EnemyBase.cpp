@@ -1,6 +1,8 @@
 #include "pch.h"
+#include "HPBar.h"
 #include "EnemyBase.h"
 #include "AABB.h"
+#include "Artifact.h"
 #include "D2DRenderer.h"
 
 EnemyBase::EnemyBase(EnemyData data)
@@ -76,7 +78,15 @@ void EnemyBase::Find(Collider* othercomponent)
 void EnemyBase::Hit(float damage)
 {
 	float plusAttack = Artifact::GetInstance().get()->towerPower.Attack;
-	curHP -= damage * plusAttack;
+	float Hpdame = curHP - damage * plusAttack;  //예시 변수명 수정등필요
+	if (Hpdame <= 0)
+	{
+		curHP = 0;
+	}
+	else
+	{
+		curHP = Hpdame;
+	}
 }
 
 void EnemyBase::Attack(float deltaTime)
