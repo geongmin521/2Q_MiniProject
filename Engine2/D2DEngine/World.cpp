@@ -66,7 +66,7 @@ void World::Render(ID2D1HwndRenderTarget* pRenderTarget)
 			continue;
 		//if (this->m_pCullingBound->CheckIntersect(obj->GetBoundBox())) 
 		//{
-			obj->Render(pRenderTarget);
+ 			obj->Render(pRenderTarget);
 		//}		
 	}
 }

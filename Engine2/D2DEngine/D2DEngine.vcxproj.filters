@@ -179,6 +179,7 @@
     <ClInclude Include="GameManager.h">
       <Filter>소스 파일\System</Filter>
     </ClInclude>
+    <ClInclude Include="Dotween.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -285,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Dotween.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

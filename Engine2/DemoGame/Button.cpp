@@ -10,13 +10,14 @@ Button::Button(std::wstring imagePath)
 {
 	AddComponent(new Bitmap(imagePath));
 	SetBoundBox(0, 0, GetComponent<Bitmap>()->GetSize());
-	test = new D2DFont;
-	test->LoadFont(L"Cooper");
-	test->CreateLayoutText(L"gdgdg");
-	test->Sort(Setting::MIDDLE);
-	test->SetFontLocation(Setting::MIDDLE);
-	test->CreateLayoutText(L"aaaa");
-	test->SetSize(200, { 0, 4 });//텍스트를 변경해야하는데. 정렬도 초기화가 안되야하고. 
+	//test = new D2DFont;
+	//test->LoadFont(L"Cooper");
+	//D2DFont().CreateLayoutText();
+	//test->CreateLayoutText(L"gdgdg");
+	//test->Sort(Setting::MIDDLE);
+	//test->SetFontLocation(Setting::MIDDLE);
+	//test->CreateLayoutText(L"aaaa");
+	//test->SetSize(200, { 0, 4 });//텍스트를 변경해야하는데. 정렬도 초기화가 안되야하고. 
 }
 
 Button::~Button()
@@ -34,7 +35,7 @@ void Button::Render(ID2D1HwndRenderTarget* pRenderTarget)
 #ifdef _DEBUG
 	D2DRenderer::GetInstance()->DrawAABB(*boundBox);
 #endif
-	test->DrawFont(D2D1::ColorF(D2D1::ColorF::Black));
+	//test->DrawFont(D2D1::ColorF(D2D1::ColorF::Black));
 }
 
 //그냥 멤버함수로 function을 들고있고.. 매개변수는 가능한가? 
