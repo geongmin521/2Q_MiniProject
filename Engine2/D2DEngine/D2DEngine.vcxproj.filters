@@ -188,7 +188,10 @@
     <ClInclude Include="GameManager.h">
       <Filter>소스 파일\System</Filter>
     </ClInclude>
-    <ClInclude Include="Dotween.h" />
+    <ClInclude Include="Dotween.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DOTweenManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -301,6 +304,9 @@
     </ClCompile>
     <ClCompile Include="D2DEffect.cpp">
       <Filter>소스 파일\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="DOTweenManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

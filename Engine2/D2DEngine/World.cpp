@@ -8,6 +8,7 @@
 #include "BoxCollider.h"
 #include "CollisionManager.h"
 #include "EventSystem.h"
+#include "DOTweenManager.h"
 
 
 World::World()
@@ -56,6 +57,7 @@ void World::Update(float deltaTime)
 	}
 	EventSystem::GetInstance().get()->Updata(deltaTime);
 	CollisionManager::GetInstance()->CollisionCheck();
+	DOTweenManager::GetInstance().get()->Update(deltaTime);
 }
 
 void World::Render(ID2D1HwndRenderTarget* pRenderTarget)

@@ -161,6 +161,7 @@
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="Dotween.h" />
+    <ClInclude Include="DOTweenManager.h" />
     <ClInclude Include="EventSystem.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="D2DFont.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="D2DRenderer.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Dotween.cpp" />
+    <ClCompile Include="DOTweenManager.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="D2DFont.cpp" />

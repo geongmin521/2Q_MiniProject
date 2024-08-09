@@ -7,6 +7,7 @@
 #include "Collider.h"
 #include "UI.h"
 class Container;
+
 class TowerBase :
     public GameObject ,public IDamageNotify , public IDragAble //이런 개같은 public을 안붙였었네.. 됬다.. 이제모든 오브젝트도 드래그할수있어. 
 {
@@ -16,7 +17,6 @@ private:
 public:
     Container* container;
     bool isMoving;//일단 제일 단순한 bool값으로 처리하기
-    
     Bitmap* star;
     float curHP; //타워각자가 가질 현재 체력
     GameObject* target = nullptr;
@@ -25,6 +25,8 @@ public:
     virtual ~TowerBase() = default;
     TowerData towerData;
     bool isAttack = false;
+
+    float testEffect;
 
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);

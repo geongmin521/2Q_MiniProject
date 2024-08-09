@@ -5,13 +5,19 @@
 #include "Transform.h"
 #include "Container.h"
 #include "EventSystem.h"
-
+#include "Dotween.h" //이거 그럼 만드는것도 매니저한테 넘겨야겠네.. //와 동민이형왔다.. 나중에 물어보자.. 
 
 TowerBase::TowerBase(TowerData data)
 {
 	this->towerData = data; 
 	this->name = "Tower";
 	EventSystem::GetInstance().get()->Ui.insert(this);
+	//새로운 이펙트를 만들면? 아이디랑 키값으로 만들어지고.. 업데이트는 매니저에서 돌리면서 
+	//시간이 duration이끝나면 자동 소멸되고.. 생성한 것들도 아이디에서 
+	testEffect = 1;
+	//그럼 여기서 만들어서 아이디를 받고 아이디로 접근해서 값을 받다가 아냐 값을 기본값으로 하고 본인이 걍 소멸되는게 낫고 이펙트에 쓰일 값 0,1 까지의 값을 트윈한테 넘겨주는식으로하자.. 
+	new DOTween(testEffect, EasingEffect::InOutCirc, StepAnimation::StepLoopForward);//이렇게 트윈을 만드는게아닌가? 
+	//값은 무조건 0부터 1까지고 아니 이럴거면.. 템플릿으로 만들필요가있나? . 생성관리가 쉽지않은데.. 
 }
 
 void TowerBase::Update(float deltaTime)
@@ -25,6 +31,8 @@ void TowerBase::Update(float deltaTime)
 	{
 		target = nullptr;
 	}
+	transform->SetRelativeScale({ testEffect,testEffect }); //됬다.. 
+
 }
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget)

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "SingletonBase.h"
 enum EasingEffect
 {
     // Linear
@@ -57,6 +57,7 @@ enum EasingEffect
 
     EasingEffectEnd
 };
+#pragma region GraphFunc
 // Linear
 float EaseLinear(float x);
 
@@ -109,6 +110,7 @@ float EaseInOutElastic(float x);
 float EaseInBounce(float x);
 float EaseOutBounce(float x);
 float EaseInOutBounce(float x);
+#pragma endregion GraphFunc
 static std::function<float(float)> EasingFunction[EasingEffect::EasingEffectEnd] =
 {
     // Linear
@@ -165,11 +167,6 @@ static std::function<float(float)> EasingFunction[EasingEffect::EasingEffectEnd]
     EaseInOutBounce,
 };;
 
-
-class Dotween
-{
-};
-
 enum StepAnimation
 {
     StepOnceForward,
@@ -181,29 +178,28 @@ enum StepAnimation
 
     StepAnimationEnd
 };
+//근데 템플릿으로 다 저장할수가있나? 글쎄다.. 안될거같은데.. 만들어서 업데이트를 돌려야하는데.. 
+//생성 시점은 언제 파악하고 .. 업데이트는 어떻게 돌리지? 
 
-template<typename T>
 class DOTween
 {
 public:
-    DOTween(T& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation = StepOnceForward)
-        :Data(_Data), Function(EasingFunction[_EasingEffect]), Type(_StepAnimation)
-    {}
-    ~DOTween() {};
+    DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation = StepOnceForward);
+    ~DOTween();
 
-    void   SetStartPoint(T _StartPoint) { StartPoint = _StartPoint; }
-    void   SetEndPoint(T _EndPoint) { EndPoint = _EndPoint; }
+    void   SetStartPoint(float _StartPoint) { StartPoint = _StartPoint; } //이거 초기값 세팅해줘야함. 
+    void   SetEndPoint(float _EndPoint) { EndPoint = _EndPoint; }
     void   SetDuration(float   _Duration) { Duration = _Duration; }
 
-    void   Update(const float& _DeltaTime)
+    void   Update(const float& _DeltaTime) //시간이 지나면 본인이 스스로 소멸하는건가?
     {
         (this->*StepAnimationFunction[Type])(_DeltaTime);
     }
 
 private:
-    T& Data;         //   0 ~ 1(StartPoint ~ EndPoint)
-    T                     StartPoint;
-    T                     EndPoint;
+    float& Data;         //   0 ~ 1(StartPoint ~ EndPoint)
+    float                     StartPoint;
+    float                     EndPoint;
     float                  Duration;      // N초 동안
     float                  CurTime = 0.f;
     std::function<float(float)>   Function;
@@ -215,7 +211,7 @@ private:
         if (CurTime > Duration)
             return;
         float CurStepTime;
-        T CurStep;
+        float CurStep;
 
         CurTime += _DeltaTime;
         CurStepTime = CurTime / Duration;
@@ -228,7 +224,7 @@ private:
         if (CurTime > Duration)
             return;
         float CurStepTime;
-        T CurStep;
+        float CurStep;
 
         CurTime += _DeltaTime;
         CurStepTime = 1.f - (CurTime / Duration);
@@ -241,7 +237,7 @@ private:
         if (CurTime > Duration)
             return;
         float CurStepTime;
-        T CurStep;
+        float CurStep;
 
         CurTime += _DeltaTime;
         CurStepTime = (CurTime < (Duration / 2))
@@ -256,7 +252,7 @@ private:
         if (CurTime > Duration)
             CurTime -= Duration;
         float CurStepTime;
-        T CurStep;
+        float CurStep;
 
         CurTime += _DeltaTime;
         CurStepTime = CurTime / Duration;
@@ -269,7 +265,7 @@ private:
         if (CurTime > Duration)
             CurTime -= Duration;
         float CurStepTime;
-        T CurStep;
+        float CurStep;
 
         CurTime += _DeltaTime;
         CurStepTime = 1.f - (CurTime / Duration);
@@ -282,7 +278,7 @@ private:
         if (CurTime > Duration)
             CurTime -= Duration;
         float CurStepTime;
-        T CurStep;
+        float CurStep;
 
         CurTime += _DeltaTime;
         CurStepTime = (CurTime < (Duration / 2))
@@ -293,17 +289,10 @@ private:
         Data = StartPoint + CurStep * Function(CurStepTime);
     }
 
+    //얘는 왜 전역으로되어있지? 
     static void (DOTween::* StepAnimationFunction[StepAnimation::StepAnimationEnd])(const float&);
 };
 
 // 정적 멤버 함수 포인터 배열 초기화
-template<typename T>
-void (DOTween<T>::* DOTween<T>::StepAnimationFunction[StepAnimation::StepAnimationEnd])(const float&) =
-{
-   &DOTween<T>::OnceForward,
-   &DOTween<T>::OnceBack,
-   &DOTween<T>::OncePingPong,
-   &DOTween<T>::LoopForward,
-   &DOTween<T>::LoopBack,
-   &DOTween<T>::LoopPingPong
-};
+
+
