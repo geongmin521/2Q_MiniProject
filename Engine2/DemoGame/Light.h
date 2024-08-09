@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class D2DFont;
+
 class Light : public GameObject , IColliderNotify
 {
 public:

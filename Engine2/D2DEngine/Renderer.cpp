@@ -5,7 +5,7 @@
 #include "D2DRenderer.h"
 #include "Transform.h"
 Renderer::Renderer(const std::wstring strFilePath)
-{
+{	
 	LoadD2DBitmap(strFilePath);
 }
 

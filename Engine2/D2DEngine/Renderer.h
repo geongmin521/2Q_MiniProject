@@ -11,6 +11,7 @@ public:
 	D2D1_RECT_F DstRect;		// RenderTargetÀÇ Destination ¿µ¿ª		
 
 	Renderer(const std::wstring strFilePath);
+	Renderer() = default;
 	virtual ~Renderer();
 	virtual void Update(float deltaTime) override;
 	virtual void Render(ID2D1RenderTarget* pRenderTarget) override;

@@ -19,6 +19,7 @@
 
 #include "Light.h" // 라이트 테스트
 
+
 BattleWorld::BattleWorld()
 {
 	
@@ -62,7 +63,7 @@ void BattleWorld::MakeUI() //앞에 경로는 다정해져있으니까 위에서 처리하자..
 	Fac->CreateButton(L"UI.png", [this]() { shop->isActive = true; }, { WinSizeX - 200, WinSizeY - 100 }); //타워 소환 -> 상점을띄워주는 객체
 	Fac->CreateButton(L"ImageBack.png", [this]() { shop->isActive = true; }, { WinSizeX - 200, WinSizeY - 100 }); //타워 소환 -> 상점을띄워주는 객체
 
-	Fac->CreateTower< MeleeTower>(1);
+	Fac->CreateTower<MeleeTower>(1);
 	Fac->CreateTower<ArrowTower>(1); //스트링만 넣어주면되나? 
 	Fac->CreateTower<HealingTower>(1); //스트링만 넣어주면되나? 
 	Fac->CreateGameObject<EnemySpawner>();
