@@ -23,12 +23,16 @@ Light::Light()
 	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png"));
 	auto bitmap = GetComponent<Bitmap>()->bitmap;
 
-//	firstBitmap = dynamic_cast<Bitmap*>(ownedComponents[1]);
-//	secondBitmap = dynamic_cast<Bitmap*>(ownedComponents[3]);
-	D2DEffect::GetInstance()->Create2DAffineTransform(L"Test", bitmap, &transform->worldTransform);
+	firstBitmap = dynamic_cast<Bitmap*>(ownedComponents[1]);
+	secondBitmap = dynamic_cast<Bitmap*>(ownedComponents[3]);
+	D2DEffect::GetInstance()->Create2DAffineTransform(L"2DAffineTransform", bitmap, &transform->worldTransform);
+	D2DEffect::GetInstance()->CreateSpecularEffect(L"Specular", bitmap);
+
 	D2DEffect::GetInstance()->CreateGaussianBlurEffect(L"Blur", bitmap, 10.f);
 	D2DEffect::GetInstance()->Create2DLightEffect(L"LightEffect", bitmap);
 	D2DEffect::GetInstance()->CreatePointSpecularEffect(L"Point", bitmap);
+	D2DEffect::GetInstance()->CreateEdgeEffect(L"EdgeEffect", bitmap);
+	
 
 	D2D1_MATRIX_5X4_F redEmphasis =
 	{
@@ -38,16 +42,24 @@ Light::Light()
 		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
 	};
 	D2DEffect::GetInstance()->CreateColorMatrixEffect(L"Color", bitmap, redEmphasis);
+	D2DEffect::GetInstance()->CreateBlendEffect(L"BlendEffect", firstBitmap->bitmap, secondBitmap->bitmap);
 
-	ID2D1Effect* Affine = D2DEffect::GetInstance()->FindEffect(L"Test");
+
+	ID2D1Effect* EdgeEffect = D2DEffect::GetInstance()->FindEffect(L"EdgeEffect");
+	ID2D1Effect* Affine = D2DEffect::GetInstance()->FindEffect(L"2DAffineTransform");
 	ID2D1Effect* colorEffect = D2DEffect::GetInstance()->FindEffect(L"Color");
 	ID2D1Effect* blurEffect = D2DEffect::GetInstance()->FindEffect(L"Blur");
 	ID2D1Effect* lightEffect = D2DEffect::GetInstance()->FindEffect(L"LightEffect");
+	ID2D1Effect* Specular = D2DEffect::GetInstance()->FindEffect(L"Specular");
+	ID2D1Effect* BlendEffect = D2DEffect::GetInstance()->FindEffect(L"BlendEffect");
+	
 
 	blurEffect->SetInputEffect(0, colorEffect);
 	lightEffect->SetInputEffect(0, blurEffect); 
+	EdgeEffect->SetInputEffect(0, colorEffect);
 	Affine->SetInputEffect(0, lightEffect);
-	test = false;
+	BlendEffect->SetInputEffect(0, Specular);
+//	Specular->SetInputEffect(0, D2DEffect::GetInstance()->FindEffect(L"BlendEffect"));
 }
 
 Light::~Light()
@@ -85,9 +97,7 @@ void Light::Render(ID2D1HwndRenderTarget* pRenderTarget)
 	pRenderTarget->SetTransform(transform->worldTransform);
 	if (test == true)
 	{
-//		D2DEffect::GetInstance()->CreateBlendEffect(L"QQQ", firstBitmap->bitmap, secondBitmap->bitmap);
-
-		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"Point"));
+		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"BlendEffect"));
 	}
 	else
 	{

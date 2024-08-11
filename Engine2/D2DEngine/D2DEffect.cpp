@@ -38,6 +38,19 @@ void D2DEffect::Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bit
 	Effects.insert(std::make_pair(_KeyName, affineTransform));
 }
 
+// https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_edgedetection_prop
+void D2DEffect::CreateEdgeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	ID2D1Effect* EdgeEffect;
+	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1EdgeDetection, &EdgeEffect);
+	EdgeEffect->SetInput(0, _Bitmap);
+	EdgeEffect->SetValue(D2D1_EDGEDETECTION_PROP_STRENGTH, 0.8);
+	EdgeEffect->SetValue(D2D1_EDGEDETECTION_PROP_OVERLAY_EDGES, false);
+
+	Effects.insert(std::make_pair(_KeyName, EdgeEffect));
+}
+
 void D2DEffect::CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; } // 예외처리 해당 키를 가진게 있으면 생성을 하지 않음
@@ -153,6 +166,36 @@ void D2DEffect::CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitm
 
 
 void D2DEffect::CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	ID2D1Effect* SpecularEffect;
+	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1SpotSpecular, &SpecularEffect);
+
+	// 광원의 위치 설정 (x, y, z)
+	D2D1_VECTOR_3F lightPosition = D2D1::Vector3F(0.0f, 0.0f, 500.0f); // 적절한 값으로 설정
+	SpecularEffect->SetValue(D2D1_SPOTSPECULAR_PROP_LIGHT_POSITION, lightPosition);
+	// 조명의 포커스 위치 설정
+	D2D1_VECTOR_3F pointsAt = D2D1::Vector3F(0.0f, 0.0f, 0.0f); // 포커스 위치
+	SpecularEffect->SetValue(D2D1_SPOTSPECULAR_PROP_POINTS_AT, pointsAt);
+	// 포커스 설정 (0에서 200 사이)
+	SpecularEffect->SetValue(D2D1_SPOTSPECULAR_PROP_FOCUS, 50.0f);
+	// 제한 원뿔 각도 설정 (0~90도)
+	SpecularEffect->SetValue(D2D1_SPOTSPECULAR_PROP_LIMITING_CONE_ANGLE, 45.0f);
+	// 반사광 지수 설정 (1.0에서 128 사이)
+	SpecularEffect->SetValue(D2D1_SPOTSPECULAR_PROP_SPECULAR_EXPONENT, 50.0f);
+	// 반사 상수 설정 (0에서 10,000 사이)
+	SpecularEffect->SetValue(D2D1_SPOTSPECULAR_PROP_SPECULAR_CONSTANT, 2.0f);
+	// 표면 스케일 설정
+	SpecularEffect->SetValue(D2D1_SPOTSPECULAR_PROP_SURFACE_SCALE, 1.0f);
+	// 조명의 색상 설정
+	D2D1_VECTOR_3F lightColor = D2D1::Vector3F(1.0f, 1.0f, 1.0f); // 백색 조명
+	SpecularEffect->SetValue(D2D1_SPOTSPECULAR_PROP_COLOR, lightColor);
+
+	SpecularEffect->SetInput(0, _Bitmap);
+	Effects.insert(std::make_pair(_KeyName, SpecularEffect));
+}
+
+void D2DEffect::CreateDistanSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 	ID2D1Effect* DistantSpecularEffect;

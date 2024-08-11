@@ -13,6 +13,7 @@ public:
 
 public: // 트랜스폼 관련 적용
 	void Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_3X2_F* matrix);
+	void CreateEdgeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
 
 public: // 이펙트 생성
 	void CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal); // 흐리게 만들때
@@ -22,7 +23,9 @@ public: // 이펙트 생성
 
 public: // 빛 효과
 	void Create2DLightEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
+
 	void CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
+	void CreateDistanSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
 	void CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
 
 

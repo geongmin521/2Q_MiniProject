@@ -3,6 +3,7 @@
 #include "AnimationAsset.h"
 #include "D2DRenderer.h"
 #include "ResourceManager.h"
+#include "D2DEffect.h"
 
 Animation::Animation(std::wstring bitmap, std::wstring animation): Renderer(bitmap) 
 {
@@ -74,22 +75,22 @@ void Animation::Update(float fTimeElapsed)
 	srcRect = Frame.Source;
 	DstRect = { 0,0,srcRect.right - srcRect.left,srcRect.bottom - srcRect.top };
 
-	static float testtimer = 0;
-	testtimer += 10 * fTimeElapsed;
-
-	if (testtimer < 3)
-	{
-		Testbool = false;
-	}
-	else if (testtimer > 3 && testtimer < 6)
-	{
-		Testbool = true;
-	
-	}
-	else
-	{
-		testtimer = 0;
-	}
+//	static float testtimer = 0;
+//	testtimer += 10 * fTimeElapsed;
+//
+//	if (testtimer < 3)
+//	{
+//		Testbool = false;
+//	}
+//	else if (testtimer > 3 && testtimer < 6)
+//	{
+//		Testbool = true;
+//	
+//	}
+//	else
+//	{
+//		testtimer = 0;
+//	}
 }
 
 void Animation::Render(ID2D1RenderTarget* pRenderTarget)
@@ -99,12 +100,12 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget)
 	__super::Render(pRenderTarget);
 
 
-//	if (Testbool == true)
-//	{
+	if (Testbool == true)
+	{	
 		pRenderTarget->DrawBitmap(bitmap, DstRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
-//	}
-//	else
-//	{
+	}
+	else
+	{
 //		// Test 몬스터 피격효과 
 //		D2D1_MATRIX_5X4_F redEmphasis =
 //		{
@@ -115,8 +116,9 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget)
 //		};
 //
 //		D2DRenderer::GetInstance()->CreateColorMatrixEffect(bitmap, redEmphasis);
-//		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DRenderer::GetInstance()->ApplyColorEffect, { 0,0 }, srcRect);
-//	}
+//		D2DEffect::GetInstance()->CreateEdgeEffect(L"Edge", bitmap);
+//		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"Edge"), {0,0}, srcRect);
+	}
 
 	pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
