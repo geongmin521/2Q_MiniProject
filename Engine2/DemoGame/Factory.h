@@ -22,15 +22,16 @@ public:
 		return *this;
 	} 
 	template<typename T> //이게 템플릿이라 타입을 한번더써야하는게 좀 불편하네... 
-		T* Get() {
+		T* Get() { //이왕 이렇게 된거.. 컴포넌트 베이스인지.. 게임오브젝트 베이스인지로 분리해서 가져오는것도 가능하지않나?
 		return dynamic_cast<T*>(object);
 	}
+	GameObject* Get() { return object; } //기본형
 	void InsertWorld(GameObject* obj);
 	Factory& setPosition(Vector2F pos);
 	Factory& setScale(Vector2F sclae);
 	Factory& setRoot(std::vector<GameObject*>* Root); 
-	Factory& setIsActive(bool active); 
+	Factory& setActive(bool active); 
+	Factory& setRenderOrder(int order); 
+	Factory& AddText(std::wstring text, int size);
 	void build() { InsertWorld(object); } //소멸자에서 자동호출되며 월드에 집어넣기
-
-	//결국 타워만 만들어서 주면되는건데.. 그럼 pool에서 받아올때대도. 템플릿으로? 아니면 타입아이디로? 받아와도 될거같은데? 
 };

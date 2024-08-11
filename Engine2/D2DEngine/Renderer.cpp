@@ -11,13 +11,6 @@ Renderer::Renderer(const std::wstring strFilePath)
 
 Renderer::~Renderer()
 {
-	/*
-	if (Bitmap)
-	{
-		Bitmap->Release();
-		Bitmap = nullptr;
-	}
-	*/
 	if (bitmap)
 	{
 		ResourceManager::Instance->ReleaseD2DBitmap(strBitmapFilePath);
@@ -27,8 +20,7 @@ Renderer::~Renderer()
 
 void Renderer::Update(float deltaTime)
 {
-	
-	float CenterX = (DstRect.right - DstRect.left) / 2; //값을 하나씩가져오고싶을때도있는데.. 
+	float CenterX = (DstRect.right - DstRect.left) / 2; //값을 하나씩가져오고싶을때도있는데..  //여기서 그릴위치의 절반만큼 이동시켜주고있는거지? 
 	float CenterY = (DstRect.bottom - DstRect.top) / 2; //그리는 위치만 이게 되는게 맞나? 
 	if (mirror) 
 	{
@@ -44,14 +36,8 @@ void Renderer::Update(float deltaTime)
 
 void Renderer::Render(ID2D1RenderTarget* pRenderTarget) //어디그릴지에 대한 계산은 여기서 통일하기
 {
-	//MathHelper::Vector2F 
-	//float CenterX = -(DstRect.right - DstRect.left) / 2 * owner->transform->GetWorldScale().x; //값을 하나씩가져오고싶을때도있는데.. 
-	//float CenterY = -(DstRect.bottom - DstRect.top) / 2 * owner->transform->GetWorldScale().y; //그리는 위치만 이게 되는게 맞나? 
-
 	D2D1_MATRIX_3X2_F Transform = imageTransform * owner->transform->worldTransform
-		* D2DRenderer::cameraTransform; //* D2D1::Matrix3x2F::Translation(CenterX, CenterY); //얘가 이미지의크기를 들고있으니까..
-	//센터도 여기로 보내버릴까? //콜라이더의 위치도 이걸따라갔으면 좋겠다.. 이거지? 
-	//owner->transform->SetImageCenter({ Transform.dx, Transform.dy }); 아 여기에 월드 트랜스폼이 적용되면안되는데? 
+		* D2DRenderer::cameraTransform; 
 	pRenderTarget->SetTransform(Transform);
 }
 

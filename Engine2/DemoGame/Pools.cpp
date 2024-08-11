@@ -6,6 +6,7 @@
 #include "Arrow.h"
 #include "TowerBase.h"
 #include "DataManager.h"
+#include "Vampire.h"
 
 Pools::~Pools()
 {
@@ -50,9 +51,9 @@ GameObject* Pools::PopPool(int id)
 		if(id< 100)
 			return Factory().createObj<TowerBase>(DataManager::GetInstance().get()->getTowerData(id)).Get<TowerBase>();
 		else if(id < 500)
-			return Factory().createObj<EnemyBase>(DataManager::GetInstance().get()->getEnemyData(id)).Get<EnemyBase>();
+			return Factory().createObj<Vampire>(DataManager::GetInstance().get()->getEnemyData(id)).Get<Vampire>();
 		else if (id == 500)
-			return Factory().createObj<Arrow>(0.3f,L"../Data/Image/Crossbow").Get<Arrow>();
+			return Factory().createObj<Arrow>(0.3f,L"../Data/Image/Crossbow.png").Get<Arrow>();
 
 	}
 }

@@ -12,11 +12,11 @@
 D2DFont::D2DFont(const std::wstring _Dialog)
 {
 	// 생성과 동시에 브러쉬 검은색으로 조정
-	 HRESULT hr = D2DRenderer::GetInstance()->GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &FontBrush);
-	 if (FAILED(hr)) { OutputDebugString(L"FontBrush 실패"); }
-	 Dialog = _Dialog;
-	 LoadFont(L"Arial");
-	 CreateLayoutText(Dialog);
+	HRESULT hr = D2DRenderer::GetInstance()->GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &FontBrush);
+	if (FAILED(hr)) { OutputDebugString(L"FontBrush 실패"); }
+	Dialog = _Dialog;
+	LoadFont(L"Arial");
+	CreateLayoutText(Dialog);
 }
 
 D2DFont::~D2DFont()
@@ -62,24 +62,19 @@ void D2DFont::Render(ID2D1RenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
 
-	D2D1_RECT_F FontRect;
-
-	// 로컬 좌표계로의 변환 매트릭스를 정의
-	D2D1_MATRIX_3X2_F localTransform = D2D1::Matrix3x2F::Translation(Pos.x, Pos.y);
-
 	D2D1_MATRIX_3X2_F Transform;
 	pRenderTarget->GetTransform(&Transform);
-	D2D1_MATRIX_3X2_F finalTransform = Transform * localTransform;
+	D2D1_MATRIX_3X2_F finalTransform = Transform * D2D1::Matrix3x2F::Translation(Pos.x, Pos.y);
 
 #if(_DEBUG)
-		FontRect = { Pos.x , Pos.y, BoxSize.width + Pos.x , BoxSize.height+ Pos.y };
+		D2D1_RECT_F FontRect = { Pos.x , Pos.y, BoxSize.width + Pos.x , BoxSize.height+ Pos.y };
 		pRenderTarget->SetTransform(finalTransform); // 고민사항
 		pRenderTarget->DrawRectangle(FontRect, FontBrush, 2.f);
 #endif
-		pRenderTarget->SetTransform(finalTransform); // 고민사항
+		//pRenderTarget->SetTransform(finalTransform); // 고민사항
 		pRenderTarget->DrawTextLayout(Pos, DWriteTextLayout, FontBrush, D2D1_DRAW_TEXT_OPTIONS_NONE);
 	
-		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity()); // 렌더 통해서 안그려서 그런가?
+		//pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity()); // 렌더 통해서 안그려서 그런가?
 }
 
 void D2DFont::CreateLayoutText(std::wstring detail)
@@ -162,5 +157,16 @@ void D2DFont::Sort(Setting _SortX, Setting _SortY)
 // SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // 텍스트 정렬을 변경 https://learn.microsoft.com/ko-kr/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment
 // SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // 텍스트 정렬 관련 https://learn.microsoft.com/ko-kr/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment
 
+void D2DFont::SetBoxSize(MathHelper::Vector2F size)
+{
+	BoxSize.width = size.x; BoxSize.height = size.y;  CreateLayoutText(Dialog);
+	DstRect.right = size.x;
+	DstRect.bottom = size.y;
+}
 
-
+void D2DFont::SetBoxSize(float width, float height)
+{
+	BoxSize.width = width; BoxSize.height = height;  CreateLayoutText(Dialog);
+	DstRect.right = width;
+	DstRect.bottom = height;
+}

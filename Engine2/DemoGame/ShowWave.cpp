@@ -7,14 +7,14 @@
 ShowWave::ShowWave()
 {
 	float LeftPadding = 800;
-	Factory().createObj<Image>(L"BigBack.png").setPosition({WinHalfSizeX ,WinHalfSizeY}).setScale({2,2}).setIsActive(false).setRoot(&sprites);
+	Factory().createObj<Image>(L"BigBack.png").setPosition({WinHalfSizeX ,WinHalfSizeY}).setScale({2,2}).setActive(false).setRoot(&sprites);
 	for (int i = 0; i < 4; i++)
 	{
-		Factory().createObj<Image>(L"vampire.png").setPosition({LeftPadding + i * 130 ,WinHalfSizeY}).setIsActive(false).setRoot(&sprites);
+		Factory().createObj<Image>(L"vampire.png").setPosition({LeftPadding + i * 130 ,WinHalfSizeY}).setActive(false).setRoot(&sprites);
 		//텍스트도 추가하기... //이것도 팩토리에 추가가능이긴한데.. 대신UI로 형변환이되어야함.. 아닌가? 다른애들도 필요한가? 
 	}
 		
-	Factory().createObj<Button>(L"smallBack.png", [this]() { isActive = false; }).setPosition({ WinHalfSizeX + 400, WinHalfSizeY - 400 }).setIsActive(false).setRoot(&exitButton);
+	Factory().createObj<Button>(L"smallBack.png", [this]() { isActive = false; }).setPosition({ WinHalfSizeX + 400, WinHalfSizeY - 400 }).setActive(false).setRoot(&exitButton);
 }
 
 ShowWave::~ShowWave()

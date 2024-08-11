@@ -42,8 +42,8 @@ public:
 
 	void SetColor(D2D1_COLOR_F color) { FontBrush->SetColor(color); } // 컬러 변경 주의사항 : 렌더 하기전에 색을 변경해야 됨
 	void SetPos(float _X, float _Y) { Pos = { _X , _Y }; } // 위치 조정 로컬좌표일때 사용
-	void SetBoxSize(float width, float height) { BoxSize.width = width; BoxSize.height = height;  CreateLayoutText(Dialog);} // 텍스트박스 사이즈 
-	void SetBoxSize(MathHelper::Vector2F size) { BoxSize.width = size.x; BoxSize.height = size.y;  CreateLayoutText(Dialog);} // 텍스트박스 사이즈 
+	void SetBoxSize(float width, float height);
+	void SetBoxSize(MathHelper::Vector2F size);
 	void SetDialog(std::wstring input); // 내용 변경
 
 	void LoadFont(std::wstring FontName); // 용도 제어판 글꼴에 있는 폰트를 로드하는 것

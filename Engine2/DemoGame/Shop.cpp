@@ -9,6 +9,7 @@
 #include "Combination.h"
 #include "EnemySpawner.h"
 #include "Button.h"
+#include "D2DFont.h"
 
 Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까? 
 {
@@ -21,20 +22,20 @@ Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까?
 	for (int i = 0; i < 5; i++)//아이콘
 		Icons.push_back(Factory().createObj<Image>(L"Crossbow.png").setPosition({ LeftPadding + i * 130 ,WinHalfSizeY - 200 }).setRoot(&subUi).Get<Image>());
 	for (int i = 0; i < 5; i++)//리롤 잠그기
-		Factory().createObj<Button>(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }).setPosition({ LeftPadding + i * 130, WinHalfSizeY - 100 }).setRoot(&subUi);
+		Factory().createObj<Button>(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }).setPosition({ LeftPadding + i * 130, WinHalfSizeY - 100 }).setRoot(&subUi).AddText(L"Lock", 20);
 	
-	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setRoot(&subUi);
-	//조합표를 보고 보상이 뭔지 출력하는 텍스트박스.. 
-	Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 200 }).setRoot(&subUi);
+	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setRoot(&subUi).AddText(L"전체리롤", 30);
+	//보상 텍스트박스 
+	compensationText = Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 200 }).setRoot(&subUi).AddText(L"", 20).Get()->GetComponent<D2DFont>();//근데 이친구들이 원하는 텍스트를 따라가고싶단말이지.. 
 	//리롤가능한 횟수를 출력하는 텍스트박스
-	Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 300 }).setRoot(&subUi);
+	rerollText = Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 300 }).setRoot(&subUi).AddText(L"리롤 가능 횟수" + std::to_wstring(reroll), 20).Get()->GetComponent<D2DFont>();
 	//조합표 확인 버튼
-	Factory().createObj<Button>(L"ImageBack.png", [this]() {combination->isActive = true; }).setPosition({ LeftPadding + 650, WinHalfSizeY + 100 }).setRoot(&subUi); //아 여기에는 어떻게 넣어줄까...  상점도 조합표를 가져올까?
+	Factory().createObj<Button>(L"ImageBack.png", [this]() {combination->SetActive(true); }).setPosition({LeftPadding + 650, WinHalfSizeY + 100}).setRoot(&subUi).AddText(L"조합식", 30); //아 여기에는 어떻게 넣어줄까...  상점도 조합표를 가져올까?
 	//소환하기 버튼
-	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Spawn, this)).setPosition({ LeftPadding + 650, WinHalfSizeY + 200 }).setRoot(&subUi);
+	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Spawn, this)).setPosition({ LeftPadding + 650, WinHalfSizeY + 200 }).setRoot(&subUi).AddText(L"소환하기", 30);
 
-	SetActive(false);
-}
+	SetActive(false); 
+}//길게 나열하는것도 괜찮긴한데.. 너무 길지않나? 
 
 Shop::~Shop() //인규형이 만들어준 텍스트클래스를 기준으로 텍스트 박스도 빠르게 만들어야지.. 특정값을 출력할수있게 템플릿으로 만들수있을려나? 
 {
@@ -42,7 +43,11 @@ Shop::~Shop() //인규형이 만들어준 텍스트클래스를 기준으로 텍스트 박스도 빠르게 �
 
 void Shop::Reroll() //맨처음에는 어떻게 처리하는지 올라온거 봤었는데 그거대로 처리할수있도록하자.. 
 {
+	if (reroll <= 0)
+		return;
 	Text = L""; //텍스트 초기화
+	reroll--;
+	rerollText->SetDialog(L"리롤 가능 횟수" +std::to_wstring(reroll));
 	for (int i = 0; i < 5; i++)
 	{
 		if (isLock[i])
@@ -60,6 +65,7 @@ void Shop::Reroll() //맨처음에는 어떻게 처리하는지 올라온거 봤었는데 그거대로 처
 	if (count[0] == 1 && count[1] == 1 && count[2] == 1 && count[3] == 1 && count[4] == 1)
 	{
 		Text = L"모든 타워 2성";
+		compensationText->SetDialog(Text);
 		return; //아이콘 생성하기.. 
 	}
 
@@ -69,6 +75,7 @@ void Shop::Reroll() //맨처음에는 어떻게 처리하는지 올라온거 봤었는데 그거대로 처
 	}
 	if (Text == L"")
 		Text = L"꽝";
+	compensationText->SetDialog(Text);
 }
 
 void Shop::Spawn() //이제 텍스트도 띄우고 좀더 이쁘게 만들어야겠다.. 

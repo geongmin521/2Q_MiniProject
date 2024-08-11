@@ -15,10 +15,10 @@ TitleWorld::~TitleWorld() //가상소멸자라 자동으로지울듯
 {
 }
 
-void TitleWorld::MakeObject()
+void TitleWorld::MakeObject() //렌더할때 박스크기만큼 미는게 맞겠지? 
 {
 	Factory().createObj<Image>(L"title.png").setPosition(WinHalfSizeXY);
-	Factory().createObj<Button>(L"ImageBack.png", []() { SceneManager::GetInstance().get()->ChangeScene(new BattleWorld); }).setPosition({ WinHalfSizeX, WinHalfSizeY + 200 });//게임시작
-	Factory().createObj<Button>(L"ImageBack.png", []() {  }).setPosition({ WinHalfSizeX, WinHalfSizeY + 300 });//환경설정
-	Factory().createObj<Button>(L"ImageBack.png", []() { SendMessage(DemoGameApp::hWnd, WM_CLOSE, 0, 0); }).setPosition({ WinHalfSizeX, WinHalfSizeY + 400 }); //게임종료
+	Factory().createObj<Button>(L"ImageBack.png", []() { SceneManager::GetInstance().get()->ChangeScene(new BattleWorld); }).setPosition({ WinHalfSizeX, WinHalfSizeY + 200 }).AddText(L"게임시작",50);//게임시작
+	Factory().createObj<Button>(L"ImageBack.png", []() {  }).setPosition({ WinHalfSizeX, WinHalfSizeY + 300 }).AddText(L"환경설정", 50);//환경설정
+	Factory().createObj<Button>(L"ImageBack.png", []() { SendMessage(DemoGameApp::hWnd, WM_CLOSE, 0, 0); }).setPosition({ WinHalfSizeX, WinHalfSizeY + 400 }).AddText(L"게임종료", 50); //게임종료
 }

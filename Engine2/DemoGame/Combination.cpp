@@ -11,6 +11,7 @@ Combination::Combination()
 	//조합표 이미지 하나로?
 	Factory().createObj<Image>(L"Combination.png").setPosition({ WinHalfSizeX , WinHalfSizeY }).setRoot(&subUi);
 	renderOrder = 100;
+	SetActive(false);
 }
 
 Combination::~Combination()
