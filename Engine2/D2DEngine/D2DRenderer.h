@@ -23,6 +23,7 @@ public:
 	void DrawLine(MathHelper::Vector2F start, MathHelper::Vector2F end);
 	void DrawCircle(Circle& circle);
 
+	void DrawGradientCircle(const D2D1_POINT_2F& position, float radius, const D2D1_COLOR_F& color);
 public:
 	ID2D1Factory* D2DFactory;			// D2D 개체 인터페이스 포인터 변수
 	ID2D1HwndRenderTarget* RenderTarget; //그리는 렌더타겟								//이미지 생성에필요
@@ -32,6 +33,7 @@ public:
 	IDWriteFactory* DWriteFactory;		// TextFormat생성을 위한 팩토리
 	IDWriteTextFormat* DWriteTextFormat; // 기본 텍스트 출력을 위한 Format
 	ID2D1SolidColorBrush* Brush;			// 렌더타겟이 생성하는 리소스 역시 장치의존
+	ID2D1RadialGradientBrush* RadialBrush; // 방사형 브러쉬 그래디언트
 
 	IDXGIFactory4* DXGIFactory;			// DXGI팩토리 
 	IDXGIAdapter3* DXGIAdapter;			// 비디오카드 정보에 접근 가능한 인터페이스 

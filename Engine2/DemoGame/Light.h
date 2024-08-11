@@ -8,8 +8,6 @@ public:
 	Light();
 	~Light();
 
-	bool test = false;
-
 	void Update(float deltaTime);
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
 
@@ -20,5 +18,7 @@ public:
 
 	Bitmap* firstBitmap = nullptr;
 	Bitmap * secondBitmap = nullptr;
+
+	bool test = true;
 };
 

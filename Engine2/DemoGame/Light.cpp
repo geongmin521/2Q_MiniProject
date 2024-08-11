@@ -20,41 +20,34 @@ Light::Light()
 	transform->SetRelativeLocation({ 0, 0 });
 	SetBoundBox(0, 0, 40, 36);
 
-
 	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png"));
+	auto bitmap = GetComponent<Bitmap>()->bitmap;
 
 //	firstBitmap = dynamic_cast<Bitmap*>(ownedComponents[1]);
 //	secondBitmap = dynamic_cast<Bitmap*>(ownedComponents[3]);
-	D2DEffect::GetInstance()->Create2DAffineTransform(L"Test", GetComponent<Bitmap>()->bitmap, &transform->worldTransform);
+	D2DEffect::GetInstance()->Create2DAffineTransform(L"Test", bitmap, &transform->worldTransform);
+	D2DEffect::GetInstance()->CreateGaussianBlurEffect(L"Blur", bitmap, 10.f);
+	D2DEffect::GetInstance()->Create2DLightEffect(L"LightEffect", bitmap);
+	D2DEffect::GetInstance()->CreatePointSpecularEffect(L"Point", bitmap);
 
-	D2DEffect::GetInstance()->CreateSpecularEffect(L"QQQ", GetComponent<Bitmap>()->bitmap);
-	D2DEffect::GetInstance()->CreateGaussianBlurEffect(L"ZZZ", GetComponent<Bitmap>()->bitmap, 10.f);
-	D2DEffect::GetInstance()->Create2DLightEffect(L"SSS", GetComponent<Bitmap>()->bitmap);
+	D2D1_MATRIX_5X4_F redEmphasis =
+	{
+		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
+		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+	};
+	D2DEffect::GetInstance()->CreateColorMatrixEffect(L"Color", bitmap, redEmphasis);
 
-	ID2D1Effect* testEffect = D2DEffect::GetInstance()->FindEffect(L"Test");
+	ID2D1Effect* Affine = D2DEffect::GetInstance()->FindEffect(L"Test");
+	ID2D1Effect* colorEffect = D2DEffect::GetInstance()->FindEffect(L"Color");
+	ID2D1Effect* blurEffect = D2DEffect::GetInstance()->FindEffect(L"Blur");
+	ID2D1Effect* lightEffect = D2DEffect::GetInstance()->FindEffect(L"LightEffect");
 
-	// 이펙트 체인 구성
-	ID2D1Effect* lightEffect = D2DEffect::GetInstance()->FindEffect(L"SSS");
-	ID2D1Effect* blurEffect = D2DEffect::GetInstance()->FindEffect(L"ZZZ");
-	ID2D1Effect* specularEffect = D2DEffect::GetInstance()->FindEffect(L"QQQ");
-
-	// 이펙트 출력을 ID2D1Image로 가져오기
-	ID2D1Image* specularOutput = nullptr;
-	specularEffect->GetOutput(&specularOutput);
-
-	ID2D1Image* blurOutput = nullptr;
-	blurEffect->GetOutput(&blurOutput);
-
-	ID2D1Image* lightOutput = nullptr;
-	lightEffect->GetOutput(&lightOutput);
-
-	// 이펙트 연결
-	testEffect->SetInput(1, specularOutput);  // specularEffect의 출력을 blurEffect의 입력으로 설정
-	testEffect->SetInput(2, blurOutput);     // blurEffect의 출력을 lightEffect의 입력으로 설정
-	testEffect->SetInput(3, lightOutput);     // lightEffect의 출력을 testEffect의 입력으로 설정
-
-
-	test = true;
+	blurEffect->SetInputEffect(0, colorEffect);
+	lightEffect->SetInputEffect(0, blurEffect); 
+	Affine->SetInputEffect(0, lightEffect);
+	test = false;
 }
 
 Light::~Light()
@@ -94,11 +87,12 @@ void Light::Render(ID2D1HwndRenderTarget* pRenderTarget)
 	{
 //		D2DEffect::GetInstance()->CreateBlendEffect(L"QQQ", firstBitmap->bitmap, secondBitmap->bitmap);
 
-		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"Test"));
+		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"Point"));
 	}
 	else
 	{
 		__super::Render(pRenderTarget);
+		D2DRenderer::GetInstance()->DrawGradientCircle(D2D1::Point2F(300, 300), 100.0f, D2D1::ColorF(D2D1::ColorF::White));
 	}
 
 }

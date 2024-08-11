@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "D2DEffect.h"
 #include "D2DRenderer.h"
+#include <wrl.h>
 
 D2DEffect::~D2DEffect()
 {
@@ -141,6 +142,15 @@ void D2DEffect::CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitm
 	morphologyEffect->SetValue(D2D1_MORPHOLOGY_PROP_WIDTH, val);
 	Effects.insert(std::make_pair(_KeyName, morphologyEffect));
 }
+//D2D1_MATRIX_5X4_F redEmphasis =
+//		{
+//		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
+//		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
+//		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+//		};
+
+
 
 void D2DEffect::CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 {
@@ -159,3 +169,50 @@ void D2DEffect::CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap
 	DistantSpecularEffect->SetInput(0, _Bitmap);
 	Effects.insert(std::make_pair(_KeyName, DistantSpecularEffect));
 }
+
+void D2DEffect::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+{
+	// 이미 이 이펙트가 존재하는지 확인합니다.
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+
+	ID2D1Effect* pointSpecularEffect = nullptr;
+	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1PointSpecular, &pointSpecularEffect);
+
+	// 빛의 위치 설정 (태양처럼 높은 곳에서 빛나는 효과를 만들기 위해 Z축을 높게 설정합니다)
+	D2D1_VECTOR_3F lightPosition = D2D1::Vector3F(0.0f, 50.0f, 1000.0f);
+	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_LIGHT_POSITION, lightPosition);
+
+	// 표면의 스케일 설정 (높이 맵을 어떻게 해석할지 결정합니다)
+	FLOAT surfaceScale = 1.0f;
+	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_SURFACE_SCALE, surfaceScale);
+
+	// 스펙큘러 상수 설정 (빛의 강도를 결정합니다)
+	FLOAT specularConstant = 2.0f;
+	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_SPECULAR_CONSTANT, specularConstant);
+
+	// 스펙큘러 지수 설정 (빛의 반사 정도를 결정합니다, 높은 값일수록 빛이 날카롭게 반사됩니다)
+	FLOAT specularExponent = 50.0f;
+	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_SPECULAR_EXPONENT, specularExponent);
+
+	// 빛의 색상 설정 (태양처럼 약간의 노란색을 띄게 설정합니다)
+	D2D1_COLOR_F lightColor = D2D1::ColorF(1.0f, 0.9f, 0.7f);
+	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_COLOR, lightColor);
+
+	// 커널 단위 길이 설정 (효과의 세부 사항을 조절합니다)
+	D2D1_VECTOR_2F kernelUnitLength = D2D1::Vector2F(1.0f, 1.0f);
+	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_KERNEL_UNIT_LENGTH, kernelUnitLength);
+
+	// 스케일 모드 설정 (고품질로 설정하여 더 부드럽게 표현)
+	D2D1_POINTSPECULAR_SCALE_MODE scaleMode = D2D1_POINTSPECULAR_SCALE_MODE_LINEAR;
+	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_SCALE_MODE, scaleMode);
+
+	// 입력 비트맵 설정
+	pointSpecularEffect->SetInput(0, _Bitmap);
+
+	// 이펙트를 저장
+	Effects.insert(std::make_pair(_KeyName, pointSpecularEffect));
+
+}
+
+
+

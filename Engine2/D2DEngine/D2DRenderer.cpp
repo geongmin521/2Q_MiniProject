@@ -13,6 +13,9 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxguid.lib")
 
+#include <wrl.h> // ComPtr때문에 추가
+using namespace Microsoft::WRL;
+
 D2DRenderer::D2DRenderer()
 {
 }
@@ -132,6 +135,7 @@ void D2DRenderer::Initialize(HWND hWnd)
 		DXGIFactory->EnumAdapters(0, reinterpret_cast<IDXGIAdapter**>(&DXGIAdapter));
 	}
 
+
 }
 
 void D2DRenderer::Uninitialize()
@@ -191,6 +195,37 @@ void D2DRenderer::DrawCircle(Circle& circle)
 	);
 
 	RenderTarget->DrawEllipse(&ellipse, greenBrush); //브러쉬가 또 몇개필요할려나.. 초록색? 중심도 그렸으면 좋겠어.. 
+}
+
+void D2DRenderer::DrawGradientCircle(const D2D1_POINT_2F& position, float radius, const D2D1_COLOR_F& color)
+{
+	D2D1_GRADIENT_STOP gradientStops[2];
+	gradientStops[0].color = D2D1::ColorF(color.r, color.g, color.b, 1.0f);
+	gradientStops[0].position = 0.0f;
+	gradientStops[1].color = D2D1::ColorF(color.r, color.g, color.b, 0.0f);
+	gradientStops[1].position = 1.0f;
+
+	ComPtr<ID2D1GradientStopCollection> GradientStopCollection = nullptr;
+	HRESULT hr = RenderTarget->CreateGradientStopCollection(
+		gradientStops,
+		2,
+		D2D1_GAMMA_2_2,
+		D2D1_EXTEND_MODE_CLAMP,
+		&GradientStopCollection
+	);
+
+	RenderTarget->CreateRadialGradientBrush(
+		D2D1::RadialGradientBrushProperties(
+			position,
+			D2D1::Point2F(0, 0),
+			radius,
+			radius
+		),
+		GradientStopCollection.Get(),
+		&RadialBrush
+	);
+
+	RenderTarget->FillEllipse(D2D1::Ellipse(position, radius, radius), RadialBrush);
 }
 
 void D2DRenderer::DrawAABB(AABB& aabb)
