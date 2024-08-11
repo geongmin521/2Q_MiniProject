@@ -14,9 +14,5 @@ public:
     void Init(GameObject* target, MathHelper::Vector2F location); 
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
-
-  
-   
-   
 };
 

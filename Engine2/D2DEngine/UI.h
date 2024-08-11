@@ -7,6 +7,7 @@ class UI : public GameObject //게임 오브젝트도 상속받지말고.. 따로 처리할까? 뭔�
 public:
 	UI();
 	virtual ~UI() = default;
+	void AddText(std::wstring text);
 	virtual void Update(float deltaTime) override;
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override;
 

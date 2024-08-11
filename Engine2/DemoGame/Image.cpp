@@ -5,7 +5,7 @@
 
 Image::Image(std::wstring ImagePath)
 {
-	AddComponent(new Bitmap(ImagePath));
+	AddComponent(new Bitmap(L"../Data/Image/" + ImagePath));
 }
 
 Image::~Image()

@@ -17,6 +17,7 @@ World::World()
 	m_CullingBoundDefault->SetExtent(WinSizeX /2, WinSizeY /2);
 	m_CullingBoundDefault->SetCenter(0,0);
 	SetCullingBound(m_CullingBoundDefault);	
+
 }
 
 World::~World()

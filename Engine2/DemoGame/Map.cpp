@@ -15,14 +15,14 @@ Map::Map()
 	int LeftPadding = 400;
 	int TopPadding = 300;
 	float gridSize = 150;
-	for (int i = 0; i < 4; i++)
-	{
+	for (int i = 0; i < 4; i++)	
 		for (int j = 0; j < 4; j++)
 		{
-			grid[i][j] = Fac->CreateGameObject<Container>();
-			grid[i][j]->transform->SetRelativeLocation({ LeftPadding + i * gridSize , TopPadding + j * gridSize });
+			grid[i][j] = Factory().createObj<Container>().
+				setPosition({ LeftPadding + i * gridSize , TopPadding + j * gridSize }).
+				Get<Container>();
 		}
-	}
+			
 }
 
 Map::~Map()

@@ -2,19 +2,23 @@
 #include "SingletonBase.h"
 #include "Data.h"
 
-
 class DataManager : public SingletonBase<DataManager> //각 데이터를 읽어와서 요청한애한테 담는 부분 만들었고.. 
 {
 private:
-    std::vector<EnemyData> EnemyDataRead(std::wifstream& file);
-    std::vector<TowerData> TowerDataRead(std::wifstream& file);
-    std::vector<WaveData> WaveDataRead(std::wifstream& file);
-    std::vector<ArtifactData> ArtifactDataRead(std::wifstream& file);
+    void EnemyDataRead();
+    void TowerDataRead();
+    void WaveDataRead(); 
+    void ArtifactDataRead();
+    std::map<int, TowerData> towerData;
+    std::map<int, EnemyData> enemyData;
+    std::map<int, WaveData> waveData;
+    std::map<int, ArtifactData> artifactData;
 public:
+    TowerData& getTowerData(int id) {return towerData[id];}
+    EnemyData& getEnemyData(int id) {return enemyData[id];}
+    WaveData getWaveData(int level);
+    ArtifactData& getArtifactData(int id) {return artifactData[id];}   
     DataManager();
     ~DataManager();
     std::wifstream FileOften(std::wstring fileName);
-    // std::variant를 사용하여 여러 타입을 하나의 반환 타입으로 처리
-    std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>, std::vector<ArtifactData>> CSVReader(std::wstring fileName);
-    //필요한객체가 이걸 그냥 호출하기만 하면됨
 };

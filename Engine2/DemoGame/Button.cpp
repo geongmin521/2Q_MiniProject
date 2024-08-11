@@ -6,18 +6,11 @@
 #include "D2DFont.h"
 #include "Button.h"
 
-Button::Button(std::wstring imagePath)
+Button::Button(std::wstring imagePath, std::function<void(void)> func)
 {
-	AddComponent(new Bitmap(imagePath));
+	AddComponent(new Bitmap(L"../Data/Image/" + imagePath));
 	SetBoundBox(0, 0, GetComponent<Bitmap>()->GetSize());
-	//test = new D2DFont;
-	//test->LoadFont(L"Cooper");
-	//D2DFont().CreateLayoutText();
-	//test->CreateLayoutText(L"gdgdg");
-	//test->Sort(Setting::MIDDLE);
-	//test->SetFontLocation(Setting::MIDDLE);
-	//test->CreateLayoutText(L"aaaa");
-	//test->SetSize(200, { 0, 4 });//텍스트를 변경해야하는데. 정렬도 초기화가 안되야하고. 
+	AddListener(func);
 }
 
 Button::~Button()

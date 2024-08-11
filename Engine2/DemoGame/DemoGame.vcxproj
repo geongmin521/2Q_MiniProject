@@ -165,6 +165,7 @@
     <ClInclude Include="TowerFsm.h" />
     <ClInclude Include="TowerFunc.h" />
     <ClInclude Include="TowerStar.h" />
+    <ClInclude Include="UIPanel.h" />
     <ClInclude Include="Vampire.h" />
     <ClInclude Include="VampireRanged.h" />
     <ClInclude Include="Victory.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="TowerFSM.cpp" />
     <ClCompile Include="TowerFunc.cpp" />
     <ClCompile Include="TowerStar.cpp" />
+    <ClCompile Include="UIPanel.cpp" />
     <ClCompile Include="Vampire.cpp" />
     <ClCompile Include="VampireRanged.cpp" />
     <ClCompile Include="Victory.cpp" />

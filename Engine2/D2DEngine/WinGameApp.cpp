@@ -6,12 +6,13 @@
 #include "TimeSystem.h"
 #include "InputSystem.h"
 #include "World.h"
+#include "SceneManager.h"
 
 #ifdef _DEBUG
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")//디버거가 남겨져있어서그런듯? 
 #endif
 
-World* WinGameApp::curWorld = nullptr;
+
 HWND WinGameApp::hWnd = nullptr;
 WinGameApp::WinGameApp()
 {
@@ -94,7 +95,7 @@ void WinGameApp::Run()
 		{
 			if (msg.message == WM_QUIT)
 			{
-				delete curWorld; //여기는 뭐든 월드를 지워야하고.. 
+				delete SceneManager::GetInstance().get()->GetCurWorld(); //여기는 뭐든 월드를 지워야하고.. 
 				break;
 			}
 			
@@ -119,14 +120,14 @@ void WinGameApp::Run()
 
 void WinGameApp::Update(float fTimeElapsed)
 {
-	curWorld->Update(fTimeElapsed);
+	SceneManager::GetInstance().get()->GetCurWorld()->Update(fTimeElapsed);
 }
 
 void WinGameApp::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	D2DRenderer::GetInstance()->GetRenderTarget()->BeginDraw();
 	D2DRenderer::GetInstance()->GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::CadetBlue));
-	curWorld->Render(pRenderTarget);
+	SceneManager::GetInstance().get()->GetCurWorld()->Render(pRenderTarget);
 	D2DRenderer::GetInstance()->GetRenderTarget()->EndDraw();
 }
 

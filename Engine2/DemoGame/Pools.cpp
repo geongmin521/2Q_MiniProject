@@ -2,6 +2,10 @@
 #include "Pools.h"
 #include "Factory.h"
 #include "GameObject.h" 
+#include "EnemyBase.h"
+#include "Arrow.h"
+#include "TowerBase.h"
+#include "DataManager.h"
 
 Pools::~Pools()
 {
@@ -27,6 +31,7 @@ void Pools::AddPool(GameObject* _Object) //이름으로 찾을일있을까? 외우지도 못하�
 
 //타워는 0이시작
 //적은 100이 시작
+//총알의 아이디는 500부터 시작? 
 //웨이브는 1000이시작 
 
 GameObject* Pools::PopPool(int id)
@@ -36,12 +41,19 @@ GameObject* Pools::PopPool(int id)
 	if (it != PoolList.end()) 
 	{
 		GameObject* popObj = PoolList[id].back();
-		PoolList[id].pop_back();
+		PoolList[id].pop_back(); //꺼내줄때도 적이랑 타워같은거는 기본값으로 돌리고 보내줘야할텐데.. 
 		return popObj;
 	}
 	else 
 	{
-		return Fac->CreateGameObjectFromId(id);
+		//일단 무식하게 분리해볼까? 
+		if(id< 100)
+			return Factory().createObj<TowerBase>(DataManager::GetInstance().get()->getTowerData(id)).Get<TowerBase>();
+		else if(id < 500)
+			return Factory().createObj<EnemyBase>(DataManager::GetInstance().get()->getEnemyData(id)).Get<EnemyBase>();
+		else if (id == 500)
+			return Factory().createObj<Arrow>(0.3f,L"../Data/Image/Crossbow").Get<Arrow>();
+
 	}
 }
 

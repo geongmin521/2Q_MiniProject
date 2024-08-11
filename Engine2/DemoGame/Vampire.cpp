@@ -28,7 +28,7 @@ Vampire::Vampire(EnemyData data) : EnemyBase(data)
 
 
 
-	HPbar = Fac->CreateGameObject<HPBar>();
+	//HPbar = Factory().createObj<HPBar>();
 	HPbar->Init(this); //여기서 주인으로 자기를 줘서 자기 트랜스폼 찾게끔
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();

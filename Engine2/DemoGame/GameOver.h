@@ -1,14 +1,11 @@
 #pragma once
-#include "UI.h"
+#include "UIPanel.h"
 
-class GameOver :public UI
+class GameOver :public UIPanel
 {
 private:
-	std::vector<GameObject*> subUi;
 public:
 	GameOver();
 	~GameOver();
-	virtual void Update(float deltaTime) override;
-	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override;
 };
 

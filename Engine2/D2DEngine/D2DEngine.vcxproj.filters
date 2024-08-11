@@ -200,6 +200,9 @@
     <ClInclude Include="BezierMovement.h">
       <Filter>소스 파일\Position</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>소스 파일\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -318,6 +321,9 @@
     </ClCompile>
     <ClCompile Include="BezierMovement.cpp">
       <Filter>소스 파일\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

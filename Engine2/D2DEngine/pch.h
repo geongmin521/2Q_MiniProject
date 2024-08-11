@@ -13,7 +13,6 @@
 #define WinHalfSizeY 540
 #define WinHalfSizeXY { WinHalfSizeX, WinHalfSizeY }
 // 여기에 미리 컴파일하려는 헤더 추가
-#define Fac Factory::GetInstance().get()
 #include "framework.h"
 
 #endif //PCH_H

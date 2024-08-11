@@ -9,7 +9,6 @@ class WinGameApp
 {
 	HINSTANCE hInst;
 public:
-	static World* curWorld; //씬매니저를 만들어야할까.. 이걸 스태틱으로 처리할수있을까.. 
 	static HWND hWnd;//전역변수로 빼도되는걸까?
 	WinGameApp();
 	virtual ~WinGameApp();

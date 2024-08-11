@@ -8,29 +8,32 @@
 #include "Container.h"
 #include "Combination.h"
 #include "EnemySpawner.h"
+#include "Button.h"
 
 Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까? 
 {
 	ImagePath = { L"Crossbow.png",L"Water.png",L"Pile.png",L"HolyCross.png",L"vampire.png" };//태그를 만들게 되면 이걸쓸듯? 아몰라.. 바뀔수도있는거지.. 
-	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" }; //걍 enum으로 만들까? 
-	//enum int로 변환해서 3곱하고 성급을 -1 빼서 더해주면 끝아닌가? 
+	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" };
+
 	renderOrder = 80;
-	Fac->CreateImage(L"BigBack.png", WinHalfSizeXY, {2,2}, &subUi);
+	Factory().createObj<Image>(L"BigBack.png").setPosition(WinHalfSizeXY).setScale({ 2,2 }).setRoot(&subUi);
 	float LeftPadding = 700; 
 	for (int i = 0; i < 5; i++)//아이콘
-		Icons.push_back(Fac->CreateImage(L"Crossbow.png", { LeftPadding + i * 130 ,WinHalfSizeY - 200}, {1,1}, &subUi));
+		Icons.push_back(Factory().createObj<Image>(L"Crossbow.png").setPosition({ LeftPadding + i * 130 ,WinHalfSizeY - 200 }).setRoot(&subUi).Get<Image>());
 	for (int i = 0; i < 5; i++)//리롤 잠그기
-		Fac->CreateButton(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }, { LeftPadding + i * 130, WinHalfSizeY - 100 },&subUi);
-
-	Fac->CreateButton(L"ImageBack.png", std::bind(&Shop::Reroll, this), { LeftPadding + 250, WinHalfSizeY + 100 }, &subUi);
+		Factory().createObj<Button>(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }).setPosition({ LeftPadding + i * 130, WinHalfSizeY - 100 }).setRoot(&subUi);
+	
+	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setRoot(&subUi);
 	//조합표를 보고 보상이 뭔지 출력하는 텍스트박스.. 
-	Fac->CreateImage(L"ImageBack.png", { LeftPadding + 250, WinHalfSizeY + 200 }, { 1,1 }, &subUi);
+	Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 200 }).setRoot(&subUi);
 	//리롤가능한 횟수를 출력하는 텍스트박스
-	Fac->CreateImage(L"ImageBack.png", { LeftPadding + 250, WinHalfSizeY + 300 }, { 1,1 }, &subUi);
+	Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 300 }).setRoot(&subUi);
 	//조합표 확인 버튼
-	Fac->CreateButton(L"ImageBack.png", [this]() {combination->isActive = true; }, { LeftPadding + 650, WinHalfSizeY + 100 }, &subUi); //아 여기에는 어떻게 넣어줄까...  상점도 조합표를 가져올까?
+	Factory().createObj<Button>(L"ImageBack.png", [this]() {combination->isActive = true; }).setPosition({ LeftPadding + 650, WinHalfSizeY + 100 }).setRoot(&subUi); //아 여기에는 어떻게 넣어줄까...  상점도 조합표를 가져올까?
 	//소환하기 버튼
-	Fac->CreateButton(L"ImageBack.png", std::bind(&Shop::Spawn, this), { LeftPadding + 650, WinHalfSizeY + 200 }, &subUi);
+	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Spawn, this)).setPosition({ LeftPadding + 650, WinHalfSizeY + 200 }).setRoot(&subUi);
+
+	SetActive(false);
 }
 
 Shop::~Shop() //인규형이 만들어준 텍스트클래스를 기준으로 텍스트 박스도 빠르게 만들어야지.. 특정값을 출력할수있게 템플릿으로 만들수있을려나? 
@@ -72,18 +75,15 @@ void Shop::Spawn() //이제 텍스트도 띄우고 좀더 이쁘게 만들어야겠다..
 {
 	int inven = 0;
 	for (auto var : compensationList)
-	{
-		//Pools::GetInstance().get()->PopPool(); //아이콘은 만들어야하나? 움직이는 아이콘도 오브젝트풀을 쓸필요가있나? 모르겠다.. 
-		//Fac->CreateMoveIcon(ImagePath[var/3], Containers[inven]->transform->GetWorldLocation()); /아이콘을 소환하는게아니라. 타워를 소환
-		GameObject* tower =  Fac->CreateGameObjectFromId(var);  // 아이콘을 소환하는게아니라.타워를 소환
+	{	
+		GameObject* tower = Pools::GetInstance().get()->PopPool(var);   // 아이콘을 소환하는게아니라.타워를 소환
 		if (tower != nullptr) //현재 모든 타워가 미완이라 터질수있으니 일단 이렇게 처리함
-			tower->transform->SetRelativeLocation(Containers[inven]->transform->GetWorldLocation());
+			tower->transform->SetRelativeLocation(Containers[inven]->transform->GetWorldLocation()); //팩토리처럼 만들때 세팅할수있듯이.. 오브젝트풀도? 그렇게 해볼까? 
 		inven++;
-
 	}
 	compensationList.clear(); 
 	spawner->StartWave();
-	isActive = false; //꺼주기.. 
+	SetActive(false);
 }
 
 void Shop::MakeText(int order, int count) //내 생각에는 될거같은데 테스트는 해봐야할듯.. //이름으로 받지말고.. 아이디로 받자
@@ -120,21 +120,6 @@ void Shop::MakeText(int order, int count) //내 생각에는 될거같은데 테스트는 해봐
 		Text += L"3성" + TowerName[order];
 	}
 } 
-
-void Shop::Update(float deltaTime)
-{
-	//이건 그냥 오브젝트의집합이라 오브젝트들의 오브젝트만 실행해주며될듯
-	for (auto var : subUi)
-		var->Update(deltaTime);
-}
-
-void Shop::Render(ID2D1HwndRenderTarget* pRenderTarget)
-{
-	for (auto var : subUi)
-		var->Render(pRenderTarget);
-
-	D2DRenderer::GetInstance()->DrawTextFunc(Text,0,0);//, WinHalfSizeX, WinHalfSizeY);
-}
 
 int Shop::TowerNameToID(std::wstring name)
 {

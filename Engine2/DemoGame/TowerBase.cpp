@@ -16,12 +16,12 @@
 #include "FiniteStateMachine.h"
 #include "TowerFsm.h"
 
-TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고.. 
+TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
 	this->towerData = data; 
 	this->name = "Tower"; //이름에서 태그로 변경하기
-	star = Fac->CreateGameObject<TowerStar>();
-	star->Init(this, towerData.level);
+	//star = Factory().createObj<TowerStar>();
+	//star->Init(this, towerData.level);
 	curHP = towerData.HP;
 	EventSystem::GetInstance().get()->Ui.insert(this);
 	SetBoundBox(0, 0, 150,150);
@@ -31,8 +31,8 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	renderOrder = 100;
 
 	FiniteStateMachine* fsm = new FiniteStateMachine(); //fsm도 타워도 
-	HPbar = Fac->CreateGameObject<HPBar>();
-	HPbar->Init(this);
+	//HPbar = Factory().createObj<HPBar>(); //팩토리하나 테스트하려다가 좆되겠느데?
+	//HPbar->Init(this);
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
 	fsm->CreateState<TowerAttack>("Attack");

@@ -187,6 +187,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="TimeSystem.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UI.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TimeSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UI.cpp" />

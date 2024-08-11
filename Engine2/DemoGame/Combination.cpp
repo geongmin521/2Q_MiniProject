@@ -1,28 +1,18 @@
 #include "pch.h"
 #include "Combination.h"
 #include "Factory.h"
+#include "Button.h"
+#include "Image.h"
 
 Combination::Combination()
 {
 	//나가기 버튼
-	Fac->CreateButton(L"smallBack.png", [this]() {isActive = false; }, { WinHalfSizeX + 500, WinHalfSizeY - 400 }, &subUi);
+	Factory().createObj<Button>(L"smallBack.png", [this]() { SetActive(false); }).setPosition({ WinHalfSizeX + 500, WinHalfSizeY - 400 }).setRoot(&subUi);
 	//조합표 이미지 하나로?
-	Fac->CreateImage(L"Combination.png", { WinHalfSizeX , WinHalfSizeY  }, { 1,1 }, &subUi);
+	Factory().createObj<Image>(L"Combination.png").setPosition({ WinHalfSizeX , WinHalfSizeY }).setRoot(&subUi);
 	renderOrder = 100;
 }
 
 Combination::~Combination()
 {
-}
-
-void Combination::Update(float deltaTime)
-{
-	for (auto var : subUi)
-		var->Update(deltaTime);
-}
-
-void Combination::Render(ID2D1HwndRenderTarget* pRenderTarget)
-{
-	for (auto var : subUi)
-		var->Render(pRenderTarget);
 }

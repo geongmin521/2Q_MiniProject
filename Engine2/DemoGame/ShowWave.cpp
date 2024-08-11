@@ -1,28 +1,26 @@
 #include "pch.h"
 #include "Factory.h"
 #include "ShowWave.h"
+#include "Image.h"
+#include "Button.h"
 
 ShowWave::ShowWave()
 {
 	float LeftPadding = 800;
-	Fac->CreateImage(L"BigBack.png", { WinHalfSizeX ,WinHalfSizeY }, { 2,2 }, &sprites);
+	Factory().createObj<Image>(L"BigBack.png").setPosition({WinHalfSizeX ,WinHalfSizeY}).setScale({2,2}).setIsActive(false).setRoot(&sprites);
 	for (int i = 0; i < 4; i++)
 	{
-		Fac->CreateImage(L"vampire.png", { LeftPadding + i * 130 ,WinHalfSizeY }, { 1,1 }, &sprites);
-		//텍스트도 추가하기...
+		Factory().createObj<Image>(L"vampire.png").setPosition({LeftPadding + i * 130 ,WinHalfSizeY}).setIsActive(false).setRoot(&sprites);
+		//텍스트도 추가하기... //이것도 팩토리에 추가가능이긴한데.. 대신UI로 형변환이되어야함.. 아닌가? 다른애들도 필요한가? 
 	}
 		
-	Fac->CreateButton(L"smallBack.png", [this]() { isActive = false; }, { WinHalfSizeX + 400, WinHalfSizeY - 400 }, &exitButton);
-	
-	for (auto var : sprites)
-		var->isActive = false;
-	//팝업을 닫을 수 있는 버튼
-
+	Factory().createObj<Button>(L"smallBack.png", [this]() { isActive = false; }).setPosition({ WinHalfSizeX + 400, WinHalfSizeY - 400 }).setIsActive(false).setRoot(&exitButton);
 }
 
 ShowWave::~ShowWave()
 {
-	//지워질때 지금까지 만든 모든 ui를 지워줘야함.. 
+	//지워질때 지금까지 만든 모든 ui를 지워줘야함.. 사실 아무리 모임이라도.. 얘네가 따로 들고있는게 맘에 안들긴하거든? 어디 다른벡터에 담아주는거까진 인정인데... 결국 월드의 통제를 받아야함.. 
+	//그리고 어차피 배열에 담았으니.. 키고 끄는것도 따로 통제할수있을거아니야.. 음.. 월드한테 맡기는게 나음. 
 }
 
 void ShowWave::Show()
@@ -37,17 +35,10 @@ void ShowWave::Show()
 	//데이터 매니저한테 불러오고 웨이브불러오기... 
 }
 
-void ShowWave::Update(float deltaTime)
-{
-	//이건 그냥 오브젝트의집합이라 오브젝트들의 오브젝트만 실행해주며될듯
-	for (auto var : sprites)
-		var->Update(deltaTime);
-	exitButton[0]->Update(deltaTime);
+void ShowWave::Update(float deltaTime) //이렇게 되면 이친구들도 필요하지않음.. 단순히 월드와 그걸 담고있을뿐인거지? 업데이트를 도는 게임오브젝트 객체라기보다는 그냥 담고있는 틀에 불과함.. 
+{ //근데 모든애들이 그런건아닐걸? 필요한 능력을 들고있는애들도있는데.. 사실 필요없지않나? 
 }
 
 void ShowWave::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
-	for (auto var : sprites)
-		var->Render(pRenderTarget);
-	exitButton[0]->Render(pRenderTarget); //사실하나밖에없는데 팩토리에 넣는구조때문에 벡터가되어버림.. 
 }

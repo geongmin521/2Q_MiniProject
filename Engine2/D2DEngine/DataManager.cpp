@@ -1,13 +1,20 @@
 #include "pch.h"
 #include "DataManager.h"
+#include "Utility.h"
 #include <locale>
 #include <codecvt>
+
 DataManager::DataManager()
 {
+	EnemyDataRead();
+	TowerDataRead();
+	WaveDataRead();
+	//ArtifactDataRead(); //아직 csv 없음
 }
 
 DataManager::~DataManager()
 {
+
 }
 
 template <typename T>
@@ -66,29 +73,9 @@ std::wifstream DataManager::FileOften(std::wstring fileName)
 	return file;
 }
 
-//데이터 매니저가 전부 들고있는게 좋아? 아니면.. 필요한 각자가 들고있는게 맞긴하지? 
-//팩토리가 처음에 저것들을 요청하고.. 오케이.. 
-//반환값이 3개중에 하나가 가능한거지? 
-std::variant<std::vector<EnemyData>, std::vector<TowerData>, std::vector<WaveData>, std::vector<ArtifactData>> DataManager::CSVReader(std::wstring fileName)
+void DataManager::EnemyDataRead()
 {
-	std::wifstream file = FileOften(fileName); //얘가 다들고있을거면 variation은 왜함? 이게 싱글톤이면.. 쌉가능이지
-    if (fileName == L"EnemyData") 
-        return EnemyDataRead(file);
-    else if (fileName == L"TowerData") 
-        return TowerDataRead(file);
-    else if (fileName == L"WaveData") 
-        return WaveDataRead(file);
-	else if (fileName == L"ArtifactData")
-		return ArtifactDataRead(file);
-    else {
-        assert(false && "Unsupported type in CSVReader");
-        return {}; // Unreachable code; returns an empty variant to suppress compiler warnings
-    }
-}
-
-std::vector<EnemyData> DataManager::EnemyDataRead(std::wifstream& file)
-{
-	std::vector<EnemyData> result;
+	std::wifstream file = FileOften(L"EnemyData");
 	std::wstring line;
 	while (std::getline(file, line)) {
 	
@@ -108,16 +95,16 @@ std::vector<EnemyData> DataManager::EnemyDataRead(std::wifstream& file)
 				parseToken(wss, data.speed);
 				parseToken(wss, data.ability);
 			}
-			result.push_back(data);
+			enemyData[data.id] = data;
 		}
 	}
-	return result;
+
 
 }
 
-std::vector<TowerData> DataManager::TowerDataRead(std::wifstream& file)
+void DataManager::TowerDataRead()
 {
-	std::vector<TowerData> result;
+	std::wifstream file = FileOften(L"TowerData");
 	std::wstring line;
 	while (std::getline(file, line)) {
 
@@ -137,15 +124,14 @@ std::vector<TowerData> DataManager::TowerDataRead(std::wifstream& file)
 				parseToken(wss, data.attackArea);
 				parseToken(wss, data.ability);
 			}
-			result.push_back(data);
+			towerData[data.id] = data;
 		}
 	}
-	return result;
 }
 
-std::vector<WaveData> DataManager::WaveDataRead(std::wifstream& file)
+void DataManager::WaveDataRead()
 {
-	std::vector<WaveData> result;
+	std::wifstream file = FileOften(L"WaveData");
 	std::wstring line;
 	while (std::getline(file, line)) {
 
@@ -161,15 +147,14 @@ std::vector<WaveData> DataManager::WaveDataRead(std::wifstream& file)
 				parseTokens(wss, data.spawnTime);
 				parseTokens(wss, data.enemyCount);
 			}
-			result.push_back(data);
+			waveData[data.id] = data;
 		}
 	}
-	return result;
 }
 
-std::vector<ArtifactData> DataManager::ArtifactDataRead(std::wifstream& file)
+void DataManager::ArtifactDataRead()
 {
-	std::vector<ArtifactData> result;
+	std::wifstream file = FileOften(L"ArtifactData");
 	std::wstring line;
 	while (std::getline(file, line)) {
 
@@ -186,8 +171,27 @@ std::vector<ArtifactData> DataManager::ArtifactDataRead(std::wifstream& file)
 				parseToken(wss, data.name);
 				parseToken(wss, data.ability);
 			}
+			artifactData[data.id] = data;
+		}
+	}
+}
+
+WaveData DataManager::getWaveData(int level)
+{
+	std::vector<WaveData> result;
+
+	for (const auto& entry : waveData) {
+		const WaveData& data = entry.second;
+		if (data.level == level) {
 			result.push_back(data);
 		}
 	}
-	return result;
+
+	if (result.empty()) {
+		throw std::out_of_range("No WaveData with the specified level.");
+	}
+
+	int id = Utility::RandomBetween(0, result.size() - 1);
+
+	return result[id];
 }

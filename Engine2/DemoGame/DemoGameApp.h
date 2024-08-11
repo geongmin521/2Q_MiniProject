@@ -7,6 +7,4 @@ public:
 	virtual void Initialize(HINSTANCE hInstance, int nShowCmd) override;
 	virtual void Run() override;
 	virtual void Uninitialize() override;
-	static void ChangeCurWorld(World* world); //아니면 프로퍼티로 이것의 변화만을감지하고있다가 바꿔도 되지않나? 
-
 };
