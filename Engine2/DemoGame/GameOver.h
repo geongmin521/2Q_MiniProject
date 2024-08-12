@@ -1,7 +1,7 @@
 #pragma once
-#include "UIPanel.h"
+#include "UI.h"
 
-class GameOver :public UIPanel
+class GameOver :public UI
 {
 private:
 public:

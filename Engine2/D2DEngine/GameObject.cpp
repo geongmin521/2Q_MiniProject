@@ -70,9 +70,18 @@ void GameObject::AddComponent(Component* pComponent)
 
 }
 
-D2D1_VECTOR_2F GameObject::GetWorldLocation()
+void GameObject::SetActive(bool active)
+{
+	isActive = active;
+	for (auto var : transform->childScene)
+	{
+		var->owner->SetActive(active); //계층적으로 할수있도록 설정.. 
+	}
+}
+
+MathHelper::Vector2F GameObject::GetWorldLocation()
 { 
-	D2D1_VECTOR_2F temp{ 0,0 };
+	MathHelper::Vector2F temp{ 0,0 };
 	if (transform)
 		temp = transform->GetWorldLocation();
 

@@ -141,6 +141,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Combination.h" />
+    <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="Compensation.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="DemoGame.h" />
@@ -165,7 +166,6 @@
     <ClInclude Include="TowerFsm.h" />
     <ClInclude Include="TowerFunc.h" />
     <ClInclude Include="TowerStar.h" />
-    <ClInclude Include="UIPanel.h" />
     <ClInclude Include="Victory.h" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +175,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Combination.cpp" />
+    <ClCompile Include="CommonFunc.cpp" />
     <ClCompile Include="Compensation.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="DemoGame.cpp" />
@@ -198,7 +199,6 @@
     <ClCompile Include="TowerFSM.cpp" />
     <ClCompile Include="TowerFunc.cpp" />
     <ClCompile Include="TowerStar.cpp" />
-    <ClCompile Include="UIPanel.cpp" />
     <ClCompile Include="Victory.cpp" />
   </ItemGroup>
   <ItemGroup>

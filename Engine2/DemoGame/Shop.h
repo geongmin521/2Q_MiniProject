@@ -1,12 +1,12 @@
 #pragma once
-#include "UIPanel.h"
+#include "UI.h"
 
 class Image;
 class Container;
 class Combination;
 class D2DFont;
 class EnemySpawner;
-class Shop: public UIPanel 
+class Shop: public UI 
 {
 private:
 	bool isLock[5];

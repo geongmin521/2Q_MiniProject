@@ -1,7 +1,7 @@
 #pragma once
-#include "UIPanel.h"
+#include "UI.h"
 
-class Compensation :public UIPanel
+class Compensation :public UI
 {
 private:
 public:

@@ -52,7 +52,7 @@ void World::Update(float deltaTime)
 		Utility::removeElements(m_GameObjects, m_Remove);
 	for (auto& obj : m_GameObjects) 
 	{
-		if (!obj->isActive)
+		if (!obj->GetActive())
 			continue;
 		obj->Update(deltaTime);
 	}
@@ -65,7 +65,7 @@ void World::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	for (auto& obj : m_GameObjects) 
 	{		
-		if (!obj->isActive)
+		if (!obj->GetActive())
 			continue;
 		//if (this->m_pCullingBound->CheckIntersect(obj->GetBoundBox())) 
 		//{

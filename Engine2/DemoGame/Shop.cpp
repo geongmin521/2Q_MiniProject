@@ -17,22 +17,22 @@ Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까?
 	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" };
 
 	renderOrder = 80;
-	Factory().createObj<Image>(L"BigBack.png").setPosition(WinHalfSizeXY).setScale({ 2,2 }).setRoot(&subUi);
+	Factory().createObj<Image>(L"BigBack.png").setPosition(WinHalfSizeXY).setScale({ 2,2 }).setParent(this->transform);
 	float LeftPadding = 700; 
 	for (int i = 0; i < 5; i++)//아이콘
-		Icons.push_back(Factory().createObj<Image>(L"Crossbow.png").setPosition({ LeftPadding + i * 130 ,WinHalfSizeY - 200 }).setRoot(&subUi).Get<Image>());
+		Icons.push_back(Factory().createObj<Image>(L"Crossbow.png").setPosition({ LeftPadding + i * 130 ,WinHalfSizeY - 200 }).setParent(this->transform).Get<Image>());
 	for (int i = 0; i < 5; i++)//리롤 잠그기
-		Factory().createObj<Button>(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }).setPosition({ LeftPadding + i * 130, WinHalfSizeY - 100 }).setRoot(&subUi).AddText(L"Lock", 20);
+		Factory().createObj<Button>(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }).setPosition({ LeftPadding + i * 130, WinHalfSizeY - 100 }).setParent(this->transform).AddText(L"Lock", 20);
 	
-	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setRoot(&subUi).AddText(L"전체리롤", 30);
+	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setParent(this->transform).AddText(L"전체리롤", 30);
 	//보상 텍스트박스 
-	compensationText = Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 200 }).setRoot(&subUi).AddText(L"", 20).Get()->GetComponent<D2DFont>();//근데 이친구들이 원하는 텍스트를 따라가고싶단말이지.. 
+	compensationText = Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 200 }).setParent(this->transform).AddText(L"", 20).Get()->GetComponent<D2DFont>();//근데 이친구들이 원하는 텍스트를 따라가고싶단말이지.. 
 	//리롤가능한 횟수를 출력하는 텍스트박스
-	rerollText = Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 300 }).setRoot(&subUi).AddText(L"리롤 가능 횟수" + std::to_wstring(reroll), 20).Get()->GetComponent<D2DFont>();
+	rerollText = Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 300 }).setParent(this->transform).AddText(L"리롤 가능 횟수" + std::to_wstring(reroll), 20).Get()->GetComponent<D2DFont>();
 	//조합표 확인 버튼
-	Factory().createObj<Button>(L"ImageBack.png", [this]() {combination->SetActive(true); }).setPosition({LeftPadding + 650, WinHalfSizeY + 100}).setRoot(&subUi).AddText(L"조합식", 30); //아 여기에는 어떻게 넣어줄까...  상점도 조합표를 가져올까?
+	Factory().createObj<Button>(L"ImageBack.png", [this]() {combination->SetActive(true); }).setPosition({LeftPadding + 650, WinHalfSizeY + 100}).setParent(this->transform).AddText(L"조합식", 30); //아 여기에는 어떻게 넣어줄까...  상점도 조합표를 가져올까?
 	//소환하기 버튼
-	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Spawn, this)).setPosition({ LeftPadding + 650, WinHalfSizeY + 200 }).setRoot(&subUi).AddText(L"소환하기", 30);
+	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Spawn, this)).setPosition({ LeftPadding + 650, WinHalfSizeY + 200 }).setParent(this->transform).AddText(L"소환하기", 30);
 
 	SetActive(false); 
 }//길게 나열하는것도 괜찮긴한데.. 너무 길지않나? 

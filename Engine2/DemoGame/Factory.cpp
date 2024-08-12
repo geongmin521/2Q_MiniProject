@@ -49,7 +49,7 @@ Factory& Factory::setRoot(std::vector<GameObject*>* Root)
 
 Factory& Factory::setActive(bool active)
 {
-    object->isActive = active;
+    object->SetActive(active);
     return *this;
 }
 

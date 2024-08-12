@@ -53,8 +53,8 @@ void BattleWorld::MakeUI() //앞에 경로는 다정해져있으니까 위에서 처리하자..
 	showWave = Factory().createObj<ShowWave>().Get<ShowWave>();
 	
 	Factory().createObj<Button>(L"UI.png", [this]() { combination->SetActive(true); }).setPosition({ WinSizeX - 600, WinSizeY - 100 }).AddText(L"조합식", 50); //조합표띄우기
-	spawnButton = Factory().createObj<Button>(L"UI.png", [this]() { spwaner->StartWave(); spawnButton->isActive = false;  }).
+	spawnButton = Factory().createObj<Button>(L"UI.png", [this]() { spwaner->StartWave(); spawnButton->SetActive(false);  }).
 		setPosition({ WinSizeX - 200, WinSizeY - 100 }).AddText(L"적 소환", 50).setActive(false).setRenderOrder(60).Get<Button>(); //적들 생성 버튼
-	shopButton = Factory().createObj<Button>(L"UI.png", [this]() { shop->SetActive(true); spawnButton->isActive = true; }).
+	shopButton = Factory().createObj<Button>(L"UI.png", [this]() { shop->SetActive(true); spawnButton->SetActive(true); }).
 		setPosition({ WinSizeX - 200, WinSizeY - 100 }).AddText(L"타워소환", 50).Get<Button>(); //타워 소환 -> 상점을띄워주는 객체
 }

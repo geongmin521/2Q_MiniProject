@@ -6,10 +6,12 @@ class AABB;
 
 class GameObject
 {
+private:
+	bool isActive;//set으로만 할수있게 은닉화
 public:
 	GameObject();
 	virtual ~GameObject();
-	bool isActive;// 이거분명 setactive를 만들었던거 같은데 왜 없어졌을까?
+
 	std::string name;
 	std::vector<Component*> ownedComponents;	// 소유한 컴포넌트들
 	Transform* transform = nullptr;				
@@ -26,8 +28,9 @@ public:
 	void SetBoundBox(int x, int y, MathHelper::Vector2F bound);
 	void AddComponent(Component* pComponent);
 	void SetOwner(World* pOwner) { owner = pOwner; } 
-	
-	D2D1_VECTOR_2F GetWorldLocation();
+	void SetActive(bool active);
+	bool GetActive() { return isActive; }
+	MathHelper::Vector2F GetWorldLocation();
 	template<typename T>
 	T* GetComponent()
 	{

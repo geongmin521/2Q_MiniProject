@@ -11,12 +11,16 @@ private :
 public:
 	Transform();
 	virtual ~Transform();
-	Transform* parentScene = nullptr;		// 부모 Scene 컴포넌트	
+	Transform* parentScene = nullptr;		// 부모 Scene 컴포넌트
+	std::vector<Transform*>  childScene;		// 자식 Scene 컴포넌트	
 	D2D1_POINT_2F imageCenter = { 0,0 }; // 상대 위치 //이것도 매스 헬퍼로 매핑안되나?  //나머지값들도 은닉화할까?
 	D2D_MATRIX_3X2_F	 relativeTransform; // 상대 복합 변환						 
 	D2D_MATRIX_3X2_F	 worldTransform;    // 부모까지 반영된 최종 변환
 	virtual void Update(float deltaTime) override;
-	void SetParent(Transform* pParentScene) { parentScene = pParentScene; }
+	void SetParent(Transform* pParentScene) {
+		pParentScene->childScene.push_back(this); //부모만 설정해도 자동으로 자식으로 설정
+		parentScene = pParentScene;
+	}
 	void SetImageCenter(D2D1_POINT_2F center) { this->imageCenter = center; }
 
 	MathHelper::Vector2F GetWorldLocation()

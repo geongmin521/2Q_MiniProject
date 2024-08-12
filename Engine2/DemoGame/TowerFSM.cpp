@@ -98,7 +98,7 @@ void TowerDeath::Update(float DeltaTime)
 	//{
 	//	tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
 	//}
-	tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
+	tower->SetActive(false); //타워 파괴 애니메이션이 끝나면 비활성
 }
 
 void TowerDeath::ExitState()

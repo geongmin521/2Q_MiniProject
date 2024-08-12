@@ -17,6 +17,8 @@ Pools::~Pools()
 
 void Pools::AddPool(GameObject* _Object) //이름으로 찾을일있을까? 외우지도 못하는데?
 {
+
+
 	if (PoolList.find(_Object->id) == PoolList.end()) // 찾지못하면 
 	{
 		std::vector<GameObject*> Pool; 
