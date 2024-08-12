@@ -5,9 +5,6 @@
 #include "Pools.h"
 #include "DataManager.h"
 #include "GameManager.h"
-#include "Vampire.h"
-#include "VampireBomb.h"
-#include "VampireRanged.h"
 
 EnemySpawner::EnemySpawner()
 {

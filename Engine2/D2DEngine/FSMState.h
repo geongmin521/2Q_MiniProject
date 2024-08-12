@@ -8,11 +8,9 @@ public:
 		:owner(pOwner)
 		, name(Name)
 	{
-
 	}
 	virtual ~FSMState()
 	{
-
 	}
 	std::string name;
 	FiniteStateMachine* owner;

@@ -43,8 +43,10 @@ Shop::~Shop() //인규형이 만들어준 텍스트클래스를 기준으로 텍스트 박스도 빠르게 �
 
 void Shop::Reroll() //맨처음에는 어떻게 처리하는지 올라온거 봤었는데 그거대로 처리할수있도록하자.. 
 {
+	
 	if (reroll <= 0)
 		return;
+	compensationList.clear();
 	Text = L""; //텍스트 초기화
 	reroll--;
 	rerollText->SetDialog(L"리롤 가능 횟수" +std::to_wstring(reroll));

@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "EnemyFSM.h"
-#include "Vampire.h"
 #include "FiniteStateMachine.h"
 #include "GameObject.h"
 #include "Animation.h"
@@ -10,13 +9,12 @@
 #include "EnemyBase.h"
 #include "AABB.h"
 #include "TowerBase.h"
+#include "BoxCollider.h"
 
 EnemyFSM::EnemyFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
 	ani = owner->owner->GetComponent<Animation>();
-	// 애니메이션 공격이 setanimation 0번 대기가 1번 추후에 바꿀것
 	move = owner->owner->GetComponent<Movement>();
-	//vam = (Vampire*)owner->owner;
 	enemy = (EnemyBase*)owner->owner;
 }
 
@@ -24,18 +22,6 @@ EnemyFSM::~EnemyFSM()
 {
 }
 
-void EnemyFSM::EnterState()
-{
-}
-
-void EnemyFSM::Update(float deltaTime)
-{
-
-}
-
-void EnemyFSM::ExitState()
-{
-}
 void EnemyIdle::EnterState()
 {
 	ani->SetAnimation(1, true);
@@ -45,24 +31,16 @@ void EnemyIdle::EnterState()
 
 void EnemyIdle::Update(float deltaTime)
 {
-	// 몸통크기 165.f 
-	
 	if (enemy->target != nullptr)
 	{
 		MathHelper::Vector2F targetPos = enemy->target->GetWorldLocation();
 		MathHelper::Vector2F curPos = enemy->GetWorldLocation();
-		// 추적범위 일정하게 설정할것 
-		// 눈대중으로 대충 맞춤 스피드가 달라지면 판정값도 달라져야만 일정 범위를 유지할수있음
+		float length = (targetPos - curPos).Length();
 
-		
-		if (std::abs(targetPos.x  - curPos.x) <= enemy->enemyData.attackRange / 2 &&
-			std::abs(targetPos.y - curPos.y ) <= enemy->enemyData.attackRange / 2 )
+		if (length < enemy->enemyData.attackRange) //공격사거리 안쪽이다.
 		{
 			enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
-			if (enemy->isAttack == false)
-			{
-				owner->SetNextState("Attack");
-			}
+			owner->SetNextState("Attack");
 		}
 		else
 		{
@@ -72,18 +50,8 @@ void EnemyIdle::Update(float deltaTime)
 	}
 	else
 	{
-		enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed , 0 });
-	}
-
-	if (enemy->isAttack == true)
-	{
-		enemy->enemyData.attackSpeed -= deltaTime;
-		if (enemy->enemyData.attackSpeed < 0)
-		{
-			enemy->isAttack = false;
-			enemy->enemyData.attackSpeed = 1.0f;
-			// 고칠 것
-		}
+		enemy->Find(enemy->GetComponent<BoxCollider>());
+		enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed * 100, 0 }); 
 	}
 }
 
@@ -123,11 +91,23 @@ void EnemyAttack::EnterState()
 
 void EnemyAttack::Update(float deltaTime)
 {
-	if (ani->IsEnd())
+	AttackTimer += deltaTime;
+	if (enemy->enemyData.attackSpeed < AttackTimer)
 	{
-		enemy->Attack(deltaTime);
-		enemy->isAttack = true;
+		AttackTimer = 0;
+		owner->SetNextState("Attack"); //공격 상태에서 다시 공격하기.. 
+	}
+	if (enemy->target == nullptr) //적이 없으면 아이들로
+	{
 		owner->SetNextState("Idle");
+		return;
+	}
+	else
+	{
+		if (ani->IsEnd())
+		{
+			enemy->Attack(); //애니메이션 끝나면 공격 들어가기
+		}
 	}
 }
 

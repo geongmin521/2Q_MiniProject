@@ -35,6 +35,12 @@ Factory& Factory::setScale(Vector2F scale) {
     return *this;
 }
 
+Factory& Factory::setParent(Transform* parent)
+{
+    object->transform->SetParent(parent);
+    return *this;
+}
+
 Factory& Factory::setRoot(std::vector<GameObject*>* Root) 
 {
     Root->push_back(object);
