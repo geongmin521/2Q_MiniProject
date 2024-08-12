@@ -23,11 +23,12 @@ public:
 	bool CheckIntersect(const Circle& other) const
 	{
 		Vector2F distance = Center - other.Center;
-		
+
+
 		if (distance.Length() < radius + other.radius) //중심끼리의 거리보다 반지름의 합이 	크면 충돌안함
-			return false;		
+			return true;		
 		else
-			return true;
+			return false;
 	}
 
 	bool CheckPoint(const Vector2F& point) const
@@ -35,9 +36,9 @@ public:
 		Vector2F distance = Center - point;
 
 		if (distance.Length() < radius ) //중심과 특정 점의 거리보다 반지름이 크면 충돌안함
-			return false;
-		else
 			return true;
+		else
+			return false;
 	}
 
 	float GetDistance(const Vector2F& point) const

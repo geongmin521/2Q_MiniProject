@@ -20,7 +20,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	name = "Enemy";
 	curHP = enemyData.HP;
 	SetBoundBox(0, 0, 500, 500); //기본 적 이미지 사이즈 //이것도 원으로 만들어도 될듯? 
-	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"Zombie2"));
+	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Zombie2.csv"));
 	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();

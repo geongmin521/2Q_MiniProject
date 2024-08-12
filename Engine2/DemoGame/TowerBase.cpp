@@ -19,7 +19,7 @@
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
 	this->towerData = data; 
-	this->name = "Tower"; //이름에서 태그로 변경하기
+	name = "Tower"; //이름에서 태그로 변경하기
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
 		Factory().createObj<TowerStar>().setPosition({ 20.f * i ,0}).setParent(transform);		
 	curHP = towerData.HP;

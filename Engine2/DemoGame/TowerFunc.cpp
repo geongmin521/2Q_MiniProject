@@ -39,14 +39,19 @@ void TowerFunc::FindTargets(CircleCollider& myCol, std::string tag, std::vector<
 {
 	targets.clear();
 	TowerBase* myTower = dynamic_cast<TowerBase*>(myCol.owner);
+	std::vector<MathHelper::Vector2F> poss;
 	for (auto& tragetCol : myCol.collideStatePrev) //콜라이더가 감지범위일거고.. 거기에 들어왔다면.. 그냥 그중에서 제일 가까운것만 찾으면됨
 	{
 		
 		if (tragetCol->owner->name == tag && tragetCol->owner->isActive == true)
 		{
-			if (!(std::abs(myTower->GetWorldLocation().x - tragetCol->owner->GetWorldLocation().x) <= myTower->towerData.attackRange * 50) //50곱하는건 지금 나중에 csv에서 한칸기준 수정?
-				||!(std::abs(myTower->GetWorldLocation().y - tragetCol->owner->GetWorldLocation().y) <= myTower->towerData.attackRange * 50))
-				continue;      //적 본체위치가 사거리밖이면 넘어가게  이렇게맞나?
+			poss.push_back(tragetCol->owner->transform->GetWorldLocation());
+			
+			std::cout << myTower->GetWorldLocation().x << "  " << tragetCol->owner->GetWorldLocation().x << "  " << myTower->towerData.attackRange * 50 << std::endl;
+			float x = std::abs(myTower->GetWorldLocation().x - tragetCol->owner->GetWorldLocation().x);
+			float y = std::abs(myTower->GetWorldLocation().y - tragetCol->owner->GetWorldLocation().y);
+			if (x <= myTower->towerData.attackRange * 70 //50곱하는건 지금 나중에 csv에서 한칸기준 수정?
+				&& y <= myTower->towerData.attackRange * 70)
 			targets.push_back(tragetCol->owner);
 		}
 	}
@@ -78,6 +83,6 @@ void TowerFunc::MeleeAttack(std::vector<GameObject*>& targets)
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy); //타워에만 한정되지않을수도있으니까... 이것도 인터페이스로 뺄까?
 		//계산기도 여기서 거치고 가야지.. 헬퍼에 세환님이 만들었으니까 유틸로 접근해서 적 타입이랑 같이 보내서 계산하면될듯?
 		if (enemy != nullptr)
-			damageEnemy->Hit(40);
+			damageEnemy->Hit(0);
 	}
 }

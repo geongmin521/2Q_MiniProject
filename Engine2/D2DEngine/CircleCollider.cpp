@@ -28,7 +28,7 @@ bool CircleCollider::IsCollide(Collider* otherComponent)
 	{
 		return  aabb->CheckIntersect(*((BoxCollider*)otherComponent)->aabb);
 	}
-	else
+	else if(otherComponent->GetColliderType() == ColliderType::Circle)
 	{
 		return  circle->CheckIntersect(*((CircleCollider*)otherComponent)->circle);
 	}
