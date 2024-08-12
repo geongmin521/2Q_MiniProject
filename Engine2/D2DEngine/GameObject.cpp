@@ -70,6 +70,15 @@ void GameObject::AddComponent(Component* pComponent)
 
 }
 
+void GameObject::SetActive(bool active)
+{
+	isActive = active;
+	for (auto var : transform->childScene)
+	{
+		var->owner->SetActive(active); //계층적으로 할수있도록 설정.. 
+	}
+}
+
 MathHelper::Vector2F GameObject::GetWorldLocation()
 { 
 	MathHelper::Vector2F temp{ 0,0 };

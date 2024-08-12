@@ -10,8 +10,6 @@
 
 void EventSystem::Updata(float deltaTime)
 {
-	
-
 	if (curDrag != nullptr) //on마우스 이벤트도.. 드래그중일땐 호출하지않기? 
 		DragEvent();
 	else
@@ -32,7 +30,7 @@ GameObject* EventSystem::FindTargetUI()
 	int maxOrder = INT_MIN;
 	for (auto ele : Ui) 
 	{
-		if (ele->isActive == false) //활성화중인것들만 검사
+		if (ele->GetActive() == false) //활성화중인것들만 검사
 			continue;
 
 		float xpos = inputSystem->GetMouseState()._x;
@@ -56,7 +54,7 @@ IDropAble* EventSystem::FindDrop() //드랍만 특수한로직으로 검사.. 이거 다이나믹�
 	int maxOrder = INT_MIN;
 	for (auto ele : Ui)
 	{
-		if (ele->isActive == false) //활성화중인것들만 검사
+		if (ele->GetActive() == false) //활성화중인것들만 검사
 			continue;
 
 		float xpos = inputSystem->GetMouseState()._x;

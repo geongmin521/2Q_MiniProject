@@ -135,13 +135,6 @@
     <ClInclude Include="TowerStar.h">
       <Filter>InGameUI</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyArrow.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="VampireRanged.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="UIPanel.h" />
     <ClInclude Include="EnemyFunc.h">
       <Filter>Enemy</Filter>
     </ClInclude>
@@ -238,13 +231,6 @@
     <ClCompile Include="TowerStar.cpp">
       <Filter>InGameUI</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyArrow.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="VampireRanged.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="UIPanel.cpp" />
     <ClCompile Include="EnemyFunc.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>

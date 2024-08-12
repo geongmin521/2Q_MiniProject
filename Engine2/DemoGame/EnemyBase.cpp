@@ -1,11 +1,9 @@
 #include "pch.h"
 #include "HPBar.h"
 #include "EnemyBase.h"
-#include "AABB.h"
 #include "Artifact.h"
 #include "D2DRenderer.h"
 #include "Animation.h"
-#include "BoxCollider.h"
 #include "FiniteStateMachine.h"
 #include "Factory.h"
 #include "EnemyFSM.h"
@@ -13,6 +11,8 @@
 #include "EnemyFunc.h"
 #include "Transform.h"
 #include "TowerBase.h"
+#include "CircleCollider.h"
+#include "Circle.h"
 
 EnemyBase::EnemyBase(EnemyData data)
 {
@@ -21,7 +21,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	curHP = enemyData.HP;
 	SetBoundBox(0, 0, 500, 500); //기본 적 이미지 사이즈 //이것도 원으로 만들어도 될듯? 
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Zombie2.csv"));
-	AddComponent(new BoxCollider(boundBox, CollisionType::Overlap, this, CollisionLayer::Enemy));
+	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
@@ -39,19 +39,19 @@ void EnemyBase::SetAbility(std::string ability)
 {
 	if (ability == "None") //노말
 	{
-		attack = [this]() {EnemyFunc::NormalAttack(target, enemyData.ATK); };
+		attack = [this]() {EnemyFunc::NormalAttack(target[0], enemyData.ATK); }; //사실 정말일관되게할거면.. 그냥 현재 들고있는 타겟을 전부보내서 hit을때리고 타겟을 하나만 들고있게하는방식이맞지.. 
 	}
 	else if (ability == "Throw") //원거리
 	{
-		attack = [this]() {EnemyFunc::RangedAttack(target, transform->GetWorldLocation(), enemyData.ATK); };
+		attack = [this]() {EnemyFunc::RangedAttack(target[0], transform->GetWorldLocation(), enemyData.ATK); };
 	}
 	else if (ability == "Destroy") //폭발
 	{
-		attack = [this]() {EnemyFunc::BombAttack(this, target, enemyData.ATK); };
+		attack = [this]() {EnemyFunc::BombAttack(this, target[0], enemyData.ATK); };
 	}
 	else if (ability == "SpawnVat") //박쥐소환 보스
 	{
-		attack = [this]() {EnemyFunc::BombAttack(this, target, enemyData.ATK); };
+		attack = [this]() {EnemyFunc::BombAttack(this, target[0], enemyData.ATK); };
 	}
 }
 
@@ -59,56 +59,14 @@ EnemyBase::~EnemyBase()
 {
 }
 
-void EnemyBase::Update(float deltaTime)
+void EnemyBase::Update(float deltaTime) //타겟을 여러개 들고있을확률도 있음... 노티피로만하면문제가 없긴한데.. 위치값등의 추가 값을 파악하기가 힘들수있음.. 
 {
 	__super::Update(deltaTime);
-	if (target != nullptr && target->isActive == false) //나중에 각 오브젝트한테 isDead를 넣어줘야할듯? 
-	{
-		target = nullptr;
-	}
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
 {
 	__super::Render(pRenderTarget);
-}
-
-
-void EnemyBase::Find(Collider* ownedCol) //이거 한번만 뜯어보면괜찮지않을까? //얘를 어디서 호출해야하나.. IDLE일때?
-{
-	std::vector<GameObject*> towers;
-	for (auto& col : ownedCol->collideStatePrev) //사실이것도 타워랑 같은 알고리즘이라.. 이것만 좀 다시 재사용하면좋을텐데.. 
-	{
-		if (col->owner->name == "Tower" && col->owner->isActive == true)
-		{
-			towers.push_back(col->owner);			
-		}
-	}
-
-	float min = INT_MAX;
-	float curMin;
-	MathHelper::Vector2F distance;
-	GameObject* curTarget = nullptr;
-
-	if (!towers.empty())
-	{
-		for (auto& tower : towers)
-		{
-			distance = MathHelper::Vector2F(GetWorldLocation()) - MathHelper::Vector2F(tower->GetWorldLocation());
-			curMin = distance.Length();
-			
-			if (min > curMin)
-			{
-				min = curMin;
-				curTarget = tower;
-			}
-		}
-	}
-
-	if (curTarget != nullptr)
-	{
-		target = dynamic_cast<TowerBase*>(curTarget);
-	}
 }
 
 void EnemyBase::Hit(float damage)

@@ -36,24 +36,12 @@ void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 void Arrow::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-
-	
-	if (target->isActive == true)
-	{
-		 //아직 못맞췄을때 사라질경우 처리할곳 maybe
-	}
-	else
-	{
-		isActive = false;
-	}
-
 	if (std::abs(target->GetWorldLocation().x - GetWorldLocation().x) <= 1.0f &&
 		std::abs(target->GetWorldLocation().y - GetWorldLocation().y) <= 1.0f)
 	{
-		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);		
+		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);		//아 이걸 적으로 다이나믹 캐스트를하는구나.. 노티피를 들고있는방식으로갈까? 
 		enemy->Hit(Utility::CalCul("석궁형",enemy->enemyData.Type,30));
-		//
-		isActive = false;
+		SetActive(false);
 	}
 
 }

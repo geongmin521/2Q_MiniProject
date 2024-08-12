@@ -18,7 +18,6 @@ public:
     virtual ~EnemyBase();
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
-    virtual void Find(Collider* othercomponent);
     virtual void Hit(float damage);
     virtual void Heal(float heal)override {}
     virtual void Attack();
@@ -30,7 +29,7 @@ public:
     //이게 달라지는건 공격 알고리즘 밖에없네? 적들 탐지도 다 같고
 public:
     float curHP;
-    TowerBase* target = nullptr;
+    std::vector<GameObject*> target; //추가적인 정보가 필요할수있으니.. 
     EnemyData enemyData;
 };
 
