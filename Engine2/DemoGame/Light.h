@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "IColliderNotify.h"
 
-
+class Bitmap;
 class Light : public GameObject , IColliderNotify
 {
 public:
