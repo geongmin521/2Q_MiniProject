@@ -15,6 +15,7 @@
 #include "TowerFsm.h"
 #include "HPBar.h"
 #include "TowerStar.h"
+#include "CommonFunc.h"
 
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
@@ -42,17 +43,17 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	TowerType type = (TowerType)(towerData.id / 3);
 	if (type == TowerType::Crossbow || type == TowerType::Water) //같은 알고리즘
 	{
-		Search = [this]() { TowerFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target); };
+		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
 		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation()); };
 	}
 	if (type == TowerType::Pile)
 	{
-		Search = [this]() { TowerFunc::FindTargets(*GetComponent<CircleCollider>(), "Enemy", target); };
+		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
 		AttackFunc = [this]() { TowerFunc::MeleeAttack(target); };
 	}
 	if (type == TowerType::HolyCross)
 	{
-		Search = [this]() { TowerFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target); };
+		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange); };
 		AttackFunc = [this]() { TowerFunc::Heal(target); };
 	}
 

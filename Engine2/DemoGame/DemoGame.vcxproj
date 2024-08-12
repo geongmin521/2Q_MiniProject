@@ -141,6 +141,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Combination.h" />
+    <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="Compensation.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="DemoGame.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Combination.cpp" />
+    <ClCompile Include="CommonFunc.cpp" />
     <ClCompile Include="Compensation.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="DemoGame.cpp" />

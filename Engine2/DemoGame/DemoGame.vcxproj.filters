@@ -126,8 +126,6 @@
     <ClInclude Include="Pools.h">
       <Filter>Factory</Filter>
     </ClInclude>
-    <ClInclude Include="VampireRanged.h" />
-    <ClInclude Include="EnemyArrow.h" />
     <ClInclude Include="TowerFunc.h">
       <Filter>Tower</Filter>
     </ClInclude>
@@ -147,6 +145,7 @@
     <ClInclude Include="EnemyFunc.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="CommonFunc.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">
@@ -230,8 +229,6 @@
     <ClCompile Include="Light.cpp">
       <Filter>Light</Filter>
     </ClCompile>
-    <ClCompile Include="VampireRanged.cpp" />
-    <ClCompile Include="EnemyArrow.cpp" />
     <ClCompile Include="TowerFunc.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
@@ -251,5 +248,6 @@
     <ClCompile Include="EnemyFunc.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="CommonFunc.cpp" />
   </ItemGroup>
 </Project>

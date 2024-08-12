@@ -70,9 +70,9 @@ void GameObject::AddComponent(Component* pComponent)
 
 }
 
-D2D1_VECTOR_2F GameObject::GetWorldLocation()
+MathHelper::Vector2F GameObject::GetWorldLocation()
 { 
-	D2D1_VECTOR_2F temp{ 0,0 };
+	MathHelper::Vector2F temp{ 0,0 };
 	if (transform)
 		temp = transform->GetWorldLocation();
 

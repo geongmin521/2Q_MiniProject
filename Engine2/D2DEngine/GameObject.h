@@ -27,7 +27,7 @@ public:
 	void AddComponent(Component* pComponent);
 	void SetOwner(World* pOwner) { owner = pOwner; } 
 	
-	D2D1_VECTOR_2F GetWorldLocation();
+	MathHelper::Vector2F GetWorldLocation();
 	template<typename T>
 	T* GetComponent()
 	{
