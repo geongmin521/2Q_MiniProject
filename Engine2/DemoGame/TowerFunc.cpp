@@ -46,8 +46,7 @@ void TowerFunc::FindTargets(CircleCollider& myCol, std::string tag, std::vector<
 		if (tragetCol->owner->name == tag && tragetCol->owner->isActive == true)
 		{
 			poss.push_back(tragetCol->owner->transform->GetWorldLocation());
-			
-			std::cout << myTower->GetWorldLocation().x << "  " << tragetCol->owner->GetWorldLocation().x << "  " << myTower->towerData.attackRange * 50 << std::endl;
+	
 			float x = std::abs(myTower->GetWorldLocation().x - tragetCol->owner->GetWorldLocation().x);
 			float y = std::abs(myTower->GetWorldLocation().y - tragetCol->owner->GetWorldLocation().y);
 			if (x <= myTower->towerData.attackRange * 70 //50곱하는건 지금 나중에 csv에서 한칸기준 수정?
