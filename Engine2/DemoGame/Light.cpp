@@ -90,7 +90,7 @@ void Light::Update(float deltaTime)
 	}
 }
 
-void Light::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void Light::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	pRenderTarget->SetTransform(transform->worldTransform);
 	if (test == true)

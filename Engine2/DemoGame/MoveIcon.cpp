@@ -23,7 +23,7 @@ void MoveIcon::Update(float deltaTime) //콜라이더가 없을수도있는데.. 바운드 박스
 	__super::Update(deltaTime); //그냥 게임오브젝트의 업데이트로 돌리자.. 
 }
 
-void MoveIcon::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void MoveIcon::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 #ifdef _DEBUG

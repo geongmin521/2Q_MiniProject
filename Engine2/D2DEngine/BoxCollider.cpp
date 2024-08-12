@@ -60,7 +60,7 @@ void BoxCollider::Update(float deltaTime)
 
 //그리고 겹치는 상태일때도 만들어야함
 
-void BoxCollider::Render(ID2D1RenderTarget* pRenderTarget)
+void BoxCollider::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 {
 #ifdef _DEBUG
     D2DRenderer::GetInstance()->DrawAABB(*aabb);

@@ -19,9 +19,10 @@ EnemyBase::EnemyBase(EnemyData data)
 	this->enemyData = data;
 	name = "Enemy";
 	curHP = enemyData.HP;
-	SetBoundBox(0, 0, 500, 500); //기본 적 이미지 사이즈 //이것도 원으로 만들어도 될듯? 
+	SetBoundBox(0, 0, 50, 50); //기본 적 이미지 사이즈 //이것도 원으로 만들어도 될듯? 
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Zombie2.csv"));
-	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Enemy));
+	enemyData.attackRange = 10; //테스트
+	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
@@ -64,7 +65,7 @@ void EnemyBase::Update(float deltaTime) //타겟을 여러개 들고있을확률도 있음... �
 	__super::Update(deltaTime);
 }
 
-void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 }

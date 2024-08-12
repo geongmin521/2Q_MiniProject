@@ -203,6 +203,9 @@
     <ClInclude Include="DOTweenManager.h">
       <Filter>소스 파일\DOTween</Filter>
     </ClInclude>
+    <ClInclude Include="IDoubleClickAble.h">
+      <Filter>소스 파일\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">

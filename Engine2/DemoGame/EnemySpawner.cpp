@@ -56,6 +56,6 @@ void EnemySpawner::Update(float deltaTime) //스포너가 최대 4개일수있으니까.. 벡�
 	}
 }
 
-void EnemySpawner::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void EnemySpawner::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 }

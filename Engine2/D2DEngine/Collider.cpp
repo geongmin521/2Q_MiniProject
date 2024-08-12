@@ -9,7 +9,7 @@ Collider::Collider()
 
 Collider::~Collider()
 {
-	CollisionManager::GetInstance()->EraseCollider(this);
+	CollisionManager::GetInstance()->AddRemove(this);
 }
 
 void Collider::ClearAndBackupCollideState()

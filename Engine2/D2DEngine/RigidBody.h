@@ -15,7 +15,7 @@ public:
 	RigidBody();
 	virtual ~RigidBody();
 	virtual void Update(float deltaTime);
-	//virtual void Render(ID2D1RenderTarget* pRenderTarget); //그릴거는 딱히 없는듯.. 
+	//virtual void Render(ID2D1RenderTarget* pRenderTarget,float Alpha = 1); //그릴거는 딱히 없는듯.. 
 	virtual void Enable() override;
 	virtual void Disable() override;
 

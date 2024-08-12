@@ -22,7 +22,7 @@ public:
 	int id;//오브젝트 풀링을 위한 아이디
 public:
 	virtual void Update(float deltaTime);
-	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 	const AABB& GetBoundBox() const { return *boundBox; }
 	void SetBoundBox(int x, int y, int weight, int height);
 	void SetBoundBox(int x, int y, MathHelper::Vector2F bound);

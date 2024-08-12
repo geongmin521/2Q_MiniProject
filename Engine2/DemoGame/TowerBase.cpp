@@ -12,6 +12,7 @@
 #include "Circle.h"
 #include "TowerFunc.h"
 #include "FiniteStateMachine.h"
+#include "GameManager.h"
 #include "TowerFsm.h"
 #include "HPBar.h"
 #include "TowerStar.h"
@@ -68,7 +69,7 @@ void TowerBase::Update(float deltaTime)
 	__super::Update(deltaTime);
 }
 
-void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 }
@@ -96,20 +97,23 @@ void TowerBase::Heal(float heal)
 
 void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게.. 
 {
-	std::cout << "BeginDrag";
+	if (GameManager::GetInstance().get()->isBattle == true) //전투중에는 드래그 불가 //아 여기만 막는다고 전체가 막히는게 아니지?
+		return;
 	if (container)
 		container->Clear();
 }
 
-void TowerBase::StayDrag(const MouseState& state)
+void TowerBase::StayDrag(const MouseState& state) 
 {
+	if (GameManager::GetInstance().get()->isBattle == true) //시작을 못하면 이것도 아예안들어왔으면좋겠는데.. 흠.. //일단 전투시작이 늦게 들어와야하고.. 
+		// ondrop 이벤트도 막아야함 .. 그게또 위치를 변경해주는거라.. 
+		return;
 	transform->SetRelativeLocation(state.GetMousePos());
 }
 
 void TowerBase::EndDrag(const MouseState& state) //드래그앤 드롭이니까.. 
 {	
 	//container
-	std::cout << "EndDrag";
 }
 
 void TowerBase::OnBlock(Collider* ownedComponent, Collider* otherComponent)

@@ -13,6 +13,6 @@ public:
     GameObject* target;
     void Init(GameObject* target, MathHelper::Vector2F location); 
     virtual void Update(float deltaTime);
-    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 };
 

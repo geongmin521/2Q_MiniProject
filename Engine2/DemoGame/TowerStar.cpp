@@ -21,7 +21,7 @@ void TowerStar::Update(float deltaTime)
 	__super::Update(deltaTime);
 }
 
-void TowerStar::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void TowerStar::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 }

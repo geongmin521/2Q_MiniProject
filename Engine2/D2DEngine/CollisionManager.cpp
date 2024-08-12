@@ -27,6 +27,9 @@ CollisionManager* CollisionManager::GetInstance()
 
 void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해야하니까 레이어별로 콜라이더를 들고있어야지.. 
 {
+	for (auto val : remove) //이게 중간에 지워지면 터지는건가? 아닌건가? 
+		EraseCollider(val);
+	remove.clear();
 	for (auto val : collisonLayer)
 	{
 		for (int source = 0; source < colliders[val.first].size(); source++)  
@@ -67,7 +70,12 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 	}
 }
 
-void CollisionManager::EraseCollider(Collider* remove)
+void CollisionManager::AddRemove(Collider* col)
+{
+	remove.push_back(col);
+}
+
+void CollisionManager::EraseCollider(Collider* remove) //여기서 이렇게 바로 지워도 안터질려나? 업데이트중에 지우면 큰일날텐데..
 {
 	CollisionLayer layer = remove->GetCollisionLayer();
 	colliders[layer].erase(std::remove_if(colliders[layer].begin(), colliders[layer].end(),

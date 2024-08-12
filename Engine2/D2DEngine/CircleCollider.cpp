@@ -44,7 +44,7 @@ void CircleCollider::Update(float deltaTime)
 	}
 }
 
-void CircleCollider::Render(ID2D1RenderTarget* pRenderTarget)
+void CircleCollider::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 {
 #ifdef _DEBUG
 	D2DRenderer::GetInstance()->DrawAABB(*aabb);

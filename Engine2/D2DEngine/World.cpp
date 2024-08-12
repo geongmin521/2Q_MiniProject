@@ -61,7 +61,7 @@ void World::Update(float deltaTime)
 	DOTweenManager::GetInstance().get()->Update(deltaTime);
 }
 
-void World::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void World::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	for (auto& obj : m_GameObjects) 
 	{		
@@ -76,15 +76,12 @@ void World::Render(ID2D1HwndRenderTarget* pRenderTarget)
 
 void World::Clear()
 {
-
 	m_GameObjects.clear();
 }
 
 void World::MakeObject()
 {
 }
-
-
 
 void World::DeleteGameObject(GameObject* gameObject) //지울 객체를 담아두기
 {

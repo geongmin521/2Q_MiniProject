@@ -17,7 +17,7 @@ public:
     void SetAbility(std::string ability);
     virtual ~EnemyBase();
     virtual void Update(float deltaTime);
-    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
     virtual void Hit(float damage);
     virtual void Heal(float heal)override {}
     virtual void Attack();

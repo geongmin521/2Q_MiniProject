@@ -123,7 +123,7 @@ HRESULT ResourceManager::NewBitmapFromFile(const WCHAR * szFilePath, ID2D1Bitmap
 			GUID_WICPixelFormat32bppPBGRA,   // Destination pixel format
 			WICBitmapDitherTypeNone,         // Specified dither pattern
 			NULL,                            // Specify a particular palette 
-			0.f,                             // Alpha threshold
+			0.f,                             // Alpha = 1 threshold
 			WICBitmapPaletteTypeCustom       // Palette translation type
 		);
 	}

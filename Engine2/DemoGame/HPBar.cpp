@@ -31,7 +31,7 @@ void HPBar::Update(float deltaTime)
 	transform->SetRelativeLocation({ - move * 0.5f,70.f });
 }
 
-void HPBar::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void HPBar::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 }

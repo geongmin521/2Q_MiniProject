@@ -14,7 +14,7 @@ public:
 	CircleCollider(AABB* aabb, Circle* circle, CollisionType type, IColliderNotify* notify, CollisionLayer layer);
 	~CircleCollider();
 	virtual bool IsCollide(Collider* otherComponent) override;
-	virtual void Render(ID2D1RenderTarget* pRenderTarget) override;
+	virtual void Render(ID2D1RenderTarget* pRenderTarget,float Alpha = 1) override;
 	virtual void Update(float deltaTime)override;
 	virtual	void ProcessBlock(Collider* ownedComponent,Collider* otherComponent) override;
 };

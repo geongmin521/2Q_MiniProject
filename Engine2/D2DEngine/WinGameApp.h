@@ -17,7 +17,7 @@ public:
 	virtual void Uninitialize();
 	bool InitInstance(HINSTANCE hInstance, int nCmdShow);
 	void Update(float fTimeElapsed);
-	void Render(ID2D1HwndRenderTarget* pRenderTarget);
+	void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 	ResourceManager* m_pResourceManager = nullptr;
 };
 

@@ -19,11 +19,11 @@ void Bitmap::Update(float fTimeElapsed)
 	__super::Update(fTimeElapsed);
 }
 
-void Bitmap::Render(ID2D1RenderTarget* pRenderTarget)  
+void Bitmap::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)  
 {
 	assert(bitmap != nullptr);
 	__super::Render(pRenderTarget);
-	pRenderTarget->DrawBitmap(bitmap);
+	pRenderTarget->DrawBitmap(bitmap, DstRect, Alpha);
 }
 
 

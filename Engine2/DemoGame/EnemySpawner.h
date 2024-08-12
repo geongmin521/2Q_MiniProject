@@ -27,6 +27,6 @@ public:
 	void CreateEnemy(int id);
 	void StartWave();
 	virtual void Update(float deltaTime) override;
-	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override;
+	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1) override;
 };
 

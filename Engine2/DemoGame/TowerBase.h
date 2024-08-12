@@ -36,7 +36,7 @@ public:
     virtual ~TowerBase() = default; //진짜 어떻게 해야할지를 모르겠네 허 허.. //불렛만 다르면 되는거지 적 불렛이랑 다른게 뭐지?  
 
     virtual void Update(float deltaTime);
-    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 
     virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
     virtual void Hit(float damage);

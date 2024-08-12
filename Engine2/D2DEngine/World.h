@@ -17,7 +17,7 @@ public:
 	AABB* m_CullingBoundDefault;	
 public:	
 	virtual void Update(float deltaTime);
-	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 	void Clear();
 	void SetCullingBound(AABB* pBound) { m_pCullingBound = pBound; }
 	virtual void MakeObject();

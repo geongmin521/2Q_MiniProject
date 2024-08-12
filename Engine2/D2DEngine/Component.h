@@ -21,7 +21,7 @@ public:
 	void SetOwner(GameObject* pOwner) { owner = pOwner; }
 
 	virtual void Update(float deltaTime);
-	virtual void Render(ID2D1RenderTarget* pRenderTarget);
+	virtual void Render(ID2D1RenderTarget* pRenderTarget,float Alpha = 1);
 
 
 };
