@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "IColliderNotify.h"
 
-
+class Bitmap;
 class Light : public GameObject , IColliderNotify
 {
 public:
@@ -18,7 +18,7 @@ public:
 	virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent);
 
 	Bitmap* firstBitmap = nullptr;
-	Bitmap * secondBitmap = nullptr;
+	Bitmap* secondBitmap = nullptr;
 
 	bool test = true;
 };
