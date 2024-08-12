@@ -35,6 +35,9 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 			{
 				if (!colliders[val.first][source]->IsCollide(colliders[val.second][target]))
 					continue;
+				if (colliders[val.first][source]->owner == (colliders[val.second][target])->owner)
+					continue;
+				
 				if(colliders[val.first][source]->GetCollisionType() == CollisionType::NoCollision ||
 				   colliders[val.second][target]->GetCollisionType() == CollisionType::NoCollision)
 					continue;
