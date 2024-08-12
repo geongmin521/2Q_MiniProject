@@ -11,7 +11,7 @@ class Shop: public UIPanel
 private:
 	bool isLock[5];
 	int Id[5]; 
-	int reroll = 2;
+	int reroll = 10;
 	std::vector<Image*> Icons;				
 	std::vector<std::wstring> ImagePath;	
 	std::vector<std::wstring> TowerName;	

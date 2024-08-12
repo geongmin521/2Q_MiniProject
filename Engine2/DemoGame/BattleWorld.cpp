@@ -51,7 +51,7 @@ void BattleWorld::MakeUI() //앞에 경로는 다정해져있으니까 위에서 처리하자..
 	combination = Factory().createObj<Combination>().Get<Combination>();
 	shop = Factory().createObj<Shop>().Get<Shop>(); shop->SetOtherUI(IconInven, combination); shop->spawner = spwaner;//상점이 스포너 들고있을필요없음
 	showWave = Factory().createObj<ShowWave>().Get<ShowWave>();
-
+	
 	Factory().createObj<Button>(L"UI.png", [this]() { combination->SetActive(true); }).setPosition({ WinSizeX - 600, WinSizeY - 100 }).AddText(L"조합식", 50); //조합표띄우기
 	spawnButton = Factory().createObj<Button>(L"UI.png", [this]() { spwaner->StartWave(); spawnButton->isActive = false;  }).
 		setPosition({ WinSizeX - 200, WinSizeY - 100 }).AddText(L"적 소환", 50).setActive(false).setRenderOrder(60).Get<Button>(); //적들 생성 버튼

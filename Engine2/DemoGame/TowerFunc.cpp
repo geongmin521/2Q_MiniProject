@@ -45,7 +45,7 @@ void TowerFunc::FindTargets(CircleCollider& myCol, std::string tag, std::vector<
 		if (tragetCol->owner->name == tag && tragetCol->owner->isActive == true)
 		{
 			if (!(std::abs(myTower->GetWorldLocation().x - tragetCol->owner->GetWorldLocation().x) <= myTower->towerData.attackRange * 50) //50곱하는건 지금 나중에 csv에서 한칸기준 수정?
-				|| !(std::abs(myTower->GetWorldLocation().y - tragetCol->owner->GetWorldLocation().y) <= myTower->towerData.attackRange * 50))
+				||!(std::abs(myTower->GetWorldLocation().y - tragetCol->owner->GetWorldLocation().y) <= myTower->towerData.attackRange * 50))
 				continue;      //적 본체위치가 사거리밖이면 넘어가게  이렇게맞나?
 			targets.push_back(tragetCol->owner);
 		}

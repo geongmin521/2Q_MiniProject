@@ -51,7 +51,7 @@ void Arrow::Update(float deltaTime)
 		std::abs(target->GetWorldLocation().y - GetWorldLocation().y) <= 1.0f)
 	{
 		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);		
-		enemy->Hit(Utility::CalCul("¼®±ÃÇü",enemy->enemyData.Type,5000));
+		enemy->Hit(Utility::CalCul("¼®±ÃÇü",enemy->enemyData.Type,30));
 		//
 		isActive = false;
 	}

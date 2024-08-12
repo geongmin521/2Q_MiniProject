@@ -40,16 +40,16 @@ struct FRAME_INFO // 애니메이션 기본 프레임의 기본 정보
 
 struct ANIMATION_INFO // 하나의 동작에 대한 정보
 {
-	std::string Name; // 애니메이션의 이름	
+	std::wstring Name; // 애니메이션의 이름	
 	std::vector<FRAME_INFO> Frames; // 프레임의 모음
 	bool Loop; // 반복 여부
 	ANIMATION_INFO()
-		:Name("Default")
+		:Name(L"Default")
 	{
 		Loop = true;
 	}
 
-	ANIMATION_INFO(std::string name,bool loop = true)
+	ANIMATION_INFO(std::wstring name,bool loop = true)
 		:Name(name) 
 	{
 		Loop = loop;
@@ -70,7 +70,7 @@ public:
 	    assert(index >= 0 && index < animations.size());
 		return &animations[index]; 
 	}
-	ANIMATION_INFO* GetAnimationInfo(std::string AnimationName)
+	ANIMATION_INFO* GetAnimationInfo(std::wstring AnimationName)
 	{
 		for (auto& iter : animations)
 		{

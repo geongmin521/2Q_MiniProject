@@ -25,7 +25,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	curHP = towerData.HP;
 	EventSystem::GetInstance().get()->Ui.insert(this);
 	SetBoundBox(0, 0, 150,150);
-	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Ken")); //애니메이션은데이터의 이름으로 위치찾아서 가져오기
+	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"..\\Data\\CSV\\Ken.csv")); //애니메이션은데이터의 이름으로 위치찾아서 가져오기
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Tower));
 	renderOrder = 100;
