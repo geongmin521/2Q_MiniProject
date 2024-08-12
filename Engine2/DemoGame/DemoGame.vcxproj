@@ -145,9 +145,9 @@
     <ClInclude Include="Container.h" />
     <ClInclude Include="DemoGame.h" />
     <ClInclude Include="DemoGameApp.h" />
-    <ClInclude Include="EnemyArrow.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyFSM.h" />
+    <ClInclude Include="EnemyFunc.h" />
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="GameOver.h" />
@@ -166,10 +166,7 @@
     <ClInclude Include="TowerFunc.h" />
     <ClInclude Include="TowerStar.h" />
     <ClInclude Include="UIPanel.h" />
-    <ClInclude Include="Vampire.h" />
-    <ClInclude Include="VampireRanged.h" />
     <ClInclude Include="Victory.h" />
-    <ClInclude Include="VampireBomb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrow.cpp" />
@@ -182,9 +179,9 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="DemoGame.cpp" />
     <ClCompile Include="DemoGameApp.cpp" />
-    <ClCompile Include="EnemyArrow.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyFSM.cpp" />
+    <ClCompile Include="EnemyFunc.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameOver.cpp" />
@@ -202,10 +199,7 @@
     <ClCompile Include="TowerFunc.cpp" />
     <ClCompile Include="TowerStar.cpp" />
     <ClCompile Include="UIPanel.cpp" />
-    <ClCompile Include="Vampire.cpp" />
-    <ClCompile Include="VampireRanged.cpp" />
     <ClCompile Include="Victory.cpp" />
-    <ClCompile Include="VampireBomb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\D2DEngine\D2DEngine.vcxproj">

@@ -133,7 +133,7 @@ void EventSystem::DragEvent()
 	{
 		IsMouseDown = false;
 		curDrag->EndDrag(inputSystem->GetMouseState());
-		DropEvent(dynamic_cast<UI*>(curDrag)); //드롭이 일어남
+		DropEvent(dynamic_cast<GameObject*>(curDrag)); //드롭이 일어남
 		curDrag = nullptr; //드래그를 비워주기
 	}	
 	else

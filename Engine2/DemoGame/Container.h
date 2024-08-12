@@ -6,9 +6,8 @@ class MoveIcon;
 class Container: public UI ,public IDropAble, IClickAble//이친구는 UI가 맞을까나? dropAble 인터페이스를 상속받을거긴해
 {
 private:
-	GameObject* contain;
-	
 public:
+	bool isContain;
 	Container();
 	virtual ~Container();
 	void Clear(); // 저장공간에서 빠져 나갈때

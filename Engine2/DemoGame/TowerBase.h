@@ -5,9 +5,9 @@
 #include "IDragAble.h"
 #include "Bitmap.h"
 #include "Collider.h"
+#include "IClickAble.h"
 #include "UI.h"
-#include "TowerStar.h"
-#include "HPBar.h"
+
 
 enum class TowerType
 {
@@ -18,22 +18,19 @@ enum class TowerType
 }; 
 
 class Container;
+class TowerStar;
+class HPBar;
 class TowerBase :
-    public GameObject , public IDamageNotify , public IDragAble, public IColliderNotify
+    public GameObject , public IDamageNotify , public IDragAble, public IColliderNotify, public IClickAble
 {
 public: //나중에 은닉화할 데이터는 빼기
-    TowerData towerData;
-    
-    bool isMoving;      //일단 제일 단순한 bool값으로 처리하기
-    TowerStar* star;    //기본타워에서 star하나씩가지고있게
-    HPBar* HPbar;
-    bool isAttack = false;
-    Container* container; //드래그를 위해 컨테이너는 들고있는게 맞을까? 
+    TowerData towerData;   
+    Container* container; //본인이 담겨있는 컨테이너.. 
     std::vector<GameObject*> target;
     std::function<void(void)> Search; //아이디로 타입구분해서 각각의 타워에 맞는 기능을 넣어주기
     std::function<void(void)> AttackFunc;
 public:
-    float curHP;        //타워각자가 가질 현재 체력
+    float curHP;        //타워각자가 가질 현재 체력 //hp 참조로 넘겨주면될듯? 그럼 게임오브젝트에 필요없겠지? 
 
     TowerBase(TowerData data);
     virtual ~TowerBase() = default; //진짜 어떻게 해야할지를 모르겠네 허 허.. //불렛만 다르면 되는거지 적 불렛이랑 다른게 뭐지?  
@@ -53,4 +50,6 @@ public:
     virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)  override;
     virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)   override;
+
+    virtual void OnClick() override;
 };

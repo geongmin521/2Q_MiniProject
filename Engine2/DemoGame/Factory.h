@@ -7,6 +7,7 @@ using namespace MathHelper;
 
 class World;
 class GameObject;
+class Transform;
 
 class Factory 
 {
@@ -29,6 +30,7 @@ public:
 	void InsertWorld(GameObject* obj);
 	Factory& setPosition(Vector2F pos);
 	Factory& setScale(Vector2F sclae);
+	Factory& setParent(Transform* parent);
 	Factory& setRoot(std::vector<GameObject*>* Root); 
 	Factory& setActive(bool active); 
 	Factory& setRenderOrder(int order); 

@@ -12,7 +12,6 @@
 
 #include "Map.h"
 #include "Camera.h"
-#include "Vampire.h"
 #include "EnemySpawner.h"
 void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 {

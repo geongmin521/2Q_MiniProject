@@ -3,30 +3,34 @@
 #include "DataManager.h"
 #include "Collider.h"
 #include "IDamageNotify.h"
+#include "IColliderNotify.h"
 
 class HPBar;
+class TowerBase;
 class EnemyBase :
-    public GameObject , IDamageNotify
+    public GameObject , IDamageNotify, IColliderNotify
 {
 private:
-    
+    std::function<void(void)> attack;
 public:
     EnemyBase(EnemyData data);
+    void SetAbility(std::string ability);
     virtual ~EnemyBase();
-
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
     virtual void Find(Collider* othercomponent);
     virtual void Hit(float damage);
     virtual void Heal(float heal)override {}
-    virtual void Attack(float deltaTime);
+    virtual void Attack();
+
+    virtual void OnBlock(Collider* ownedComponent, Collider* otherComponent) override;
+    virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
+    virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent) override;
+    virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent) override;
+    //이게 달라지는건 공격 알고리즘 밖에없네? 적들 탐지도 다 같고
 public:
-    // 일단 퍼블릭
-    HPBar* HPbar;
     float curHP;
-    GameObject* target = nullptr;
-    bool isAttack = false;
+    TowerBase* target = nullptr;
     EnemyData enemyData;
-    WaveData waveData;
 };
 

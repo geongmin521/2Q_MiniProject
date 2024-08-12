@@ -18,19 +18,6 @@ TowerFSM::~TowerFSM()
 
 }
 
-void TowerFSM::EnterState()
-{
-}
-
-void TowerFSM::Update(float DeltaTime)
-{
-}
-
-void TowerFSM::ExitState()
-{
-}
-
-
 TowerShared::TowerShared(FiniteStateMachine* pOwner, std::string Name) : TowerFSM(pOwner, Name)
 {
 	owner->SetSharedTransition(this);
@@ -60,18 +47,19 @@ void TowerIdle::EnterState()
 void TowerIdle::Update(float DeltaTime) //타겟으로 본인도 들어오나? 타겟은 등록된 태그만 먹게해놨는데.. 
 {
 	tower->Search();
-	if (tower->target.empty() == false && tower->isAttack == false)
-	{
-		owner->SetNextState("Attack");
-	}
-	if (tower->isAttack == true)
+	if (tower->target.empty() == false)
 	{
 		cooldown += DeltaTime;
+
 		if (cooldown > tower->towerData.attackSpeed)
 		{
-			tower->isAttack = false;
-			cooldown = 0;
-		}
+			cooldown = 0; 
+			owner->SetNextState("Attack");
+		}	
+	}
+	else
+	{
+		cooldown = tower->towerData.attackSpeed; //첫 사거리에 들어온 적에게는 딜레이없이 쏘기위함..
 	}
 }
 
@@ -86,13 +74,11 @@ void TowerAttack::EnterState()
 }
 
 
-void TowerAttack::Update(float DeltaTime) //한번쏘고 가장가까운적? 이건 기획한테 물어보기..   //투사체공격을 따로 만들어야하나 타워마다 fsm을 새로주는게 나은가
+void TowerAttack::Update(float DeltaTime) //공속이 애니메이션보다 빨라지면.. 공속이 느려지는 잠재적인 버그가능.. 애니메이션속도가 공속이랑 같아지도록 세팅하는거 만들기.. 
 {
-	//공격한번후엔 idle로 보내고 다시 attack?
 	if (ani->IsEnd())
 	{
 		tower->Attack(DeltaTime);
-		//tower->isAttack = true;
 		owner->SetNextState("Idle");
 	}
 }

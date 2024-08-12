@@ -1,52 +1,33 @@
-#include "../D2DEngine/pch.h"
-#include "../D2DEngine/Bitmap.h"
-#include "../D2DEngine/Transform.h"
-#include "../D2DEngine/D2DRenderer.h"
+#include "pch.h"
+#include "Bitmap.h"
+#include "Transform.h"
+#include "D2DRenderer.h"
 #include "TowerBase.h"
 #include "EnemyBase.h"
 #include "HPBar.h"
 
-HPBar::HPBar()
+HPBar::HPBar(float& curHp, float maxHp) : curHp(curHp) , maxHp(maxHp)
 {
 	hpBar = new Bitmap(L"..\\Data\\Image\\hpbar.png");
-	AddComponent(hpBar); //
+	AddComponent(hpBar); 
 	renderOrder = 101;
-	//transform->SetRelativeScale({ 0.2f,0.2f });
 }
 
 HPBar::~HPBar()
 {
 }
 
-void HPBar::Init(GameObject* obj)
+void HPBar::Update(float deltaTime) 
 {
-	SetHPOnwer(obj);
-	transform->SetParent(HPOwner->transform);
-	transform->SetRelativeLocation({ 0, 70.f });
-	isActive = true;
-
-}
-
-void HPBar::Update(float deltaTime)
-{
-	if (HPOwner->isActive == false)
-	{
-		isActive = false;
-	}
-	
 	__super::Update(deltaTime);
-
-	float scaleX = (HPOwner->perHP / 100.f);  // 체력 퍼센트
+	float scaleX = (curHp / maxHp);  // 체력 퍼센트
 	float origin = hpBar->bitmap->GetSize().width;     // 원래 크기
 	float newOrigin = origin * scaleX;
 	float move = (origin - newOrigin) / 2.0f;
 
 	// 1. 스케일 조정 (중앙 기준)
 	transform->SetRelativeScale({ scaleX * 0.5f, 0.35 }); //0.5곱하는건 전체크기조절을 위해 크기에맞게 수정
-
-
 	// 2. 왼쪽 기준으로 위치 보정
-	
 	transform->SetRelativeLocation({ - move * 0.5f,70.f });
 }
 

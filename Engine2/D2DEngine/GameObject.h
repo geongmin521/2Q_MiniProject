@@ -9,7 +9,6 @@ class GameObject
 public:
 	GameObject();
 	virtual ~GameObject();
-	float perHP; // 현제 체력 퍼센트
 	bool isActive;// 이거분명 setactive를 만들었던거 같은데 왜 없어졌을까?
 	std::string name;
 	std::vector<Component*> ownedComponents;	// 소유한 컴포넌트들

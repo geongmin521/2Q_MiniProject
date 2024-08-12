@@ -11,6 +11,9 @@ public:
 	}
 	static float CalCul(std::string myType, std::string targetType, float damage)
 	{
+		if(targetType == "보스")
+			return damage *= 0.75f;
+
 		if (myType == "석궁형" && targetType == "속도형")
 		{
 			return damage *= 1.25;
