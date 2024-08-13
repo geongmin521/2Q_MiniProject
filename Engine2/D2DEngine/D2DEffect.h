@@ -1,15 +1,17 @@
 #pragma once
 #include "SingletonBase.h"
 
-
+class Transform;
 class D2DEffect : public SingletonBase<D2DEffect>
 {
 private:
 	std::unordered_map<std::wstring, ID2D1Effect*> Effects;
+	std::vector<ID2D1Effect*> UpdateEffects; // 용도 업데이트 필요한 이펙트들 모음
 
 public:
 	~D2DEffect();
 	ID2D1Effect* FindEffect(const std::wstring& keyName);
+	void Update(float deltaTime);
 
 public: // 트랜스폼 관련 적용
 	void Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_3X2_F* matrix);
@@ -20,14 +22,14 @@ public: // 이펙트 생성
 	void CreateColorMatrixEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_5X4_F _ColorMatrix); // 비트맵에 색정렬하여 색을 넣을때
 	void CreateBlendEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, ID2D1Bitmap* _BitmapTwo); // 비트맵 끼리 색 합치거나 구분할때
 	void CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, int val); //  깨지는 효과 https://learn.microsoft.com/ko-kr/windows/win32/direct2d/morphology
+	void CreateCrossFadeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, ID2D1Bitmap* _BitmapTwo);
 
 public: // 빛 효과
-	void Create2DLightEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
+	void CreateDistantDiffuseEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
 
-	void CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
+	void CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, Transform* LightTransform);
 	void CreateDistanSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
 	void CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
-
 
 };
 

@@ -24,6 +24,7 @@ public:
 	void DrawCircle(Circle& circle);
 
 	void DrawGradientCircle(const D2D1_POINT_2F& position, float radius, const D2D1_COLOR_F& color);
+
 public:
 	ID2D1Factory* D2DFactory;			// D2D 개체 인터페이스 포인터 변수
 	ID2D1HwndRenderTarget* RenderTarget; //그리는 렌더타겟								//이미지 생성에필요
