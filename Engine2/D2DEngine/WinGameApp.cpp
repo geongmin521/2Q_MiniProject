@@ -31,12 +31,13 @@ WinGameApp::~WinGameApp()
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	POINT startPoint{0,0};
+	
 	EventSystem* event = EventSystem::GetInstance().get();
+	POINT startPoint{ event->startPoint };
 	bool isDragging    = event->isDragging; //그냥 이걸로하면안될거같고.. 
 	bool isClickValid  = event->isClickValid;
-	int dragThresholdX = GetSystemMetrics(SM_CXDRAG);
-	int dragThresholdY = GetSystemMetrics(SM_CYDRAG);
+	int dragThresholdX = GetSystemMetrics(SM_CXDRAG)* 5;
+	int dragThresholdY = GetSystemMetrics(SM_CYDRAG)* 5;
 	switch (message)
 	{
 	case WM_DESTROY:
@@ -67,8 +68,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		EventSystem::GetInstance().get()->DoubleClickEvent();
 	case WM_LBUTTONDOWN:
 		// 드래그 시작점 기록
-		startPoint.x = LOWORD(lParam);
-		startPoint.y = HIWORD(lParam);
+		event->startPoint.x = LOWORD(lParam);
+		event->startPoint.y = HIWORD(lParam);
 		isDragging = false;
 		isClickValid = true;
 		event->isClickValid = true;
