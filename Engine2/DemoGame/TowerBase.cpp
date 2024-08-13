@@ -144,7 +144,7 @@ void TowerBase::OnClick()
 		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
 		////if (newTower == nullptr) 
 		newTower->transform->SetRelativeLocation(this->GetWorldLocation());
-		//Pools::GetInstance().get()->AddPool(this);
+		Pools::GetInstance().get()->AddPool(this);
 		//std::cout << std::endl << "asd" << std::endl;
 	}
 	

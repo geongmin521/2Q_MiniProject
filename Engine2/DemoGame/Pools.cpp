@@ -19,8 +19,8 @@ Pools::~Pools()
 void Pools::AddPool(GameObject* _Object) //이름으로 찾을일있을까? 외우지도 못하는데?
 {
 	_Object->transform->SetRelativeLocation({ 4000, 4000 });
-	//_Object->SetActive(false);
-	//_Object.set
+	_Object->SetActive(false);
+
 	if (PoolList.find(_Object->id) == PoolList.end()) // 찾지못하면 
 	{
 		std::vector<GameObject*> Pool; 
@@ -46,6 +46,7 @@ GameObject* Pools::PopPool(int id)
 	{
 		GameObject* popObj = PoolList[id].back();
 		PoolList[id].pop_back(); //꺼내줄때도 적이랑 타워같은거는 기본값으로 돌리고 보내줘야할텐데.. 
+		popObj->SetActive(true);
 		return popObj;
 	}
 	else 
