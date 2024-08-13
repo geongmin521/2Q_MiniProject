@@ -16,8 +16,6 @@ Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까?
 {
 	ImagePath = { L"Crossbow.png",L"Water.png",L"Pile.png",L"HolyCross.png",L"vampire.png" };//태그를 만들게 되면 이걸쓸듯? 아몰라.. 바뀔수도있는거지.. 
 	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" };
-
-	renderOrder = 80;
 	Factory().createObj<Image>(L"BigBack.png").setPosition(WinHalfSizeXY).setScale({ 2,2 }).setParent(this->transform);
 	float LeftPadding = 700; 
 	for (int i = 0; i < 5; i++)//아이콘
@@ -25,7 +23,7 @@ Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까?
 	for (int i = 0; i < 5; i++)//리롤 잠그기
 		Factory().createObj<Button>(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }).setPosition({ LeftPadding + i * 130, WinHalfSizeY - 100 }).setParent(this->transform).AddText(L"Lock", 20);
 	
-	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setParent(this->transform).AddText(L"전체리롤", 30).setRenderOrder(120);
+	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setParent(this->transform).AddText(L"전체리롤", 30);
 	//보상 텍스트박스 
 	compensationText = Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 200 }).setParent(this->transform).AddText(L"", 20).Get()->GetComponent<D2DFont>();//근데 이친구들이 원하는 텍스트를 따라가고싶단말이지.. 
 	//리롤가능한 횟수를 출력하는 텍스트박스
@@ -36,7 +34,13 @@ Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까?
 	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Spawn, this)).setPosition({ LeftPadding + 650, WinHalfSizeY + 200 }).setParent(this->transform).AddText(L"소환하기", 30);
 
 	SetActive(false); 
-}//길게 나열하는것도 괜찮긴한데.. 너무 길지않나? 
+}
+void Shop::init()
+{
+	reroll = 5;
+	rerollText->SetDialog(L"리롤 가능 횟수" + std::to_wstring(reroll));
+}
+//길게 나열하는것도 괜찮긴한데.. 너무 길지않나? 
 
 Shop::~Shop() //인규형이 만들어준 텍스트클래스를 기준으로 텍스트 박스도 빠르게 만들어야지.. 특정값을 출력할수있게 템플릿으로 만들수있을려나? 
 {
@@ -44,7 +48,6 @@ Shop::~Shop() //인규형이 만들어준 텍스트클래스를 기준으로 텍스트 박스도 빠르게 �
 
 void Shop::Reroll() //맨처음에는 어떻게 처리하는지 올라온거 봤었는데 그거대로 처리할수있도록하자.. 
 {
-	
 	if (reroll <= 0)
 		return;
 	compensationList.clear();
@@ -88,13 +91,15 @@ void Shop::Spawn() //이제 텍스트도 띄우고 좀더 이쁘게 만들어야겠다..
 	{	
 		GameObject* tower = Pools::GetInstance().get()->PopPool(var);   // 아이콘을 소환하는게아니라.타워를 소환
 		if (tower != nullptr) //현재 모든 타워가 미완이라 터질수있으니 일단 이렇게 처리함
+		{
 			dynamic_cast<TowerBase*>(tower)->Init(Containers[inven]->transform->GetWorldLocation());
-		//tower->transform->SetRelativeLocation(Containers[inven]->transform->GetWorldLocation()); //팩토리처럼 만들때 세팅할수있듯이.. 오브젝트풀도? 그렇게 해볼까? 
+			Containers[inven]->OnDrop(tower); 
+		}
 		
 		inven++;
 	}
 	compensationList.clear(); 
-	spawner->StartWave();
+	//spawner->StartWave();
 	SetActive(false);
 }
 

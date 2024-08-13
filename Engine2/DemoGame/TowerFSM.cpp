@@ -7,6 +7,7 @@
 #include "Transform.h"
 #include "Pools.h"
 #include "EnemyBase.h"
+#include "Container.h"
 
 TowerFSM::TowerFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
@@ -90,6 +91,7 @@ void TowerAttack::ExitState()
 
 void TowerDeath::EnterState()
 {
+	tower->container->Clear();
 	//ani->SetAnimation   타워 파괴 애니메이션 세팅
 }
 

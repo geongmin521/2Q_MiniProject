@@ -17,7 +17,7 @@ public:
 	Transform* transform = nullptr;				
 	World* owner = nullptr;						// 이 게임 오브젝트가 속한 월드 //각 객체가 월드를 알필요가있나? 
 	AABB* boundBox;								// 컬링을 위한 박스
-	int renderOrder;							//이거는 누가한테 줘야할까.. 각 클래스가 들고있을까?
+	int renderOrder;							//이것의 렌더우선순위를 어떻게 해야할까. .렌더우선순위를 변경하는건 쉽지않네.. 
 	std::string gameObjectName;
 	int id;//오브젝트 풀링을 위한 아이디
 public:

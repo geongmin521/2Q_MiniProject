@@ -26,6 +26,7 @@ private:
 public:
 	EnemySpawner* spawner;
 	Shop();
+	void init();
 	virtual ~Shop();
 	void Reroll();
 	void Spawn(); //여기서 조합식 처리하는것도 만들어야하고.. 

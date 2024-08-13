@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "DataManager.h"
+#include "GameManager.h"
 #include "Utility.h"
 #include <locale>
 #include <codecvt>
@@ -176,13 +177,13 @@ void DataManager::ArtifactDataRead()
 	}
 }
 
-WaveData DataManager::getWaveData(int level)
+void DataManager::ChoseWave() //같은 레벨중에 택1
 {
 	std::vector<WaveData> result;
 
 	for (const auto& entry : waveData) {
 		const WaveData& data = entry.second;
-		if (data.level == level) {
+		if (data.level == gameManager->WaveLevel) {
 			result.push_back(data);
 		}
 	}
@@ -192,6 +193,5 @@ WaveData DataManager::getWaveData(int level)
 	}
 
 	int id = Utility::RandomBetween(0, result.size() - 1);
-
-	return result[id];
+	gameManager->curWaveId = result[id].id;
 }

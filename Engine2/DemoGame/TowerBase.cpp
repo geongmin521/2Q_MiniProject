@@ -23,6 +23,7 @@
 
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
+	renderOrder = 100;
 	this->towerData = data; 
 	name = "Tower"; //이름에서 태그로 변경하기
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
@@ -34,7 +35,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"..\\Data\\CSV\\Ken.csv")); //애니메이션은데이터의 이름으로 위치찾아서 가져오기
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Tower));
-	renderOrder = 100;
+	
 
 	FiniteStateMachine* fsm = new FiniteStateMachine(); 
 	Factory().createObj<HPBar>(curHP, data.HP).setParent(transform);
@@ -63,7 +64,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	}
 
 	//testEffect = 1; //닷트윈 사용법 예시 //값이 적용될매개변수를 하나 가지고있고 생성해서 넣어주기
-	//new DOTween(testEffect, EasingEffect::InOutElastic, StepAnimation::StepOnceForward);
+	//new DOTween(testEffect, EasingEffect::InBounce, StepAnimation::StepOnceForward);
 }
 
 //오브젝트풀에서 타워를 빼올때.. init을 거쳐야겠는데? 초기화 상태에 대해 알고있자.. 
@@ -80,6 +81,7 @@ void TowerBase::Init(MathHelper::Vector2F pos)
 void TowerBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
+	//transform->SetRelativeScale({ testEffect, testEffect });
 }
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
@@ -127,6 +129,13 @@ void TowerBase::StayDrag(const MouseState& state)
 void TowerBase::EndDrag(const MouseState& state) //드래그앤 드롭이니까.. 
 {	
 	//container
+}
+
+void TowerBase::FailDrop()
+{
+	if (container != nullptr) //이거 널검사하는거 겁나 귀찮은데 define으로 만들까?
+		transform->SetRelativeLocation(container->GetWorldLocation());
+
 }
 
 void TowerBase::OnBlock(Collider* ownedComponent, Collider* otherComponent)

@@ -93,11 +93,16 @@ IDropAble* EventSystem::FindDrop() //드랍만 특수한로직으로 검사.. 이거 다이나믹�
 	return nullptr;
 }
 
-void EventSystem::DropEvent(GameObject* ui)
+void EventSystem::DropEvent(GameObject* ui) //드롭이 들어올려면.. 드래그 에이블이여하는데 매개변수를 바꿀까? 
 {
 	IDropAble* dropAble = FindDrop();
 	if (dropAble == nullptr)
+	{
+		IDragAble* drag = dynamic_cast<IDragAble*>(ui);
+		drag->FailDrop();
 		return;
+	}
+		
 	dropAble->OnDrop(ui);
 	std::cout << "OnDrop";
 }

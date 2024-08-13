@@ -6,6 +6,7 @@
 
 UI::UI()
 {
+	renderOrder = 1000;//UI는 기본적으로 앞에서 그려지게... 
 	EventSystem::GetInstance().get()->Ui.insert(this);
 }
 
@@ -24,6 +25,6 @@ void UI::Update(float deltaTime)
 
 void UI::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
-	__super::Render(pRenderTarget);
+	__super::Render(pRenderTarget, Alpha);
 }
 

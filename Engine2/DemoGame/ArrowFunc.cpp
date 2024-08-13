@@ -26,7 +26,7 @@ void ArrowFunc::AttackEnemys(CircleCollider& myCol, std::string type, float dama
 			damageEnemy->Hit(Utility::CalCul(type, damageEnemy->enemyData.Type, damage)); //성수형도 매개변수로 타워에서부터 받아오게끔하고
 	}
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
-	effect->Init(L"Example.png", myCol.owner->GetWorldLocation(), 0.3f); //이펙트 생성
+	effect->Init(L"Light.png", myCol.owner->GetWorldLocation(), 0.3f); //이펙트 생성
 	myCol.SetCollisionType(CollisionType::NoCollision); //한번 공격후 노콜리전
 	
 	

@@ -43,7 +43,7 @@ void GameObject::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 		return;
 	for (auto& pComponent : ownedComponents) 
 	{	
-		pComponent->Render(pRenderTarget);
+		pComponent->Render(pRenderTarget, Alpha);
 	}
 }
 
