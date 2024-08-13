@@ -26,6 +26,7 @@ World::~World()
 	{
 		delete ele;
 	}
+	CollisionManager::GetInstance()->Clear();
 }
 
 void World::InsertGameObject(GameObject* obj)
@@ -69,7 +70,7 @@ void World::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 			continue;
 		//if (this->m_pCullingBound->CheckIntersect(obj->GetBoundBox())) 
 		//{
- 			obj->Render(pRenderTarget);
+ 			obj->Render(pRenderTarget); //어? 이거 왜이렇게 되는거지? 맵을 제일위에그리는건가? 
 		//}		
 	}
 }

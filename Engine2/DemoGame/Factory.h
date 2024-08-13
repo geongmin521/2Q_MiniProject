@@ -34,6 +34,6 @@ public:
 	Factory& setRoot(std::vector<GameObject*>* Root); 
 	Factory& setActive(bool active); 
 	Factory& setRenderOrder(int order); 
-	Factory& AddText(std::wstring text, int size);
+	Factory& AddText(std::wstring text, int size, int posx=0, int posy=0);
 	void build() { InsertWorld(object); } //소멸자에서 자동호출되며 월드에 집어넣기
 };

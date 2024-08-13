@@ -38,6 +38,7 @@ Factory& Factory::setScale(Vector2F scale) {
 Factory& Factory::setParent(Transform* parent)
 {
     //parent.SetChild(this)
+    object->renderOrder = parent->owner->renderOrder + 1; //자식은 부모보다 먼저그려지게? 일단 UI에서는항상 성립하긴하는데.. 
     object->transform->SetParent(parent);
     return *this;
 }
@@ -60,7 +61,7 @@ Factory& Factory::setRenderOrder(int order)
     return *this;
 }
 
-Factory& Factory::AddText(std::wstring text, int size)
+Factory& Factory::AddText(std::wstring text, int size, int posx,int posy) //로컬좌표랑 정렬 기준등이 필요하긴한데.. 일단 은 로컬좌표만 디폴트 매개변수로 받을수있게해볼까?
 {
     D2DFont* Text = new D2DFont(text); 
     object->AddComponent(Text);
@@ -68,6 +69,7 @@ Factory& Factory::AddText(std::wstring text, int size)
     if(bitmap != nullptr)
         Text->SetBoxSize(bitmap->GetSize()); //아 뭐만해도 다 파괴되서 이전의 적용사항이 사라지구나.. 하.. 뭐 이런 텍스트 클래스가 다있냐... 
     Text->SetSize(size, { 0,(unsigned int)text.size() });
+    Text->SetPos(posx, posy);
     return *this;
 }
 

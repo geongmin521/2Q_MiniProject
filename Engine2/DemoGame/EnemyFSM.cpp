@@ -11,6 +11,8 @@
 #include "TowerBase.h"
 #include "CircleCollider.h"
 #include "CommonFunc.h"
+#include "GameManager.h"
+
 
 EnemyFSM::EnemyFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
@@ -121,6 +123,8 @@ void EnemyAttack::ExitState()
 
 void EnemyDead::EnterState()
 {
+	gameManager->LiveEenmy--;
+	
 	// 데스 애니메이션
 }
 

@@ -6,9 +6,10 @@ class MoveIcon;
 class Container: public UI ,public IDropAble, IClickAble//이친구는 UI가 맞을까나? dropAble 인터페이스를 상속받을거긴해
 {
 private:
+	int id;
 public:
 	bool isContain;
-	Container();
+	Container(int id = 0); //id를 가져야할지도? 
 	virtual ~Container();
 	void Clear(); // 저장공간에서 빠져 나갈때
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1) override; //여기에 일단 박스를 그려볼까?

@@ -16,7 +16,8 @@ private:
 public:
     TowerData& getTowerData(int id) {return towerData[id];}
     EnemyData& getEnemyData(int id) {return enemyData[id];}
-    WaveData getWaveData(int level);
+    WaveData& getWaveData(int id) { return waveData[id]; };
+    void ChoseWave();
     ArtifactData& getArtifactData(int id) {return artifactData[id];}   
     DataManager();
     ~DataManager();

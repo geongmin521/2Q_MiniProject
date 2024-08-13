@@ -29,6 +29,7 @@ public: //나중에 은닉화할 데이터는 빼기
     std::vector<GameObject*> target;
     std::function<void(void)> Search; //아이디로 타입구분해서 각각의 타워에 맞는 기능을 넣어주기
     std::function<void(void)> AttackFunc;
+    float testEffect;
 public:
     float curHP;        //타워각자가 가질 현재 체력 //hp 참조로 넘겨주면될듯? 그럼 게임오브젝트에 필요없겠지? 
 
@@ -46,11 +47,13 @@ public:
     virtual void BeginDrag(const MouseState& state) override;
     virtual void StayDrag(const MouseState& state) override;
     virtual void EndDrag(const MouseState& state) override;
+    virtual void FailDrop() override;
 
     virtual void OnBlock(Collider* ownedComponent, Collider* otherComponent)        override;
     virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)  override;
     virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)   override;
+
 
     virtual void OnClick() override;
 };

@@ -10,10 +10,9 @@ CollisionManager::CollisionManager()
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower, CollisionLayer::Tower));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Bullet));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Enemy,CollisionLayer::Bullet));
-	
 }
 
-CollisionManager::~CollisionManager()
+CollisionManager::~CollisionManager() //월드가 지워질때 콜라이더 매니저나 각매니저들이 원할하게 초기화가 안되는듯? 
 {
 }
 

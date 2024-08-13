@@ -44,6 +44,8 @@ void Renderer::Render(ID2D1RenderTarget* pRenderTarget,float Alpha) //어디그릴지
 void Renderer::LoadD2DBitmap(const std::wstring strFilePath)
 {
 	ResourceManager::Instance->CreateD2DBitmapFromFile(strFilePath, &bitmap);
+	DstRect.right = bitmap->GetSize().width;
+	DstRect.bottom = bitmap->GetSize().height;
 	strBitmapFilePath = strFilePath;
 }
 

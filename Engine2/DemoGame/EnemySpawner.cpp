@@ -28,11 +28,12 @@ void EnemySpawner::CreateEnemy(int id)
 
 void EnemySpawner::StartWave() 
 {
-	WaveData data = DataManager::GetInstance().get()->getWaveData(gameManager->WaveLevel);
+	WaveData data = DataManager::GetInstance().get()->getWaveData(gameManager->curWaveId);
 
 	for (int i = 0; i < data.enemyId.size(); i++)
 	{
 		Timer.push_back(data.spawnTime[i]);
+		gameManager->LiveEenmy += data.enemyCount[i];
 		curSpawnData.push_back({ data.enemyCount[i],data.spawnTime[i], data.enemyId[i] });
 	}
 	
