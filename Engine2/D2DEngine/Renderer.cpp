@@ -34,7 +34,7 @@ void Renderer::Update(float deltaTime)
 	}
 }
 
-void Renderer::Render(ID2D1RenderTarget* pRenderTarget) //어디그릴지에 대한 계산은 여기서 통일하기
+void Renderer::Render(ID2D1RenderTarget* pRenderTarget,float Alpha) //어디그릴지에 대한 계산은 여기서 통일하기
 {
 	D2D1_MATRIX_3X2_F Transform = imageTransform * owner->transform->worldTransform
 		* D2DRenderer::cameraTransform; 

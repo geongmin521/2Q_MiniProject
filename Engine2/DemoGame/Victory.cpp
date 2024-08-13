@@ -13,6 +13,6 @@ void Victory::Update(float deltaTime)
 {
 }
 
-void Victory::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void Victory::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 }

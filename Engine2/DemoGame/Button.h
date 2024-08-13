@@ -12,7 +12,7 @@ public://UI로 묶어서 관리한다면.. 노티피랑 aabb랑 묶어서 저장할까?
 	virtual ~Button();
 	std::function<void(void)> clickFunc;//여기에 함수정의하기.. 
 	virtual void Update(float deltaTime) override;
-	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override;
+	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1) override;
 	virtual void OnClick() override;
 	void AddListener(std::function<void(void)> func) { clickFunc = func; }
 };

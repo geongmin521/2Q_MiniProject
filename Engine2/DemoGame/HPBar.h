@@ -11,7 +11,7 @@ public:
 	HPBar(float& curHp, float maxHp);
 	virtual ~HPBar();
 	virtual void Update(float deltaTime);
-	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 };
 
 

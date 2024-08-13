@@ -46,7 +46,7 @@ void EnemyIdle::Update(float deltaTime)
 		else
 		{
 			MathHelper::Vector2F moveDir = (targetPos - curPos).Normalize(); 
-			enemy->GetComponent<Movement>()->SetVelocity({ moveDir * enemy->enemyData.speed });
+			enemy->GetComponent<Movement>()->SetVelocity({ moveDir * enemy->enemyData.speed * 100 }); //테스트용 그리고 csv에서는 스피드와 탐지 범위가 너무작아서 일단이렇게 박아놓음
 		}
 	}
 	else
@@ -93,21 +93,23 @@ void EnemyAttack::EnterState()
 void EnemyAttack::Update(float deltaTime)
 {
 	AttackTimer += deltaTime;
-	if (enemy->enemyData.attackSpeed < AttackTimer)
+	if (enemy->enemyData.attackSpeed < AttackTimer) //콜라이더가 아직 남아있어서 느리게나마 접근후 공격하는애들이있는듯?
 	{
 		AttackTimer = 0;
 		owner->SetNextState("Attack"); //공격 상태에서 다시 공격하기.. 
 	}
-	if (enemy->target.empty()) //적이 없으면 아이들로
+	if (enemy->target.empty()) //적이 없으면 아이들로 //타겟을 flase로 변경하는 방법이랑.. 
 	{
 		owner->SetNextState("Idle");
 		return;
 	}
 	else
 	{
-		if (ani->IsEnd())
-		{
+		if (ani->IsEnd()) //일단 모르겠으니 타겟은 계속 찾는 방식으로하는게 맞을듯
+		{				
 			enemy->Attack(); //애니메이션 끝나면 공격 들어가기
+			owner->SetNextState("Idle");
+			enemy->target.clear();
 		}
 	}
 }

@@ -29,7 +29,7 @@ public:
 	bool IsEnd() { return  animationEnd; }
 	void LoadAnimationAsset(const std::wstring strFilePath);
 	virtual void Update(float fTimeElapsed) override;
-	virtual void Render(ID2D1RenderTarget* pRenderTarget) override;
+	virtual void Render(ID2D1RenderTarget* pRenderTarget,float Alpha = 1) override;
 	void SetAnimation(int index, bool mirror);
 	void Reverse(); 
 

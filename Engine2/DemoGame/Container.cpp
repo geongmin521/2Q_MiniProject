@@ -21,7 +21,7 @@ void Container::Clear()
 	isContain = false;
 }
 
-void Container::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void Container::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	D2DRenderer::GetInstance()->DrawAABB(*boundBox);
 }

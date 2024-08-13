@@ -38,7 +38,7 @@ private:
 	Setting FontY = MIDDLE;
 public:
 	virtual void Update(float deltaTime); // 컴포넌트면 이게 필요할가? 고민사항
-	virtual void Render(ID2D1RenderTarget* pRenderTarget);  // 작성된 내용을 그림
+	virtual void Render(ID2D1RenderTarget* pRenderTarget,float Alpha = 1);  // 작성된 내용을 그림
 
 	void SetColor(D2D1_COLOR_F color) { FontBrush->SetColor(color); } // 컬러 변경 주의사항 : 렌더 하기전에 색을 변경해야 됨
 	void SetPos(float _X, float _Y) { Pos = { _X , _Y }; } // 위치 조정 로컬좌표일때 사용

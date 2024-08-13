@@ -14,6 +14,6 @@ public:
 	virtual bool IsCollide   (Collider* ownedComponent) override; //어? 이거 자체는 상대꺼만 들어오면되잖아.. 
 	virtual	void ProcessBlock(Collider* ownedComponent, Collider* otherComponent) override;
 	virtual void Update(float deltaTime) override;
-	virtual void Render(ID2D1RenderTarget* pRenderTarget) override;
+	virtual void Render(ID2D1RenderTarget* pRenderTarget,float Alpha = 1) override;
 };
 

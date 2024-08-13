@@ -22,7 +22,7 @@ void UI::Update(float deltaTime)
 	__super::Update(deltaTime);
 }
 
-void UI::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void UI::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 }

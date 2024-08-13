@@ -22,7 +22,7 @@ void Button::Update(float deltaTime)
 	__super::Update(deltaTime);
 }
 
-void Button::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void Button::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 #ifdef _DEBUG

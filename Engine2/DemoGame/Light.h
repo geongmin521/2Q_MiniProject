@@ -10,7 +10,7 @@ public:
 	~Light();
 
 	void Update(float deltaTime);
-	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 
 	virtual void OnBlock(Collider* ownedComponent, Collider* otherComponent);
 	virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent);

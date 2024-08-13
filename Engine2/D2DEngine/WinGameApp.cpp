@@ -7,6 +7,7 @@
 #include "InputSystem.h"
 #include "World.h"
 #include "SceneManager.h"
+#include "EventSystem.h"
 
 #ifdef _DEBUG
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")//디버거가 남겨져있어서그런듯? 
@@ -30,6 +31,13 @@ WinGameApp::~WinGameApp()
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	
+	EventSystem* event = EventSystem::GetInstance().get();
+	POINT startPoint{ event->startPoint };
+	bool isDragging    = event->isDragging; //그냥 이걸로하면안될거같고.. 
+	bool isClickValid  = event->isClickValid;
+	int dragThresholdX = GetSystemMetrics(SM_CXDRAG)* 5;
+	int dragThresholdY = GetSystemMetrics(SM_CYDRAG)* 5;
 	switch (message)
 	{
 	case WM_DESTROY:
@@ -55,6 +63,50 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		timeManager->SetTimeScale(1);
 		break;
 
+	case WM_LBUTTONDBLCLK:
+		isClickValid = false; //일단 나쁘지 않은거 같으니 놔둬보자.. 엄.. 아까보다 업데이트는 편해졌지만 나머지는 그렇지않음.. 
+		EventSystem::GetInstance().get()->DoubleClickEvent();
+	case WM_LBUTTONDOWN:
+		// 드래그 시작점 기록
+		event->startPoint.x = LOWORD(lParam);
+		event->startPoint.y = HIWORD(lParam);
+		isDragging = false;
+		isClickValid = true;
+		event->isClickValid = true;
+		break;
+
+	case WM_MOUSEMOVE:
+		if (wParam & MK_LBUTTON) // 마우스 왼쪽 버튼이 눌린 상태
+		{
+			int x = LOWORD(lParam);
+			int y = HIWORD(lParam);
+			// 마우스 이동 거리가 드래그 임계값을 초과하는지 확인
+			if (abs(x - startPoint.x) > dragThresholdX || abs(y - startPoint.y) > dragThresholdY)
+			{
+				isDragging = true;
+				//EventSystem::GetInstance().get()->BeginDragEvent(); //근데 이게 움직일때만 이벤트가 발생하긴하는데 이렇게 하면되겠지? 
+				isClickValid = false;
+			}
+			if(EventSystem::GetInstance().get()->isDragging != isDragging)
+				EventSystem::GetInstance().get()->BeginDragEvent();
+			if(isDragging)
+				EventSystem::GetInstance().get()->StayDragEvent();
+			event->isDragging = isDragging;
+		}
+		break;
+
+	case WM_LBUTTONUP:
+		if (isDragging)
+		{
+			// 드래그 종료 처리
+			event->isDragging = false;
+			EventSystem::GetInstance().get()->EndDragEvent();
+		}
+		else if (isClickValid)
+		{
+			EventSystem::GetInstance().get()->ClickEvent();
+		}
+		break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
@@ -68,7 +120,7 @@ void WinGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	WNDCLASSEXW wcex;
 	timeManager->InitTime();
 	wcex.cbSize = sizeof(WNDCLASSEX);
-	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
 	wcex.lpfnWndProc = WndProc;
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
@@ -81,7 +133,6 @@ void WinGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 	RegisterClassExW(&wcex);
 	InitInstance(hInstance, nShowCmd);
-
 	D2DRenderer::GetInstance(hWnd);
 }
 
@@ -123,7 +174,7 @@ void WinGameApp::Update(float fTimeElapsed)
 	SceneManager::GetInstance().get()->GetCurWorld()->Update(fTimeElapsed);
 }
 
-void WinGameApp::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void WinGameApp::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	D2DRenderer::GetInstance()->GetRenderTarget()->BeginDraw();
 	D2DRenderer::GetInstance()->GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::CadetBlue));

@@ -93,7 +93,7 @@ void Animation::Update(float fTimeElapsed)
 //	}
 }
 
-void Animation::Render(ID2D1RenderTarget* pRenderTarget)
+void Animation::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 {
 	if (animationInfo == nullptr)
 		return;

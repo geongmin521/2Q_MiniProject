@@ -17,7 +17,7 @@ void Image::ChangeImage(std::wstring path)
 	GetComponent<Bitmap>()->LoadD2DBitmap(path);
 }
 
-void Image::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void Image::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 }

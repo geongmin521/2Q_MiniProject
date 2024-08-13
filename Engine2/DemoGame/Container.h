@@ -11,7 +11,7 @@ public:
 	Container();
 	virtual ~Container();
 	void Clear(); // 저장공간에서 빠져 나갈때
-	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget) override; //여기에 일단 박스를 그려볼까?
+	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1) override; //여기에 일단 박스를 그려볼까?
 	virtual void OnDrop(GameObject* ui) override; //온드롭에는 현재 드래그 중인 UI가 들어와야지
 	virtual void OnClick() override;
 };

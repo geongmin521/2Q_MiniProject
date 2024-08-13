@@ -79,11 +79,11 @@ void D2DEffect::CreateColorMatrixEffect(std::wstring _KeyName, ID2D1Bitmap* _Bit
 	colorMatrixEffect->SetValue(D2D1_COLORMATRIX_PROP_COLOR_MATRIX, _ColorMatrix);
 	Effects.insert(std::make_pair(_KeyName,colorMatrixEffect));
 }
-// | Red Multiplier | Green Multiplier | Blue Multiplier | Alpha Multiplier | Red Offset   |
+// | Red Multiplier | Green Multiplier | Blue Multiplier | Alpha = 1 Multiplier | Red Offset   |
 // |-------------------- | -------------------- | -------------------- | -------------------- | --------------|
-// | Green Multiplier | Red Multiplier | Blue Multiplier | Alpha Multiplier | Green Offset |
-// | Blue Multiplier | Green Multiplier | Red Multiplier | Alpha Multiplier | Blue Offset  |
-// | Alpha Multiplier | Green Multiplier | Blue Multiplier | Red Multiplier | Alpha Offset |
+// | Green Multiplier | Red Multiplier | Blue Multiplier | Alpha = 1 Multiplier | Green Offset |
+// | Blue Multiplier | Green Multiplier | Red Multiplier | Alpha = 1 Multiplier | Blue Offset  |
+// | Alpha = 1 Multiplier | Green Multiplier | Blue Multiplier | Red Multiplier | Alpha = 1 Offset |
 
 void D2DEffect::Create2DLightEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 {

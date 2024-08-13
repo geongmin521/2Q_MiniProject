@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "AABB.h"
 #include "D2DRenderer.h"
+#include "CollisionManager.h"
+#include "CircleCollider.h"
 #include "Transform.h"
 
 GameObject::GameObject()
@@ -35,7 +37,7 @@ void GameObject::Update(float deltaTime)
 }
 
 
-void GameObject::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void GameObject::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	if (!isActive)
 		return;
@@ -76,6 +78,18 @@ void GameObject::SetActive(bool active)
 	for (auto var : transform->childScene)
 	{
 		var->owner->SetActive(active); //계층적으로 할수있도록 설정.. 
+	}
+	//CircleCollider* col = GetComponent<CircleCollider>(); //적들이랑 타워모두 서클콜라이더만 사용한다는 전제하에?
+	Collider* col = GetComponent<Collider>(); //적들이랑 타워모두 서클콜라이더만 사용한다는 전제하에?
+	if (col == nullptr)
+		return;
+	if (active == false)
+	{
+		CollisionManager::GetInstance()->AddRemove(col);
+	}
+	else
+	{
+		CollisionManager::GetInstance()->pushCollider(col);
 	}
 }
 

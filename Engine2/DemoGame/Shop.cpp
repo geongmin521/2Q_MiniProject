@@ -24,7 +24,7 @@ Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까?
 	for (int i = 0; i < 5; i++)//리롤 잠그기
 		Factory().createObj<Button>(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }).setPosition({ LeftPadding + i * 130, WinHalfSizeY - 100 }).setParent(this->transform).AddText(L"Lock", 20);
 	
-	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setParent(this->transform).AddText(L"전체리롤", 30);
+	Factory().createObj<Button>(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPosition({ LeftPadding + 250, WinHalfSizeY + 100 }).setParent(this->transform).AddText(L"전체리롤", 30).setRenderOrder(120);
 	//보상 텍스트박스 
 	compensationText = Factory().createObj<Image>(L"ImageBack.png").setPosition({ LeftPadding + 250, WinHalfSizeY + 200 }).setParent(this->transform).AddText(L"", 20).Get()->GetComponent<D2DFont>();//근데 이친구들이 원하는 텍스트를 따라가고싶단말이지.. 
 	//리롤가능한 횟수를 출력하는 텍스트박스

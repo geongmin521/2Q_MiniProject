@@ -37,7 +37,7 @@ public:
 
     void Init();
     virtual void Update(float deltaTime);
-    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget);
+    virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 
     virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
     virtual void Hit(float damage);

@@ -24,8 +24,6 @@ Arrow::~Arrow()
 {
 }
 
-
-
 void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
 {
 	this->target = target;
@@ -40,14 +38,13 @@ void Arrow::Update(float deltaTime)
 		std::abs(target->GetWorldLocation().y - GetWorldLocation().y) <= 1.0f)
 	{
 		EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);		//아 이걸 적으로 다이나믹 캐스트를하는구나.. 노티피를 들고있는방식으로갈까? 
-		enemy->Hit(Utility::CalCul("석궁형",enemy->enemyData.Type,30));
+		enemy->Hit(Utility::CalCul("석궁형",enemy->enemyData.Type, 30));
 		SetActive(false);
 	}
 
 }
 
-
-void Arrow::Render(ID2D1HwndRenderTarget* pRenderTarget)
+void Arrow::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
 }
