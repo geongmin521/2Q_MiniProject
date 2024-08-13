@@ -16,13 +16,15 @@
 #include "HPBar.h"
 #include "TowerStar.h"
 #include "CommonFunc.h"
+#include "Pools.h"
 
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
 	this->towerData = data; 
 	name = "Tower"; //이름에서 태그로 변경하기
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
-		Factory().createObj<TowerStar>().setPosition({ 20.f * i ,0}).setParent(transform);		
+		Factory().createObj<TowerStar>().setPosition({ 20.f * i ,0}).setParent(transform);
+	
 	curHP = towerData.HP;
 	EventSystem::GetInstance().get()->Ui.insert(this);
 	SetBoundBox(0, 0, 150,150);
@@ -63,7 +65,9 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 //오브젝트풀에서 타워를 빼올때.. init을 거쳐야겠는데? 초기화 상태에 대해 알고있자.. 
 
-void TowerBase::Update(float deltaTime) 
+
+
+void TowerBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
 }
@@ -96,20 +100,27 @@ void TowerBase::Heal(float heal)
 
 void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게.. 
 {
-	std::cout << "BeginDrag";
-	if (container)
-		container->Clear();
+	if (isActive == true)
+	{
+		std::cout << "BeginDrag";
+		if (container)
+			container->Clear();
+	}
 }
 
 void TowerBase::StayDrag(const MouseState& state)
 {
-	transform->SetRelativeLocation(state.GetMousePos());
+		//container
+		transform->SetRelativeLocation(state.GetMousePos());
+	
 }
 
 void TowerBase::EndDrag(const MouseState& state) //드래그앤 드롭이니까.. 
 {	
-	//container
-	std::cout << "EndDrag";
+	
+		//container
+		std::cout << "EndDrag";
+	
 }
 
 void TowerBase::OnBlock(Collider* ownedComponent, Collider* otherComponent)
@@ -130,5 +141,14 @@ void TowerBase::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
 
 void TowerBase::OnClick()
 {
-
+	GameObject* newTower =nullptr;
+	if (towerData.level < 3)
+	{
+		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
+		////if (newTower == nullptr) 
+		newTower->transform->SetRelativeLocation(this->GetWorldLocation());
+		//Pools::GetInstance().get()->AddPool(this);
+		//std::cout << std::endl << "asd" << std::endl;
+	}
+	
 }

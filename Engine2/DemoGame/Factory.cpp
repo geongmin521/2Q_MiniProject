@@ -37,6 +37,7 @@ Factory& Factory::setScale(Vector2F scale) {
 
 Factory& Factory::setParent(Transform* parent)
 {
+    //parent.SetChild(this)
     object->transform->SetParent(parent);
     return *this;
 }

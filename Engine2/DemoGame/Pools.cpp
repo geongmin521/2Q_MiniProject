@@ -5,6 +5,7 @@
 #include "EnemyBase.h"
 #include "Arrow.h"
 #include "TowerBase.h"
+#include "Transform.h"
 #include "DataManager.h"
 
 Pools::~Pools()
@@ -17,8 +18,9 @@ Pools::~Pools()
 
 void Pools::AddPool(GameObject* _Object) //이름으로 찾을일있을까? 외우지도 못하는데?
 {
-
-
+	_Object->transform->SetRelativeLocation({ 4000, 4000 });
+	//_Object->SetActive(false);
+	//_Object.set
 	if (PoolList.find(_Object->id) == PoolList.end()) // 찾지못하면 
 	{
 		std::vector<GameObject*> Pool; 
