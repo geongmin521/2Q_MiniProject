@@ -5,7 +5,7 @@
 #include "IDragAble.h"
 #include "Bitmap.h"
 #include "Collider.h"
-#include "IClickAble.h"
+#include "IDoubleClickAble.h"
 #include "UI.h"
 
 
@@ -14,14 +14,15 @@ enum class TowerType
     Crossbow,
     Water,
     Pile,
-    HolyCross
+    HolyCross,
+    Hidden
 }; 
 
 class Container;
 class TowerStar;
 class HPBar;
 class TowerBase :
-    public GameObject , public IDamageNotify , public IDragAble, public IColliderNotify, public IClickAble
+    public GameObject , public IDamageNotify , public IDragAble, public IColliderNotify, public IDoubleClickAble
 {
 public: //나중에 은닉화할 데이터는 빼기
     TowerData towerData;   
@@ -35,7 +36,7 @@ public:
     TowerBase(TowerData data);
     virtual ~TowerBase() = default; //진짜 어떻게 해야할지를 모르겠네 허 허.. //불렛만 다르면 되는거지 적 불렛이랑 다른게 뭐지?  
 
-    void Init();
+    void Init(MathHelper::Vector2F pos);
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 
@@ -52,5 +53,5 @@ public:
     virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)  override;
     virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)   override;
 
-    virtual void OnClick() override;
+    virtual void OnDoubleClick() override;
 };

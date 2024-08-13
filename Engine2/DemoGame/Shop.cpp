@@ -9,6 +9,7 @@
 #include "Combination.h"
 #include "EnemySpawner.h"
 #include "Button.h"
+#include "TowerBase.h"
 #include "D2DFont.h"
 
 Shop::Shop() //얘한테 매개변수로 하나 넘겨줄까? 
@@ -87,7 +88,9 @@ void Shop::Spawn() //이제 텍스트도 띄우고 좀더 이쁘게 만들어야겠다..
 	{	
 		GameObject* tower = Pools::GetInstance().get()->PopPool(var);   // 아이콘을 소환하는게아니라.타워를 소환
 		if (tower != nullptr) //현재 모든 타워가 미완이라 터질수있으니 일단 이렇게 처리함
-			tower->transform->SetRelativeLocation(Containers[inven]->transform->GetWorldLocation()); //팩토리처럼 만들때 세팅할수있듯이.. 오브젝트풀도? 그렇게 해볼까? 
+			dynamic_cast<TowerBase*>(tower)->Init(Containers[inven]->transform->GetWorldLocation());
+		//tower->transform->SetRelativeLocation(Containers[inven]->transform->GetWorldLocation()); //팩토리처럼 만들때 세팅할수있듯이.. 오브젝트풀도? 그렇게 해볼까? 
+		
 		inven++;
 	}
 	compensationList.clear(); 

@@ -18,6 +18,7 @@ EnemyBase::EnemyBase(EnemyData data)
 {
 	this->enemyData = data;
 	name = "Enemy";
+	id = 1001;
 	curHP = enemyData.HP;
 	SetBoundBox(0, 0, 50, 50); //기본 적 이미지 사이즈 //이것도 원으로 만들어도 될듯? 
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Zombie2.csv"));

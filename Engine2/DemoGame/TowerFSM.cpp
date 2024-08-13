@@ -5,6 +5,7 @@
 #include "World.h"
 #include "Animation.h"
 #include "Transform.h"
+#include "Pools.h"
 #include "EnemyBase.h"
 
 TowerFSM::TowerFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
@@ -98,7 +99,7 @@ void TowerDeath::Update(float DeltaTime)
 	//{
 	//	tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
 	//}
-	tower->SetActive(false); //타워 파괴 애니메이션이 끝나면 비활성
+	Pools::GetInstance().get()->AddPool(tower);
 }
 
 void TowerDeath::ExitState()

@@ -139,6 +139,10 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CommonFunc.h" />
+    <ClInclude Include="ArrowFunc.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">
@@ -235,5 +239,9 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CommonFunc.cpp" />
+    <ClCompile Include="ArrowFunc.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp" />
   </ItemGroup>
 </Project>

@@ -16,8 +16,10 @@
 #include "TowerFsm.h"
 #include "HPBar.h"
 #include "TowerStar.h"
+
 #include "CommonFunc.h"
 #include "Pools.h"
+#include "World.h"
 
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
@@ -25,7 +27,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	name = "Tower"; //이름에서 태그로 변경하기
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
 		Factory().createObj<TowerStar>().setPosition({ 20.f * i ,0}).setParent(transform);
-	
+	id = towerData.id;
 	curHP = towerData.HP;
 	EventSystem::GetInstance().get()->Ui.insert(this);
 	SetBoundBox(0, 0, 150,150);
@@ -47,7 +49,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	if (type == TowerType::Crossbow || type == TowerType::Water) //같은 알고리즘
 	{
 		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation()); };
+		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation(), towerData.id); };
 	}
 	if (type == TowerType::Pile)
 	{
@@ -67,6 +69,13 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 //오브젝트풀에서 타워를 빼올때.. init을 거쳐야겠는데? 초기화 상태에 대해 알고있자.. 
 
 
+
+void TowerBase::Init(MathHelper::Vector2F pos)
+{
+	curHP = towerData.HP;  //setactive는 풀에서 뺄떄 해줌 //있으면 해당객체init 없으면 새로만듬
+	transform->SetRelativeLocation(pos); 
+	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
+}
 
 void TowerBase::Update(float deltaTime)
 {
@@ -110,7 +119,7 @@ void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게..
 void TowerBase::StayDrag(const MouseState& state) 
 {
 	if (GameManager::GetInstance().get()->isBattle == true) //시작을 못하면 이것도 아예안들어왔으면좋겠는데.. 흠.. //일단 전투시작이 늦게 들어와야하고.. 
-		// ondrop 이벤트도 막아야함 .. 그게또 위치를 변경해주는거라.. 
+		//ondrop 이벤트도 막아야함 .. 그게또 위치를 변경해주는거라.. 
 		return;
 	transform->SetRelativeLocation(state.GetMousePos());
 }
@@ -136,16 +145,54 @@ void TowerBase::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
 {
 }
 
-void TowerBase::OnClick()
+void TowerBase::OnDoubleClick()
 {
 	GameObject* newTower =nullptr;
-	if (towerData.level < 3)
+	std::vector<TowerBase*> towers;
+	int merageCount = 2; //합칠떄필요한 자신제외 같은 기물수
+	int minDis = INT_MAX;
+	float distance = 0;
+	for (auto& tower : owner->m_GameObjects)
+	{
+		TowerBase* sameTower = dynamic_cast<TowerBase*>(tower);
+		if(sameTower != nullptr && tower->GetActive() == true && sameTower != this && sameTower->towerData.id == this->towerData.id)
+		{
+			if (towers.size() == merageCount)
+			{
+				std::vector<TowerBase*>::iterator farTower; //뺼타워 위치 담아둘곳
+				for (auto nearTower = towers.begin(); nearTower != towers.end(); ++nearTower)
+				{
+					distance = ((*nearTower)->GetWorldLocation() - this->GetWorldLocation()).Length(); //이미들어가있는것안에서 가장작은거 찾고
+					if(distance < minDis)
+					{
+						minDis = distance; //여기서 minDis가 가장작은것의 거리가되고
+						farTower = nearTower;
+					}
+				}
+				distance = (sameTower->GetWorldLocation() - this->GetWorldLocation()).Length(); //다음 넣을것과의 거리
+				if (distance > minDis) //이제넣을 타워가 가장먼타워보다 더 멀면 
+					continue;
+				towers.erase(farTower);
+			}
+			towers.push_back(sameTower);
+		}
+	}
+
+	if(towers.size() == merageCount && towerData.level < 3)
 	{
 		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
-		////if (newTower == nullptr) 
-		newTower->transform->SetRelativeLocation(this->GetWorldLocation());
-		Pools::GetInstance().get()->AddPool(this);
-		//std::cout << std::endl << "asd" << std::endl;
+		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation());
+		for(auto& sametower : towers)
+		{
+			Pools::GetInstance().get()->AddPool(sametower); //같은타워 풀에넣고
+			if(sametower->container)
+			sametower->container->Clear();
+		}
+		Pools::GetInstance().get()->AddPool(this); // 자기도 풀에넣고
+		if (this->container)
+		{
+			dynamic_cast<TowerBase*>(newTower)->container = this->container;
+			this->container->Clear();//여기서 컨테이너를 새타워에 넘겨주고 자기껀 없애고?
+		}
 	}
-	
 }

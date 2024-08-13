@@ -21,6 +21,6 @@ void EnemyFunc::BombAttack(EnemyBase* origin, GameObject* target, float Damage) 
 
 void EnemyFunc::RangedAttack(GameObject* target,MathHelper::Vector2F pos, float Damage) //총알을 새로만들어서 쏘면될거고.. 
 {
-	Arrow* arrow = new Arrow(0.3f, L"vampire.png");
+	Arrow* arrow = new Arrow(0.3f,"Vampire",10,3); //나중에 뱀파이어 타입도 추가 해줘야하나?
 	arrow->Init(target, pos);
 }
