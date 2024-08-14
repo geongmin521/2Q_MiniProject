@@ -4,11 +4,11 @@
 class Renderer : public Component
 {
 public:
-	bool mirror;				// 좌우 반전 여부
+	bool mirror;						// 좌우 반전 여부
 	D2D1_MATRIX_3X2_F	imageTransform;	// 반대 방향으로 뒤집기 위한 행렬 Scale.x = -1.0f  
 	std::wstring strBitmapFilePath;
 	ID2D1Bitmap* bitmap = nullptr;
-	D2D1_RECT_F DstRect;		// RenderTarget의 Destination 영역		
+	D2D1_RECT_F DstRect;				// RenderTarget의 Destination 영역		
 
 	Renderer(const std::wstring strFilePath);
 	Renderer() = default;

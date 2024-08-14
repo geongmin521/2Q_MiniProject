@@ -6,16 +6,8 @@
 
 UI::UI()
 {
-	renderOrder = 1000;//UI는 기본적으로 앞에서 그려지게... 
+	renderOrder = 1000;
 	EventSystem::GetInstance().get()->Ui.insert(this);
-}
-
-void UI::AddText(std::wstring text,int size) //이걸 팩토리한테 넘길수있을까? 일단한번해보면되지.. 
-{
-	D2DFont* Text = new D2DFont(text);
-	Text->SetSize(size,{0,(unsigned int)text.size()});
-	AddComponent(Text);
-	Text->SetBoxSize(GetComponent<Bitmap>()->GetSize());
 }
 
 void UI::Update(float deltaTime)

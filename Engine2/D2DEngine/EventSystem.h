@@ -19,8 +19,7 @@ public:
 
 	EventSystem() = default;
 	~EventSystem() = default;
-	std::set<GameObject*> Ui; //모든 UI를 들고 그중에서 찾아서 다이나믹 캐스팅을 하고있었는데.. 각각의 분야를 따로 찾아야할지도? 
-	//아니면 컨테이너가 .. 클릭이벤트를 갖는다면? 
+	std::set<GameObject*> Ui; 
 	IDragAble* curDrag;
 	IOnMouse* curOnMouse;
 	void Updata(float deltaTime);

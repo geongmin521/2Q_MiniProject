@@ -1,6 +1,6 @@
 #pragma once
-#include <windows.h>
-#define inputSystem InputSystem::GetInstance()
+#include "SingletonBase.h"
+#define inputSystem InputSystem::GetInstance().get()
 
 class MouseState {
 public:
@@ -27,21 +27,17 @@ public:
 	}
 };
 
-class InputSystem
+class InputSystem : public SingletonBase<InputSystem>
 {
 public:
 	InputSystem();
 	~InputSystem();
 
-	static InputSystem* GetInstance();
-	void DestroyInstance();
 	void ResetInput();
 	void UpdateKey();
 	bool isKeyDown(const unsigned int key) const { return _isKeyDown[key]; }
 	bool isKeyUp(const unsigned int key) const { return _isKeyUp[key]; }
 	bool isKey(const unsigned int key) const { return _isKey[key]; }
-
-
 
 	void InitMouse();
 	void UpdateMouse(HWND handle);
@@ -61,7 +57,6 @@ public:
 	}
 
 private:
-	static InputSystem* Instance;
 	MouseState _curMouse;
 	MouseState _prevMouse;
 	bool _isKeyDown[256];

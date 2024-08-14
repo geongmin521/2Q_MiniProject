@@ -22,8 +22,7 @@ EnemySpawner::~EnemySpawner()
 void EnemySpawner::CreateEnemy(int id)
 {
 	int pos = Utility::RandomBetween(0, spawnPos.size()-1);
-	//이거 형변환 일어나게하면 안되나?
-	Pools::GetInstance().get()->PopPool(id)->transform->SetRelativeLocation({(float)2000,(float)spawnPos[pos]}); //여기는 아이디로 처리할건데. 풀은 이름이고.. 변환기를 하나 만들까? 
+	Pools::GetInstance().get()->PopPool(id)->transform->SetRelativeLocation({(float)2000,(float)spawnPos[pos]}); 
 }
 
 void EnemySpawner::StartWave() 
@@ -40,7 +39,7 @@ void EnemySpawner::StartWave()
 	gameManager->isBattle = true;
 }
 
-void EnemySpawner::Update(float deltaTime) //스포너가 최대 4개일수있으니까.. 벡터로 넣어서하자.. 
+void EnemySpawner::Update(float deltaTime)
 {
 	if (gameManager->isBattle == false)
 		return;

@@ -2,7 +2,7 @@
 
 using namespace MathHelper;
 
-class Circle //원끼리의 충돌이 잘 되는지 테스트 먼저진행하기 
+class Circle 
 {
 public:
 	Circle() : Center{ 0,0 }, radius(0) {}

@@ -6,7 +6,7 @@ namespace Music
     SoundManager* SoundManager::mInstance = nullptr;
     SoundManager* soundManager = SoundManager::GetInstance();  // 초기화  
 
-    SoundManager* SoundManager::GetInstance() //일단 파일만 갖다놨고 추가하고싶은데.. 
+    SoundManager* SoundManager::GetInstance() 
     {
         if (mInstance == nullptr)
             mInstance = new SoundManager();  
@@ -28,9 +28,6 @@ namespace Music
 
     void SoundManager::LoadMusic(eSoundList soundlist, bool loopcheck, const std::string& path)
     {
-
-        //path;
- 
         if (loopcheck)
             mSystem->createSound(path.c_str(), FMOD_LOOP_NORMAL, 0, &mSoundList[static_cast<int>(soundlist)]);
         else
@@ -41,7 +38,6 @@ namespace Music
     {
         mChannel[static_cast<int>(channel)]->stop();
         mSystem->playSound(mSoundList[static_cast<int>(soundlist)], nullptr, 0, &mChannel[static_cast<int>(channel)]);
-        //mChannel[static_cast<int>(channel)]->setVolume(mVolume);
     }
 
     void SoundManager::StopMusic(eSoundChannel channel)
@@ -51,19 +47,8 @@ namespace Music
 
     void SoundManager::SetVolume(float volume, eSoundChannel chanel)
     {
-        //mVolume = volume;
         mChannel[(int)chanel]->setVolume(volume);
     }
-
-    //void SoundManager::ManageMusic(const Vector3 Playerpos) //플레이어 위치가 필요한 음악이였던거같은데 필요없음
-    //{
-    //    int index = int(Playerpos._x) / 3840;
-    //    if (IsWrong[index] == true)
-    //    {
-    //        IsWrong[index] = false;
-    //        mInstance->PlayMusic(eSoundList::When_the_wrong_picture_triggered_1,eSoundChannel::WrongEffect);
-    //    }  
-    //}
 
     SoundManager::SoundManager(): mSystem(), mChannel{}, mSoundList{}, mVolume(0.5f)
     {

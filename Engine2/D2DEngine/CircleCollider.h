@@ -8,7 +8,7 @@ class CircleCollider :
     public Collider
 {
 public:
-	AABB* aabb; //박스콜라이더랑 충돌할때는 이걸로 계산하기
+	AABB* aabb; //박스콜라이더를 만날때는 aabb
 	Circle* circle;
 
 	CircleCollider(AABB* aabb, Circle* circle, CollisionType type, IColliderNotify* notify, CollisionLayer layer);

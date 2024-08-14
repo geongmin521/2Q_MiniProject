@@ -3,9 +3,7 @@
 #include "Animation.h"
 #include "Transform.h"
 #include "D2DRenderer.h"
-
 #include "Pools.h"
-
 #include "Effect.h"
 
 Effect::Effect()

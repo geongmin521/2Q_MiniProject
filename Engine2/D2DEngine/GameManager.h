@@ -10,13 +10,13 @@ public:
 	bool isBattle;
 	int WaveLevel = 1;
 	int curWaveId = 1000;
-	int LiveEenmy = 0; //적들이전부죽으면 
-
+	int LiveEenmy = 0; 
+	int gold = 100;
 	std::function<void(void)> ShowWave;
 	std::function<void(void)> EndWave;
 	std::function<void(void)> GameClear;
 	GameManager();
-	~GameManager(); //게임 매니저.. 
+	~GameManager(); 
 	void Update();
 };
 

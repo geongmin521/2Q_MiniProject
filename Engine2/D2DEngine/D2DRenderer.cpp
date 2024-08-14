@@ -194,7 +194,7 @@ void D2DRenderer::DrawCircle(Circle& circle)
 		circle.radius, circle.radius  // 반지름
 	);
 
-	RenderTarget->DrawEllipse(&ellipse, greenBrush); //브러쉬가 또 몇개필요할려나.. 초록색? 중심도 그렸으면 좋겠어.. 
+	RenderTarget->DrawEllipse(&ellipse, greenBrush);
 }
 
 void D2DRenderer::DrawGradientCircle(const D2D1_POINT_2F& position, float radius, const D2D1_COLOR_F& color)
@@ -230,7 +230,7 @@ void D2DRenderer::DrawGradientCircle(const D2D1_POINT_2F& position, float radius
 
 void D2DRenderer::DrawAABB(AABB& aabb)
 {
-	RenderTarget->SetTransform(D2D1::Matrix3x2F::Identity()); //음 좌표계가 이상한거였군.. 어차피 이것들을 그릴때는 월드좌표계를 사용할테니.. 여기에 아이덴티티를 해주는게 맞겠네..
+	RenderTarget->SetTransform(D2D1::Matrix3x2F::Identity()); 
 	RenderTarget->DrawRectangle(
 		D2D1::RectF(aabb.GetMinX(), aabb.GetMinY(), aabb.GetMaxX(), aabb.GetMaxY()), greenBrush);
 }

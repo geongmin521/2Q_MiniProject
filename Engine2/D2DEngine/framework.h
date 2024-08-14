@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
-#define NOMINMAX //min max함수가 windows.h 와 충돌해서 추가
+#define NOMINMAX 
 #include <d2d1_1.h>
 #include <d2d1_1helper.h>
 #include <dwrite.h>
@@ -29,9 +29,6 @@
 #include <climits> 
 #include <unordered_map>
 #include "algorithm"
-
-#include <d2d1effects_2.h> // 이펙트 관련 헤더
-
+#include <d2d1effects_2.h>
 #include "Utility.h"
 #include <cmath>
-//#include <dxgi.h>

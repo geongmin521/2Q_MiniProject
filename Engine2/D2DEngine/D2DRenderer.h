@@ -1,5 +1,4 @@
 #pragma once
-//#include <d2d1.h>
 class AABB;
 class Circle;
 class D2DRenderer 

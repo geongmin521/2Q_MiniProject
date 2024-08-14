@@ -1,18 +1,9 @@
 #include "pch.h"
 #include "DemoGameApp.h"
-#include "World.h" 
-#include "D2DRenderer.h"
-#include "Transform.h"
 #include "Music.h"
-#include "Factory.h"
 #include "SceneManager.h"
-
-#include "BattleWorld.h"
 #include "TitleWorld.h"
 
-#include "Map.h"
-#include "Camera.h"
-#include "EnemySpawner.h"
 void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 {
 	__super::Initialize(hInstance, nShowCmd);

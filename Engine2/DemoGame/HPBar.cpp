@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "Bitmap.h"
 #include "Transform.h"
-#include "D2DRenderer.h"
-#include "TowerBase.h"
-#include "EnemyBase.h"
 #include "HPBar.h"
 
 HPBar::HPBar(float& curHp, float maxHp) : curHp(curHp) , maxHp(maxHp)

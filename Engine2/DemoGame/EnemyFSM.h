@@ -5,7 +5,7 @@ class Animation;
 class Movement;
 class Vampire;
 class EnemyBase;
-class EnemyFSM : public FSMState //얘는 추상클래스
+class EnemyFSM : public FSMState 
 {
 public:
 	EnemyFSM(FiniteStateMachine* pOwner, std::string Name);

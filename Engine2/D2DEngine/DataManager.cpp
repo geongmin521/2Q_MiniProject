@@ -19,7 +19,7 @@ DataManager::~DataManager()
 }
 
 template <typename T>
-T convertFromString(const std::wstring& str);//csv의 모든 형식은 int, float, wstring 이 3개로 구분됨
+T convertFromString(const std::wstring& str);
 
 // 특수화: int형 변환
 template <>
@@ -35,7 +35,7 @@ float convertFromString<float>(const std::wstring& str) {
 
 // 특수화: string //와이드 스트링을 일반 스트링으로변경
 template <>
-std::string convertFromString<std::string>(const std::wstring& wstr) { //어뭐야.. wstring에서 string형변환하니까.. 한글이 들어오네? 
+std::string convertFromString<std::string>(const std::wstring& wstr) { 
 	std::string str;
 	str.assign(wstr.begin(), wstr.end());
 	return str;
@@ -82,7 +82,7 @@ void DataManager::EnemyDataRead()
 	
 		if (!line.empty()) {
 			EnemyData data;
-			std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
+			std::wstringstream wss(line);  
 			std::wstring token;
 			{
 				parseToken(wss, data.id);
@@ -111,7 +111,7 @@ void DataManager::TowerDataRead()
 
 		if (!line.empty()) {
 			TowerData data;
-			std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
+			std::wstringstream wss(line);  
 			std::wstring token;
 			{
 				parseToken(wss, data.id);
@@ -144,7 +144,7 @@ void DataManager::WaveDataRead()
 				parseToken(wss, data.id);
 				parseToken(wss, data.level);
 				parseToken(wss, data.levelPower);
-				parseTokens(wss, data.enemyId); //s에 주의하기.. 이거는 여러개가져오는거다
+				parseTokens(wss, data.enemyId); 
 				parseTokens(wss, data.spawnTime);
 				parseTokens(wss, data.enemyCount);
 			}

@@ -178,8 +178,6 @@ enum StepAnimation
 
     StepAnimationEnd
 };
-//근데 템플릿으로 다 저장할수가있나? 글쎄다.. 안될거같은데.. 만들어서 업데이트를 돌려야하는데.. 
-//생성 시점은 언제 파악하고 .. 업데이트는 어떻게 돌리지? 
 
 class DOTween
 {
@@ -187,11 +185,11 @@ public:
     DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation = StepOnceForward, float duration = 1, float startpoint = 0, float endpoint = 1);
     ~DOTween();
 
-    void   SetStartPoint(float _StartPoint) { StartPoint = _StartPoint; } //이거 초기값 세팅해줘야함. 
+    void   SetStartPoint(float _StartPoint) { StartPoint = _StartPoint; } 
     void   SetEndPoint(float _EndPoint) { EndPoint = _EndPoint; }
     void   SetDuration(float   _Duration) { Duration = _Duration; }
 
-    void   Update(const float& _DeltaTime) //시간이 지나면 본인이 스스로 소멸하는건가?
+    void   Update(const float& _DeltaTime)
     {
         (this->*StepAnimationFunction[Type])(_DeltaTime);
     }
@@ -206,11 +204,11 @@ private:
     StepAnimation            Type;
 
 private:
-    void OnceForward(const float& _DeltaTime) //once는 한번만이고 loop 반복..   Forward 함수그래프의 시작이 앞에서 Back뒤에서 PingPong 앞에서 뒤로 왔다 갔다
+    void OnceForward(const float& _DeltaTime) 
     {
         if (CurTime > Duration)
         {
-            delete this;
+            delete this; //시간이 다되면 소멸
             return;
         }
           
@@ -221,7 +219,7 @@ private:
         CurStepTime = CurTime / Duration;
         CurStep = EndPoint - StartPoint;
 
-        Data = StartPoint + CurStep * Function(CurStepTime); //소멸은 언제되지? 시간이 끝나면?
+        Data = StartPoint + CurStep * Function(CurStepTime); 
     }
     void OnceBack(const float& _DeltaTime)
     {
@@ -257,7 +255,7 @@ private:
 
         Data = StartPoint + CurStep * Function(CurStepTime);
     }
-    void LoopForward(const float& _DeltaTime) //루프는 종료조건이 없음
+    void LoopForward(const float& _DeltaTime) 
     {
         if (CurTime > Duration)
             CurTime -= Duration;
@@ -299,10 +297,8 @@ private:
         Data = StartPoint + CurStep * Function(CurStepTime);
     }
 
-    //얘는 왜 전역으로되어있지? 
     static void (DOTween::* StepAnimationFunction[StepAnimation::StepAnimationEnd])(const float&);
 };
 
-// 정적 멤버 함수 포인터 배열 초기화
 
 

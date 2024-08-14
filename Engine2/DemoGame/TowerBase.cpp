@@ -16,6 +16,7 @@
 #include "TowerFsm.h"
 #include "HPBar.h"
 #include "TowerStar.h"
+#include "ToolTip.h"
 
 #include "CommonFunc.h"
 #include "Pools.h"
@@ -36,7 +37,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Tower));
 	
-
+	toolTip = Factory().createObj<ToolTip>(L"성수타워", L"공격력:보통", L"체력:낮음", L"사거리:보통").setParent(transform).setPosition({100,0}).setActive(false).Get<ToolTip>(); //어우 생성자 부분 정리좀해야겠다.. 
 	FiniteStateMachine* fsm = new FiniteStateMachine(); 
 	Factory().createObj<HPBar>(curHP, data.HP).setParent(transform);
 	AddComponent(fsm);
@@ -204,4 +205,15 @@ void TowerBase::OnDoubleClick()
 			this->container->Clear();//여기서 컨테이너를 새타워에 넘겨주고 자기껀 없애고?
 		}
 	}
+}
+
+void TowerBase::OnMouse() //툴팁을 활성화 //근데 툴팁을 누가 들고있을까.. 어차피 공유일텐데.. 
+{
+	//툴팁도 csv?그냥 일단 본인이 들게하자.. 아 몰랑
+	toolTip->SetActive(true);
+}
+
+void TowerBase::OutMouse() //툴팁을 비활성화.. 
+{
+	toolTip->SetActive(false); //마지막 한놈은 왜 늦게 out마우스가 들어오지? 크기가 잘되어있지않나? 
 }

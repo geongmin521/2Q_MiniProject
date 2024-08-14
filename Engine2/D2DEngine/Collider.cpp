@@ -14,11 +14,8 @@ Collider::~Collider()
 
 void Collider::ClearAndBackupCollideState()
 {
-    //중복상태에 대한 처리를 다하고 나면.. 바꿔주기...
-    collideStatePrev = collideStateCurr; //현재는 이전이 되고 
-    collideStateCurr.clear(); //현재는 비워버리기
-
-    //이러면 콜라이더에 중첩에 대한 처리도 모두 끝난거지? 
+    collideStatePrev = collideStateCurr; 
+    collideStateCurr.clear();
 }
 
 void Collider::ProcessOverlap()
@@ -37,10 +34,12 @@ void Collider::ProcessOverlap()
             notify->OnEndOverlap(this, collider);
         }
     }
+    // 충돌중인 애들
     for (auto& collider : collideStateCurr) {
         if(onStay)
             notify->OnStayOverlap(this, collider);
     }
+
     ClearAndBackupCollideState();
 }
 

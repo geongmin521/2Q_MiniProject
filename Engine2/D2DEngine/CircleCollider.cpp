@@ -11,7 +11,7 @@
 CircleCollider::CircleCollider(AABB* aabb, Circle* circle, CollisionType type, IColliderNotify* notify, CollisionLayer layer) : aabb(aabb), circle(circle)
 {
 	colliderType = ColliderType::Circle;
-	collisionType = type; //아래 부분은 겹치니까 부모생성자에서 처리해도 될듯? 
+	collisionType = type; 
 	this->layer = layer;
 	this->notify = notify;
 	CollisionManager::GetInstance()->pushCollider(this);
@@ -23,7 +23,6 @@ CircleCollider::~CircleCollider()
 
 bool CircleCollider::IsCollide(Collider* otherComponent)
 {
-	//상대가 서클일때랑, 박스일때  이 두경우 뿐임 //박스끼리 비교 서클끼리 비교.. 
 	if (otherComponent->GetColliderType() == ColliderType::Box)
 	{
 		return  aabb->CheckIntersect(*((BoxCollider*)otherComponent)->aabb);
@@ -39,7 +38,7 @@ void CircleCollider::Update(float deltaTime)
 {
 	if (owner->transform)
 	{
-		aabb->Center = owner->transform->GetWorldLocation(); //이부분은 각 콜라이더로 이전한다 대체왜 이전한거임?
+		aabb->Center = owner->transform->GetWorldLocation(); 
 		circle->Center = owner->transform->GetWorldLocation();
 	}
 }

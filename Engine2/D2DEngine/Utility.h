@@ -2,7 +2,7 @@
 class Utility
 {
 public:
-	static int RandomBetween(int min, int max) //템플릿으로 만들수도? 
+	static int RandomBetween(int min, int max) 
 	{
 		std::random_device rd;
 		std::mt19937 gen(rd());
@@ -42,7 +42,7 @@ public:
 	}
 
 	template<typename T>
-	static void removeElements(std::list<T*>& origin, const std::list<T*>& remove) { //지울객체를 실제로 지우기 이걸 유틸의 템플릿으로 만들까?
+	static void removeElements(std::list<T*>& origin, const std::list<T*>& remove) { 
 		for (auto it = remove.begin(); it != remove.end(); ++it) {
 			origin.remove(*it);
 		}

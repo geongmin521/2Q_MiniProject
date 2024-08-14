@@ -3,8 +3,8 @@
 #include "AABB.h"
 #include "D2DRenderer.h"
 #include "CollisionManager.h"
-#include "CircleCollider.h"
 #include "Transform.h"
+#include "Collider.h"
 
 GameObject::GameObject()
 {
@@ -33,7 +33,7 @@ void GameObject::Update(float deltaTime)
 			pComponent->Update(deltaTime);
 	}
 	if (transform)
-		boundBox->Center = transform->GetWorldLocation(); //이부분은 각 콜라이더로 이전한다 //카메라로 컬링을 할일이 있을까? 우리게임에서? 
+		boundBox->Center = transform->GetWorldLocation();
 }
 
 
@@ -77,10 +77,10 @@ void GameObject::SetActive(bool active)
 	isActive = active;
 	for (auto var : transform->childScene)
 	{
-		var->owner->SetActive(active); //계층적으로 할수있도록 설정.. 
+		var->owner->SetActive(active);
 	}
-	//CircleCollider* col = GetComponent<CircleCollider>(); //적들이랑 타워모두 서클콜라이더만 사용한다는 전제하에?
-	Collider* col = GetComponent<Collider>(); //적들이랑 타워모두 서클콜라이더만 사용한다는 전제하에?
+
+	Collider* col = GetComponent<Collider>();
 	if (col == nullptr)
 		return;
 	if (active == false)

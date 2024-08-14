@@ -5,7 +5,6 @@ class Container;
 class Map : public GameObject
 {
 private:
-	//맵에경우는 변경가능성이적고 고정되니까 이차원배열로하자
 	Container* grid[4][4];
 public:
 	Map();

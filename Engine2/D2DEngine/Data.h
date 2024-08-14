@@ -24,7 +24,7 @@ struct TowerData {
     float attackRange; //공격 사거리
     float HP;  
     float attackSpeed;
-    float attackArea; //공격할때 박스가 추가되는형식.. 
+    float attackArea;  //적과 닿은시점(거리) 한번더 거리계산
     std::string ability;
 };
 
@@ -35,7 +35,6 @@ struct WaveData {
     std::vector<int> enemyId;
     std::vector<float> spawnTime;
     std::vector<int> enemyCount;
-    //float 간격도 물어봐야함. 아마 가능한 종류의 벡터로 처리할듯?
 };
 
 struct ArtifactData
