@@ -1,25 +1,27 @@
 #include "pch.h"
-#include "D2DEffect.h"
+#include "D2DEffectManager.h"
 #include "D2DRenderer.h"
 #include "Transform.h"
-#include <wrl.h>
 
-D2DEffect::~D2DEffect()
+D2DEffectManager::D2DEffectManager()
 {
-	for (auto& pair : Effects) 
-	{
-		if (pair.second) 
-		{
-			pair.second->Release();  
-			pair.second = nullptr;   
-		}
-	}
-	Effects.clear();  
 }
 
-ID2D1Effect* D2DEffect::FindEffect(const std::wstring& keyName)
+D2DEffectManager::~D2DEffectManager()
 {
-	// unordered_map의 find 함수를 사용하여 키 검색
+	for (auto& pair : Effects)
+	{
+		if (pair.second)
+		{
+			pair.second->Release();
+			pair.second = nullptr;
+		}
+	}
+	Effects.clear();
+}
+
+ID2D1Effect* D2DEffectManager::FindEffect(const std::wstring& keyName)
+{
 	auto it = Effects.find(keyName);
 
 	if (it != Effects.end())
@@ -29,18 +31,20 @@ ID2D1Effect* D2DEffect::FindEffect(const std::wstring& keyName)
 	return nullptr;
 }
 
-void D2DEffect::Update(float deltaTime)
+void D2DEffectManager::Update(float deltaTime)
 {
-	for (auto& Effect : UpdateEffects)
-	{
 
-	}
 }
 
-void D2DEffect::Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_3X2_F* matrix)
+void D2DEffectManager::Render(ID2D1RenderTarget* pRenderTarget)
+{
+
+}
+
+void D2DEffectManager::Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_3X2_F* matrix)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
-	ID2D1Effect * affineTransform;
+	ID2D1Effect* affineTransform;
 	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D12DAffineTransform, &affineTransform);
 	affineTransform->SetInput(0, _Bitmap);
 	affineTransform->SetValue(D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX, matrix);
@@ -48,7 +52,7 @@ void D2DEffect::Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bit
 }
 
 // https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_edgedetection_prop
-void D2DEffect::CreateEdgeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+void D2DEffectManager::CreateEdgeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 	ID2D1Effect* EdgeEffect;
@@ -60,9 +64,9 @@ void D2DEffect::CreateEdgeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 	Effects.insert(std::make_pair(_KeyName, EdgeEffect));
 }
 
-void D2DEffect::CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal)
+void D2DEffectManager::CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal)
 {
-	if (Effects.find(_KeyName) != Effects.end()) { return; } // 예외처리 해당 키를 가진게 있으면 생성을 하지 않음
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
 
 	ID2D1Effect* blurEffect = nullptr;
 	if (nullptr == D2DRenderer::GetInstance()->DeviceContext) { return; }
@@ -73,12 +77,12 @@ void D2DEffect::CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bi
 	blurEffect->SetInput(0, _Bitmap); //이미지 인덱스 https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-setinput
 	blurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, blurVal);
 	Effects.insert(std::make_pair(_KeyName, blurEffect));
-//	GaussianBlurEffect->GetOutput(&D2D1Image); // 렌더링 효과를 전달 https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-getoutput
+	//	GaussianBlurEffect->GetOutput(&D2D1Image); // 렌더링 효과를 전달 https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-getoutput
 }
 
-void D2DEffect::CreateColorMatrixEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_5X4_F _ColorMatrix)
+void D2DEffectManager::CreateColorMatrixEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_5X4_F _ColorMatrix)
 {
-	if (Effects.find(_KeyName) != Effects.end()) { return; } // 예외처리 해당 키를 가진게 있으면 생성을 하지 않음
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
 
 	ID2D1Effect* colorMatrixEffect = nullptr;
 	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1ColorMatrix, &colorMatrixEffect);
@@ -86,7 +90,7 @@ void D2DEffect::CreateColorMatrixEffect(std::wstring _KeyName, ID2D1Bitmap* _Bit
 
 	colorMatrixEffect->SetInput(0, _Bitmap);
 	colorMatrixEffect->SetValue(D2D1_COLORMATRIX_PROP_COLOR_MATRIX, _ColorMatrix);
-	Effects.insert(std::make_pair(_KeyName,colorMatrixEffect));
+	Effects.insert(std::make_pair(_KeyName, colorMatrixEffect));
 }
 // | Red Multiplier | Green Multiplier | Blue Multiplier | Alpha Multiplier | Red Offset   |
 // |-------------------- | -------------------- | -------------------- | -------------------- | --------------|
@@ -94,7 +98,7 @@ void D2DEffect::CreateColorMatrixEffect(std::wstring _KeyName, ID2D1Bitmap* _Bit
 // | Blue Multiplier | Green Multiplier | Red Multiplier | Alpha Multiplier | Blue Offset  |
 // | Alpha Multiplier | Green Multiplier | Blue Multiplier | Red Multiplier | Alpha Offset |
 
-void D2DEffect::CreateDistantDiffuseEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+void D2DEffectManager::CreateDistantDiffuseEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 	ID2D1Effect* distantDiffuseEffect = nullptr;
@@ -116,29 +120,29 @@ void D2DEffect::CreateDistantDiffuseEffect(std::wstring _KeyName, ID2D1Bitmap* _
 
 	// 표면 스케일 설정 (0~10,000)
 	FLOAT surfaceScale = 0.0f;
-    //Z 방향의 배율 인수입니다. 표면 눈금은 단위가 없으며 0에서 10,000 사이여야 합니다.
+	//Z 방향의 배율 인수입니다. 표면 눈금은 단위가 없으며 0에서 10,000 사이여야 합니다.
 	distantDiffuseEffect->SetValue(D2D1_DISTANTDIFFUSE_PROP_SURFACE_SCALE, surfaceScale);
- 
+
 	// 조명 색상 설정
 	D2D1_VECTOR_3F lightColor = D2D1::Vector3F(0.5f, 0.5f, 0.1f); // 약간의 노란색
-    //들어오는 조명의 색입니다. 이 속성은 D2D1_VECTOR_3F (R, G, B)로 노출되며 LR, LG, LB를 계산하는 데 사용됩니다.
+	//들어오는 조명의 색입니다. 이 속성은 D2D1_VECTOR_3F (R, G, B)로 노출되며 LR, LG, LB를 계산하는 데 사용됩니다.
 	distantDiffuseEffect->SetValue(D2D1_DISTANTDIFFUSE_PROP_COLOR, lightColor);
 
-//	// 커널 유닛 길이 설정
+	//	// 커널 유닛 길이 설정
 	D2D1_VECTOR_2F kernelUnitLength = D2D1::Vector2F(1.0f, 0.5f);
- 	//X 및 Y 방향으로 표면 보통을 생성하는 데 사용되는 Sobel 커널의 요소 크기입니다. 
-    //이 속성은 Sobel 그라데이션의 dx 및 dy 값에 매핑됩니다. 
-    //이 속성은 D2D1_VECTOR_2F(커널 단위 길이 X, 커널 단위 길이 Y)이며(디바이스 독립적 픽셀(DIP)/커널 단위)에 정의되어 있습니다. 
-    //이 효과는 쌍선형 보간을 사용하여 커널 요소의 크기와 일치하도록 비트맵의 크기를 조정합니다.
+	//X 및 Y 방향으로 표면 보통을 생성하는 데 사용되는 Sobel 커널의 요소 크기입니다. 
+	//이 속성은 Sobel 그라데이션의 dx 및 dy 값에 매핑됩니다. 
+	//이 속성은 D2D1_VECTOR_2F(커널 단위 길이 X, 커널 단위 길이 Y)이며(디바이스 독립적 픽셀(DIP)/커널 단위)에 정의되어 있습니다. 
+	//이 효과는 쌍선형 보간을 사용하여 커널 요소의 크기와 일치하도록 비트맵의 크기를 조정합니다.
 	distantDiffuseEffect->SetValue(D2D1_DISTANTDIFFUSE_PROP_KERNEL_UNIT_LENGTH, kernelUnitLength);
 
-//	// 크기 조정 모드 설정 https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_distantdiffuse_scale_mode
+	//	// 크기 조정 모드 설정 https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_distantdiffuse_scale_mode
 	D2D1_DISTANTDIFFUSE_SCALE_MODE scaleMode = D2D1_DISTANTDIFFUSE_SCALE_MODE_LINEAR;
 	distantDiffuseEffect->SetValue(D2D1_DISTANTDIFFUSE_PROP_SCALE_MODE, scaleMode);
 	Effects.insert(std::make_pair(_KeyName, distantDiffuseEffect));
 }
 
-void D2DEffect::CreateBlendEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, ID2D1Bitmap* _BitmapTwo)
+void D2DEffectManager::CreateBlendEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, ID2D1Bitmap* _BitmapTwo)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 	ID2D1Effect* blendEffect = nullptr;
@@ -150,7 +154,7 @@ void D2DEffect::CreateBlendEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, I
 	Effects.insert(std::make_pair(_KeyName, blendEffect));
 }
 
-void D2DEffect::CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap ,int val)
+void D2DEffectManager::CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, int val)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 	ID2D1Effect* morphologyEffect;
@@ -169,7 +173,7 @@ void D2DEffect::CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitm
 //		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
 //		};
 
-void D2DEffect::CreateCrossFadeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, ID2D1Bitmap* _BitmapTwo)
+void D2DEffectManager::CreateCrossFadeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, ID2D1Bitmap* _BitmapTwo)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 
@@ -180,11 +184,11 @@ void D2DEffect::CreateCrossFadeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitma
 	CrossFadeEffect->SetInput(1, _BitmapTwo);
 
 	CrossFadeEffect->SetValue(D2D1_CROSSFADE_PROP_WEIGHT, 0.0f);
-	 
+
 	Effects.insert(std::make_pair(_KeyName, CrossFadeEffect));
 }
 
-void D2DEffect::CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, Transform* LightTransform)
+void D2DEffectManager::CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, Transform* LightTransform)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 	ID2D1Effect* SpecularEffect;
@@ -217,7 +221,7 @@ void D2DEffect::CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap
 	Effects.insert(std::make_pair(_KeyName, SpecularEffect));
 }
 
-void D2DEffect::CreateDistanSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+void D2DEffectManager::CreateDistanSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 	ID2D1Effect* DistantSpecularEffect;
@@ -230,12 +234,12 @@ void D2DEffect::CreateDistanSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _
 	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_COLOR, D2D1::Vector3F(1.0f, 0.95f, 0.8f)); // 조명 색상 (태양빛 색상)
 	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_KERNEL_UNIT_LENGTH, D2D1::Vector2F(1.0f, 1.0f)); // 커널 단위 길이
 	DistantSpecularEffect->SetValue(D2D1_DISTANTSPECULAR_PROP_SCALE_MODE, D2D1_DISTANTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC); // 스케일 모드 (고품질)
-	
+
 	DistantSpecularEffect->SetInput(0, _Bitmap);
 	Effects.insert(std::make_pair(_KeyName, DistantSpecularEffect));
 }
 
-void D2DEffect::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+void D2DEffectManager::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 {
 	// 이미 이 이펙트가 존재하는지 확인합니다.
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
@@ -250,7 +254,7 @@ void D2DEffect::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _B
 	// 표면의 스케일 설정 (높이 맵을 어떻게 해석할지 결정합니다)
 	FLOAT surfaceScale = 1.0f;
 	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_SURFACE_SCALE, surfaceScale);
-	 
+
 	// 스펙큘러 상수 설정 (빛의 강도를 결정합니다)
 	FLOAT specularConstant = 2.0f;
 	pointSpecularEffect->SetValue(D2D1_POINTSPECULAR_PROP_SPECULAR_CONSTANT, specularConstant);
@@ -283,8 +287,6 @@ void D2DEffect::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _B
 	// 이펙트를 저장
 	Effects.insert(std::make_pair(_KeyName, pointSpecularEffect));
 }
-
-
 
 
 

@@ -182,7 +182,7 @@
     <ClInclude Include="IOnMouse.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="D2DEffect.h">
+    <ClInclude Include="IEffect.h">
       <Filter>소스 파일\Effect</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
@@ -202,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="DOTweenManager.h">
       <Filter>소스 파일\DOTween</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DEffectManager.h">
+      <Filter>소스 파일\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -310,9 +313,6 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>소스 파일\System</Filter>
     </ClCompile>
-    <ClCompile Include="D2DEffect.cpp">
-      <Filter>소스 파일\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Dotween.cpp">
       <Filter>소스 파일\DOTween</Filter>
     </ClCompile>
@@ -324,6 +324,9 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DEffectManager.cpp">
+      <Filter>소스 파일\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

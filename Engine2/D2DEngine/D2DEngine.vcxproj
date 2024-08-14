@@ -157,7 +157,8 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="D2DEffect.h" />
+    <ClInclude Include="IEffect.h" />
+    <ClInclude Include="D2DEffectManager.h" />
     <ClInclude Include="D2DRenderer.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
@@ -208,7 +209,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="D2DEffect.cpp" />
+    <ClCompile Include="D2DEffectManager.cpp" />
     <ClCompile Include="D2DEngine.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
     <ClCompile Include="DataManager.cpp" />

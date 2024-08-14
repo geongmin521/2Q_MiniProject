@@ -1,9 +1,10 @@
 #pragma once
 #include "GameObject.h"
 #include "IColliderNotify.h"
+#include "IEffect.h"
 
 class Bitmap;
-class Light : public GameObject , IColliderNotify
+class Light : public GameObject , IColliderNotify, IEffect
 {
 public:
 	Light();
@@ -24,6 +25,7 @@ public:
 
 	bool test = true;
 
-	void UpdateLightEffect();
+	virtual void EffectUpdate(float deltaTime);
+	virtual void EffectRender();
 };
 

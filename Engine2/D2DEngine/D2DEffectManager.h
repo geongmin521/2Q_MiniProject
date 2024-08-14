@@ -1,17 +1,20 @@
 #pragma once
 #include "SingletonBase.h"
 
+class D2DEffect;
 class Transform;
-class D2DEffect : public SingletonBase<D2DEffect>
+class D2DEffectManager : public SingletonBase<D2DEffectManager>
 {
 private:
-	std::unordered_map<std::wstring, ID2D1Effect*> Effects;
-	std::vector<ID2D1Effect*> UpdateEffects; // 용도 업데이트 필요한 이펙트들 모음
+	std::unordered_map<std::wstring, ID2D1Effect*> Effects; 
 
 public:
-	~D2DEffect();
+	D2DEffectManager();
+	~D2DEffectManager();
 	ID2D1Effect* FindEffect(const std::wstring& keyName);
+
 	void Update(float deltaTime);
+	void Render(ID2D1RenderTarget* pRenderTarget);
 
 public: // 트랜스폼 관련 적용
 	void Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_3X2_F* matrix);
@@ -30,12 +33,5 @@ public: // 빛 효과
 	void CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, Transform* LightTransform);
 	void CreateDistanSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
 	void CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
-
 };
 
-// 사용법 
-// 해당 오브젝트에서 사용하고 싶은 이펙트를 생성한다
-// D2DEffect::GetInstance()->CreateGaussianBlurEffect(L"test", GetComponent<Animation>()->bitmap, 10.f);
-// Render에서 D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"test"));
-// D2DRenderer::GetInstance()->DeviceContext->DrawImage를 통해서 랜더를 해야 한다. DrawImage에서 이펙트 렌더를 지원함
-// FindEffect를 이용해서 내가 만든 이펙트를 찾아서 사용하면 된다.
