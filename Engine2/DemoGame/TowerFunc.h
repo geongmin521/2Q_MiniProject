@@ -6,6 +6,6 @@ class TowerFunc: public CommonFunc//타워가 가질수있는 능력들 //인스턴스를 가질필
 public:
 	static void FireBullet(GameObject* target, MathHelper::Vector2F pos, float id);
 	static void Heal(std::vector<GameObject*>& targets);
-	static void MeleeAttack(std::vector<GameObject*>& targets); //근접공격
+	static void MeleeAttack(GameObject* my,std::vector<GameObject*>& targets); //근접공격
 };
 

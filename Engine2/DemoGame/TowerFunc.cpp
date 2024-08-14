@@ -11,7 +11,7 @@ void TowerFunc::FireBullet(GameObject* target, MathHelper::Vector2F pos,float id
 	if (target != nullptr)
 	{
 		Arrow* arrow = dynamic_cast<Arrow*>(Pools::GetInstance().get()->PopPool(id + 500)); //총알은 아이디없긴한데.. //여기서 총알만 잘가져오면되겠지? 
-		arrow->Init(target, pos);
+		arrow->Init(pos, target);
 	}
 }
 
@@ -25,13 +25,16 @@ void TowerFunc::Heal(std::vector<GameObject*>& targets) //게임오브젝트의 벡터를 
 	}
 }
 
-void TowerFunc::MeleeAttack(std::vector<GameObject*>& targets)
+void TowerFunc::MeleeAttack(GameObject* my,std::vector<GameObject*>& targets)
 {
 	for (auto& enemy : targets)
 	{		
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy); //타워에만 한정되지않을수도있으니까... 이것도 인터페이스로 뺄까?
 		//계산기도 여기서 거치고 가야지.. 헬퍼에 세환님이 만들었으니까 유틸로 접근해서 적 타입이랑 같이 보내서 계산하면될듯?
 		if (enemy != nullptr)
-			damageEnemy->Hit(Utility::CalCul("일반형",damageEnemy->enemyData.Type,1000));  //내타입은 어떻게넣지 일단 하드코딩 //데미지도
+		{
+			MathHelper::Vector2F dir = (enemy->GetWorldLocation() - my->GetWorldLocation()).Normalize();
+			damageEnemy->Hit(Utility::CalCul("일반형", damageEnemy->enemyData.Type, 3),150);  //내타입은 어떻게넣지 일단 하드코딩 //데미지도
+		}
 	}
 }

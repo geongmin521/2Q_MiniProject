@@ -47,5 +47,11 @@ public:
 			origin.remove(*it);
 		}
 	}
+
+	static std::wstring convertFromString(const std::string& str) { //어뭐야.. wstring에서 string형변환하니까.. 한글이 들어오네? 
+		std::wstring wstr;
+		wstr.assign(str.begin(), str.end());
+		return wstr;
+	}
 };
 

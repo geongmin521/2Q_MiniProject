@@ -27,9 +27,6 @@
     <Filter Include="소스 파일\Resource">
       <UniqueIdentifier>{3367259c-be26-4a0d-bb94-89671c7ec261}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Helper">
-      <UniqueIdentifier>{080fff16-efc5-4326-9be3-a892b76f651c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Position">
       <UniqueIdentifier>{d9a9c956-fac8-4b84-a7bf-310af37d7f38}</UniqueIdentifier>
     </Filter>
@@ -50,6 +47,9 @@
     </Filter>
     <Filter Include="소스 파일\DOTween">
       <UniqueIdentifier>{8f480394-a35b-4eb5-883b-a075fdc7472f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Helper">
+      <UniqueIdentifier>{080fff16-efc5-4326-9be3-a892b76f651c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

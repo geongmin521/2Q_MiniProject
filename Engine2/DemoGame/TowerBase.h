@@ -42,7 +42,7 @@ public:
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 
     virtual void Attack(float deltaTime); //각타워에서 따로동작할 공격  화살발사, 근접공격 등
-    virtual void Hit(float damage);
+    virtual void Hit(float damage, float knockback = 0);
     virtual void Heal(float heal); //최대체력넘기면 최대체력되게끔
 
     virtual void BeginDrag(const MouseState& state) override;

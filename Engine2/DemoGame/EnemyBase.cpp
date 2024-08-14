@@ -21,7 +21,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	id = 1001;
 	curHP = enemyData.HP;
 	SetBoundBox(0, 0, 50, 50); //기본 적 이미지 사이즈 //이것도 원으로 만들어도 될듯? 
-	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Zombie2.csv"));
+	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Animation\\Zombie2.csv"));
 	enemyData.attackRange = 10; //테스트
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
@@ -64,6 +64,15 @@ EnemyBase::~EnemyBase()
 void EnemyBase::Update(float deltaTime) //타겟을 여러개 들고있을확률도 있음... 노티피로만하면문제가 없긴한데.. 위치값등의 추가 값을 파악하기가 힘들수있음.. 
 {
 	__super::Update(deltaTime);
+	if (isHited) //맞았을경우
+	{
+		elapsedTime += deltaTime;
+		if (elapsedTime > hitedTime)
+		{
+			isHited = false;
+			elapsedTime = 0;
+		}
+	}
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
@@ -71,7 +80,7 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	__super::Render(pRenderTarget);
 }
 
-void EnemyBase::Hit(float damage)
+void EnemyBase::Hit(float damage, float knockback)
 {
 	float plusAttack = Artifact::GetInstance().get()->towerPower.Attack;
 	float Hpdame = curHP - damage * plusAttack;  //예시 변수명 수정등필요
@@ -83,6 +92,9 @@ void EnemyBase::Hit(float damage)
 	{
 		curHP = Hpdame;
 	}
+	if(knockback !=0)
+	isHited = true;
+	GetComponent<Movement>()->SetVelocity({ knockback,0 });
 }
 
 void EnemyBase::Attack()

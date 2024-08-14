@@ -21,6 +21,7 @@ void BezierMovement::Update(float deltaTime)
     {
         t = 1;//베지어에 의하면 시간이 1이면 도착했기때문에..
         //총알을 없애기..
+        
      
     }
    

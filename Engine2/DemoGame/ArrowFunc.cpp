@@ -5,17 +5,22 @@
 #include "Circle.h"
 #include "Effect.h"
 #include "Pools.h"
+#include "Arrow.h"
 #include "ArrowFunc.h"
 
 
-void ArrowFunc::AttackEnemy(GameObject* target,std::string type, float damage)
+void ArrowFunc::AttackEnemy(GameObject* my,GameObject* target,std::string type, float damage)
 {
+	
 	EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);	//어택헀을떄 그위치에 이펙트만들고 
-	enemy->Hit(Utility::CalCul(type, enemy->enemyData.Type, damage));
+	MathHelper::Vector2F dir = (enemy->GetWorldLocation() - my->GetWorldLocation()).Normalize();
+	enemy->Hit(Utility::CalCul(type, enemy->enemyData.Type, damage), 100); //일단 100
+	Pools::GetInstance().get()->AddPool(my);
 }
 
-void ArrowFunc::AttackEnemys(CircleCollider& myCol, std::string type, float damage)
+void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damage)
 {
+	
 	//성수그림에서 바꾸고 성수애니메이션? 이나 약간의 딜레이 후에 사라지게끔 해야하는대
 	std::vector<GameObject*> targets;
 	CommonFunc::FindTargets(myCol, "Enemy", targets, myCol.circle->radius);  
@@ -23,11 +28,41 @@ void ArrowFunc::AttackEnemys(CircleCollider& myCol, std::string type, float dama
 	{
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
 		if (enemy != nullptr)
-			damageEnemy->Hit(Utility::CalCul(type, damageEnemy->enemyData.Type, damage)); //성수형도 매개변수로 타워에서부터 받아오게끔하고
+		{
+			MathHelper::Vector2F dir = (enemy->GetWorldLocation() - myCol.circle->Center).Normalize();
+			damageEnemy->Hit(Utility::CalCul(type, damageEnemy->enemyData.Type, damage), 100);
+		}
 	}
+	
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
 	effect->Init(L"Light.png", myCol.owner->GetWorldLocation(), 0.3f); //이펙트 생성
 	myCol.SetCollisionType(CollisionType::NoCollision); //한번 공격후 노콜리전
-	
+	Pools::GetInstance().get()->AddPool(myCol.owner);
 	
 }
+
+void ArrowFunc::HiddenAttack(CircleCollider& myCol,float damage)
+{
+	
+	Arrow* arrow = dynamic_cast<Arrow*>(Pools::GetInstance().get()->PopPool(513)); //513만따로 히든애로우용 으로?
+	arrow->Init(myCol.owner->GetWorldLocation());
+	Pools::GetInstance().get()->AddPool(myCol.owner);
+}
+
+void ArrowFunc::AttackEnemys(CircleCollider& myCol, float damage)
+{
+	std::vector<GameObject*> targets;
+	CommonFunc::FindTargets(myCol, "Enemy", targets, myCol.circle->radius);
+	for (auto& enemy : targets)
+	{
+		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
+		if (enemy != nullptr)
+		{
+			damageEnemy->Hit(damage);
+		}
+	}
+	
+
+}
+
+

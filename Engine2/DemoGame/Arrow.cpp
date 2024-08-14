@@ -6,48 +6,64 @@
 #include "D2DRenderer.h"
 #include "AABB.h"
 #include "Music.h"
-#include "Utility.h"
 #include "CircleCollider.h"
 #include "Circle.h"
 #include "EnemyBase.h"
+#include "Movement.h"
 #include "TowerBase.h"
 #include "ArrowFunc.h"
 #include "Pools.h"
-#include "../D2DEngine/BezierMovement.h"
+#include "BezierMovement.h"
+#include "TimeSystem.h"
 
 #include "World.h"
 #include "Effect.h"
 
 #include "Arrow.h"
 
-Arrow::Arrow(float speed,std::string type,float damage,float attackArea) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
+Arrow::Arrow(std::string type,float damage,float attackArea) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
 {
+	this->speed = 1.5f;
+	this->type = type;
 	SetBoundBox(0, 0, attackArea, attackArea);
-	//AddComponent(new Bitmap(L"..\\Data\\Image\\" + imagePath));
-	//AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"Arrow"));
-	renderOrder = 100;
-	AddComponent(new BezierMovement(transform, speed)); //발사되는순간에 적의 위치를 받아오는게 맞지.. 
+	renderOrder = 95;
+	AddComponent(new Bitmap(L"..\\Data\\Image\\" + Utility::convertFromString(type) + L".png"));
+	//발사되는순간에 적의 위치를 받아오는게 맞지.. 
 	if (type == "Crossbow")
 	{
-		AddComponent(new Bitmap(L"..\\Data\\Image\\Crossbow.png" ));
-		AttackFunc = [this, type, damage]() { ArrowFunc::AttackEnemy(this->target,type, damage); };
+		AddComponent(new BezierMovement(transform, speed));
+		AttackFunc = [this, type, damage]() { ArrowFunc::AttackEnemy(this, this->target,type, damage); };
 		id = 500;
 
 	}
 	if (type == "Water")
-	{	
-		AddComponent(new Bitmap(L"..\\Data\\Image\\Water.png"));
+	{
+		AddComponent(new BezierMovement(transform, speed));
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
-		AttackFunc = [this, type, damage]() { ArrowFunc::AttackEnemys(*GetComponent<CircleCollider>(),type,damage); };
-		id = 501;
+		AttackFunc = [this, type, damage]() { ArrowFunc::WaterAttack(*GetComponent<CircleCollider>(),type,damage); };
+		id = 503;
 	}
 	if (type == "Hidden")
 	{
-
+		this->speed = 30.0f;
+		AddComponent(new Movement(transform));
+		transform->SetRelativeScale({ 0.3f,0.3f });
+		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
+		AttackFunc = [this,damage]() { ArrowFunc::HiddenAttack(*GetComponent<CircleCollider>(), damage); };
+		id = 512;
 	}
-	if (type == "Vampire")
+	if (type == "HiddenArrow")
 	{
-		AddComponent(new Bitmap(L"..\\Data\\Image\\vampire.png"));
+		this->type = type;
+		transform->SetRelativeScale({ 0.10f,0.10f });
+		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
+		AttackFunc = [this, damage]() { ArrowFunc::AttackEnemys(*GetComponent<CircleCollider>(), damage); };
+		id = 513;
+	}
+	if (type == "vampire")
+	{
+		AddComponent(new BezierMovement(transform, speed));
+		AttackFunc = [this, type, damage]() { ArrowFunc::AttackEnemy(this, this->target, type, damage); };
 		id = 500000;
 	}
 }
@@ -57,36 +73,55 @@ Arrow::~Arrow()
 }
 
 
-void Arrow::Init(GameObject* target, MathHelper::Vector2F location)
+void Arrow::Init(MathHelper::Vector2F location, GameObject* target)
 {
+	if(target !=nullptr)
 	this->target = target;
-	this->transform->SetRelativeLocation(location);
+	if(GetComponent<BezierMovement>() != nullptr)
 	GetComponent<BezierMovement>()->target = target;
-	
+
 	CircleCollider* cirCle = GetComponent<CircleCollider>();
 	if (cirCle)
 		cirCle->SetCollisionType(CollisionType::Overlap); //여기서 다시 키는게맞나? 공격하고 끄고
+	elapsedTime = 0;
+	this->transform->SetRelativeLocation(location);
 }
+
 
 void Arrow::Update(float deltaTime)
 {
-	preDir = curDir;
-	__super::Update(deltaTime);
-	curDir = transform->GetRelativeLocation();
-	if(target->GetActive() == false)
+	if (type == "Hidden")
 	{
-		Pools::GetInstance().get()->AddPool(this);
+		MathHelper::Vector2F dir = (target->GetWorldLocation() - GetWorldLocation()).Normalize();
+		GetComponent<Movement>()->SetVelocity(dir * speed);
 	}
-	if ((target->GetWorldLocation() - GetWorldLocation()).Length() < 5.0f) 
+	__super::Update(deltaTime);
+	/*if (target->GetActive() == false)
 	{
-		AttackFunc(); //총알을 벨지에커브에서 없애지말고 여기서없애야할거같은대
 		Pools::GetInstance().get()->AddPool(this);
+	}*/
+	static float abc = 0;
+	if (type == "HiddenArrow")
+	{
+		elapsedTime2 += deltaTime;
+		if (elapsedTime2 > attackTime)
+		{
+			AttackFunc();
+			elapsedTime2 = 0;
+		}
+
+		elapsedTime += deltaTime;
+		if (elapsedTime > duration)
+		{
+			Pools::GetInstance().get()->AddPool(this);
+		}
+	}
+	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() < 5.0f)
+	{
+		AttackFunc(); //풀에넣는건 각 어택안에서
+		
 	}
 	
-	float moveX = curDir.x - preDir.x;
-    float moveY = curDir.y - preDir.y;
-	float moveR = atan2(moveX, moveY) * (180.0f / PI);
-	//transform->SetRelativeRotation(moveR);
 
 }
 

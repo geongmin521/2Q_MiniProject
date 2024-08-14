@@ -28,6 +28,7 @@ Map::Map()
 		}			
 	for(int i=0;i< 4;i++)
 		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(i*3));
+	grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
 	//일단 맵이 컨테이너를 들고있으니 여기다가 시작타워를 설치해주자.. 
 	
 }

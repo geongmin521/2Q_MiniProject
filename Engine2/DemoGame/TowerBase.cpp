@@ -30,14 +30,42 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 		Factory().createObj<TowerStar>().setPosition({ 20.f * i ,0}).setParent(transform);
 	id = towerData.id;
 	curHP = towerData.HP;
+	if(towerData.name == "HiddenTower")
+	AddComponent(new Animation(L"..\\Data\\Image\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\Animation\\" + Utility::convertFromString(towerData.name) + L".csv"));
+	else
+	AddComponent(new Animation(L"..\\Data\\Image\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\Animation\\TowerBase.csv"));
 	EventSystem::GetInstance().get()->Ui.insert(this);
 	SetBoundBox(0, 0, 150,150);
-	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"..\\Data\\CSV\\Ken.csv")); //애니메이션은데이터의 이름으로 위치찾아서 가져오기
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Tower));
-	
 
-	FiniteStateMachine* fsm = new FiniteStateMachine(); 
+	TowerType type = (TowerType)(towerData.id / 3);
+	if (type == TowerType::Crossbow || type == TowerType::Water) //같은 알고리즘 
+	{
+		
+		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
+		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation(), towerData.id); };
+	}
+	if (type == TowerType::Pile)
+	{
+		
+		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
+		AttackFunc = [this]() { TowerFunc::MeleeAttack(this,target); };
+	}
+	if (type == TowerType::HolyCross)
+	{
+		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange); };
+		AttackFunc = [this]() { TowerFunc::Heal(target); };
+	}
+	if (type == TowerType::Hidden)
+	{
+		
+		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
+		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation(), towerData.id); };
+	}
+
+
+	FiniteStateMachine* fsm = new FiniteStateMachine();
 	Factory().createObj<HPBar>(curHP, data.HP).setParent(transform);
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
@@ -45,24 +73,6 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	fsm->CreateState<TowerShared>("Shared");
 	fsm->CreateState<TowerDeath>("Death");
 	fsm->SetNextState("Idle");
-
-	TowerType type = (TowerType)(towerData.id / 3);
-	if (type == TowerType::Crossbow || type == TowerType::Water) //같은 알고리즘
-	{
-		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation(), towerData.id); };
-	}
-	if (type == TowerType::Pile)
-	{
-		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::MeleeAttack(target); };
-	}
-	if (type == TowerType::HolyCross)
-	{
-		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::Heal(target); };
-	}
-
 	//testEffect = 1; //닷트윈 사용법 예시 //값이 적용될매개변수를 하나 가지고있고 생성해서 넣어주기
 	//new DOTween(testEffect, EasingEffect::InBounce, StepAnimation::StepOnceForward);
 }
@@ -94,7 +104,7 @@ void TowerBase::Attack(float deltaTime)
 	AttackFunc();
 }
 
-void TowerBase::Hit(float damage)
+void TowerBase::Hit(float damage, float knockback)
 {
 	float plusArmor = Artifact::GetInstance().get()->towerPower.Armor;
 	curHP -= damage * plusArmor;

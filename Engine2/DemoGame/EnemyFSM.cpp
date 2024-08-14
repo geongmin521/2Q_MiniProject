@@ -49,12 +49,14 @@ void EnemyIdle::Update(float deltaTime)
 		else
 		{
 			MathHelper::Vector2F moveDir = (targetPos - curPos).Normalize(); 
+			if(!enemy->isHited)
 			enemy->GetComponent<Movement>()->SetVelocity({ moveDir * enemy->enemyData.speed * 100 }); //테스트용 그리고 csv에서는 스피드와 탐지 범위가 너무작아서 일단이렇게 박아놓음
 		}
 	}
 	else
 	{
 		CommonFunc::FindTarget(*enemy->GetComponent<CircleCollider>(),"Tower",enemy->target, enemy->enemyData.attackRange);
+		if (!enemy->isHited)
 		enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed * 100, 0 }); 
 	}
 }
@@ -96,6 +98,7 @@ void EnemyAttack::EnterState()
 void EnemyAttack::Update(float deltaTime)
 {
 	AttackTimer += deltaTime;
+	
 	if (enemy->enemyData.attackSpeed < AttackTimer) //콜라이더가 아직 남아있어서 느리게나마 접근후 공격하는애들이있는듯?
 	{
 		AttackTimer = 0;
