@@ -30,7 +30,7 @@ public:
 	void LoadAnimationAsset(const std::wstring strFilePath);
 	virtual void Update(float fTimeElapsed) override;
 	virtual void Render(ID2D1RenderTarget* pRenderTarget,float Alpha = 1) override;
-	void SetAnimation(int index, bool mirror);
+	void SetAnimation(int index, bool mirror, bool isloop = true);
 	void Reverse(); 
 
 	// 이펙트 test로 만든 불값

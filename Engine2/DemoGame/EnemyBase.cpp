@@ -22,7 +22,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	curHP = enemyData.HP;
 	SetBoundBox(0, 0, 50, 50); 
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Animation\\Zombie2.csv"));
-	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Enemy));
+	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);

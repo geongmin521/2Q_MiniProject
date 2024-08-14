@@ -71,8 +71,8 @@ void TowerIdle::ExitState()
 
 void TowerAttack::EnterState()
 {
-	ani->SetAnimation(1, false);
-	ani->isLoop = false;
+	ani->SetAnimation(1, false,false);
+	
 }
 
 

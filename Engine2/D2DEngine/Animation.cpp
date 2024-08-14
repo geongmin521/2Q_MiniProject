@@ -121,20 +121,21 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 	pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 
-void Animation::SetAnimation(int index, bool mirror)
+void Animation::SetAnimation(int index, bool mirror, bool isloop)
 {
 	assert(animationAsset != nullptr);
 
 	ANIMATION_INFO* pFound = animationAsset->GetAnimationInfo(index);
 	if (pFound == nullptr)
 		return;
-	isLoop = true;
+	this->isLoop = isloop;
 	animationInfo = pFound;
 	this->mirror = mirror;
 	frameIndexCurr = 0;
 	frameIndexPrev = 0;
 	frameTime = 0.0f;
 	animationEnd = false;
+	//pFound->Loop = isloop;
 }
 
 void Animation::Reverse()
