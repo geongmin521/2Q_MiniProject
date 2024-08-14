@@ -216,9 +216,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ColorMatrixEffect.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="D2DEffect.cpp" />
     <ClCompile Include="D2DEffectManager.cpp" />
-    <ClCompile Include="D2DEngine.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Dotween.cpp" />

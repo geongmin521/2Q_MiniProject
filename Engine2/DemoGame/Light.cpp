@@ -9,8 +9,8 @@
 #include "Animation.h"
 #include "BoxCollider.h"
 #include "Light.h"
-
 #include "GaussianBlurEffect.h"
+
 Light::Light()
 {
 	AddComponent(new Bitmap(L"..\\Data\\Image\\LightBackground.png"));
@@ -147,7 +147,6 @@ void Light::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 		__super::Render(pRenderTarget);
 		D2DRenderer::GetInstance()->DrawGradientCircle(D2D1::Point2F(300, 300), 100.0f, D2D1::ColorF(D2D1::ColorF::White));
 	}
-
 }
 
 void Light::OnBlock(Collider* ownedComponent, Collider* otherComponent)

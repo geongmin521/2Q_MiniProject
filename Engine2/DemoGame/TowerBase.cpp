@@ -39,7 +39,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	SetBoundBox(0, 0, 150,150);
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Tower));
-
+	toolTip = Factory().createObj<ToolTip>(L"성수타워", L"공격력", L"생명력", L"공격력").setParent(transform).setActive(false).setPosition({100, 0}).Get<ToolTip>();
 	TowerType type = (TowerType)(towerData.id / 3);
 	if (type == TowerType::Crossbow || type == TowerType::Water) //같은 알고리즘 
 	{
@@ -215,13 +215,12 @@ void TowerBase::OnDoubleClick()
 	}
 }
 
-void TowerBase::OnMouse() //툴팁을 활성화 //근데 툴팁을 누가 들고있을까.. 어차피 공유일텐데.. 
+void TowerBase::OnMouse() 
 {
-	//툴팁도 csv?그냥 일단 본인이 들게하자.. 아 몰랑
 	toolTip->SetActive(true);
 }
 
-void TowerBase::OutMouse() //툴팁을 비활성화.. 
+void TowerBase::OutMouse() 
 {
-	toolTip->SetActive(false); //마지막 한놈은 왜 늦게 out마우스가 들어오지? 크기가 잘되어있지않나? 
+	toolTip->SetActive(false); 
 }
