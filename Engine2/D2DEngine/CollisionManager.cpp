@@ -12,6 +12,7 @@ CollisionManager::CollisionManager()
 
 CollisionManager::~CollisionManager()
 {
+	std::cout << "¼Ò¸ê";
 }
 
 void CollisionManager::CollisionCheck() 

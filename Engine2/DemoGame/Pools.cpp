@@ -39,7 +39,7 @@ void Pools::AddPool(GameObject* _Object)
 //총알의 아이디는 500부터 시작? 
 //웨이브는 1000이시작 
 
-GameObject* Pools::PopPool(int id)
+GameObject* Pools::PopPool(int id) 
 {
 	if (PoolList[id].empty() == false) 
 	{

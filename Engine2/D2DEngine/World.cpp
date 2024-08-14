@@ -6,10 +6,8 @@
 #include "Animation.h"
 #include "Collider.h"
 #include "BoxCollider.h"
-#include "CollisionManager.h"
 #include "EventSystem.h"
 #include "DOTweenManager.h"
-
 
 World::World()
 {
@@ -26,7 +24,6 @@ World::~World()
 	{
 		delete ele;
 	}
-	CollisionManager::GetInstance()->Clear();
 }
 
 void World::InsertGameObject(GameObject* obj)

@@ -53,7 +53,7 @@ void EnemyIdle::Update(float deltaTime)
 	}
 	else
 	{
-		CommonFunc::FindTarget(*enemy->GetComponent<CircleCollider>(),"Tower",enemy->target, enemy->enemyData.attackRange);
+		CommonFunc::FindTarget(*enemy->GetComponent<CircleCollider>(),"Tower",enemy->target, enemy->enemyData.detectRange);
 		enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed * 100, 0 }); 
 	}
 }

@@ -18,10 +18,10 @@ Renderer::~Renderer()
 	}
 }
 
-void Renderer::Update(float deltaTime)
+void Renderer::Update(float deltaTime) //애니메이션은 크기에따라 데스트 렉트가 계속 적용되는데 이미지는 그런게 없음. 
 {
-	float CenterX = (DstRect.right - DstRect.left) / 2;  
-	float CenterY = (DstRect.bottom - DstRect.top) / 2; 
+	float CenterX = (DstRect.right - DstRect.left) / 2;
+	float CenterY = (DstRect.bottom - DstRect.top) / 2;
 	if (mirror) 
 	{
 		imageTransform = D2D1::Matrix3x2F::Scale(-1.0f, 1.0f, D2D1::Point2F(CenterX, CenterY)) *
@@ -46,6 +46,8 @@ void Renderer::LoadD2DBitmap(const std::wstring strFilePath)
 	ResourceManager::Instance->CreateD2DBitmapFromFile(strFilePath, &bitmap);
 	DstRect.right = bitmap->GetSize().width;
 	DstRect.bottom = bitmap->GetSize().height;
+	srcRect.right = bitmap->GetSize().width;
+	srcRect.bottom = bitmap->GetSize().height;
 	strBitmapFilePath = strFilePath;
 }
 

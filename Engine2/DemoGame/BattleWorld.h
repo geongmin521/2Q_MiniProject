@@ -18,6 +18,7 @@ private:
 	Compensation* compensation; //º¸»ó 
 	EnemySpawner* spwaner;
 	Image* WaveCount;
+	Button* godStoreButton;
 	std::vector<Container*> TowerInventory;
 	bool Swap = false;
 public:

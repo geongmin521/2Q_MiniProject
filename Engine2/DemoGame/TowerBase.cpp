@@ -35,7 +35,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	SetBoundBox(0, 0, 150,150);
 	AddComponent(new Animation(L"..\\Data\\Image\\ken.png", L"..\\Data\\CSV\\Ken.csv")); //애니메이션은데이터의 이름으로 위치찾아서 가져오기
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
-	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Tower));
+	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
 	
 	toolTip = Factory().createObj<ToolTip>(L"성수타워", L"공격력:보통", L"체력:낮음", L"사거리:보통").setParent(transform).setPosition({100,0}).setActive(false).Get<ToolTip>(); //어우 생성자 부분 정리좀해야겠다.. 
 	FiniteStateMachine* fsm = new FiniteStateMachine(); 
@@ -69,8 +69,6 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 }
 
 //오브젝트풀에서 타워를 빼올때.. init을 거쳐야겠는데? 초기화 상태에 대해 알고있자.. 
-
-
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {

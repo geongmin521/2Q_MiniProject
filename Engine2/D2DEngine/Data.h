@@ -9,6 +9,7 @@ struct EnemyData {
     std::string Type;
     float ATK;
     float attackRange; //공격 사거리
+    float detectRange; //감지 거리
     float HP; 
     float attackSpeed;
     float speed;
@@ -25,6 +26,7 @@ struct TowerData {
     float HP;  
     float attackSpeed;
     float attackArea;  //적과 닿은시점(거리) 한번더 거리계산
+    float knockBack;
     std::string ability;
 };
 

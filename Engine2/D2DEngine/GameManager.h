@@ -18,6 +18,7 @@ public:
 	GameManager();
 	~GameManager(); 
 	void Update();
+	void init();
 };
 
 #define gameManager GameManager::GetInstance().get()

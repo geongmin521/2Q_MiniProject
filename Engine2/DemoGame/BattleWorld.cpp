@@ -2,7 +2,6 @@
 #include "BattleWorld.h"
 #include "Camera.h"
 #include "Button.h"
-#include "MoveIcon.h"
 #include "Factory.h"
 #include "Shop.h"
 #include "ShowWave.h"
@@ -34,7 +33,7 @@ BattleWorld::~BattleWorld()
 
 void BattleWorld::MakeObject() 
 {
-	Factory().createObj<Image>(L"afternoon.png").setRenderOrder(-100).setPosition(WinHalfSizeXY); //배경
+	Factory().createObj<Image>(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //배경
 	spwaner = Factory().createObj<EnemySpawner>().Get<EnemySpawner>(); 
 	Factory().createObj<Map>();
 	MakeUI();
@@ -86,7 +85,7 @@ void BattleWorld::ChangeButton()
 	}
 	else
 	{
-		shop_spawnButton->SetListener([this]() { shop->SetActive(true); ChangeButton(); });
+		shop_spawnButton->SetListener([this]() { shop->SetActive(true); shop->Reroll(); ChangeButton(); });
 		shop_spawnButton->GetComponent<D2DFont>()->SetDialog(L"타워소환");
 	}
 	Swap = !Swap;

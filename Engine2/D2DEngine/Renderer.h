@@ -9,7 +9,7 @@ public:
 	std::wstring strBitmapFilePath;
 	ID2D1Bitmap* bitmap = nullptr;
 	D2D1_RECT_F DstRect;				// RenderTarget의 Destination 영역		
-
+	D2D1_RECT_F srcRect;		// D2D1Bitmap의 Source 영역
 	Renderer(const std::wstring strFilePath);
 	Renderer() = default;
 	virtual ~Renderer();

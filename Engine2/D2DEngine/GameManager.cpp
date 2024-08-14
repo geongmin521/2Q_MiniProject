@@ -30,3 +30,12 @@ void GameManager::Update()
 	}
 		
 }
+
+void GameManager::init()
+{
+	bool isBattle = false;
+	int WaveLevel = 1;
+	int curWaveId = 1000;
+	int LiveEenmy = 0;
+	int gold = 100;
+}

@@ -22,7 +22,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	curHP = enemyData.HP;
 	SetBoundBox(0, 0, 50, 50); 
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Zombie2.csv"));
-	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Enemy));
+	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
@@ -40,19 +40,19 @@ void EnemyBase::SetAbility(std::string ability)
 {
 	if (ability == "None") //노말
 	{
-		attack = [this]() {EnemyFunc::NormalAttack(target[0], enemyData.ATK); };
+		attack = [this]() {EnemyFunc::NormalAttack(target[0], curATK); };
 	}
 	else if (ability == "Throw") //원거리
 	{
-		attack = [this]() {EnemyFunc::RangedAttack(target[0], transform->GetWorldLocation(), enemyData.ATK); };
+		attack = [this]() {EnemyFunc::RangedAttack(target[0], transform->GetWorldLocation(), curATK); };
 	}
 	else if (ability == "Destroy") //폭발
 	{
-		attack = [this]() {EnemyFunc::BombAttack(this, target[0], enemyData.ATK); };
+		attack = [this]() {EnemyFunc::BombAttack(this, target[0], curATK); };
 	}
 	else if (ability == "SpawnVat") //박쥐소환 보스
 	{
-		attack = [this]() {EnemyFunc::BombAttack(this, target[0], enemyData.ATK); };
+		attack = [this]() {EnemyFunc::BombAttack(this, target[0], curATK); };
 	}
 }
 

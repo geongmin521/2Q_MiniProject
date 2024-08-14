@@ -28,6 +28,7 @@ public:
     virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent) override;
 public:
     float curHP;
+    float curATK; 
     std::vector<GameObject*> target; 
     EnemyData enemyData;
 };

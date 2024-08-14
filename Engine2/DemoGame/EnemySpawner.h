@@ -16,6 +16,7 @@ class EnemySpawner : public GameObject
 private:
 	int WaveIndex;
 	float spawnTimer;
+	float WavePower;
 	std::vector<int> spawnPos; 
 	std::vector<SpawnData> curSpawnData;
 	std::vector<float> Timer;

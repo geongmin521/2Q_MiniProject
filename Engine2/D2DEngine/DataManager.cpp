@@ -91,6 +91,7 @@ void DataManager::EnemyDataRead()
 				parseToken(wss, data.Type);
 				parseToken(wss, data.ATK);
 				parseToken(wss, data.attackRange);
+				parseToken(wss, data.detectRange);
 				parseToken(wss, data.HP);
 				parseToken(wss, data.attackSpeed);
 				parseToken(wss, data.speed);
@@ -123,6 +124,7 @@ void DataManager::TowerDataRead()
 				parseToken(wss, data.HP);
 				parseToken(wss, data.attackSpeed);
 				parseToken(wss, data.attackArea);
+				parseToken(wss, data.knockBack);
 				parseToken(wss, data.ability);
 			}
 			towerData[data.id] = data;

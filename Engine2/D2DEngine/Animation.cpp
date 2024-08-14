@@ -34,8 +34,6 @@ void Animation::Update(float fTimeElapsed)
 
 	assert(animationAsset != nullptr);
 
-	
-
 	if (animationInfo == nullptr)
 		return;
 	if (isLoop == false && animationEnd == true) 

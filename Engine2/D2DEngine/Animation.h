@@ -24,7 +24,7 @@ public:
 	int frameIndexCurr = -1;	// 현재 프레임 인덱스
 	int frameIndexPrev = -1;	// 이전 프레임 인덱스
 	int animationIndex = -1;	// 현재 애니메이션 인덱스
-	D2D1_RECT_F srcRect;		// D2D1Bitmap의 Source 영역
+	
 	
 	bool IsEnd() { return  animationEnd; }
 	void LoadAnimationAsset(const std::wstring strFilePath);

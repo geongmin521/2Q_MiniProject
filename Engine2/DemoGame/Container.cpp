@@ -3,7 +3,6 @@
 #include "AABB.h"
 #include "D2DRenderer.h"
 #include "Container.h"
-#include "MoveIcon.h"
 #include "TowerBase.h"
 #include "GameManager.h"
 
