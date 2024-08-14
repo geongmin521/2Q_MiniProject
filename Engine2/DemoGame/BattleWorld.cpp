@@ -74,6 +74,7 @@ void BattleWorld::MakeUI()
 	gameManager->GameClear = []() { Factory().createObj<GameOver>(); };
 	ChangeButton();
 	shop_spawnButton->SetInteractive(true);
+	Factory().createObj<Light>();
 } 
 
 void BattleWorld::ChangeButton()

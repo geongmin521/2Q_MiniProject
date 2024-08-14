@@ -48,6 +48,9 @@
     <Filter Include="소스 파일\DOTween">
       <UniqueIdentifier>{8f480394-a35b-4eb5-883b-a075fdc7472f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Effect\Effects">
+      <UniqueIdentifier>{68f913b2-5586-4e73-a2df-6ef299bafaa5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="소스 파일\Helper">
       <UniqueIdentifier>{080fff16-efc5-4326-9be3-a892b76f651c}</UniqueIdentifier>
     </Filter>
@@ -182,7 +185,7 @@
     <ClInclude Include="IOnMouse.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="D2DEffect.h">
+    <ClInclude Include="IEffect.h">
       <Filter>소스 파일\Effect</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
@@ -202,6 +205,21 @@
     </ClInclude>
     <ClInclude Include="DOTweenManager.h">
       <Filter>소스 파일\DOTween</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DEffectManager.h">
+      <Filter>소스 파일\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GaussianBlurEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorMatrixEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="PointSpecularEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
     </ClInclude>
     <ClInclude Include="IDoubleClickAble.h">
       <Filter>소스 파일\Interface</Filter>
@@ -310,9 +328,6 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>소스 파일\System</Filter>
     </ClCompile>
-    <ClCompile Include="D2DEffect.cpp">
-      <Filter>소스 파일\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Dotween.cpp">
       <Filter>소스 파일\DOTween</Filter>
     </ClCompile>
@@ -324,6 +339,21 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DEffectManager.cpp">
+      <Filter>소스 파일\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GaussianBlurEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorMatrixEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSpecularEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

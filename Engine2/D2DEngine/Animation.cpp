@@ -3,7 +3,7 @@
 #include "AnimationAsset.h"
 #include "D2DRenderer.h"
 #include "ResourceManager.h"
-#include "D2DEffect.h"
+
 
 Animation::Animation(std::wstring bitmap, std::wstring animation): Renderer(bitmap) 
 {

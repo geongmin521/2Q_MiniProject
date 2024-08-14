@@ -17,9 +17,13 @@ public:
 	virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent);
 	virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent);
 
+	Transform* LightTransform;
+
 	Bitmap* firstBitmap = nullptr;
-	Bitmap * secondBitmap = nullptr;
+	Bitmap* secondBitmap = nullptr;
 
 	bool test = true;
+
+
 };
 

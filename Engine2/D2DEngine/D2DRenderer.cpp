@@ -150,6 +150,7 @@ void D2DRenderer::Uninitialize()
 	SAFE_RELEASE(DXGIAdapter);
 	SAFE_RELEASE(greenBrush);
 	SAFE_RELEASE(DeviceContext);
+	SAFE_RELEASE(RadialBrush);
 	CoUninitialize();
 }
 

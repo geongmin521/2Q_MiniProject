@@ -9,6 +9,8 @@
 #include "EventSystem.h"
 #include "DOTweenManager.h"
 
+#include "D2DEffectManager.h"
+
 World::World()
 {
 	m_CullingBoundDefault = new AABB;
@@ -57,6 +59,7 @@ void World::Update(float deltaTime)
 	EventSystem::GetInstance().get()->Updata(deltaTime);
 	CollisionManager::GetInstance()->CollisionCheck();
 	DOTweenManager::GetInstance().get()->Update(deltaTime);
+	D2DEffectManager::GetInstance()->Update(deltaTime);
 }
 
 void World::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
