@@ -150,13 +150,16 @@
     <ClInclude Include="AnimationAsset.h" />
     <ClInclude Include="BezierMovement.h" />
     <ClInclude Include="Bitmap.h" />
+    <ClInclude Include="BlendEffect.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CameraScene.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="ColorMatrixEffect.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="GaussianBlurEffect.h" />
     <ClInclude Include="IEffect.h" />
     <ClInclude Include="D2DEffectManager.h" />
     <ClInclude Include="D2DRenderer.h" />
@@ -183,6 +186,7 @@
     <ClInclude Include="Movement.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PointSpecularEffect.h" />
     <ClInclude Include="ReferenceCounter.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resource.h" />
@@ -202,12 +206,14 @@
     <ClCompile Include="AnimationAsset.cpp" />
     <ClCompile Include="BezierMovement.cpp" />
     <ClCompile Include="Bitmap.cpp" />
+    <ClCompile Include="BlendEffect.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CameraScene.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="ColorMatrixEffect.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="D2DEffectManager.cpp" />
     <ClCompile Include="D2DEngine.cpp" />
@@ -221,6 +227,7 @@
     <ClCompile Include="FSMState.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GaussianBlurEffect.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Movement.cpp" />
@@ -231,6 +238,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PointSpecularEffect.cpp" />
     <ClCompile Include="ReferenceCounter.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

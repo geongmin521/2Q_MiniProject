@@ -51,6 +51,9 @@
     <Filter Include="소스 파일\DOTween">
       <UniqueIdentifier>{8f480394-a35b-4eb5-883b-a075fdc7472f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Effect\Effects">
+      <UniqueIdentifier>{68f913b2-5586-4e73-a2df-6ef299bafaa5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movement.h">
@@ -206,6 +209,18 @@
     <ClInclude Include="D2DEffectManager.h">
       <Filter>소스 파일\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="GaussianBlurEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorMatrixEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="PointSpecularEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -327,6 +342,18 @@
     </ClCompile>
     <ClCompile Include="D2DEffectManager.cpp">
       <Filter>소스 파일\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GaussianBlurEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorMatrixEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSpecularEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
