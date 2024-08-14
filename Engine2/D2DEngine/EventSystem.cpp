@@ -99,11 +99,15 @@ void EventSystem::DropEvent(GameObject* ui)
 	if (dropAble == nullptr)
 	{
 		IDragAble* drag = dynamic_cast<IDragAble*>(ui);
-		drag->FailDrop();
+		drag->FailDrop(); //여기서도 실패해야지
 		return;
 	}
 		
-	dropAble->OnDrop(ui);
+	if (dropAble->OnDrop(ui) ==false)
+	{
+		IDragAble* drag = dynamic_cast<IDragAble*>(ui);
+		drag->FailDrop(); 
+	}
 	std::cout << "OnDrop";
 }
 

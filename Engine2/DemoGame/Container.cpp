@@ -27,15 +27,16 @@ void Container::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	D2DRenderer::GetInstance()->DrawAABB(*boundBox);
 }
 
-void Container::OnDrop(GameObject* ui) 
+bool Container::OnDrop(GameObject* ui) 
 {
 	TowerBase* tower = dynamic_cast<TowerBase*>(ui);
 	if (tower == nullptr)
-		return;
+		return false;
 	if (isContain == true|| gameManager->isBattle == true) 
-		return;
+		return false;
 	tower->container = this;
 	isContain = true;
 	ui->transform->SetRelativeLocation(transform->GetWorldLocation());
+	return true;
 }
 
