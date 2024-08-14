@@ -61,34 +61,33 @@ bool AnimationAsset::LoadAnimationFromCSV(int index, const wchar_t* fileName)
 		wss >> FrameCount;				// 프레임 개수를 스트림에서 읽기
 	}
 	
-		//animations[index].Frames.reserve(FrameCount);
-		animations[index].Frames.resize(FrameCount);
-		for (int j = 0; j < FrameCount; j++)
+	animations[index].Frames.resize(FrameCount);
+	for (int j = 0; j < FrameCount; j++)
+	{
+		if (!std::getline(file, line))
 		{
-			if (!std::getline(file, line))
-			{
-				OutputDebugString(L"프레임 데이터 읽기 실패");
-				return false; // 실패 시 false 반환
-			}
-			std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
-			std::wstring token;
-			
-			getline(wss, token, L',');	// wss의 내용을 ,를 기준으로 문자열을 분리
-			animations[index].Frames[j].Source.left = (float)_wtoi(token.c_str());
-			getline(wss, token, L',');
-			animations[index].Frames[j].Source.top = (float)_wtoi(token.c_str());
-			getline(wss, token, L',');
-			animations[index].Frames[j].Source.right = (float)_wtoi(token.c_str());
-			getline(wss, token, L',');
-			animations[index].Frames[j].Source.bottom = (float)_wtoi(token.c_str());
-			getline(wss, token, L',');
-			animations[index].Frames[j].Center.x = (float)_wtoi(token.c_str());
-			getline(wss, token, L',');
-			animations[index].Frames[j].Center.y = (float)_wtoi(token.c_str());
-			getline(wss, token, L',');
-			animations[index].Frames[j].Duration = std::wcstod(token.c_str(), nullptr);
-			
+			OutputDebugString(L"프레임 데이터 읽기 실패");
+			return false; // 실패 시 false 반환
 		}
+		std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
+		std::wstring token;
+		
+		getline(wss, token, L',');	// wss의 내용을 ,를 기준으로 문자열을 분리
+		animations[index].Frames[j].Source.left = (float)_wtoi(token.c_str());
+		getline(wss, token, L',');
+		animations[index].Frames[j].Source.top = (float)_wtoi(token.c_str());
+		getline(wss, token, L',');
+		animations[index].Frames[j].Source.right = (float)_wtoi(token.c_str());
+		getline(wss, token, L',');
+		animations[index].Frames[j].Source.bottom = (float)_wtoi(token.c_str());
+		getline(wss, token, L',');
+		animations[index].Frames[j].Center.x = (float)_wtoi(token.c_str());
+		getline(wss, token, L',');
+		animations[index].Frames[j].Center.y = (float)_wtoi(token.c_str());
+		getline(wss, token, L',');
+		animations[index].Frames[j].Duration = std::wcstod(token.c_str(), nullptr);
+		
+	}
 			
 	return true;
 }

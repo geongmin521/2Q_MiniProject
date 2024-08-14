@@ -1,6 +1,5 @@
 #pragma once
-#include "ReferenceCounter.h" //하지만 상속받을려면 헤더가 필요하고.. 
-
+#include "ReferenceCounter.h"
 
 struct FRAME_INFO // 애니메이션 기본 프레임의 기본 정보
 {

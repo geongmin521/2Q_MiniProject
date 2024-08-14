@@ -1,10 +1,7 @@
 #include "pch.h"
 #include "InputSystem.h"
 
-
-InputSystem* InputSystem::Instance = nullptr;
-
-InputSystem::InputSystem() //미리컴파일된 헤더는 적용됬던걸까?근데 잘쓰면 유용할거같긴한데.
+InputSystem::InputSystem() 
 {
 	for (int i = 0; i < 256; i++) {
 		_isKeyDown[i] = false;
@@ -16,26 +13,10 @@ InputSystem::InputSystem() //미리컴파일된 헤더는 적용됬던걸까?근데 잘쓰면 유용할
 
 InputSystem::~InputSystem()
 {
-	delete[] _isKeyDown;
-	delete[] _isKeyUp;
-	delete[] _isKey;
 }
 
-InputSystem* InputSystem::GetInstance()
-{
-	if (Instance == nullptr) {
-		Instance = new InputSystem;
-	}
-	return Instance;
-}
 
-void InputSystem::DestroyInstance()
-{
-	delete Instance;
-	Instance = nullptr;
-}
-
-void InputSystem::InitMouse() //이걸 쓸려면 사이즈랑 핸들이 필요함
+void InputSystem::InitMouse() 
 {
 	_curMouse._x = 0;
 	_curMouse._y = 0;

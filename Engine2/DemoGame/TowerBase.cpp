@@ -16,6 +16,7 @@
 #include "TowerFsm.h"
 #include "HPBar.h"
 #include "TowerStar.h"
+#include "ToolTip.h"
 
 #include "CommonFunc.h"
 #include "Pools.h"
@@ -78,8 +79,6 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 }
 
 //오브젝트풀에서 타워를 빼올때.. init을 거쳐야겠는데? 초기화 상태에 대해 알고있자.. 
-
-
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {
@@ -214,4 +213,15 @@ void TowerBase::OnDoubleClick()
 			this->container->Clear();//여기서 컨테이너를 새타워에 넘겨주고 자기껀 없애고?
 		}
 	}
+}
+
+void TowerBase::OnMouse() //툴팁을 활성화 //근데 툴팁을 누가 들고있을까.. 어차피 공유일텐데.. 
+{
+	//툴팁도 csv?그냥 일단 본인이 들게하자.. 아 몰랑
+	toolTip->SetActive(true);
+}
+
+void TowerBase::OutMouse() //툴팁을 비활성화.. 
+{
+	toolTip->SetActive(false); //마지막 한놈은 왜 늦게 out마우스가 들어오지? 크기가 잘되어있지않나? 
 }

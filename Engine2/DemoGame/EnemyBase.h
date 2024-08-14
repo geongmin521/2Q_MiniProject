@@ -29,10 +29,10 @@ public:
     virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent) override;
-    //이게 달라지는건 공격 알고리즘 밖에없네? 적들 탐지도 다 같고
 public:
     float curHP;
-    std::vector<GameObject*> target; //추가적인 정보가 필요할수있으니.. 
+    float curATK; 
+    std::vector<GameObject*> target; 
     EnemyData enemyData;
 };
 

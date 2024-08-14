@@ -40,6 +40,9 @@
     <Filter Include="InGameUI">
       <UniqueIdentifier>{ebd91ec1-360b-4ffe-a650-fb901a2de8d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Func">
+      <UniqueIdentifier>{4cfd6d47-ec54-45c3-ac0b-d4ff8b7daaf0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TowerBase.h">
@@ -102,9 +105,6 @@
     <ClInclude Include="Image.h">
       <Filter>UIBase</Filter>
     </ClInclude>
-    <ClInclude Include="MoveIcon.h">
-      <Filter>UIBase</Filter>
-    </ClInclude>
     <ClInclude Include="GameOver.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -126,23 +126,31 @@
     <ClInclude Include="Pools.h">
       <Filter>Factory</Filter>
     </ClInclude>
-    <ClInclude Include="TowerFunc.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="HPBar.h">
       <Filter>InGameUI</Filter>
     </ClInclude>
     <ClInclude Include="TowerStar.h">
       <Filter>InGameUI</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyFunc.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonFunc.h" />
-    <ClInclude Include="ArrowFunc.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="GodStore.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolTip.h">
+      <Filter>UIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonFunc.h">
+      <Filter>Func</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowFunc.h">
+      <Filter>Func</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerFunc.h">
+      <Filter>Func</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyFunc.h">
+      <Filter>Func</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">
@@ -202,9 +210,6 @@
     <ClCompile Include="Image.cpp">
       <Filter>UIBase</Filter>
     </ClCompile>
-    <ClCompile Include="MoveIcon.cpp">
-      <Filter>UIBase</Filter>
-    </ClCompile>
     <ClCompile Include="GameOver.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -226,22 +231,30 @@
     <ClCompile Include="Light.cpp">
       <Filter>Light</Filter>
     </ClCompile>
-    <ClCompile Include="TowerFunc.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="HPBar.cpp">
       <Filter>InGameUI</Filter>
     </ClCompile>
     <ClCompile Include="TowerStar.cpp">
       <Filter>InGameUI</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyFunc.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="CommonFunc.cpp" />
-    <ClCompile Include="ArrowFunc.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="GodStore.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolTip.cpp">
+      <Filter>UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonFunc.cpp">
+      <Filter>Func</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowFunc.cpp">
+      <Filter>Func</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerFunc.cpp">
+      <Filter>Func</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyFunc.cpp">
+      <Filter>Func</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

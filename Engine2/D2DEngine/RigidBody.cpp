@@ -16,7 +16,7 @@ RigidBody::~RigidBody()
 void RigidBody::Update(float deltaTime)
 {
 	if (isGravity)
-		gravityScale += 0.098; //중력가속도로 계속더해짐 델타타임은 무브먼트에서 더해질거임
+		gravityScale += 0.098; 
 }
 
 void RigidBody::Enable()

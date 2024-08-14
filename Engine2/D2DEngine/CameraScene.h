@@ -1,6 +1,5 @@
 #pragma once
-//#include "AABB.h"
-#include "Component.h" //aabb를갖는애들이많을텐데 다없애자.. 
+#include "Component.h"
 
 class AABB;
 class CameraScene : public Component
@@ -10,7 +9,6 @@ public:
 	virtual ~CameraScene();
 	virtual void Update(float deltaTime);
 	float moveSpeed;
-	AABB* viewBoundBox; //AABB도 어디 한군데다가 몰아놔야하는데.. 
-
+	AABB* viewBoundBox; 
 };
 

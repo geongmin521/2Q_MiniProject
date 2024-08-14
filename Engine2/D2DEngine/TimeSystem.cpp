@@ -1,26 +1,12 @@
 #include "pch.h"
 #include "TimeSystem.h"
 
-TimeManager* TimeManager::Instance = nullptr;
-
 TimeManager::TimeManager() : _CurTime{ 0 }, _PrevTime{ 0 }, _Frequency{ 0 } , _DeltaTime(0), _TimeScale(1.0f)
 {
 }
 
 TimeManager::~TimeManager()
 {
-}
-
-TimeManager* TimeManager::GetInstance() {
-	if (Instance == nullptr) {
-		Instance = new TimeManager();
-	}
-	return Instance;
-}
-
-void TimeManager::DestroyInstance() {
-	delete Instance;
-	Instance = nullptr;
 }
 
 void TimeManager::InitTime()

@@ -2,7 +2,7 @@
 #include "Dotween.h"
 #include "DOTweenManager.h"
 
-void (DOTween::* DOTween::StepAnimationFunction[StepAnimation::StepAnimationEnd])(const float&) = //정의 이렇게 하는게맞나?  이미 재정의? 
+void (DOTween::* DOTween::StepAnimationFunction[StepAnimation::StepAnimationEnd])(const float&) = 
 {
    &DOTween::OnceForward,
    &DOTween::OnceBack,
@@ -148,9 +148,9 @@ float EaseInOutBounce(float x)
 DOTween::DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation, float duration, float startpoint, float endpoint) : Data(_Data), Function(EasingFunction[_EasingEffect]), Type(_StepAnimation)
 {
     DOTweenManager::GetInstance().get()->PushTween(this);
-    StartPoint = startpoint; //생성자에서 여기를 하도록하고.. 
+    StartPoint = startpoint; 
     EndPoint = endpoint;
-    Duration = duration;      // N초 동안
+    Duration = duration;      
 }
 
 DOTween::~DOTween()

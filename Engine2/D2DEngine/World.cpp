@@ -6,10 +6,8 @@
 #include "Animation.h"
 #include "Collider.h"
 #include "BoxCollider.h"
-#include "CollisionManager.h"
 #include "EventSystem.h"
 #include "DOTweenManager.h"
-
 
 World::World()
 {
@@ -26,7 +24,6 @@ World::~World()
 	{
 		delete ele;
 	}
-	CollisionManager::GetInstance()->Clear();
 }
 
 void World::InsertGameObject(GameObject* obj)
@@ -38,12 +35,12 @@ void World::InsertGameObject(GameObject* obj)
 	{
 		if ((*it)->renderOrder > obj->renderOrder)
 		{
-			m_GameObjects.insert(it, obj); //렌더 순서대로 넣기.. 
+			m_GameObjects.insert(it, obj); //렌더 순서대로 넣기
 			return;
 		}
 	}
 
-	m_GameObjects.push_back(obj); //나머지 상황에 대해서는 뒤에 넣기
+	m_GameObjects.push_back(obj);
 }
 
 
@@ -70,7 +67,7 @@ void World::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 			continue;
 		//if (this->m_pCullingBound->CheckIntersect(obj->GetBoundBox())) 
 		//{
- 			obj->Render(pRenderTarget); //어? 이거 왜이렇게 되는거지? 맵을 제일위에그리는건가? 
+ 			obj->Render(pRenderTarget);
 		//}		
 	}
 }
@@ -84,7 +81,7 @@ void World::MakeObject()
 {
 }
 
-void World::DeleteGameObject(GameObject* gameObject) //지울 객체를 담아두기
+void World::DeleteGameObject(GameObject* gameObject) 
 {
 	m_Remove.push_back(gameObject);
 }

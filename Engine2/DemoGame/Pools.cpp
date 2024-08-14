@@ -13,20 +13,20 @@ Pools::~Pools()
 {
 	for (auto it = PoolList.begin(); it != PoolList.end(); ++it)
 	{
-		it->second.clear(); // 게임 씬에서 오브젝트 처리를 하니깐 일단 원소만 비워넣는걸로
+		it->second.clear(); 
 	}
 }
 
-void Pools::AddPool(GameObject* _Object) //이름으로 찾을일있을까? 외우지도 못하는데?
+void Pools::AddPool(GameObject* _Object)
 {
 
-	if (PoolList.find(_Object->id) == PoolList.end()) // 찾지못하면 
+	if (PoolList.find(_Object->id) == PoolList.end()) 
 	{
 		std::vector<GameObject*> Pool; 
 		Pool.push_back(_Object);       
-		PoolList.insert({ _Object->id , Pool });  //만들어서 넣기
+		PoolList.insert({ _Object->id , Pool });  
 	}
-	else // 이름이 같은게 있으면 해당 벡터에 오브젝트를 넣는다.
+	else 
 	{
 		PoolList[_Object->id].push_back(_Object);
 	}
@@ -39,21 +39,18 @@ void Pools::AddPool(GameObject* _Object) //이름으로 찾을일있을까? 외우지도 못하�
 //총알의 아이디는 500부터 시작? 
 //웨이브는 1000이시작 
 
-GameObject* Pools::PopPool(int id)
+GameObject* Pools::PopPool(int id) 
 {
-	auto it = PoolList.find(id);
-
-	if (it != PoolList.end()) 
+	if (PoolList[id].empty() == false) 
 	{
 		
 		GameObject* popObj = PoolList[id].back();
-		PoolList[id].pop_back(); //꺼내줄때도 적이랑 타워같은거는 기본값으로 돌리고 보내줘야할텐데.. 
+		PoolList[id].pop_back();
 		popObj->SetActive(true);
 		return popObj;
 	}
-	else 
+	else //아이디 관리에 대한 이슈정리하기
 	{
-		//일단 무식하게 분리해볼까? 
 		if(id< 100)
 			return Factory().createObj<TowerBase>(DataManager::GetInstance().get()->getTowerData(id)).Get<TowerBase>();
 		else if(id < 500)

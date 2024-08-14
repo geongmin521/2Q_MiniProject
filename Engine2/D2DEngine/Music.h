@@ -25,8 +25,8 @@ namespace Music
         BGM,
         Size
     };
-    class SoundManager;  // 클래스 전방 선언
-    extern SoundManager* soundManager;  // extern을 사용하여 외부에서 접근 가능하도록 선언
+    class SoundManager;  
+    extern SoundManager* soundManager;  
 
     class SoundManager final
     {
@@ -45,7 +45,6 @@ namespace Music
 
         void SetVolume(float volume, eSoundChannel chanel);
 
-        //void ManageMusic(const Vector3 Playerpos);
         void SetIsWrong(int index, bool ture) { IsWrong[index] = ture;}
 
 

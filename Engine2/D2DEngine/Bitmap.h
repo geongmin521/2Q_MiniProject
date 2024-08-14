@@ -1,7 +1,7 @@
 #pragma once
 #include "Renderer.h"
 
-class Bitmap : public Renderer  //이렇게 되면 그릴지말지에 대한 aabb도 렌더가 들고있어야겠지? 
+class Bitmap : public Renderer 
 {
 public:
 	Bitmap(const std::wstring strFilePath);

@@ -41,7 +41,7 @@ void EventSystem::EndDragEvent()
 		return;
 	curDrag->EndDrag(inputSystem->GetMouseState()); 
 	DropEvent(dynamic_cast<GameObject*>(curDrag)); //드롭이 일어남
-	curDrag = nullptr; //드래그를 비워주기
+	curDrag = nullptr; 
 }
 
 GameObject* EventSystem::FindTargetUI()
@@ -58,7 +58,7 @@ GameObject* EventSystem::FindTargetUI()
 		MathHelper::Vector2F mousePos{ xpos,ypos };
 		if (ele->boundBox->CheckPoint(mousePos)) 
 		{
-			if (ele->renderOrder > maxOrder) //랜더 순서가 같을수없다! //대부분의 경우 위에있는것만 적용되는데.. 흠.. 함수로 처리하는걸로하자.. 
+			if (ele->renderOrder > maxOrder) 
 			{
 				maxOrder = ele->renderOrder;
 				curUi = ele;
@@ -68,13 +68,13 @@ GameObject* EventSystem::FindTargetUI()
 	return curUi;
 }
 
-IDropAble* EventSystem::FindDrop() //드랍만 특수한로직으로 검사.. 이거 다이나믹캐스드토 안하게템플릿으로하고 특수화할까? 
+IDropAble* EventSystem::FindDrop() 
 {
 	IDropAble* curUi = nullptr;
 	int maxOrder = INT_MIN;
 	for (auto ele : Ui)
 	{
-		if (ele->GetActive() == false) //활성화중인것들만 검사
+		if (ele->GetActive() == false) 
 			continue;
 
 		float xpos = inputSystem->GetMouseState()._x;
@@ -93,7 +93,7 @@ IDropAble* EventSystem::FindDrop() //드랍만 특수한로직으로 검사.. 이거 다이나믹�
 	return nullptr;
 }
 
-void EventSystem::DropEvent(GameObject* ui) //드롭이 들어올려면.. 드래그 에이블이여하는데 매개변수를 바꿀까? 
+void EventSystem::DropEvent(GameObject* ui) 
 {
 	IDropAble* dropAble = FindDrop();
 	if (dropAble == nullptr)
@@ -110,13 +110,13 @@ void EventSystem::DropEvent(GameObject* ui) //드롭이 들어올려면.. 드래그 에이블�
 void EventSystem::ClickEvent()
 {
 	std::cout << "클릭 판정"; 
-	GameObject* curUi = FindTargetUI(); //애도 템플릿으로 만들어서 다이나믹 캐스트를 해서 넘기는 식으로 하자.. 
-	IClickAble* clickAble = dynamic_cast<IClickAble*>(curUi);//이렇게 하는게 아니라 한번더 판단을 하는건데...
+	GameObject* curUi = FindTargetUI();							
+	IClickAble* clickAble = dynamic_cast<IClickAble*>(curUi);	
 	if (clickAble)
-		clickAble->OnClick();  // 성공적으로 다운캐스팅됨
+		clickAble->OnClick(); 
 }
 
-void EventSystem::DoubleClickEvent() //윈도우 메세지로 처리하면 아주쉽게 판별할수가있네요.. 허허.. 
+void EventSystem::DoubleClickEvent() 
 {
 	std::cout << "더블클릭";
 	GameObject* curUi = FindTargetUI();
@@ -138,11 +138,11 @@ void EventSystem::OnMouseEvent()
 		curOnMouse = onMouse;
 		std::cout << "OnMouse";
 	}
-	else if (curOnMouse != nullptr && onMouse == curOnMouse)
-	{
-		curOnMouse->StayMouse();
-		std::cout << "StayMouse";
-	}
+	//else if (curOnMouse != nullptr && onMouse == curOnMouse) //일단 필요없어서 제외
+	//{
+	//	curOnMouse->StayMouse();
+	//	std::cout << "StayMouse";
+	//}
 	else if (onMouse != curOnMouse) 
 	{
 		curOnMouse->OutMouse();

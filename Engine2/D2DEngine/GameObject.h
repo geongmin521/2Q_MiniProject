@@ -7,19 +7,20 @@ class AABB;
 class GameObject
 {
 private:
-	bool isActive;//set으로만 할수있게 은닉화
+	bool isActive;
+
 public:
 	GameObject();
-	virtual ~GameObject();
-
+	virtual ~GameObject();	
+	int id;
+	int renderOrder;
+	AABB* boundBox;
+	World* owner = nullptr;
+	Transform* transform = nullptr;
 	std::string name;
-	std::vector<Component*> ownedComponents;	// 소유한 컴포넌트들
-	Transform* transform = nullptr;				
-	World* owner = nullptr;						// 이 게임 오브젝트가 속한 월드 //각 객체가 월드를 알필요가있나? 
-	AABB* boundBox;								// 컬링을 위한 박스
-	int renderOrder;							//이것의 렌더우선순위를 어떻게 해야할까. .렌더우선순위를 변경하는건 쉽지않네.. 
+	std::vector<Component*> ownedComponents;	
 	std::string gameObjectName;
-	int id;//오브젝트 풀링을 위한 아이디
+	
 public:
 	virtual void Update(float deltaTime);
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
@@ -31,6 +32,7 @@ public:
 	void SetActive(bool active);
 	bool GetActive() { return isActive; }
 	MathHelper::Vector2F GetWorldLocation();
+
 	template<typename T>
 	T* GetComponent()
 	{
@@ -38,17 +40,16 @@ public:
 		{
 			if (T* component = dynamic_cast<T*>(ownedComponents[i]))
 			{
-				return component; // 캐스팅 성공 시 해당 컴포넌트를 반환
+				return component; 
 			}
 		}
-		return nullptr; // 찾기 실패 시 nullptr 반환
+		return nullptr; 
 	}
-	// 컴포넌트 를 템틀릿 함수로 생성합니다.
+
 	template<typename T>
 	T* CreateComponent()
 	{
-		bool bIsBase = std::is_base_of<Component, T>::value; // 이걸로 원본 클래스를 구할수있나?
-		//assert(bIsBase == true);
+		bool bIsBase = std::is_base_of<Component, T>::value;
 		T* pComponent = new T();
 		AddComponent(pComponent);
 		return pComponent;

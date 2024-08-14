@@ -7,7 +7,6 @@
 #include "BattleWorld.h"
 #include "TitleWorld.h"
 
-
 GameOver::GameOver()
 {
 	Factory().createObj<Image>(L"BigBack.png").setPosition(WinHalfSizeXY).setScale({ 2,2 }).setParent(this->transform).AddText(L"GAME OVER!!", 80,0,-50);

@@ -1,5 +1,4 @@
 #pragma once
-//#include "D2DRenderer.h" //교차 참조 오류
 #include <windows.h>
 #include "Resource.h"
 
@@ -9,7 +8,7 @@ class WinGameApp
 {
 	HINSTANCE hInst;
 public:
-	static HWND hWnd;//전역변수로 빼도되는걸까?
+	static HWND hWnd;
 	WinGameApp();
 	virtual ~WinGameApp();
 	virtual void Initialize(HINSTANCE hInstance, int nShowCmd);

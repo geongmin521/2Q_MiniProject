@@ -1,6 +1,5 @@
 #pragma once
 #include "Component.h"
-//#include "AABB.h"
 
 class Transform;
 class AABB;
@@ -9,13 +8,12 @@ class RigidBody :
 {
 private:
 	bool isGravity;
-	float gravityScale;// 중력은 바꾸고 싶을수도 있는데..
+	float gravityScale;
 public:
 
 	RigidBody();
 	virtual ~RigidBody();
 	virtual void Update(float deltaTime);
-	//virtual void Render(ID2D1RenderTarget* pRenderTarget,float Alpha = 1); //그릴거는 딱히 없는듯.. 
 	virtual void Enable() override;
 	virtual void Disable() override;
 

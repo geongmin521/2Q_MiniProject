@@ -20,9 +20,8 @@ EnemyBase::EnemyBase(EnemyData data)
 	name = "Enemy";
 	id = 1001;
 	curHP = enemyData.HP;
-	SetBoundBox(0, 0, 50, 50); //기본 적 이미지 사이즈 //이것도 원으로 만들어도 될듯? 
+	SetBoundBox(0, 0, 50, 50); 
 	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Animation\\Zombie2.csv"));
-	enemyData.attackRange = 10; //테스트
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.attackRange * 50), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
@@ -41,19 +40,19 @@ void EnemyBase::SetAbility(std::string ability)
 {
 	if (ability == "None") //노말
 	{
-		attack = [this]() {EnemyFunc::NormalAttack(target[0], enemyData.ATK); }; //사실 정말일관되게할거면.. 그냥 현재 들고있는 타겟을 전부보내서 hit을때리고 타겟을 하나만 들고있게하는방식이맞지.. 
+		attack = [this]() {EnemyFunc::NormalAttack(target[0], curATK); };
 	}
 	else if (ability == "Throw") //원거리
 	{
-		attack = [this]() {EnemyFunc::RangedAttack(target[0], transform->GetWorldLocation(), enemyData.ATK); };
+		attack = [this]() {EnemyFunc::RangedAttack(target[0], transform->GetWorldLocation(), curATK); };
 	}
 	else if (ability == "Destroy") //폭발
 	{
-		attack = [this]() {EnemyFunc::BombAttack(this, target[0], enemyData.ATK); };
+		attack = [this]() {EnemyFunc::BombAttack(this, target[0], curATK); };
 	}
 	else if (ability == "SpawnVat") //박쥐소환 보스
 	{
-		attack = [this]() {EnemyFunc::BombAttack(this, target[0], enemyData.ATK); };
+		attack = [this]() {EnemyFunc::BombAttack(this, target[0], curATK); };
 	}
 }
 
@@ -61,7 +60,7 @@ EnemyBase::~EnemyBase()
 {
 }
 
-void EnemyBase::Update(float deltaTime) //타겟을 여러개 들고있을확률도 있음... 노티피로만하면문제가 없긴한데.. 위치값등의 추가 값을 파악하기가 힘들수있음.. 
+void EnemyBase::Update(float deltaTime) 
 {
 	__super::Update(deltaTime);
 	if (isHited) //맞았을경우
@@ -83,7 +82,7 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 void EnemyBase::Hit(float damage, float knockback)
 {
 	float plusAttack = Artifact::GetInstance().get()->towerPower.Attack;
-	float Hpdame = curHP - damage * plusAttack;  //예시 변수명 수정등필요
+	float Hpdame = curHP - damage * plusAttack;  
 	if (Hpdame <= 0)
 	{
 		curHP = 0;

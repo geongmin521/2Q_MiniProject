@@ -14,10 +14,9 @@ Transform::~Transform()
 
 }
 
-void Transform::Update(float deltaTime) //나는 모든 오브젝트의 중심이.. 이미지의중앙이었으면 좋겠단 말이야.. 
+void Transform::Update(float deltaTime) 
 {
 	relativeTransform = D2D1::Matrix3x2F::Scale(D2D1::SizeF(relativeScale.x, relativeScale.y)) *
-		//D2D1::Matrix3x2F::Rotation(relativeRotation, imageCenter) * 
 		D2D1::Matrix3x2F::Rotation(relativeRotation) * 
 		D2D1::Matrix3x2F::Translation(relativeLocation.x, relativeLocation.y);
 	if (parentScene != nullptr)
@@ -26,8 +25,7 @@ void Transform::Update(float deltaTime) //나는 모든 오브젝트의 중심이.. 이미지의
 		worldTransform = relativeTransform;
 }
 
-MathHelper::Vector2F Transform::GetWorldScale() { //월드행렬에서 순수하게 사이즈만 출력한다?
-	// 행렬에서 스케일 값을 추출합니다.
+MathHelper::Vector2F Transform::GetWorldScale() {
 	MathHelper::Vector2F scale;
 	scale.x = sqrt(worldTransform.m11 * worldTransform.m11 + worldTransform.m21 * worldTransform.m21);
 	scale.y = sqrt(worldTransform.m12 * worldTransform.m12 + worldTransform.m22 * worldTransform.m22);
@@ -55,7 +53,7 @@ void Transform::AddRelativeRotation(float Rotation)
 }
 
 
-void Transform::SetRelativeLocation(const MathHelper::Vector2F& Location) //누군가 상대좌표를 이동시키면 즉시 월드 좌표에 적용될수있게하기
+void Transform::SetRelativeLocation(const MathHelper::Vector2F& Location)
 {
 	relativeLocation = Location;
 	Update(1);

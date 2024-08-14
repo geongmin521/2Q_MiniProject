@@ -6,14 +6,10 @@
 #include "Factory.h"
 #include "Pools.h"
 
-
-
 Map::Map()
 {
-	renderOrder = -100; //이게 작은게 먼저그리나? 아닌데.. 
-	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png")); //비트맵을 두개들긴힘들거같고 밤배경으로 하나 더 들고있게하자.. 
-	//그리고 밤으로의 전환애니메이션이끝나면 전투할수있도록하기.. 
-
+	renderOrder = -100; 
+	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png")); 
 	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
 	int LeftPadding = 400;
 	int TopPadding = 300;	
@@ -28,8 +24,8 @@ Map::Map()
 		}			
 	for(int i=0;i< 4;i++)
 		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(i*3));
-	grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
-	//일단 맵이 컨테이너를 들고있으니 여기다가 시작타워를 설치해주자.. 
+	//grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
+
 	
 }
 

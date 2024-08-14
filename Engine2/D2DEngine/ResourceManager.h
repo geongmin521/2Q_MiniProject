@@ -4,7 +4,7 @@ class AnimationAsset;
 class ResourceManager
 {
 public:
-	ResourceManager(); //팩토리를 렌더가 들고있고 이미지 생성을 할려면 렌더한테 가는게 맞나? 아니면 그냥 생성가능한가?
+	ResourceManager(); 
 	~ResourceManager();
 	static ResourceManager* Instance;
 	std::map<std::wstring, ID2D1Bitmap*> m_BitmapMap;

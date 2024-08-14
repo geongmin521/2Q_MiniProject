@@ -11,7 +11,6 @@
 
 D2DFont::D2DFont(const std::wstring _Dialog)
 {
-	// 생성과 동시에 브러쉬 검은색으로 조정
 	HRESULT hr = D2DRenderer::GetInstance()->GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &FontBrush);
 	if (FAILED(hr)) { OutputDebugString(L"FontBrush 실패"); }
 	Dialog = _Dialog;

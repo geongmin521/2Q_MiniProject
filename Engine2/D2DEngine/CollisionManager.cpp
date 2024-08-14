@@ -2,8 +2,6 @@
 #include "CollisionManager.h"
 #include "Collider.h"
 
-CollisionManager* CollisionManager::inst = nullptr;
-
 CollisionManager::CollisionManager()
 {
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Enemy));
@@ -12,21 +10,14 @@ CollisionManager::CollisionManager()
 	collisonLayer.insert(std::make_pair(CollisionLayer::Enemy,CollisionLayer::Bullet));
 }
 
-CollisionManager::~CollisionManager() //월드가 지워질때 콜라이더 매니저나 각매니저들이 원할하게 초기화가 안되는듯? 
+CollisionManager::~CollisionManager()
 {
+	std::cout << "소멸";
 }
 
-CollisionManager* CollisionManager::GetInstance()
+void CollisionManager::CollisionCheck() 
 {
-	if (inst == nullptr) {
-		inst = new CollisionManager();
-	}
-	return inst;
-}
-
-void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해야하니까 레이어별로 콜라이더를 들고있어야지.. 
-{
-	for (auto val : remove) //이게 중간에 지워지면 터지는건가? 아닌건가? 
+	for (auto val : remove) 
 		EraseCollider(val);
 	remove.clear();
 	for (auto val : collisonLayer)
@@ -47,13 +38,13 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 				if (colliders[val.first][source]->GetCollisionType() == CollisionType::Block &&
 					colliders[val.second][target]->GetCollisionType() == CollisionType::Block)
 				{
-					colliders[val.first][source]->ProcessBlock(colliders[val.first][source],colliders[val.second][target]); //적들 ai에 의해 .. 트리거등들도.. 들어갈수있으니까.. 여기서 너무 높은 알고리즘을 사용하면안되는데.. 
-					colliders[val.second][target]->ProcessBlock(colliders[val.second][target],colliders[val.first][source]);//적들의 탐색알고리즘은 그냥 콜라이더일테니까.. 여러개의 콜라이더를 지원할수있어야함. 
+					colliders[val.first][source]->ProcessBlock(colliders[val.first][source],colliders[val.second][target]);  
+					colliders[val.second][target]->ProcessBlock(colliders[val.second][target],colliders[val.first][source]);
 				}
 				else
 				{
-					colliders[val.first][source]->InsertCollideState(colliders[val.second][target]); //충돌중인 콜라이더 목록에는
-					colliders[val.second][target]->InsertCollideState(colliders[val.first][source]); //오버랩만 들어갈수있다.
+					colliders[val.first][source]->InsertCollideState(colliders[val.second][target]); 
+					colliders[val.second][target]->InsertCollideState(colliders[val.first][source]); 
 				}
 			}
 		}
@@ -63,8 +54,7 @@ void CollisionManager::CollisionCheck() //등록된 충돌레이어끼리만 검사하도록 해�
 	{
 		for (int i = 0; i < cols.second.size(); i++)
 		{
-			//if(cols.second[i]->GetOnStay())
-				cols.second[i]->ProcessOverlap(); //모든 전처리후 중첩상태에 대한 처리를 돌려주기...
+			cols.second[i]->ProcessOverlap(); 
 		}
 	}
 }
@@ -74,7 +64,7 @@ void CollisionManager::AddRemove(Collider* col)
 	remove.push_back(col);
 }
 
-void CollisionManager::EraseCollider(Collider* remove) //여기서 이렇게 바로 지워도 안터질려나? 업데이트중에 지우면 큰일날텐데..
+void CollisionManager::EraseCollider(Collider* remove)
 {
 	CollisionLayer layer = remove->GetCollisionLayer();
 	colliders[layer].erase(std::remove_if(colliders[layer].begin(), colliders[layer].end(),

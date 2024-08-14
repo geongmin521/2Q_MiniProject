@@ -1,16 +1,13 @@
 #pragma once
-#include <Windows.h>
+#include "SingletonBase.h"
 
-#define timeManager TimeManager::GetInstance()
+#define timeManager TimeManager::GetInstance().get()
 
-class TimeManager
+class TimeManager: public SingletonBase<TimeManager>
 {
 public:
 	TimeManager();
 	~TimeManager();
-
-	static TimeManager* GetInstance();
-	static void DestroyInstance();
 
 	void InitTime();
 	void UpdateTime();
@@ -27,6 +24,4 @@ private:
 
 	float _DeltaTime;
 	float _TimeScale;
-
-	static TimeManager* Instance;
 };

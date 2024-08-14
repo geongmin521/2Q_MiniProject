@@ -2,6 +2,8 @@
 #include "SceneManager.h"
 #include "World.h"
 #include "EventSystem.h"
+#include "CollisionManager.h"
+#include "GameManager.h"
 
 SceneManager::SceneManager()
 {
@@ -15,10 +17,12 @@ void SceneManager::ChangeScene(World* world)
 {
 	if (curWorld != nullptr)
 	{
-		EventSystem::GetInstance().get()->Ui.clear(); //이런식으로 포인터를 관리하고싶지않은데.. 쉽게 처리할려면 공유포인터를 써야하나? 
-		delete curWorld; //현재 들고있는씬은 소멸하기
+		EventSystem::GetInstance().get()->Ui.clear();
+		delete curWorld; 
 	}
-		
+	//현재 싱글톤인애들. 콜리젼 매니저 게임 매니저 
+	CollisionManager::GetInstance()->Clear();
+	GameManager::GetInstance().get()->init();
 	curWorld = world;
 	curWorld->MakeObject(); 
 

@@ -10,7 +10,7 @@
 #include "EventSystem.h"
 
 #ifdef _DEBUG
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")//디버거가 남겨져있어서그런듯? 
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 
 
@@ -34,7 +34,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	
 	EventSystem* event = EventSystem::GetInstance().get();
 	POINT startPoint{ event->startPoint };
-	bool isDragging    = event->isDragging; //그냥 이걸로하면안될거같고.. 
+	bool isDragging    = event->isDragging; 
 	bool isClickValid  = event->isClickValid;
 	int dragThresholdX = GetSystemMetrics(SM_CXDRAG)* 5;
 	int dragThresholdY = GetSystemMetrics(SM_CYDRAG)* 5;
@@ -64,7 +64,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_LBUTTONDBLCLK:
-		isClickValid = false; //일단 나쁘지 않은거 같으니 놔둬보자.. 엄.. 아까보다 업데이트는 편해졌지만 나머지는 그렇지않음.. 
+		isClickValid = false; 
 		EventSystem::GetInstance().get()->DoubleClickEvent();
 	case WM_LBUTTONDOWN:
 		// 드래그 시작점 기록
@@ -80,11 +80,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			int x = LOWORD(lParam);
 			int y = HIWORD(lParam);
-			// 마우스 이동 거리가 드래그 임계값을 초과하는지 확인
-			if (abs(x - startPoint.x) > dragThresholdX || abs(y - startPoint.y) > dragThresholdY)
+			if (abs(x - startPoint.x) > dragThresholdX || abs(y - startPoint.y) > dragThresholdY) //드래그 임계값
 			{
 				isDragging = true;
-				//EventSystem::GetInstance().get()->BeginDragEvent(); //근데 이게 움직일때만 이벤트가 발생하긴하는데 이렇게 하면되겠지? 
 				isClickValid = false;
 			}
 			if(EventSystem::GetInstance().get()->isDragging != isDragging)
@@ -146,14 +144,12 @@ void WinGameApp::Run()
 		{
 			if (msg.message == WM_QUIT)
 			{
-				delete SceneManager::GetInstance().get()->GetCurWorld(); //여기는 뭐든 월드를 지워야하고.. 
+				delete SceneManager::GetInstance().get()->GetCurWorld(); 
 				break;
 			}
 			
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-
-			//메세지 중에 윈도우 포커스가 떠나는 메세지확인하기
 		}
 		else
 		{
@@ -185,7 +181,7 @@ void WinGameApp::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 
 void WinGameApp::Uninitialize()
 {
-	D2DRenderer::GetInstance()->Uninitialize(); //지워야하는거 맞지않나?
+	D2DRenderer::GetInstance()->Uninitialize(); 
 }
 
 bool WinGameApp::InitInstance(HINSTANCE hInstance, int nCmdShow)

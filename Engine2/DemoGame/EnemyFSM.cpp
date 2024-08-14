@@ -29,7 +29,6 @@ void EnemyIdle::EnterState()
 {
 	ani->SetAnimation(1, true);
 	ani->isLoop = true;
-	//ani->Reverse();
 }
 
 void EnemyIdle::Update(float deltaTime)
@@ -98,22 +97,21 @@ void EnemyAttack::EnterState()
 void EnemyAttack::Update(float deltaTime)
 {
 	AttackTimer += deltaTime;
-	
-	if (enemy->enemyData.attackSpeed < AttackTimer) //콜라이더가 아직 남아있어서 느리게나마 접근후 공격하는애들이있는듯?
+	if (enemy->enemyData.attackSpeed < AttackTimer) 
 	{
 		AttackTimer = 0;
-		owner->SetNextState("Attack"); //공격 상태에서 다시 공격하기.. 
+		owner->SetNextState("Attack"); 
 	}
-	if (enemy->target.empty()) //적이 없으면 아이들로 //타겟을 flase로 변경하는 방법이랑.. 
+	if (enemy->target.empty()) 
 	{
 		owner->SetNextState("Idle");
 		return;
 	}
 	else
 	{
-		if (ani->IsEnd()) //일단 모르겠으니 타겟은 계속 찾는 방식으로하는게 맞을듯
+		if (ani->IsEnd()) 
 		{				
-			enemy->Attack(); //애니메이션 끝나면 공격 들어가기
+			enemy->Attack();
 			owner->SetNextState("Idle");
 			enemy->target.clear();
 		}
@@ -128,7 +126,6 @@ void EnemyAttack::ExitState()
 void EnemyDead::EnterState()
 {
 	gameManager->LiveEenmy--;
-	
 	// 데스 애니메이션
 }
 

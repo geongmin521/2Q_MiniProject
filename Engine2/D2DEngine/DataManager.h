@@ -2,7 +2,7 @@
 #include "SingletonBase.h"
 #include "Data.h"
 
-class DataManager : public SingletonBase<DataManager> //각 데이터를 읽어와서 요청한애한테 담는 부분 만들었고.. 
+class DataManager : public SingletonBase<DataManager> 
 {
 private:
     void EnemyDataRead();

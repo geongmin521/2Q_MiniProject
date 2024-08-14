@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Bitmap.h"
 #include "Transform.h"
-#include "D2DRenderer.h"
 #include "TowerStar.h"
 
 

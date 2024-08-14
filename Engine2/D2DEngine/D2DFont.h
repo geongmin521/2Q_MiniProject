@@ -14,7 +14,7 @@ enum Setting // 용도 정렬 선택 하기 위해서
 
 class Transform;
 class Component;
-class D2DFont : public Renderer // 원래 이름 Font였는데 구조체가 이미 있어서 수정함
+class D2DFont : public Renderer 
 {
 public:
 	D2DFont() = default;		 // 배틀 월드에서 어디선가 사용하고 있는듯 일단 만들어 놓음 

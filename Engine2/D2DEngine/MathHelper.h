@@ -122,7 +122,7 @@ namespace MathHelper
 			return (this->x * this->x + this->y * this->y);
 		}
 
-		Vector2F& Normalize()  //반환하지말고 본인에 적용하는게 더 편할려나?
+		Vector2F& Normalize()//본인에 적용됨
 		{
 			float length = Length();
 

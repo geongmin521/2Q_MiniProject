@@ -6,16 +6,19 @@ class ShowWave;
 class Combination;
 class EnemySpawner;
 class Container;
+class Compensation;
 class Button;
 class Image;
 class BattleWorld : public World
 {
 private:
-	Shop* shop;         //상점 UI
-	ShowWave* showWave; //적 웨이브 UI
-	Combination* combination; //조합표UI
+	Shop* shop;					//상점 UI
+	ShowWave* showWave;			//적 웨이브 UI
+	Combination* combination;	//조합표UI
+	Compensation* compensation; //보상 
 	EnemySpawner* spwaner;
 	Image* WaveCount;
+	Button* godStoreButton;
 	std::vector<Container*> TowerInventory;
 	bool Swap = false;
 public:
