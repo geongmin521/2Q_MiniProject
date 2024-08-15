@@ -8,7 +8,8 @@ class GameObject
 {
 private:
 	bool isActive;
-
+	virtual void Enable() {}
+	virtual void Disable() {}
 public:
 	GameObject();
 	virtual ~GameObject();	

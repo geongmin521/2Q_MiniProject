@@ -3,9 +3,8 @@
 
 class Image;
 class Container;
-class Combination;
 class D2DFont;
-class EnemySpawner;
+class Button;
 class Shop: public UI 
 {
 private:
@@ -18,21 +17,24 @@ private:
 	std::vector<int> compensationList; 
 	std::wstring Text;
 	std::vector<Container*> Containers; 
-	Combination* combination;
+	GameObject* combination;
 	D2DFont* compensationText;
 	D2DFont* rerollText;
 	D2DFont* rerollButtonText;
-
+	bool Swap = false;	
+	Button* shop_spawnButton; 
 public:
-	EnemySpawner* spawner;
 	Shop();
 	void init();
 	virtual ~Shop();
+	virtual void Update(float deltaTime) override;
 	void Reroll();
 	void Spawn(); 
 	void MakeText(int order,int count);
-	void SetOtherUI(std::vector<Container*> container, Combination* combination) { this->Containers = container; this->combination = combination;}
-	int TowerNameToID(std::wstring name); 
+	void SetOtherUI(GameObject* combination) {this->combination = combination;}
+	int TowerNameToID(std::wstring name);
+	void ChangeButton();
+	Button* GetSwapButton() { return shop_spawnButton; }
 
 };
 

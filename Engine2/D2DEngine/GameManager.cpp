@@ -14,21 +14,20 @@ void GameManager::Update()
 {
 	if (LiveEenmy == 0&& isBattle ==true)//웨이브 클리어
 	{
-	
 		if (WaveLevel == 8)
 		{
-			GameClear();
+			events["GameOver"]();
 			return;
 		}
 		else
 		{
 			WaveLevel++;
 		}
-		DataManager::GetInstance().get()->ChoseWave();
+		dataManager->ChoseWave();
 		isBattle = false;
-		EndWave(); 
-	}
-		
+		events["EndWave"]();
+
+	}		
 }
 
 void GameManager::init()

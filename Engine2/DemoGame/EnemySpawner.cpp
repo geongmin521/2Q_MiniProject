@@ -13,6 +13,7 @@ EnemySpawner::EnemySpawner()
 	{
 		spawnPos.push_back(200 + i * 150);
 	}
+	gameManager->events["SpawnEnemy"] = [this]() { StartWave(); };
 }
 
 EnemySpawner::~EnemySpawner()
@@ -32,7 +33,7 @@ void EnemySpawner::CreateEnemy(int id)
 
 void EnemySpawner::StartWave() 
 {
-	WaveData data = DataManager::GetInstance().get()->getWaveData(gameManager->curWaveId);
+	WaveData data = dataManager->getWaveData(gameManager->curWaveId);
 	WavePower = data.levelPower;
 	for (int i = 0; i < data.enemyId.size(); i++)
 	{

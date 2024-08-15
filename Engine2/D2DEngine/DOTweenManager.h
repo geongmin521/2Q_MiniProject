@@ -1,5 +1,8 @@
 #pragma once
 #include "SingletonBase.h"
+
+#define dotweenManager DOTweenManager::GetInstance().get()
+
 class DOTween;
 class DOTweenManager:public SingletonBase<DOTweenManager>
 {

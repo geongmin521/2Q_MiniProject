@@ -12,8 +12,8 @@ public:
 public:
 	Component();
 	virtual ~Component();
-	void setActive(bool active);
-	bool getActive() { return isActive; }
+	void SetActive(bool active);
+	bool GetActive() { return isActive; }
 	void SetOwner(GameObject* pOwner) { owner = pOwner; }
 
 	virtual void Update(float deltaTime);

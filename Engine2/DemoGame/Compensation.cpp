@@ -6,12 +6,14 @@
 
 Compensation::Compensation() 
 {
-	float LeftPadding = 200; 
-	Factory().createObj<Image>(L"BigBack.png").setPosition({ LeftPadding , WinHalfSizeY + 100 }).setParent(this->transform);
-	for (int i = 0; i < 3; i++)//보상 버튼 
-		Factory().createObj<Button>(L"ImageBack.png", [i, this]() {}).setPosition({ LeftPadding + i * 200, WinHalfSizeY + 100 }).setParent(this->transform); 
+	float LPad = 200; 
+	//배경
+	Make(Image)(L"BigBack.png").setPosition({ LPad , 100 }).setParent(this->transform);
+	//보상 버튼 
+	for (int i = 0; i < 3; i++)	
+		Make(Button)(L"ImageBack.png", [i, this]() {}).setPos_Parent({LPad + i * 200, 100},this->transform);
 	//보상확정 버튼 
-	Factory().createObj<Button>(L"ImageBack.png", [this]() {}).setPosition({ LeftPadding + 500, WinHalfSizeY + 300 }).setParent(this->transform);
+	Make(Button)(L"ImageBack.png", [this]() {}).setPos_Parent({ LPad + 500, 300 },this->transform);
 	SetActive(false);
 }
 

@@ -28,7 +28,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	this->towerData = data; 
 	name = "Tower"; //이름에서 태그로 변경하기
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
-		Factory().createObj<TowerStar>().setPosition({ 20.f * i ,0}).setParent(transform);
+		Make(TowerStar)().setPosition({ 20.f * i ,0}).setParent(transform);
 	id = towerData.id;
 	curHP = towerData.HP;
 	if(towerData.name == "HiddenTower")
@@ -39,7 +39,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	SetBoundBox(0, 0, 150,150);
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
-	toolTip = Factory().createObj<ToolTip>(L"성수타워", L"공격력", L"생명력", L"공격력").setParent(transform).setActive(false).setPosition({100, 0}).Get<ToolTip>();
+	toolTip = Make(ToolTip)(L"성수타워", L"공격력", L"생명력", L"공격력").setParent(transform).setActive(false).setPosition({100, 0}).Get<ToolTip>();
 	TowerType type = (TowerType)(towerData.id / 3);
 	if (type == TowerType::Crossbow || type == TowerType::Water) //같은 알고리즘 
 	{
@@ -67,7 +67,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
-	Factory().createObj<HPBar>(curHP, data.HP).setParent(transform);
+	Make(HPBar)(curHP, data.HP).setParent(transform);
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
 	fsm->CreateState<TowerAttack>("Attack");
@@ -121,7 +121,7 @@ void TowerBase::Heal(float heal)
 
 void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게.. 
 {
-	if (GameManager::GetInstance().get()->isBattle == true) //전투중에는 드래그 불가 //아 여기만 막는다고 전체가 막히는게 아니지?
+	if (gameManager->isBattle == true) //전투중에는 드래그 불가 //아 여기만 막는다고 전체가 막히는게 아니지?
 		return;
 	if (container)
 		container->Clear();
@@ -129,7 +129,7 @@ void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게..
 
 void TowerBase::StayDrag(const MouseState& state) 
 {
-	if (GameManager::GetInstance().get()->isBattle == true) //시작을 못하면 이것도 아예안들어왔으면좋겠는데.. 흠.. //일단 전투시작이 늦게 들어와야하고.. 
+	if (gameManager->isBattle == true) //시작을 못하면 이것도 아예안들어왔으면좋겠는데.. 흠.. //일단 전투시작이 늦게 들어와야하고.. 
 		//ondrop 이벤트도 막아야함 .. 그게또 위치를 변경해주는거라.. 
 		return;
 	transform->SetRelativeLocation(state.GetMousePos());

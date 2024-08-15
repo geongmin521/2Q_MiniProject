@@ -96,9 +96,6 @@
     <ClInclude Include="ShowWave.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="Victory.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>UIBase</Filter>
     </ClInclude>
@@ -199,9 +196,6 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="ShowWave.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Victory.cpp">
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">

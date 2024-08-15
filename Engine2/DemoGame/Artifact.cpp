@@ -4,7 +4,7 @@
 
 Artifact::Artifact()
 {
-	//DataManager::GetInstance().get()->CSVReader(L"ArtifactData");
+	//dataManager->CSVReader(L"ArtifactData");
 }
 
 Artifact::~Artifact()

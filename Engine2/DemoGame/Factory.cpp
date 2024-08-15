@@ -22,6 +22,21 @@ Factory& Factory::setPosition(Vector2F pos) {
     return *this;
 }
 
+Factory& Factory::setPos_Parent(Vector2F pos, Transform* parent)
+{
+    setPosition(pos);
+    setParent(parent);
+    return *this;
+}
+
+Factory& Factory::setPos_Parent_Text(Vector2F pos, Transform* parent, std::wstring text, int size)
+{
+    setPosition(pos);
+    setParent(parent);
+    AddText(text, size);
+    return *this;
+}
+
 Factory& Factory::setScale(Vector2F scale) {
     object->transform->SetRelativeScale(scale);
     return *this;

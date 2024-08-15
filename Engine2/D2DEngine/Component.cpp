@@ -11,7 +11,7 @@ Component::~Component()
 
 }
 
-void Component::setActive(bool active)
+void Component::SetActive(bool active)
 {
 	if (isActive == active)
 		return;

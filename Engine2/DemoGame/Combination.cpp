@@ -7,8 +7,8 @@
 Combination::Combination()
 {
 	renderOrder += 100;
-	Factory().createObj<Button>(L"smallBack.png", [this]() { SetActive(false); }).setPosition({ WinHalfSizeX + 500, WinHalfSizeY - 400 }).setParent(this->transform);//나가기 버튼
-	Factory().createObj<Image>(L"Combination.png").setPosition({ WinHalfSizeX , WinHalfSizeY }).setParent(this->transform);	//조합표	
+	Make(Button)(L"smallBack.png", [this]() { SetActive(false); }).setPos_Parent({500, -400},this->transform);//나가기 버튼
+	Make(Image)(L"Combination.png").setParent(this->transform);	//조합표	
 	SetActive(false);
 }
 

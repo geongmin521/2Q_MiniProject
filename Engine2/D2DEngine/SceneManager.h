@@ -1,5 +1,8 @@
 #pragma once
 #include "SingletonBase.h"
+
+#define sceneManager SceneManager::GetInstance().get()
+
 class World;
 class SceneManager : public SingletonBase<SceneManager>
 {

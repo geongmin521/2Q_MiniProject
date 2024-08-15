@@ -2,14 +2,14 @@
 #include "Collider.h"
 #include "CollisionManager.h"
 
-Collider::Collider()
+Collider::Collider(CollisionType type, IColliderNotify* notify, CollisionLayer layer) : collisionType(type), notify(notify), layer(layer)
 {
-    
+    collisionManager->pushCollider(this);
 }
 
 Collider::~Collider()
 {
-	CollisionManager::GetInstance()->AddRemove(this);
+    collisionManager->AddRemove(this);
 }
 
 void Collider::ClearAndBackupCollideState()
@@ -46,4 +46,14 @@ void Collider::ProcessOverlap()
 void Collider::ProcessBlock(Collider* ownedComponent, Collider* otherComponent)
 {
 	notify->OnBlock(ownedComponent, otherComponent);
+}
+
+void Collider::Enable()
+{
+    collisionManager->pushCollider(this);
+}
+
+void Collider::Disable()
+{
+    collisionManager->AddRemove(this);
 }

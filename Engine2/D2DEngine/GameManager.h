@@ -12,9 +12,7 @@ public:
 	int curWaveId = 1000;
 	int LiveEenmy = 0; 
 	int gold = 100;
-	std::function<void(void)> ShowWave;
-	std::function<void(void)> EndWave;
-	std::function<void(void)> GameClear;
+	std::map<std::string, std::function<void(void)>> events; //이벤트매니저는따로 만들지않음
 	GameManager();
 	~GameManager(); 
 	void Update();

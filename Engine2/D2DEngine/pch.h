@@ -9,9 +9,11 @@
 #define PI 3.14159265359
 #define WinSizeX 1920
 #define WinSizeY 1080
+#define WinSizeXYAdd(x,y) { WinSizeX + x, WinSizeY + y}
 #define WinHalfSizeX 960
 #define WinHalfSizeY 540
 #define WinHalfSizeXY { WinHalfSizeX, WinHalfSizeY }
+#define WinHalfSizeXYAdd(x,y) { WinHalfSizeX + x, WinHalfSizeY + y} //축약형
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 

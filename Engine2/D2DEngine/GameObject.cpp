@@ -29,7 +29,7 @@ void GameObject::Update(float deltaTime)
 		return;
 	for (auto& pComponent : ownedComponents)
 	{
-		if(pComponent->getActive())
+		if(pComponent->GetActive())
 			pComponent->Update(deltaTime);
 	}
 	if (transform)
@@ -39,7 +39,7 @@ void GameObject::Update(float deltaTime)
 
 void GameObject::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
-	if (!isActive)
+	if (!isActive) //오브젝트만 껴져도 컴포넌트를 안돌긴하는데 흠.. 
 		return;
 	for (auto& pComponent : ownedComponents) 
 	{	
@@ -74,23 +74,17 @@ void GameObject::AddComponent(Component* pComponent)
 
 void GameObject::SetActive(bool active)
 {
-	isActive = active;
-	for (auto var : transform->childScene)
-	{
-		var->owner->SetActive(active);
-	}
-
-	Collider* col = GetComponent<Collider>();
-	if (col == nullptr)
+	if (isActive == active)
 		return;
-	if (active == false)
-	{
-		CollisionManager::GetInstance()->AddRemove(col);
-	}
+	isActive = active;
+	if (active)
+		Enable();
 	else
-	{
-		CollisionManager::GetInstance()->pushCollider(col);
-	}
+		Disable();
+	for (auto var : transform->childScene) 
+		var->owner->SetActive(active); 	
+	for (auto var : ownedComponents) 
+		var->SetActive(active); 
 }
 
 MathHelper::Vector2F GameObject::GetWorldLocation()

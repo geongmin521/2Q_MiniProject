@@ -169,7 +169,6 @@
     <ClInclude Include="TowerFsm.h" />
     <ClInclude Include="TowerFunc.h" />
     <ClInclude Include="TowerStar.h" />
-    <ClInclude Include="Victory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrow.cpp" />
@@ -205,7 +204,6 @@
     <ClCompile Include="TowerFSM.cpp" />
     <ClCompile Include="TowerFunc.cpp" />
     <ClCompile Include="TowerStar.cpp" />
-    <ClCompile Include="Victory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\D2DEngine\D2DEngine.vcxproj">

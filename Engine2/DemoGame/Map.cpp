@@ -11,15 +11,15 @@ Map::Map()
 	renderOrder = -100; 
 	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png")); 
 	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
-	int LeftPadding = 400;
+	int LPad = 400;
 	int TopPadding = 300;	
 	float gridSize = 150;
 	for (int i = 0; i < 4; i++)	
 		for (int j = 0; j < 4; j++)
 		{
 			int zigzag = j % 2 == 0 ? gridSize / 2 : 0;
-			grid[i][j] = Factory().createObj<Container>(i*4 + j).
-				setPosition({ LeftPadding + i * (gridSize +10) + zigzag, TopPadding + j * (gridSize+30) }).
+			grid[i][j] = Make(Container)(i*4 + j).
+				setPosition({ LPad + i * (gridSize +10) + zigzag, TopPadding + j * (gridSize+30) }).
 				Get<Container>();
 		}			
 	for(int i=0;i< 4;i++)

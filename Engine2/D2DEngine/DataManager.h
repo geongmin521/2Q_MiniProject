@@ -2,6 +2,8 @@
 #include "SingletonBase.h"
 #include "Data.h"
 
+#define dataManager DataManager::GetInstance().get()
+
 class DataManager : public SingletonBase<DataManager> 
 {
 private:
