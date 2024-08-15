@@ -11,9 +11,14 @@
 
 Pools::~Pools()
 {
+	reset();
+}
+
+void Pools::reset()
+{
 	for (auto it = PoolList.begin(); it != PoolList.end(); ++it)
 	{
-		it->second.clear(); 
+		it->second.clear();
 	}
 }
 

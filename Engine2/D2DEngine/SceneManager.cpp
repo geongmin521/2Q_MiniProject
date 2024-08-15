@@ -22,7 +22,8 @@ void SceneManager::ChangeScene(World* world)
 	}
 	//현재 싱글톤인애들. 콜리젼 매니저 게임 매니저 
 	collisionManager->Clear();
-	gameManager->init();
+	gameManager->reset();
+	gameManager->events[Event::Reset]();
 	curWorld = world;
 	curWorld->MakeObject(); 
 

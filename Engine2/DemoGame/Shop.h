@@ -1,10 +1,17 @@
 #pragma once
 #include "UI.h"
 
+enum  ButtonState
+{
+	EnemySpawn,
+	TowerSpawn
+};
+
 class Image;
 class Container;
 class D2DFont;
 class Button;
+class Transform;
 class Shop: public UI 
 {
 private:
@@ -21,8 +28,9 @@ private:
 	D2DFont* compensationText;
 	D2DFont* rerollText;
 	D2DFont* rerollButtonText;
-	bool Swap = false;	
 	Button* shop_spawnButton; 
+	ButtonState curState = EnemySpawn;
+	GameObject* child; //자식을 관리하기 위한 트랜스폼
 public:
 	Shop();
 	void init();
@@ -33,7 +41,7 @@ public:
 	void MakeText(int order,int count);
 	void SetOtherUI(GameObject* combination) {this->combination = combination;}
 	int TowerNameToID(std::wstring name);
-	void ChangeButton();
+	void ChangeButton(ButtonState state);
 	Button* GetSwapButton() { return shop_spawnButton; }
 
 };

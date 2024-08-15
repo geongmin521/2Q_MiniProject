@@ -13,7 +13,7 @@ EnemySpawner::EnemySpawner()
 	{
 		spawnPos.push_back(200 + i * 150);
 	}
-	gameManager->events["SpawnEnemy"] = [this]() { StartWave(); };
+	gameManager->events[Event::SpawnEnemy] = [this]() { StartWave(); };
 }
 
 EnemySpawner::~EnemySpawner()

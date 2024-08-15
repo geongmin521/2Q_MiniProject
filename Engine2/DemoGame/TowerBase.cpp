@@ -30,7 +30,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
 		Make(TowerStar)().setPosition({ 20.f * i ,0}).setParent(transform);
 	id = towerData.id;
-	curHP = towerData.HP;
+	curHP = towerData.HP +1000;
 	if(towerData.name == "HiddenTower")
 	AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\Animation\\" + Utility::convertFromString(towerData.name) + L".csv"));
 	else

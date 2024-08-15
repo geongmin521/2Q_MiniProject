@@ -14,9 +14,9 @@ void GameManager::Update()
 {
 	if (LiveEenmy == 0&& isBattle ==true)//웨이브 클리어
 	{
-		if (WaveLevel == 8)
+		if (WaveLevel == 1)
 		{
-			events["GameOver"]();
+			events[Event::GameOverEvent]();
 			return;
 		}
 		else
@@ -25,16 +25,16 @@ void GameManager::Update()
 		}
 		dataManager->ChoseWave();
 		isBattle = false;
-		events["EndWave"]();
-
+		events[Event::EndWave]();
 	}		
 }
 
-void GameManager::init()
+void GameManager::reset()
 {
-	bool isBattle = false;
-	int WaveLevel = 1;
-	int curWaveId = 1000;
-	int LiveEenmy = 0;
-	int gold = 100;
+	isBattle = false;
+	WaveLevel = 1;
+	curWaveId = 1000;
+	LiveEenmy = 0;
+	gold = 100;
+
 }
