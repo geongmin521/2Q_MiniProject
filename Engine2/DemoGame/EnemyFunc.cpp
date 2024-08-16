@@ -31,10 +31,7 @@ void EnemyFunc::BossAttack(EnemyBase* origin, GameObject* target, float Damage)
 	Damage = 0;
 	nofity->Hit(Damage);
 	IDamageNotify* nnofity = dynamic_cast<IDamageNotify*>(dynamic_cast<GameObject*>(origin));
-	//nnofity->Heal(Damage / 4);
-
-	// 보스는 따로 FSM 빼기?
-	spawnBat(origin->GetWorldLocation());
+	//nnofity->Heal(Damage / 4);	
 }
 
 void EnemyFunc::spawnBat(MathHelper::Vector2F pos)
@@ -44,4 +41,5 @@ void EnemyFunc::spawnBat(MathHelper::Vector2F pos)
 	Bat->transform->SetRelativeLocation({ pos.x - 50, pos.y + (50 * randomPos) });
 	Bat->curHP = Bat->enemyData.HP; //여기서 체력 초기화해주기.. 지금까지는 어떻게 되고있던거지?
 	Bat->curATK = Bat->enemyData.ATK;
+	Bat->isSpawned = true;
 }

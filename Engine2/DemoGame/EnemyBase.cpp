@@ -37,6 +37,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	fsm->CreateState<EnemyShared>("Shared");
 	fsm->CreateState<EnemyAttack>("Attack");
 	fsm->CreateState<EnemyDead>("Death");
+	fsm->CreateState<EnemyAbility>("Ability");
 	fsm->SetNextState("Idle");
 	SetAbility(data.ability);
 	AddComponent(new Movement(transform));
@@ -60,6 +61,7 @@ void EnemyBase::SetAbility(std::string ability)
 	else if (ability == "SpawnVat") //박쥐소환 보스
 	{
 		attack = [this]() {EnemyFunc::BossAttack(this ,target[0], curATK); };
+		Ability = [this]() {EnemyFunc::spawnBat(this->GetWorldLocation()); };
 	}
 }
 
@@ -68,7 +70,7 @@ EnemyBase::~EnemyBase()
 }
 
 void EnemyBase::Update(float deltaTime) 
-{
+{	
 	__super::Update(deltaTime);
 	if (isHited) //맞았을경우
 	{
@@ -77,6 +79,15 @@ void EnemyBase::Update(float deltaTime)
 		{
 			isHited = false;
 			elapsedTime = 0;
+		}
+	}
+	if (enemyData.name == "BossEnemy")
+	{
+		spawnTime += deltaTime;
+		if (spawnTime > 5.f)
+		{
+			ability();
+			spawnTime = 0;
 		}
 	}
 }
@@ -116,6 +127,12 @@ void EnemyBase::Heal(float heal)
 void EnemyBase::Attack()
 {
 	attack();
+}
+
+void EnemyBase::ability()
+{
+	GetComponent<FiniteStateMachine>()->SetNextState("Ability");
+	Ability();
 }
 
 void EnemyBase::OnBlock(Collider* ownedComponent, Collider* otherComponent)

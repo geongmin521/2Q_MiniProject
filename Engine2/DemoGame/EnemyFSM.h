@@ -55,3 +55,13 @@ private:
 	virtual void Update(float deltaTime) override;
 	virtual void ExitState() override;
 };
+
+class EnemyAbility : public EnemyFSM
+{
+public:
+	EnemyAbility(FiniteStateMachine* pOwner, std::string Name) : EnemyFSM(pOwner, Name) {};
+private:
+	virtual void EnterState() override;
+	virtual void Update(float deltaTime) override;
+	virtual void ExitState() override;
+};
