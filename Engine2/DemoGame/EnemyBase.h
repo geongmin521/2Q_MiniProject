@@ -23,7 +23,7 @@ public:
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
     virtual void Hit(float damage, float knockback = 0);
-    virtual void Heal(float heal)override {}
+    virtual void Heal(float heal)override;
     virtual void Attack();
 
     virtual void OnBlock(Collider* ownedComponent, Collider* otherComponent) override;

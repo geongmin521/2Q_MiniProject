@@ -28,8 +28,10 @@ void EnemyFunc::RangedAttack(GameObject* target, MathHelper::Vector2F pos, float
 void EnemyFunc::BossAttack(EnemyBase* origin, GameObject* target, float Damage)
 {
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
+	Damage = 0;
 	nofity->Hit(Damage);
-	nofity->Heal(Damage / 4);
+	IDamageNotify* nnofity = dynamic_cast<IDamageNotify*>(dynamic_cast<GameObject*>(origin));
+	//nnofity->Heal(Damage / 4);
 
 	// 보스는 따로 FSM 빼기?
 	spawnBat(origin->GetWorldLocation());

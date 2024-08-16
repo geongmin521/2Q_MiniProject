@@ -103,6 +103,16 @@ void EnemyBase::Hit(float damage, float knockback)
 	GetComponent<Movement>()->SetVelocity({ knockback,0 });
 }
 
+void EnemyBase::Heal(float heal)
+{
+	float healHP = curHP;
+	healHP += heal;
+	if (healHP >= enemyData.HP)
+		curHP = enemyData.HP;
+	else
+		curHP += heal;
+}
+
 void EnemyBase::Attack()
 {
 	attack();
