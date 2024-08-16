@@ -2,32 +2,25 @@
 #include "World.h"
 
 class Shop;
+class D2DFont; 
 class ShowWave;
-class Combination;
-class EnemySpawner;
-class Container;
-class Compensation;
-class Button;
-class Image;
+class ShowWave;
+class GameObject;
 class BattleWorld : public World
 {
 private:
 	Shop* shop;					//상점 UI
+	D2DFont* WaveCount;			//웨이브카운트
+	D2DFont* goldText;				//재화텍스트
 	ShowWave* showWave;			//적 웨이브 UI
-	Combination* combination;	//조합표UI
-	Compensation* compensation; //보상 
-	EnemySpawner* spwaner;
-	Image* WaveCount;
-	Button* godStoreButton;
-	std::vector<Container*> TowerInventory;
-	bool Swap = false;
+	std::map<std::string, GameObject*> Objs;//따로관리하는 오브젝트
 public:
-	Button* shop_spawnButton;
+
 	BattleWorld(); 
 	virtual ~BattleWorld();
 	void MakeObject() override;
 	void MakeUI();
-	void ChangeButton();
+	void RegisterEvent();
 	virtual void Update(float deltaTime);
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget, float Alpha = 1);
 };

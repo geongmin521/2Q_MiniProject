@@ -11,9 +11,14 @@
 
 Pools::~Pools()
 {
+	reset();
+}
+
+void Pools::reset()
+{
 	for (auto it = PoolList.begin(); it != PoolList.end(); ++it)
 	{
-		it->second.clear(); 
+		it->second.clear();
 	}
 }
 
@@ -52,15 +57,15 @@ GameObject* Pools::PopPool(int id)
 	else //아이디 관리에 대한 이슈정리하기
 	{
 		if(id< 100)
-			return Factory().createObj<TowerBase>(DataManager::GetInstance().get()->getTowerData(id)).Get<TowerBase>();
+			return Make(TowerBase)(dataManager->getTowerData(id)).Get<TowerBase>();
 		else if(id < 500)
-			return Factory().createObj<EnemyBase>(DataManager::GetInstance().get()->getEnemyData(id)).Get<EnemyBase>();
+			return Make(EnemyBase)(dataManager->getEnemyData(id)).Get<EnemyBase>();
 		else if (id <= 512)
-			return Factory().createObj<Arrow>(DataManager::GetInstance().get()->getTowerData(id- 500).Type, DataManager::GetInstance().get()->getTowerData(id - 500).ATK, DataManager::GetInstance().get()->getTowerData(id - 500).attackArea).Get<Arrow>();
+			return Make(Arrow)(dataManager->getTowerData(id- 500).Type, dataManager->getTowerData(id - 500).ATK, dataManager->getTowerData(id - 500).attackArea).Get<Arrow>();
 		else if (id == 513)
-			return Factory().createObj<Arrow>("HiddenArrow", DataManager::GetInstance().get()->getTowerData(12).ATK, DataManager::GetInstance().get()->getTowerData(12).attackArea).Get<Arrow>();
+			return Make(Arrow)("HiddenArrow", dataManager->getTowerData(12).ATK, dataManager->getTowerData(12).attackArea).Get<Arrow>();
 		else if (id == 2000)
-			return Factory().createObj<Effect>().Get<Effect>();
+			return Make(Effect)().Get<Effect>();
 	}
 }
 

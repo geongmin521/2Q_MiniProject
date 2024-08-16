@@ -1,6 +1,5 @@
 #pragma once
 #include "IColliderNotify.h"
-#include "CollisionManager.h"
 #include "Component.h"
 enum class CollisionType //충돌 타입
 {
@@ -30,7 +29,7 @@ class AABB;
 class Collider : public Component
 {
 public:
-	Collider(); 
+	Collider(CollisionType type, IColliderNotify* notify, CollisionLayer layer);
 	virtual ~Collider();
 
 protected:
@@ -51,7 +50,6 @@ public:
 	void SetCollisionType(CollisionType Type) { collisionType = Type; }
 	void SetCollisionLayer(CollisionLayer layer) { this->layer = layer; }
 	void SetNotify(IColliderNotify* notify) { this->notify = notify; }
-	void PushCollider() { CollisionManager::GetInstance()->pushCollider(this); }
 	void SetOnStay(bool onStay) { this->onStay = onStay; }
 	bool GetOnStay() { return onStay; }
 	D2D1_COLOR_F GetColor() const { return color; }
@@ -64,5 +62,8 @@ public:
 	void ProcessOverlap();				
 	virtual	void ProcessBlock(Collider* ownedComponent, Collider* otherComponent); 
 	virtual bool IsCollide(Collider* ownedComponent) = 0;
+
+	virtual void Enable() override;
+	virtual void Disable() override;
 };
 

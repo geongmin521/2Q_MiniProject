@@ -9,6 +9,7 @@ private:
 public:
 	Pools() {};
 	~Pools();
+	void reset();
 	void AddPool(GameObject* _Object);
 	GameObject* PopPool(int id);
 

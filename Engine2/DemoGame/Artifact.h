@@ -1,8 +1,6 @@
 #pragma once
 #include "SingletonBase.h"
-#include "DataManager.h"
-
-class GameObject;
+#include "Data.h"
 
 enum class ArtifactId
 {
@@ -12,7 +10,7 @@ enum class ArtifactId
 	RangedDamageUp = 4,
 };
 
-
+#define artifact Artifact::GetInstance().get()
 
 class Artifact : public SingletonBase<Artifact>
 {
@@ -25,7 +23,6 @@ class Artifact : public SingletonBase<Artifact>
 public:
 	artifactPower towerPower;
 	artifactPower enemyPower;
-
 	ArtifactData artifactData;
 
 	Artifact();
@@ -33,7 +30,9 @@ public:
 	void AttackUP() { towerPower.Attack += 0.3f; }
 	void ArmorUP() { towerPower.Armor += 0.3f; }
 	void HpUP() { towerPower.Hp += 0.3f; }
+	void SelectAtrifact(int id);
 	std::vector<ArtifactId> ownArtifact;
+	
 	// ui 아티팩트를 선택해 그러면 ownarti에 들어가 모든 오브젝트에서 얘를 받을수있어 얘가 번호가 있잖아 init할때 모든 추가값을 더한다
     // 모든 오브젝트에서 init할때 아이디검색해야함 에너미아티팩트 타워아티팩트 ui아티팩트  
 };

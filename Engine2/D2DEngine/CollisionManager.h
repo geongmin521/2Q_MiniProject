@@ -3,6 +3,8 @@
 class Collider;
 enum class CollisionLayer;
 
+#define collisionManager CollisionManager::GetInstance().get()
+
 class CollisionManager :public SingletonBase<CollisionManager>
 {
 private:	

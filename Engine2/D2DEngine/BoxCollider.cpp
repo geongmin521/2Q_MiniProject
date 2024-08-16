@@ -10,13 +10,10 @@
 
 
 BoxCollider::BoxCollider(AABB* aabb, CollisionType type, IColliderNotify* notify = nullptr, CollisionLayer layer = CollisionLayer::Default)
-    : aabb(aabb)
+    :Collider(type, notify, layer)
 {
     colliderType = ColliderType::Box;
-    collisionType = type;
-    this->layer = layer;
-    this->notify = notify;
-    CollisionManager::GetInstance()->pushCollider(this);
+    this->aabb = aabb;
 }
 
 BoxCollider::~BoxCollider()

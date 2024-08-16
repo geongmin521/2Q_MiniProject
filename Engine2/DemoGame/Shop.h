@@ -1,11 +1,17 @@
 #pragma once
 #include "UI.h"
 
+enum  ButtonState
+{
+	EnemySpawn,
+	TowerSpawn
+};
+
 class Image;
 class Container;
-class Combination;
 class D2DFont;
-class EnemySpawner;
+class Button;
+class Transform;
 class Shop: public UI 
 {
 private:
@@ -18,21 +24,27 @@ private:
 	std::vector<int> compensationList; 
 	std::wstring Text;
 	std::vector<Container*> Containers; 
-	Combination* combination;
+	GameObject* combination;
 	D2DFont* compensationText;
 	D2DFont* rerollText;
 	D2DFont* rerollButtonText;
+	Button* shop_spawnButton; 
+	ButtonState curState = EnemySpawn;
+	GameObject* child; //자식을 관리하기 위한 트랜스폼
 
+	float test;
 public:
-	EnemySpawner* spawner;
 	Shop();
 	void init();
 	virtual ~Shop();
+	virtual void Update(float deltaTime) override;
 	void Reroll();
 	void Spawn(); 
 	void MakeText(int order,int count);
-	void SetOtherUI(std::vector<Container*> container, Combination* combination) { this->Containers = container; this->combination = combination;}
-	int TowerNameToID(std::wstring name); 
+	void SetOtherUI(GameObject* combination) {this->combination = combination;}
+	int TowerNameToID(std::wstring name);
+	void ChangeButton(ButtonState state);
+	Button* GetSwapButton() { return shop_spawnButton; }
 
 };
 

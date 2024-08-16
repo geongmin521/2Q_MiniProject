@@ -181,10 +181,10 @@ enum StepAnimation
 
 class DOTween
 {
-public:
+public://rvalue 참조로 바꿔버리면 될려나? 
     DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation = StepOnceForward, float duration = 1, float startpoint = 0, float endpoint = 1);
     ~DOTween();
-
+    static int testCount;
     void   SetStartPoint(float _StartPoint) { StartPoint = _StartPoint; } 
     void   SetEndPoint(float _EndPoint) { EndPoint = _EndPoint; }
     void   SetDuration(float   _Duration) { Duration = _Duration; }

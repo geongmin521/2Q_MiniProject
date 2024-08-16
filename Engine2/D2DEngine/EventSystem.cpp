@@ -48,14 +48,15 @@ GameObject* EventSystem::FindTargetUI()
 {
 	GameObject* curUi = nullptr;
 	int maxOrder = INT_MIN;
+
+	float xpos = inputSystem->GetMouseState()._x;
+	float ypos = inputSystem->GetMouseState()._y;
+	MathHelper::Vector2F mousePos{ xpos,ypos };
+
 	for (auto ele : Ui) 
 	{
 		if (ele->GetActive() == false) //활성화중인것들만 검사
-			continue;
-
-		float xpos = inputSystem->GetMouseState()._x;
-		float ypos = inputSystem->GetMouseState()._y;
-		MathHelper::Vector2F mousePos{ xpos,ypos };
+			continue;		
 		if (ele->boundBox->CheckPoint(mousePos)) 
 		{
 			if (ele->renderOrder > maxOrder) 
@@ -99,11 +100,15 @@ void EventSystem::DropEvent(GameObject* ui)
 	if (dropAble == nullptr)
 	{
 		IDragAble* drag = dynamic_cast<IDragAble*>(ui);
-		drag->FailDrop();
+		drag->FailDrop(); //여기서도 실패해야지
 		return;
 	}
 		
-	dropAble->OnDrop(ui);
+	if (dropAble->OnDrop(ui) ==false)
+	{
+		IDragAble* drag = dynamic_cast<IDragAble*>(ui);
+		drag->FailDrop(); 
+	}
 	std::cout << "OnDrop";
 }
 

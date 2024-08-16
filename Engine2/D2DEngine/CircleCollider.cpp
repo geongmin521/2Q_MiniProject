@@ -8,13 +8,11 @@
 #include "Transform.h"
 #include "CollisionManager.h"
 
-CircleCollider::CircleCollider(AABB* aabb, Circle* circle, CollisionType type, IColliderNotify* notify, CollisionLayer layer) : aabb(aabb), circle(circle)
-{
+CircleCollider::CircleCollider(AABB* aabb, Circle* circle, CollisionType type, IColliderNotify* notify, CollisionLayer layer) :Collider(type, notify, layer)
+{ 
 	colliderType = ColliderType::Circle;
-	collisionType = type; 
-	this->layer = layer;
-	this->notify = notify;
-	CollisionManager::GetInstance()->pushCollider(this);
+	this->aabb = aabb;
+	this->circle = circle;
 }
 
 CircleCollider::~CircleCollider()
@@ -39,7 +37,9 @@ void CircleCollider::Update(float deltaTime)
 	if (owner->transform)
 	{
 		aabb->Center = owner->transform->GetWorldLocation(); 
+		aabb->Center += offset;
 		circle->Center = owner->transform->GetWorldLocation();
+		circle->Center += offset;
 	}
 }
 

@@ -5,28 +5,34 @@
 #include "Container.h"
 #include "Factory.h"
 #include "Pools.h"
+#include "CircleCollider.h"
+#include "Circle.h"
+#include "GameManager.h"
+#include "Sculpture.h"
 
 Map::Map()
 {
+	transform->SetRelativeScale({ 0.75f,0.75f });
 	renderOrder = -100; 
-	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png")); 
+	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png"));  //이게 진짜 맵배경
+
 	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
-	int LeftPadding = 400;
+	int LPad = 400;
 	int TopPadding = 300;	
 	float gridSize = 150;
 	for (int i = 0; i < 4; i++)	
 		for (int j = 0; j < 4; j++)
 		{
 			int zigzag = j % 2 == 0 ? gridSize / 2 : 0;
-			grid[i][j] = Factory().createObj<Container>(i*4 + j).
-				setPosition({ LeftPadding + i * (gridSize +10) + zigzag, TopPadding + j * (gridSize+30) }).
+			grid[i][j] = Make(Container)(i*4 + j).
+				setPosition({ LPad + i * (gridSize +10) + zigzag, TopPadding + j * (gridSize+30) }).
 				Get<Container>();
 		}			
 	for(int i=0;i< 4;i++)
 		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(i*3));
 	//grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
 
-	
+	Make(Sculpture)().setPosition({ 100 , WinHalfSizeY });
 }
 
 Map::~Map()

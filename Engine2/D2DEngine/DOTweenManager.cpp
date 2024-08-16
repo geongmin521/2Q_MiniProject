@@ -15,6 +15,7 @@ void DOTweenManager::Update(float deltaTime)
 {
     if (removetweens.size() != 0)
         Utility::removeElements(tweens, removetweens);
+    removetweens.clear();
     for (auto var : tweens)    
         var->Update(deltaTime);  
 }
