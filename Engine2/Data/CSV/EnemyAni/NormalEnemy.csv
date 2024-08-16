@@ -1,0 +1,4 @@
+3,
+0,../Data/CSV/EnemyAni/NormalEnemyIdle.csv
+1,../Data/CSV/EnemyAni/NormalEnemyAttack.csv
+2,../Data/CSV/EnemyAni/NormalEnemyDeath.csv

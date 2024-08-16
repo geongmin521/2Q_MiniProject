@@ -43,6 +43,7 @@ void TowerShared::ExitState()
 
 void TowerIdle::EnterState()
 {
+	if(ani != nullptr)
 	ani->SetAnimation(0, false);
 }
 
@@ -59,10 +60,10 @@ void TowerIdle::Update(float DeltaTime) //타겟으로 본인도 들어오나? 타겟은 등록�
 			owner->SetNextState("Attack");
 		}	
 	}
-	else
-	{
-		cooldown = tower->towerData.attackSpeed; //첫 사거리에 들어온 적에게는 딜레이없이 쏘기위함..
-	}
+	//else
+	//{
+	//	cooldown = tower->towerData.attackSpeed; //첫 사거리에 들어온 적에게는 딜레이없이 쏘기위함.. //
+	//}
 }
 
 void TowerIdle::ExitState()
@@ -71,6 +72,7 @@ void TowerIdle::ExitState()
 
 void TowerAttack::EnterState()
 {
+	if (ani != nullptr)
 	ani->SetAnimation(1, false,false);
 	
 }
@@ -78,11 +80,14 @@ void TowerAttack::EnterState()
 
 void TowerAttack::Update(float DeltaTime) //공속이 애니메이션보다 빨라지면.. 공속이 느려지는 잠재적인 버그가능.. 애니메이션속도가 공속이랑 같아지도록 세팅하는거 만들기.. 
 {
-	if (ani->IsEnd())
+	if ((ani != nullptr && ani->IsEnd()) || ani == nullptr )  //말뚝타워는 애니메이션이없이 비트맵이라 추가
 	{
 		tower->Attack(DeltaTime);
 		owner->SetNextState("Idle");
 	}
+
+	
+	
 }
 
 void TowerAttack::ExitState()
@@ -92,16 +97,19 @@ void TowerAttack::ExitState()
 void TowerDeath::EnterState()
 {
 	tower->container->Clear();
-	//ani->SetAnimation   타워 파괴 애니메이션 세팅
+	if (ani != nullptr)
+	ani->SetAnimation(2, false,false); 
 }
 
 void TowerDeath::Update(float DeltaTime)
 {
-	//if (ani->IsEnd())
-	//{
-	//	tower->isActive = false; //타워 파괴 애니메이션이 끝나면 비활성
-	//}
-	Pools::GetInstance().get()->AddPool(tower);
+	if ((ani != nullptr && ani->IsEnd()) || ani == nullptr)
+	{
+		Pools::GetInstance().get()->AddPool(tower);
+	}
+	
+
+	
 }
 
 void TowerDeath::ExitState()

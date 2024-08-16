@@ -61,9 +61,9 @@ GameObject* Pools::PopPool(int id)
 		else if(id < 500)
 			return Make(EnemyBase)(dataManager->getEnemyData(id)).Get<EnemyBase>();
 		else if (id <= 512)
-			return Make(Arrow)(dataManager->getTowerData(id- 500).Type, dataManager->getTowerData(id - 500).ATK, dataManager->getTowerData(id - 500).attackArea).Get<Arrow>();
+			return Make(Arrow)(dataManager->getTowerData(id- 500).Type, dataManager->getTowerData(id - 500).ATK, dataManager->getTowerData(id - 500).attackArea, DataManager::GetInstance().get()->getTowerData(id - 500).knockBack).Get<Arrow>();
 		else if (id == 513)
-			return Make(Arrow)("HiddenArrow", dataManager->getTowerData(12).ATK, dataManager->getTowerData(12).attackArea).Get<Arrow>();
+			return Make(Arrow)("HiddenArrow", dataManager->getTowerData(12).ATK, dataManager->getTowerData(12).attackArea, DataManager::GetInstance().get()->getTowerData(512).knockBack).Get<Arrow>();
 		else if (id == 2000)
 			return Make(Effect)().Get<Effect>();
 	}
