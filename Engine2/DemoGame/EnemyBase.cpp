@@ -16,6 +16,7 @@
 
 EnemyBase::EnemyBase(EnemyData data)
 {
+	renderOrder = 100;
 	this->enemyData = data;
 	name = "Enemy";
 	id = 1001;
@@ -24,9 +25,9 @@ EnemyBase::EnemyBase(EnemyData data)
 
 	
 	AddComponent(new Animation(L"..\\Data\\Image\\Enemy\\" + Utility::convertFromString(enemyData.name) + L".png", L"..\\Data\\CSV\\EnemyAni\\" + Utility::convertFromString(enemyData.name) + L".csv"));
-	
+	transform->SetRelativeScale({ 0.4f,0.4f });
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
-	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
+	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform);
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
 	fsm->CreateState<EnemyIdle>("Idle");
@@ -37,7 +38,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	fsm->SetNextState("Idle");
 	SetAbility(data.ability);
 	AddComponent(new Movement(transform));
-	renderOrder = 100;
+	
 }
 
 void EnemyBase::SetAbility(std::string ability)

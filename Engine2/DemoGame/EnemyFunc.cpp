@@ -38,7 +38,6 @@ void EnemyFunc::spawnBat(MathHelper::Vector2F pos)
 	int randomPos = Utility::RandomBetween(-2, 2);
 	EnemyBase* Bat = dynamic_cast<EnemyBase*>(Pools::GetInstance().get()->PopPool(102));
 	Bat->transform->SetRelativeLocation({ pos.x - 50, pos.y + (50 * randomPos) });
-	Bat->curHP = 0; //여기서 체력 초기화해주기.. 지금까지는 어떻게 되고있던거지?
-	Bat->curATK = 0;
+	Bat->curHP = Bat->enemyData.HP; //여기서 체력 초기화해주기.. 지금까지는 어떻게 되고있던거지?
 	Bat->isSpawned = true;
 }
