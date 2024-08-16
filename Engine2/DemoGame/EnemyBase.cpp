@@ -52,7 +52,7 @@ void EnemyBase::SetAbility(std::string ability)
 	}
 	else if (ability == "SpawnVat") //박쥐소환 보스
 	{
-		attack = [this]() {EnemyFunc::BombAttack(this, target[0], curATK); };
+		attack = [this]() {EnemyFunc::BossAttack(this ,target[0], curATK); };
 	}
 }
 

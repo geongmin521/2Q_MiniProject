@@ -9,6 +9,7 @@ class Container;
 class Compensation;
 class Button;
 class Image;
+class EnemySpawner;
 class BattleWorld : public World
 {
 private:

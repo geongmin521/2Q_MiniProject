@@ -12,6 +12,7 @@ class EnemyBase :
 {
 private:
     std::function<void(void)> attack;
+    std::function<void(void)> ability;
 public:
     bool isHited = false; //맞았다를 머라하지
     float hitedTime = 0.35f; //잠시만 밀리면되니까
