@@ -9,16 +9,16 @@
 #include "ArrowFunc.h"
 
 
-void ArrowFunc::AttackEnemy(GameObject* my,GameObject* target,std::string type, float damage)
+void ArrowFunc::AttackEnemy(GameObject* my,GameObject* target,std::string type, float damage, float knockBack)
 {
 	// 추후에 아티팩트 기반으로 데미지 고정값 증가
 	EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);	
 	MathHelper::Vector2F dir = (enemy->GetWorldLocation() - my->GetWorldLocation()).Normalize();
-	enemy->Hit(Utility::CalCul(type, enemy->enemyData.Type, damage), 100); //일단 100 넉백수치 받아오기필요
+	enemy->Hit(Utility::CalCul(type, enemy->enemyData.Type, damage), knockBack); //일단 100 넉백수치 받아오기필요
 	Pools::GetInstance().get()->AddPool(my);
 }
 
-void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damage)
+void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damage, float knockBack)
 {
 	std::vector<GameObject*> targets;
 	CommonFunc::FindTargets(myCol, "Enemy", targets, myCol.circle->radius);  
@@ -28,7 +28,7 @@ void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damag
 		if (enemy != nullptr)
 		{
 			MathHelper::Vector2F dir = (enemy->GetWorldLocation() - myCol.circle->Center).Normalize();
-			damageEnemy->Hit(Utility::CalCul(type, damageEnemy->enemyData.Type, damage), 100);
+			damageEnemy->Hit(Utility::CalCul(type, damageEnemy->enemyData.Type, damage),knockBack);
 		}
 	}
 	
@@ -49,7 +49,7 @@ void ArrowFunc::HiddenAttack(CircleCollider& myCol,float damage)
 	Pools::GetInstance().get()->AddPool(myCol.owner);
 }
 
-void ArrowFunc::AttackEnemys(CircleCollider& myCol, float damage)
+void ArrowFunc::AttackEnemys(CircleCollider& myCol, float damage, float knockBack)
 {
 	std::vector<GameObject*> targets;
 	CommonFunc::FindTargets(myCol, "Enemy", targets, myCol.circle->radius);
@@ -58,7 +58,7 @@ void ArrowFunc::AttackEnemys(CircleCollider& myCol, float damage)
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
 		if (enemy != nullptr)
 		{
-			damageEnemy->Hit(damage);
+			damageEnemy->Hit(damage,knockBack);
 		}
 	}
 	

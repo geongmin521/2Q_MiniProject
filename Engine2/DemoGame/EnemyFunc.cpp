@@ -21,7 +21,7 @@ void EnemyFunc::BombAttack(EnemyBase* origin, GameObject* target, float Damage)
 
 void EnemyFunc::RangedAttack(GameObject* target, MathHelper::Vector2F pos, float Damage)
 {
-	Arrow* arrow = new Arrow("Vampire", 10, 3);
+	Arrow* arrow = new Arrow("Vampire", 10, 3,5);
 	arrow->Init(pos, target);
 }
 

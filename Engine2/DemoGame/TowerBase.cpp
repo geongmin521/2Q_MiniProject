@@ -31,19 +31,19 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 		Factory().createObj<TowerStar>().setPosition({ 20.f * i ,0}).setParent(transform);
 	id = towerData.id;
 	curHP = towerData.HP;
-	if (towerData.Type == "Hidden")
-		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\TowerAni\\" + Utility::convertFromString(towerData.name) + L".csv"));
-	else if (towerData.Type == "Pile")
+	if (towerData.Type == "Pile")
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
+	else if (towerData.Type == "Hidden")
+		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\TowerAni\\" + Utility::convertFromString(towerData.name) + L".csv"));
 	else
 		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\TowerAni\\TowerBase.csv"));
-	EventSystem::GetInstance().get()->Ui.insert(this);
 	SetBoundBox(0, 0, 150,150);
+	EventSystem::GetInstance().get()->Ui.insert(this);
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
 	toolTip = Factory().createObj<ToolTip>(L"성수타워", L"공격력", L"생명력", L"공격력").setParent(transform).setActive(false).setPosition({100, 0}).Get<ToolTip>();
 	TowerType type = (TowerType)(towerData.id / 3);
-	if (type == TowerType::Crossbow || type == TowerType::Water) //같은 알고리즘 
+	if (type == TowerType::Crossbow || type == TowerType::Water || type == TowerType::Hidden) //같은 알고리즘 
 	{
 		
 		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
@@ -60,13 +60,6 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange); };
 		AttackFunc = [this]() { TowerFunc::Heal(target); };
 	}
-	if (type == TowerType::Hidden)
-	{
-		
-		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation(), towerData.id); };
-	}
-
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	Factory().createObj<HPBar>(curHP, data.HP).setParent(transform);
@@ -84,7 +77,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {
-	curHP = towerData.HP;  //setactive는 풀에서 뺄떄 해줌 //있으면 해당객체init 없으면 새로만듬
+	curHP = towerData.HP;
 	transform->SetRelativeLocation(pos); 
 	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
 }
@@ -107,6 +100,11 @@ void TowerBase::Attack(float deltaTime)
 
 void TowerBase::Hit(float damage, float knockback)
 {
+	float damegelHP = curHP;
+	damegelHP -= damage;
+	if (damegelHP <= 0)
+		curHP = 0;
+	else
 	curHP -= damage;
 }
 

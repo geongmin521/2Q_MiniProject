@@ -21,7 +21,7 @@
 
 #include "Arrow.h"
 
-Arrow::Arrow(std::string type,float damage,float attackArea) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
+Arrow::Arrow(std::string type,float damage,float attackArea,float knockBack) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
 {
 	this->speed = 1.5f;
 	this->type = type;
@@ -32,15 +32,14 @@ Arrow::Arrow(std::string type,float damage,float attackArea) //총알도 애니메이션
 	if (type == "Crossbow")
 	{
 		AddComponent(new BezierMovement(transform, speed));
-		AttackFunc = [this, type, damage]() { ArrowFunc::AttackEnemy(this, this->target,type, damage); };
+		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::AttackEnemy(this, this->target,type, damage, knockBack); };
 		id = 500;
-
 	}
 	if (type == "Water")
 	{
 		AddComponent(new BezierMovement(transform, speed));
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
-		AttackFunc = [this, type, damage]() { ArrowFunc::WaterAttack(*GetComponent<CircleCollider>(),type,damage); };
+		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::WaterAttack(*GetComponent<CircleCollider>(),type,damage, knockBack); };
 		id = 503;
 	}
 	if (type == "Hidden")
@@ -54,16 +53,15 @@ Arrow::Arrow(std::string type,float damage,float attackArea) //총알도 애니메이션
 	}
 	if (type == "HiddenArrow")
 	{
-		this->type = type;
-		transform->SetRelativeScale({ 0.10f,0.10f });
+		transform->SetRelativeScale({ 0.10f,0.10f }); 
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
-		AttackFunc = [this, damage]() { ArrowFunc::AttackEnemys(*GetComponent<CircleCollider>(), damage); };
+		AttackFunc = [this, damage, knockBack]() { ArrowFunc::AttackEnemys(*GetComponent<CircleCollider>(), damage, knockBack); };
 		id = 513;
 	}
 	if (type == "vampire")
 	{
 		AddComponent(new BezierMovement(transform, speed));
-		AttackFunc = [this, type, damage]() { ArrowFunc::AttackEnemy(this, this->target, type, damage); };
+		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::AttackEnemy(this, this->target, type, damage, knockBack); };
 		id = 500000;
 	}
 }
@@ -84,6 +82,7 @@ void Arrow::Init(MathHelper::Vector2F location, GameObject* target)
 	if (cirCle)
 		cirCle->SetCollisionType(CollisionType::Overlap); //여기서 다시 키는게맞나? 공격하고 끄고
 	elapsedTime = 0;
+	elapsedTime2 = 0;
 	this->transform->SetRelativeLocation(location);
 }
 

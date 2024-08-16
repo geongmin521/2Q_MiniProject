@@ -5,9 +5,9 @@ class CircleCollider;
 class ArrowFunc : public CommonFunc
 { 
 public:
-	static void AttackEnemy(GameObject* my,GameObject* target, std::string type, float damage);
-	static void WaterAttack(CircleCollider& myCol,std::string type, float damage);
+	static void AttackEnemy(GameObject* my,GameObject* target, std::string type, float damage, float knockBack);
+	static void WaterAttack(CircleCollider& myCol,std::string type, float damage, float knockBack);
 	static void HiddenAttack(CircleCollider& myCol,float damage);
-	static void AttackEnemys(CircleCollider& myCol, float damage); //洒电局肺快侩 
+	static void AttackEnemys(CircleCollider& myCol, float damage, float knockBack); //洒电局肺快侩 
 };
 

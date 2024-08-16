@@ -56,9 +56,9 @@ GameObject* Pools::PopPool(int id)
 		else if(id < 500)
 			return Factory().createObj<EnemyBase>(DataManager::GetInstance().get()->getEnemyData(id)).Get<EnemyBase>();
 		else if (id <= 512)
-			return Factory().createObj<Arrow>(DataManager::GetInstance().get()->getTowerData(id- 500).Type, DataManager::GetInstance().get()->getTowerData(id - 500).ATK, DataManager::GetInstance().get()->getTowerData(id - 500).attackArea).Get<Arrow>();
+			return Factory().createObj<Arrow>(DataManager::GetInstance().get()->getTowerData(id- 500).Type, DataManager::GetInstance().get()->getTowerData(id - 500).ATK, DataManager::GetInstance().get()->getTowerData(id - 500).attackArea, DataManager::GetInstance().get()->getTowerData(id - 500).knockBack).Get<Arrow>();
 		else if (id == 513)
-			return Factory().createObj<Arrow>("HiddenArrow", DataManager::GetInstance().get()->getTowerData(12).ATK, DataManager::GetInstance().get()->getTowerData(12).attackArea).Get<Arrow>();
+			return Factory().createObj<Arrow>("HiddenArrow", DataManager::GetInstance().get()->getTowerData(12).ATK, DataManager::GetInstance().get()->getTowerData(12).attackArea, DataManager::GetInstance().get()->getTowerData(512).knockBack).Get<Arrow>();
 		else if (id == 2000)
 			return Factory().createObj<Effect>().Get<Effect>();
 	}
