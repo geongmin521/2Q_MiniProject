@@ -15,9 +15,9 @@ Artifact::~Artifact()
 
 void Artifact::SelectAtrifact(int id)
 {
-	ownArtifact.push_back((ArtifactId)id);
+	ownedArtifact.push_back(id);
 	//아티팩트 csv이름이랑 이미지 이름 일치시키기
-	Make(Image)(L"Crossbow.png").setPosition({ 100.f * ownArtifact.size() ,100});
+	Make(Image)(L"Crossbow.png").setPosition({ 100.f * ownedArtifact.size() ,100});
 }
 
 void Artifact::PowerUP(int id)
