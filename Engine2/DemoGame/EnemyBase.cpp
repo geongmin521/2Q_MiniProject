@@ -21,8 +21,14 @@ EnemyBase::EnemyBase(EnemyData data)
 	id = 1001;
 	curHP = enemyData.HP;
 	SetBoundBox(0, 0, 50, 50); 
-	AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\EnemyAni\\Zombie2.csv"));
-	//AddComponent(new Animation(L"..\\Data\\Image\\Enemy\\" + Utility::convertFromString(enemyData.name) + L".png", L"..\\Data\\CSV\\EnemyAni\\" + Utility::convertFromString(enemyData.name) + L".csv"));
+	if (enemyData.name == "BossEnemy")
+	{
+		AddComponent(new Animation(L"..\\Data\\Image\\Boss.png", L"..\\Data\\CSV\\Animation\\Boss.csv"));
+	}
+	else
+	{
+		AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Animation\\Zombie2.csv"));
+	}
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
@@ -53,7 +59,7 @@ void EnemyBase::SetAbility(std::string ability)
 	}
 	else if (ability == "SpawnVat") //박쥐소환 보스
 	{
-		attack = [this]() {EnemyFunc::BombAttack(this, target[0], curATK); };
+		attack = [this]() {EnemyFunc::BossAttack(this ,target[0], curATK); };
 	}
 }
 
@@ -95,6 +101,16 @@ void EnemyBase::Hit(float damage, float knockback)
 	if(knockback !=0)
 	isHited = true;
 	GetComponent<Movement>()->SetVelocity({ knockback,0 });
+}
+
+void EnemyBase::Heal(float heal)
+{
+	float healHP = curHP;
+	healHP += heal;
+	if (healHP >= enemyData.HP)
+		curHP = enemyData.HP;
+	else
+		curHP += heal;
 }
 
 void EnemyBase::Attack()
