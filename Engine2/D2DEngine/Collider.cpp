@@ -24,19 +24,20 @@ void Collider::ProcessOverlap()
     for (auto& collider : collideStateCurr) {
         if (collideStatePrev.find(collider) == collideStatePrev.end()) {
             if (notify)
-            notify->OnBeginOverlap(this, collider);
+                notify->OnBeginOverlap(this, collider);
         }
     }
 
     // 충돌이 끝난 상태
     for (auto& collider : collideStatePrev) {
         if (collideStateCurr.find(collider) == collideStateCurr.end()) {
-            notify->OnEndOverlap(this, collider);
+            if (notify)
+                notify->OnEndOverlap(this, collider);
         }
     }
     // 충돌중인 애들
     for (auto& collider : collideStateCurr) {
-        if(onStay)
+        if(onStay && notify != nullptr)
             notify->OnStayOverlap(this, collider);
     }
 
@@ -45,7 +46,8 @@ void Collider::ProcessOverlap()
 
 void Collider::ProcessBlock(Collider* ownedComponent, Collider* otherComponent)
 {
-	notify->OnBlock(ownedComponent, otherComponent);
+    if(notify != nullptr)
+	    notify->OnBlock(ownedComponent, otherComponent);
 }
 
 void Collider::Enable()

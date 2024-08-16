@@ -19,11 +19,14 @@ void SceneManager::ChangeScene(World* world)
 	{
 		EventSystem::GetInstance().get()->Ui.clear();
 		delete curWorld; 
+		collisionManager->Clear();
+		gameManager->reset();
+		if (gameManager->events[Event::Reset] != nullptr)
+		{
+			gameManager->events[Event::Reset]();
+		}
 	}
-	//현재 싱글톤인애들. 콜리젼 매니저 게임 매니저 
-	collisionManager->Clear();
-	gameManager->reset();
-	gameManager->events[Event::Reset]();
+	//pool 도 싱글톤이라 초기화를해놔야하는데.. 얘는 들고있을수가없고.. 
 	curWorld = world;
 	curWorld->MakeObject(); 
 

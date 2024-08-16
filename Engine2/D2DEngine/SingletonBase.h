@@ -26,8 +26,7 @@ class SingletonBase {
             std::call_once(_initFlag, []()
             {
                 T* prim = new T();
-    
-            _instance = std::shared_ptr<T>(prim, Deleter());
+                _instance = std::shared_ptr<T>(prim, Deleter());
             });
     
             return _instance;

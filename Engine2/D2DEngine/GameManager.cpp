@@ -36,5 +36,5 @@ void GameManager::reset()
 	curWaveId = 1000;
 	LiveEenmy = 0;
 	gold = 100;
-
+	chance = 1;
 }

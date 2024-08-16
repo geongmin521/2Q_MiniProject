@@ -160,6 +160,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Pools.h" />
+    <ClInclude Include="Sculpture.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="ShowWave.h" />
     <ClInclude Include="targetver.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Pools.cpp" />
+    <ClCompile Include="Sculpture.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShowWave.cpp" />
     <ClCompile Include="TitleWorld.cpp" />

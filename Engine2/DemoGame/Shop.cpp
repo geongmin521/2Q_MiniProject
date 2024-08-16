@@ -12,6 +12,7 @@
 #include "TowerBase.h"
 #include "D2DFont.h"
 #include "GameManager.h"
+#include "Dotween.h"
 
 Shop::Shop() 
 {
@@ -62,7 +63,11 @@ void Shop::Update(float deltaTime)
 		ChangeButton(ButtonState::EnemySpawn);
 	else
 		ChangeButton(ButtonState::TowerSpawn); 
-	
+
+	for (int i = 0; i < 5; i++)
+	{
+		//Icons[i]->transform->SetRelativeScale({ test, test}); //트랜스폼의 그걸넘기는것보다 이게 신뢰도가 높네.. 다른데서 관여를해서그런가? 
+	}
 
 	if (curState == ButtonState::EnemySpawn) 
 	{
@@ -102,6 +107,13 @@ void Shop::Reroll()
 	else
 		return;
 
+	for (int i = 0; i < Icons.size(); i++) //
+	{
+		//std::cout << "애니메이션 생성";
+		//new DOTween(test, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1);
+		new DOTween(Icons[i]->transform->relativeScale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1); //이게 왜 안되는지 설명해줄분 구함...
+		new DOTween(Icons[i]->transform->relativeScale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1);
+	} 
 	compensationList.clear();
 	Text = L""; //텍스트 초기화
 	

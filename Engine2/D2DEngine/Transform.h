@@ -5,8 +5,7 @@
 class Transform : public Component
 {
 private :
-	MathHelper::Vector2F relativeScale = { 1,1 };	// 상대 크기
-	MathHelper::Vector2F relativeLocation = { 0,0 }; // 상대 위치 
+	
 	float	relativeRotation = 0; // 상대 회전
 public:
 	Transform();
@@ -37,8 +36,11 @@ public:
 	float GetRelativeRotation() { return relativeRotation; }
 	void SetRelativeLocation(const MathHelper::Vector2F& Location);
 	void AddRelativeLocation(float x, float y);
-	const MathHelper::Vector2F& GetRelativeLocation() { return relativeLocation; }
+	MathHelper::Vector2F& GetRelativeLocation() { return relativeLocation; }
+	MathHelper::Vector2F& GetRelativeScale() { return relativeScale; }; //이거 참조로넘겨서 값변경해야할듯 닷트윈때문에
 	MathHelper::Vector2F GetWorldScale();
 
+	MathHelper::Vector2F relativeScale = { 1,1 };	// 상대 크기 //닷트윈을 할려면 여기 접근해야함.. 
+	MathHelper::Vector2F relativeLocation = { 0,0 }; // 상대 위치 
 	std::wstring ShowPos();
 };

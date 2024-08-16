@@ -31,6 +31,8 @@ private:
 	Button* shop_spawnButton; 
 	ButtonState curState = EnemySpawn;
 	GameObject* child; //자식을 관리하기 위한 트랜스폼
+
+	float test;
 public:
 	Shop();
 	void init();

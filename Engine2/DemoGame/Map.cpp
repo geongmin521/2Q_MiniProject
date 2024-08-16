@@ -5,11 +5,17 @@
 #include "Container.h"
 #include "Factory.h"
 #include "Pools.h"
+#include "CircleCollider.h"
+#include "Circle.h"
+#include "GameManager.h"
+#include "Sculpture.h"
 
 Map::Map()
 {
+	transform->SetRelativeScale({ 0.75f,0.75f });
 	renderOrder = -100; 
-	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png")); 
+	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png"));  //이게 진짜 맵배경
+
 	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
 	int LPad = 400;
 	int TopPadding = 300;	
@@ -26,7 +32,7 @@ Map::Map()
 		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(i*3));
 	//grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
 
-	
+	Make(Sculpture)().setPosition({ 100 , WinHalfSizeY });
 }
 
 Map::~Map()

@@ -37,7 +37,9 @@ void CircleCollider::Update(float deltaTime)
 	if (owner->transform)
 	{
 		aabb->Center = owner->transform->GetWorldLocation(); 
+		aabb->Center += offset;
 		circle->Center = owner->transform->GetWorldLocation();
+		circle->Center += offset;
 	}
 }
 

@@ -21,7 +21,7 @@ void TowerFunc::Heal(std::vector<GameObject*>& targets)
 	for (auto& tower : targets)
 	{
 		TowerBase* healTower = dynamic_cast<TowerBase*>(tower);
-		if(tower != nullptr) 
+		if(healTower != nullptr)
 			healTower->Heal(1000);
 	}
 }

@@ -12,8 +12,12 @@ private:
 public:
     DOTweenManager();
     ~DOTweenManager();
-    void PushTween(DOTween* tween) { tweens.push_back(tween); }
-    void EraseTween(DOTween* tween) { removetweens.push_back(tween); }
+    void PushTween(DOTween* tween) { 
+        tweens.push_back(tween); 
+    }
+    void EraseTween(DOTween* tween) {
+        removetweens.push_back(tween);
+    }
     void Update(float deltaTime);
 
 };

@@ -147,7 +147,9 @@ float EaseInOutBounce(float x)
 
 DOTween::DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAnimation, float duration, float startpoint, float endpoint) : Data(_Data), Function(EasingFunction[_EasingEffect]), Type(_StepAnimation)
 {
-    DOTweenManager::GetInstance().get()->PushTween(this);
+    testCount++;
+    std::cout << " 생성";
+    DOTweenManager::GetInstance().get()->PushTween(this); 
     StartPoint = startpoint; 
     EndPoint = endpoint;
     Duration = duration;      
@@ -155,6 +157,9 @@ DOTween::DOTween(float& _Data, EasingEffect _EasingEffect, StepAnimation _StepAn
 
 DOTween::~DOTween()
 {
+    testCount--; //개수가 안맞는다? 생성자는 더 들어오는데.. 지우는건 잘안됨? 지우는 로직이 안맞는건가? 
+    std::cout << " 삭제"; 
     Data = EndPoint;
     DOTweenManager::GetInstance().get()->EraseTween(this);
 }
+int DOTween::testCount = 0;

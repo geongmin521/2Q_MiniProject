@@ -31,7 +31,7 @@ BattleWorld::~BattleWorld()
 
 void BattleWorld::MakeObject()
 {
-	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //배경
+	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //효과를 위한 오파시티 맵
 	Make(EnemySpawner)();
 	Make(Map)();
 	MakeUI();

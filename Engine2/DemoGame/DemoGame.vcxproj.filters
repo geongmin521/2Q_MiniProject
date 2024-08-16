@@ -148,6 +148,7 @@
     <ClInclude Include="EnemyFunc.h">
       <Filter>Func</Filter>
     </ClInclude>
+    <ClInclude Include="Sculpture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">
@@ -250,5 +251,6 @@
     <ClCompile Include="EnemyFunc.cpp">
       <Filter>Func</Filter>
     </ClCompile>
+    <ClCompile Include="Sculpture.cpp" />
   </ItemGroup>
 </Project>
