@@ -38,8 +38,12 @@ void Animation::Update(float fTimeElapsed)
 		return;
 	if (isLoop == false && animationEnd == true) 
 		return;
+	
 	const FRAME_INFO& Frame = animationInfo->Frames[frameIndexCurr];
 	size_t MaxFrameCount = animationInfo->Frames.size();
+
+	/*if (isLoop == false && animationEnd == true)
+		frameIndexCurr = MaxFrameCount;*/
 
 	frameTime += fTimeElapsed;
 
