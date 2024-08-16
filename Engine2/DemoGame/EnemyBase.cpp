@@ -23,11 +23,11 @@ EnemyBase::EnemyBase(EnemyData data)
 	SetBoundBox(0, 0, 50, 50); 
 	if (enemyData.name == "BossEnemy")
 	{
-		AddComponent(new Animation(L"..\\Data\\Image\\Boss.png", L"..\\Data\\CSV\\Animation\\Boss.csv"));
+		AddComponent(new Animation(L"..\\Data\\Image\\Boss.png", L"..\\Data\\CSV\\EnemyAni\\Boss.csv"));
 	}
 	else
 	{
-		AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\Animation\\Zombie2.csv"));
+		AddComponent(new Animation(L"..\\Data\\Image\\zombie2.png", L"..\\Data\\CSV\\EnemyAni\\Zombie2.csv"));
 	}
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Factory().createObj<HPBar>(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
