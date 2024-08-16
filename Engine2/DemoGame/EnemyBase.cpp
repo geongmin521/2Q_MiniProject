@@ -99,8 +99,7 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 
 void EnemyBase::Hit(float damage, float knockback)
 {
-	float plusAttack = Artifact::GetInstance().get()->towerPower.Attack;
-	float Hpdame = curHP - damage * plusAttack;  
+	float Hpdame = curHP - damage;  
 	if (Hpdame <= 0)
 	{
 		curHP = 0;

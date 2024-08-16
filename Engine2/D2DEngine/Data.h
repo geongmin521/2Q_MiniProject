@@ -42,10 +42,8 @@ struct WaveData {
 struct ArtifactData
 {
     int id;
-    int level;
-    int towerDamage;
-    int enemyDamage;
-    int count;
+    std::string type;
     std::string name;
+    std::string tenant;
     std::string ability;
 };

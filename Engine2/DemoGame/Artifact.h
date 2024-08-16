@@ -23,16 +23,17 @@ class Artifact : public SingletonBase<Artifact>
 		float Hp = 1;
 	};
 public:
-	artifactPower towerPower;
-	artifactPower enemyPower;
+	artifactPower CrossbowPower;
+	artifactPower HolyCrossPower;
+	artifactPower PilePower;
 
 	ArtifactData artifactData;
 
 	Artifact();
 	virtual ~Artifact();
-	void AttackUP() { towerPower.Attack += 0.3f; }
-	void ArmorUP() { towerPower.Armor += 0.3f; }
-	void HpUP() { towerPower.Hp += 0.3f; }
+	void AttackUP(int id);
+	void AttackSpeedUp(int id);
+	void HpUP(int id);
 
 	std::vector<ArtifactId> ownArtifact;
 	// ui 아티팩트를 선택해 그러면 ownarti에 들어가 모든 오브젝트에서 얘를 받을수있어 얘가 번호가 있잖아 init할때 모든 추가값을 더한다

@@ -28,10 +28,9 @@ void EnemyFunc::RangedAttack(GameObject* target, MathHelper::Vector2F pos, float
 void EnemyFunc::BossAttack(EnemyBase* origin, GameObject* target, float Damage)
 {
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
-	Damage = 0;
+	Damage = 4;
 	nofity->Hit(Damage);
-	IDamageNotify* nnofity = dynamic_cast<IDamageNotify*>(dynamic_cast<GameObject*>(origin));
-	//nnofity->Heal(Damage / 4);	
+	origin->Heal(Damage / 4);
 }
 
 void EnemyFunc::spawnBat(MathHelper::Vector2F pos)
@@ -39,7 +38,7 @@ void EnemyFunc::spawnBat(MathHelper::Vector2F pos)
 	int randomPos = Utility::RandomBetween(-2, 2);
 	EnemyBase* Bat = dynamic_cast<EnemyBase*>(Pools::GetInstance().get()->PopPool(102));
 	Bat->transform->SetRelativeLocation({ pos.x - 50, pos.y + (50 * randomPos) });
-	Bat->curHP = Bat->enemyData.HP; //여기서 체력 초기화해주기.. 지금까지는 어떻게 되고있던거지?
-	Bat->curATK = Bat->enemyData.ATK;
+	Bat->curHP = 0; //여기서 체력 초기화해주기.. 지금까지는 어떻게 되고있던거지?
+	Bat->curATK = 0;
 	Bat->isSpawned = true;
 }
