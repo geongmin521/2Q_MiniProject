@@ -166,13 +166,11 @@ void DataManager::ArtifactDataRead()
 			std::wstringstream wss(line);   // 한줄을 읽어서 wstringstream에 저장
 			std::wstring token;
 			{
-				/*parseToken(wss, data.id);
-				parseToken(wss, data.level);
-				parseToken(wss, data.towerDamage);
-				parseToken(wss, data.enemyDamage);
-				parseToken(wss, data.count);
+				parseToken(wss, data.id);
+				parseToken(wss, data.type);
 				parseToken(wss, data.name);
-				parseToken(wss, data.ability);*/
+				parseToken(wss, data.tenant);
+				parseToken(wss, data.ability);
 			}
 			artifactData[data.id] = data;
 		}
