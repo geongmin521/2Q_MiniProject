@@ -12,9 +12,11 @@ class EnemyBase :
 {
 private:
     std::function<void(void)> attack;
-    std::function<void(void)> ability;
+    std::function<void(void)> Ability;
 public:
     bool isHited = false; //맞았다를 머라하지
+    bool isSpawned = false;
+    float spawnTime = 0;
     float hitedTime = 0.35f; //잠시만 밀리면되니까
     float elapsedTime = 0;
     EnemyBase(EnemyData data);
@@ -25,6 +27,7 @@ public:
     virtual void Hit(float damage, float knockback = 0);
     virtual void Heal(float heal)override;
     virtual void Attack();
+    void ability();
 
     virtual void OnBlock(Collider* ownedComponent, Collider* otherComponent) override;
     virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;

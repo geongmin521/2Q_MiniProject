@@ -11,7 +11,7 @@
 
 void ArrowFunc::AttackEnemy(GameObject* my,GameObject* target,std::string type, float damage)
 {
-	
+	// 추후에 아티팩트 기반으로 데미지 고정값 증가
 	EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);	
 	MathHelper::Vector2F dir = (enemy->GetWorldLocation() - my->GetWorldLocation()).Normalize();
 	enemy->Hit(Utility::CalCul(type, enemy->enemyData.Type, damage), 100); //일단 100 넉백수치 받아오기필요
