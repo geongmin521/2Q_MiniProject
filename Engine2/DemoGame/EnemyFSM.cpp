@@ -27,7 +27,7 @@ EnemyFSM::~EnemyFSM()
 
 void EnemyIdle::EnterState()
 {
-	ani->SetAnimation(1, true);
+	ani->SetAnimation(0, true);
 	ani->isLoop = true;
 }
 
@@ -90,7 +90,7 @@ void EnemyShared::ExitState()
 void EnemyAttack::EnterState()
 {
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
-	ani->SetAnimation(0, true);
+	ani->SetAnimation(1, true);
 	ani->isLoop = false;
 }
 
@@ -125,7 +125,14 @@ void EnemyAttack::ExitState()
 
 void EnemyDead::EnterState()
 {
-	gameManager->LiveEenmy--;
+	if (enemy->isSpawned = false)
+	{
+		gameManager->LiveEenmy--;
+	}
+	else
+	{
+		
+	}
 	// 데스 애니메이션
 }
 
@@ -136,4 +143,26 @@ void EnemyDead::Update(float deltaTime)
 
 void EnemyDead::ExitState()
 {
+}
+
+void EnemyAbility::EnterState()
+{
+	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
+	ani->SetAnimation(2, true);
+	ani->isLoop = false;
+}
+
+void EnemyAbility::Update(float deltaTime)
+{
+	if (ani->IsEnd())
+	{
+		owner->SetNextState("Idle");
+		enemy->target.clear();
+	}
+	
+}
+
+void EnemyAbility::ExitState()
+{
+
 }

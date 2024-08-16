@@ -4,7 +4,6 @@
 class Shop;
 class D2DFont; 
 class ShowWave;
-class ShowWave;
 class GameObject;
 class BattleWorld : public World
 {

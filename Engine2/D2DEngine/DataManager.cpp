@@ -167,11 +167,9 @@ void DataManager::ArtifactDataRead()
 			std::wstring token;
 			{
 				parseToken(wss, data.id);
-				parseToken(wss, data.level);
-				parseToken(wss, data.towerDamage);
-				parseToken(wss, data.enemyDamage);
-				parseToken(wss, data.count);
+				parseToken(wss, data.type);
 				parseToken(wss, data.name);
+				parseToken(wss, data.tenant);
 				parseToken(wss, data.ability);
 			}
 			artifactData[data.id] = data;

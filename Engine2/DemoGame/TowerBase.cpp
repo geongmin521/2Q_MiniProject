@@ -105,8 +105,7 @@ void TowerBase::Attack(float deltaTime)
 
 void TowerBase::Hit(float damage, float knockback)
 {
-	float plusArmor = Artifact::GetInstance().get()->towerPower.Armor;
-	curHP -= damage * plusArmor;
+	curHP -= damage;
 }
 
 void TowerBase::Heal(float heal)
