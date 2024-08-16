@@ -27,7 +27,7 @@ EnemyFSM::~EnemyFSM()
 
 void EnemyIdle::EnterState()
 {
-	ani->SetAnimation(1, true);
+	ani->SetAnimation(1, false);
 	ani->isLoop = true;
 }
 
@@ -90,7 +90,7 @@ void EnemyShared::ExitState()
 void EnemyAttack::EnterState()
 {
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
-	ani->SetAnimation(0, true);
+	ani->SetAnimation(0, false);
 	ani->isLoop = false;
 }
 
