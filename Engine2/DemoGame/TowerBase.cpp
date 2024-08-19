@@ -23,13 +23,24 @@
 #include "World.h"
 #include "D2DRenderer.h"
 
+#include "D2DRenderer.h"
+#include "D2DEffectManager.h"
+#include "ColorMatrixEffect.h"
+
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
 	renderOrder = 100;
 	this->towerData = data; 
 	name = "Tower"; //이름에서 태그로 변경하기
-	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
-		Make(TowerStar)().setPosition({ 20.f * i ,0}).setParent(transform);
+
+	D2D1_MATRIX_5X4_F redEmphasis =
+	{
+		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
+		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+	};
+
 	id = towerData.id;
 
 	
@@ -38,11 +49,21 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	curHP = towerData.HP;
 
 	if (towerData.Type == "Pile")
+	{
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
+		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Bitmap>()->bitmap, redEmphasis);
+	}
 	else if (towerData.Type == "Hidden")
+	{
 		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\TowerAni\\" + Utility::convertFromString(towerData.name) + L".csv"));
+		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Animation>()->bitmap, redEmphasis);
+	}
 	else
+	{
 		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\TowerAni\\TowerBase.csv"));
+		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Animation>()->bitmap, redEmphasis);
+	}
+
 	SetBoundBox(0, 0, 150,150);
 	EventSystem::GetInstance().get()->Ui.insert(this);
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
@@ -50,15 +71,14 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
 	toolTip = Make(ToolTip)(L"성수타워", L"공격력", L"생명력", L"공격력").setParent(transform).setActive(false).setPosition({100, 0}).Get<ToolTip>();
 	TowerType type = (TowerType)(towerData.id / 3);
+
 	if (type == TowerType::Crossbow || type == TowerType::Water || type == TowerType::Hidden) //같은 알고리즘 
 	{
-		
 		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
 		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation(), towerData.id); };
 	}
 	if (type == TowerType::Pile)
 	{
-		
 		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
 		AttackFunc = [this]() { TowerFunc::MeleeAttack(this,target); };
 	}
@@ -69,7 +89,12 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	}
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
-	Make(HPBar)(curHP, this->towerData.HP).setParent(transform);
+
+	Make(HPBar)(curHP, this->towerData.HP).setPosition({ 0 , -90 }).setParent(transform);
+
+	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
+		Make(TowerStar)().setPosition({ 20.f * i , -115 }).setParent(transform);
+
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
 	fsm->CreateState<TowerAttack>("Attack");
@@ -78,12 +103,15 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	fsm->SetNextState("Idle");
 	//testEffect = 1; //닷트윈 사용법 예시 //값이 적용될매개변수를 하나 가지고있고 생성해서 넣어주기
 	//new DOTween(testEffect, EasingEffect::InBounce, StepAnimation::StepOnceForward);
+
 }
 
 //오브젝트풀에서 타워를 빼올때.. init을 거쳐야겠는데? 초기화 상태에 대해 알고있자.. 
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {
+	curHP = towerData.HP;
+	hitEffct = false;
 	StatUpdate();
 	transform->SetRelativeLocation(pos); 
 	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
@@ -115,16 +143,60 @@ void TowerBase::Update(float deltaTime)
 		std::cout << towerData.HP << std::endl;
 	}
 	//transform->SetRelativeScale({ testEffect, testEffect });
+
+	if (hitEffct)
+	{
+		hitEffctDelay += deltaTime * 10;
+
+		if (hitEffctDelay > 2)
+		{
+			hitEffctDelay = 0;
+			hitEffct = false;
+		}
+	}
 }
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
-	__super::Render(pRenderTarget);
-	int mHp = static_cast<int>(curHP);
-	int mAtkspd = static_cast<int>(towerData.attackSpeed);
-	std::wstring hp = std::to_wstring(mHp) + L" " + std::to_wstring(mAtkspd);
-	pRenderTarget->DrawTextW(hp.c_str(), hp.length(), D2DRenderer::GetInstance()->DWriteTextFormat, D2D1::RectF(GetWorldLocation().x - 50, GetWorldLocation().y - 300, GetWorldLocation().x + 50, GetWorldLocation().y),
-		D2DRenderer::GetInstance()->Brush);
+	if (hitEffct == false)
+	{
+		__super::Render(pRenderTarget);
+	}
+	else
+	{
+
+		if (towerData.Type == "Pile")
+		{
+			Bitmap* BitmapComponent = GetComponent<Bitmap>();
+			static_cast<Renderer*>(BitmapComponent);
+
+			D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(BitmapComponent)->imageTransform *
+				transform->worldTransform *
+				D2DRenderer::cameraTransform;
+
+			pRenderTarget->SetTransform(Transform);
+
+			D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
+				FindEffect(Utility::convertFromString(towerData.name)));
+		}
+		else
+		{
+			Animation* animationComponent = GetComponent<Animation>();
+			static_cast<Renderer*>(animationComponent);
+
+			D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(animationComponent)->imageTransform *
+				transform->worldTransform *
+				D2DRenderer::cameraTransform;
+
+			pRenderTarget->SetTransform(Transform);
+
+			D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
+				FindEffect(Utility::convertFromString(towerData.name)),
+				{ 0 ,0 }, GetComponent<Animation>()->srcRect);
+		}
+		
+		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	}
 }
 
 void TowerBase::Attack(float deltaTime)
@@ -140,6 +212,7 @@ void TowerBase::Hit(float damage, float knockback)
 		curHP = 0;
 	else
 	curHP -= damage;
+	hitEffct = true;
 }
 
 void TowerBase::Heal(float heal)

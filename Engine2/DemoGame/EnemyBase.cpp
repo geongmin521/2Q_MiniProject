@@ -36,9 +36,9 @@ EnemyBase::EnemyBase(EnemyData data)
 	}
 	
 	AddComponent(new Animation(L"..\\Data\\Image\\Enemy\\" + Utility::convertFromString(enemyData.name) + L".png", L"..\\Data\\CSV\\EnemyAni\\" + Utility::convertFromString(enemyData.name) + L".csv"));
-	transform->SetRelativeScale({ 0.4f,0.4f });
+	transform->SetRelativeScale({ 0.5f,0.5f });
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
-	Make(HPBar)(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
+	Make(HPBar)(curHP, enemyData.HP).setPosition({ 0 , -170 }).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
 	fsm->CreateState<EnemyIdle>("Idle");
@@ -50,6 +50,22 @@ EnemyBase::EnemyBase(EnemyData data)
 	SetAbility(data.ability);
 	AddComponent(new Movement(transform));
 	
+	D2D1_MATRIX_5X4_F redEmphasis =
+	{
+		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
+		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+	};
+
+	D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(enemyData.name), GetComponent<Animation>()->bitmap, redEmphasis);
+	if (enemyData.Type == "Deffend") // 방어형일 경우 크기 수정 및 레이어 순서 변경 (적 레이어는 속도> 보스> 방어> 일반 순)
+	{
+		transform->SetRelativeScale({ 0.65f, 0.65f });
+		renderOrder = 101;
+	}
+	if (enemyData.Type == "Boss") { renderOrder = 102; transform->SetRelativeScale({ 0.8f, 0.8f });}
+	if (enemyData.Type == "Speed") { renderOrder = 103; }
 }
 
 void EnemyBase::SetAbility(std::string ability)
@@ -106,15 +122,43 @@ void EnemyBase::Update(float deltaTime)
 			ticTime = 0.f;
 		}
 	}
+
+	if (hitEffct)
+	{
+		hitEffctDelay += deltaTime * 10;
+
+		if (hitEffctDelay > 2)
+		{
+			hitEffctDelay = 0;
+			hitEffct = false;
+		}
+	}
+
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
-	__super::Render(pRenderTarget);
-	int mHp = static_cast<int>(curHP);
-	std::wstring hp = std::to_wstring(mHp);
-	pRenderTarget->DrawTextW(hp.c_str(), hp.length(), D2DRenderer::GetInstance()->DWriteTextFormat, D2D1::RectF(GetWorldLocation().x - 50, GetWorldLocation().y - 100, GetWorldLocation().x + 50, GetWorldLocation().y),
-		D2DRenderer::GetInstance()->Brush);
+	if (hitEffct == false)
+	{
+		__super::Render(pRenderTarget);
+	}
+	else
+	{
+		Animation* animationComponent = GetComponent<Animation>();
+		static_cast<Renderer*>(animationComponent);
+
+		D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(animationComponent)->imageTransform *
+			transform->worldTransform *
+			D2DRenderer::cameraTransform;
+
+		pRenderTarget->SetTransform(Transform);
+
+		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
+			FindEffect(Utility::convertFromString(enemyData.name)),
+			{ 0 ,0 }, GetComponent<Animation>()->srcRect);
+
+		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	}
 }
 
 void EnemyBase::Hit(float damage, float knockback)
@@ -135,6 +179,7 @@ void EnemyBase::Hit(float damage, float knockback)
 	{
 		isGalric = true;
 	}
+	hitEffct = true;
 }
 
 void EnemyBase::Heal(float heal)
