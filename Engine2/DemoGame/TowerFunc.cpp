@@ -7,6 +7,7 @@
 #include "Arrow.h"
 #include "Effect.h"
 #include "Pools.h"
+#include "Artifact.h"
 
 void TowerFunc::FireBullet(GameObject* target, MathHelper::Vector2F pos,float id) 
 {
@@ -24,7 +25,7 @@ void TowerFunc::Heal(std::vector<GameObject*>& targets)
 		TowerBase* healTower = dynamic_cast<TowerBase*>(tower);
 		if (healTower != nullptr)
 		{
-			healTower->Heal(1000);
+			healTower->Heal(1000 + (artifact->HolyPower.atkLevel * 5));
 			Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
 			effect->Init(L"Light.png", tower->GetWorldLocation(), 0.3f); //ÀÌÆåÆ® »ý¼º
 		}
@@ -40,7 +41,7 @@ void TowerFunc::MeleeAttack(GameObject* my,std::vector<GameObject*>& targets)
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
 		if (enemy != nullptr)
 		{
-			damageEnemy->Hit(Utility::CalCul(myTower->towerData.Type, damageEnemy->enemyData.Type, myTower->towerData.ATK),myTower->towerData.knockBack); 
+			damageEnemy->Hit(Utility::CalCul(myTower->towerData.Type, damageEnemy->enemyData.Type, myTower->towerData.ATK + (artifact->PilePower.atkLevel * 2)), myTower->towerData.knockBack);
 		}
 	}
 }

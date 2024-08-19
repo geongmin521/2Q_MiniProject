@@ -21,6 +21,7 @@
 #include "CommonFunc.h"
 #include "Pools.h"
 #include "World.h"
+#include "D2DRenderer.h"
 
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
@@ -30,7 +31,12 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
 		Make(TowerStar)().setPosition({ 20.f * i ,0}).setParent(transform);
 	id = towerData.id;
+
+	
+	StatUpdate();
+
 	curHP = towerData.HP;
+
 	if (towerData.Type == "Pile")
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
 	else if (towerData.Type == "Hidden")
@@ -40,6 +46,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	SetBoundBox(0, 0, 150,150);
 	EventSystem::GetInstance().get()->Ui.insert(this);
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
+
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
 	toolTip = Make(ToolTip)(L"성수타워", L"공격력", L"생명력", L"공격력").setParent(transform).setActive(false).setPosition({100, 0}).Get<ToolTip>();
 	TowerType type = (TowerType)(towerData.id / 3);
@@ -62,7 +69,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	}
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
-	Make(HPBar)(curHP, data.HP).setParent(transform);
+	Make(HPBar)(curHP, this->towerData.HP).setParent(transform);
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
 	fsm->CreateState<TowerAttack>("Attack");
@@ -77,20 +84,47 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {
-	curHP = towerData.HP;
+	StatUpdate();
 	transform->SetRelativeLocation(pos); 
 	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
 }
 
+void TowerBase::StatUpdate()
+{
+	// 일단 값 때려 넣기
+	if (towerData.level == 1)
+	{
+		artifact->PowerUP(1, this);
+	}
+	else if (towerData.level == 2)
+	{
+		artifact->PowerUP(2, this);
+	}
+	else if (towerData.level == 3)
+	{
+		artifact->PowerUP(3, this);
+	}
+}
+
+
 void TowerBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
+	if (towerData.Type == "HolyCross")
+	{
+		std::cout << towerData.HP << std::endl;
+	}
 	//transform->SetRelativeScale({ testEffect, testEffect });
 }
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
+	int mHp = static_cast<int>(curHP);
+	int mAtkspd = static_cast<int>(towerData.attackSpeed);
+	std::wstring hp = std::to_wstring(mHp) + L" " + std::to_wstring(mAtkspd);
+	pRenderTarget->DrawTextW(hp.c_str(), hp.length(), D2DRenderer::GetInstance()->DWriteTextFormat, D2D1::RectF(GetWorldLocation().x - 50, GetWorldLocation().y - 300, GetWorldLocation().x + 50, GetWorldLocation().y),
+		D2DRenderer::GetInstance()->Brush);
 }
 
 void TowerBase::Attack(float deltaTime)

@@ -2,6 +2,7 @@
 #include "SingletonBase.h"
 #include "Data.h"
 
+class TowerBase;
 enum class ArtifactId
 {
 	WaterDamageUp = 1,
@@ -30,9 +31,9 @@ class Artifact : public SingletonBase<Artifact>
 {
 	struct  artifactPower
 	{
-		float Attack = 0;
-		float attackSpeed = 0;
-		float Hp = 0;
+		int atkLevel = 1;
+		int spdLevel = 1;
+		int hpLevel = 1;
 	};
 public:
 	artifactPower WaterPower;
@@ -42,12 +43,19 @@ public:
 
 	ArtifactData artifactData;
 
+	// 스탯 증가를 한번만 하기위한 변수
+	bool isUpdate = false;
+
 	Artifact();
 	virtual ~Artifact();
-	void PowerUP(int id);
+	void PowerUP(int level, TowerBase* tower);
 
 	bool isOwned(int id);
-	void SelectAtrifact(int id);
+	int checkLevel(int id);
+	void SelectArtifact(int id);
+	void SelectArtifact(ArtifactId id);
+
 	std::vector<int> ownedArtifact;
+
 };
 

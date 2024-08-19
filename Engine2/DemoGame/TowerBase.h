@@ -36,11 +36,15 @@ public: //나중에 은닉화할 데이터는 빼기
     float testEffect;
 public:
     float curHP;        //타워각자가 가질 현재 체력 //hp 참조로 넘겨주면될듯? 그럼 게임오브젝트에 필요없겠지? 
+    float prevHp;
 
     TowerBase(TowerData data);
     virtual ~TowerBase() = default; //진짜 어떻게 해야할지를 모르겠네 허 허.. //불렛만 다르면 되는거지 적 불렛이랑 다른게 뭐지?  
 
     void Init(MathHelper::Vector2F pos);
+
+    void StatUpdate();
+
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 
