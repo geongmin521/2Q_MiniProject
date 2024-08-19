@@ -33,6 +33,8 @@ private:
 	GameObject* child; //자식을 관리하기 위한 트랜스폼
 
 	float test;
+	bool effectCheck = false;
+
 public:
 	Shop();
 	void init();

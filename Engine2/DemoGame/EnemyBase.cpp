@@ -28,9 +28,9 @@ EnemyBase::EnemyBase(EnemyData data)
 
 	
 	AddComponent(new Animation(L"..\\Data\\Image\\Enemy\\" + Utility::convertFromString(enemyData.name) + L".png", L"..\\Data\\CSV\\EnemyAni\\" + Utility::convertFromString(enemyData.name) + L".csv"));
-	transform->SetRelativeScale({ 0.4f,0.4f });
+	transform->SetRelativeScale({ 0.5f,0.5f });
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
-	Make(HPBar)(curHP, enemyData.HP).setParent(transform).Get<HPBar>();
+	Make(HPBar)(curHP, enemyData.HP).setPosition({ 0 , -170 }).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
 	fsm->CreateState<EnemyIdle>("Idle");
@@ -51,6 +51,13 @@ EnemyBase::EnemyBase(EnemyData data)
 	};
 
 	D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(enemyData.name), GetComponent<Animation>()->bitmap, redEmphasis);
+	if (enemyData.Type == "Deffend") // 방어형일 경우 크기 수정 및 레이어 순서 변경 (적 레이어는 속도> 보스> 방어> 일반 순)
+	{
+		transform->SetRelativeScale({ 0.65f, 0.65f });
+		renderOrder = 101;
+	}
+	if (enemyData.Type == "Boss") { renderOrder = 102; transform->SetRelativeScale({ 0.8f, 0.8f });}
+	if (enemyData.Type == "Speed") { renderOrder = 103; }
 }
 
 void EnemyBase::SetAbility(std::string ability)
@@ -103,14 +110,14 @@ void EnemyBase::Update(float deltaTime)
 	if (hitEffct)
 	{
 		hitEffctDelay += deltaTime * 10;
-		hitConunt++;
+
+		if (hitEffctDelay > 2)
+		{
+			hitEffctDelay = 0;
+			hitEffct = false;
+		}
 	}
 
-	if (hitEffctDelay > 2)
-	{
-		hitEffctDelay = 0;
-		hitEffct = false;
-	}
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)

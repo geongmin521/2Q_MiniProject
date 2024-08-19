@@ -96,6 +96,7 @@ void TowerAttack::ExitState()
 
 void TowerDeath::EnterState()
 {
+	tower->hitEffct = false;
 	tower->container->Clear();
 	if (ani != nullptr)
 	ani->SetAnimation(2, false,false); 
@@ -107,8 +108,6 @@ void TowerDeath::Update(float DeltaTime)
 	{
 		Pools::GetInstance().get()->AddPool(tower);
 	}
-	
-
 	
 }
 
