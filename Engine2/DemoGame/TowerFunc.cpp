@@ -27,7 +27,7 @@ void TowerFunc::Heal(std::vector<GameObject*>& targets)
 		{
 			healTower->Heal(1000 + (artifact->HolyPower.atkLevel * 5));
 			Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
-			effect->Init(L"Light.png", tower->GetWorldLocation(), 0.3f); //捞棋飘 积己
+			effect->Init(tower->GetWorldLocation(), 0.25f); //捞棋飘 积己
 		}
 	}
 }

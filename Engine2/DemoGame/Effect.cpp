@@ -14,7 +14,6 @@ Effect::Effect(int id, std::string imagepath, std::string csvpath, bool isAni)
 	{
 		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(imagepath) + L".png", L"..\\Data\\CSV\\TowerAni\\" + Utility::convertFromString(csvpath) + L".csv"));
 		GetComponent<Animation>()->SetAnimation(0, false, false);
-		transform->SetRelativeScale({ 0.25f,0.25f });
 	}
 	else
 	{
@@ -29,10 +28,11 @@ Effect::~Effect()
 
 }
 
-void Effect::Init(std::wstring imagePath, MathHelper::Vector2F location, float _duration)
+void Effect::Init(MathHelper::Vector2F location,float _scale,float _duration)
 {
 	//AddComponent(new Bitmap(L"..\\Data\\Image\\" + imagePath);
 //GetComponent<Bitmap>()->LoadD2DBitmap(L"..\\Data\\Image\\" + imagePath);
+	transform->SetRelativeScale({ _scale,_scale });
 	transform->SetRelativeLocation(location);
 	if (GetComponent<Bitmap>() != nullptr)
 	{

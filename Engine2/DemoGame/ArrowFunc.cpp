@@ -15,6 +15,8 @@ void ArrowFunc::AttackEnemy(GameObject* my,GameObject* target,std::string type, 
 	EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);	
 	MathHelper::Vector2F dir = (enemy->GetWorldLocation() - my->GetWorldLocation()).Normalize();
 	enemy->Hit(Utility::CalCul(type, enemy->enemyData.Type, damage + (artifact->BowPower.atkLevel * 2)), knockBack); //일단 100 넉백수치 받아오기필요
+	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2001));
+	effect->Init(my->GetWorldLocation(), 1.0f); //이펙트 생성
 	Pools::GetInstance().get()->AddPool(my);
 }
 
@@ -34,7 +36,7 @@ void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damag
 	
 
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
-	effect->Init(L"Light.png", myCol.owner->GetWorldLocation(), 0.3f); //이펙트 생성
+	effect->Init(myCol.owner->GetWorldLocation(), 0.25f); //이펙트 생성
 	myCol.SetCollisionType(CollisionType::NoCollision); 
 	Pools::GetInstance().get()->AddPool(myCol.owner);
 	
