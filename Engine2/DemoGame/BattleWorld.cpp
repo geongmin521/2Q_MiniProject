@@ -56,6 +56,7 @@ void BattleWorld::MakeUI()//샵 빼고 여기서 어떤 기능 필요한지 분석한다음에. 헤더
 	Make(GameOver)().setPosition({ WinHalfSizeXY }).Get(Objs["GameOver"]);
 	//Make(Light)();
 }
+
 void BattleWorld::RegisterEvent()
 {
 	gameManager->events[Event::EndWave] = [this]() { //웨이브 종료시 함수
@@ -68,11 +69,11 @@ void BattleWorld::RegisterEvent()
 			Objs["Compensation"]->SetActive(true);
 		else
 			showWave->Show();
-	};
+	}; 
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);};
 	gameManager->events[Event::UseGold] = [this]() { goldText->SetDialog(L"신앙심:" + std::to_wstring(gameManager->GetGold())); };
 	gameManager->events[Event::Reset] = [this]() { Pools::GetInstance().get()->reset(); };//또 싱글톤이면서 이전게임의 데이터를 담고있는애가있나? 
-}
+} 
 
 void BattleWorld::Update(float deltaTime) 
 {

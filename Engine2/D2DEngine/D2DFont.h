@@ -1,6 +1,5 @@
 #pragma once
 #include "Renderer.h"
-
 enum Setting // 용도 정렬 선택 하기 위해서
 {
 	LEFT,
@@ -31,9 +30,6 @@ private:
 	IDWriteTextFormat* DWriteTextFormat = nullptr;;
 	IDWriteTextLayout* DWriteTextLayout = nullptr;;
 
-//	Transform* transform = nullptr;
-//	bool IsTransform = false; 
-
 	Setting FontX = MIDDLE;
 	Setting FontY = MIDDLE;
 public:
@@ -52,11 +48,10 @@ public:
 	// 폰트 정렬 잘못 넣어졌을 경우 중앙으로 정렬되게 예외함 
 	void Sort(Setting _SortX, Setting _SortY); // 왼쪽, 가운데, 오른쪽 정렬
 
-//	void OnTransform(); // 트랜스폼을 이용한 렌더일 경우 사용
-//	Transform* GetTransform() { return transform; }
-
-private:
+	void SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat);
 	void CreateLayoutText(std::wstring detail); // 텍스트 내용을 작성
+private:
+	
 };
 
 /// 사용 설명서 /// 

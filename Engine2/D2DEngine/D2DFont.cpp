@@ -76,6 +76,12 @@ void D2DFont::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 		//pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity()); // 렌더 통해서 안그려서 그런가?
 }
 
+void D2DFont::SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat)
+{
+	DWriteTextFormat = _IDWriteTextFormat;
+	CreateLayoutText(Dialog);
+}
+
 void D2DFont::CreateLayoutText(std::wstring detail)
 {
 	if (DWriteTextLayout)
@@ -91,7 +97,8 @@ void D2DFont::CreateLayoutText(std::wstring detail)
 		static_cast<float>(BoxSize.width),
 		static_cast<float>(BoxSize.height),
 		&DWriteTextLayout
-	); // https://learn.microsoft.com/ko-kr/windows/win32/api/d2d1/ne-d2d1-d2d1_draw_text_options
+	); 
+
 	SetSize(FontSize, { 0, (unsigned int)detail.length() }); //텍스트를 변경하더라도 기존사이즈를 유지
 	//DWriteTextLayout.set
 	if (FAILED(hr))

@@ -7,7 +7,7 @@ class Effect : public GameObject
 	float elapsedTime = 0;
 public:
 	Effect();
-	Effect(MathHelper::Vector2F location,float _duration);
+	Effect(MathHelper::Vector2F location, float _duration);
 	virtual ~Effect();
 	
 	void Init(std::wstring imagePath, MathHelper::Vector2F location, float _duration); //init에서 각 비트맵 애니메이션 생성했다가 지워야하나?

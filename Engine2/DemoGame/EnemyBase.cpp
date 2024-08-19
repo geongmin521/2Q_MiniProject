@@ -14,6 +14,9 @@
 #include "CircleCollider.h"
 #include "Circle.h"
 
+#include "D2DEffectManager.h"
+#include "ColorMatrixEffect.h"
+
 EnemyBase::EnemyBase(EnemyData data)
 {
 	renderOrder = 100;
@@ -91,7 +94,14 @@ void EnemyBase::Update(float deltaTime)
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
-	__super::Render(pRenderTarget);
+	if (hitEffct == false)
+	{
+		__super::Render(pRenderTarget);
+	}
+	else
+	{
+	
+	}
 }
 
 void EnemyBase::Hit(float damage, float knockback)

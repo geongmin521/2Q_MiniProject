@@ -11,6 +11,7 @@ Effect::Effect()
 	AddComponent(new Bitmap(L"..\\Data\\Image\\Light.png")); //이펙트를 종류별로 다 다른객체로 만들어둬야하나 prefab처럼 //아니면 그림바꿔치기?
 	renderOrder = 90;
 }
+
 Effect::Effect(MathHelper::Vector2F location, float _duration)
 {
 	this->transform->SetRelativeLocation(location);
@@ -19,6 +20,7 @@ Effect::Effect(MathHelper::Vector2F location, float _duration)
 
 Effect::~Effect()
 {
+
 }
 
 void Effect::Init(std::wstring imagePath, MathHelper::Vector2F location, float _duration)
