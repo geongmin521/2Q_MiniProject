@@ -41,6 +41,7 @@ public:
     virtual ~TowerBase() = default; //진짜 어떻게 해야할지를 모르겠네 허 허.. //불렛만 다르면 되는거지 적 불렛이랑 다른게 뭐지?  
 
     void Init(MathHelper::Vector2F pos);
+    void StatUpdate();
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 

@@ -13,6 +13,7 @@
 #include "TowerBase.h"
 #include "CircleCollider.h"
 #include "Circle.h"
+#include "Artifact.h"
 
 EnemyBase::EnemyBase(EnemyData data)
 {
@@ -22,7 +23,14 @@ EnemyBase::EnemyBase(EnemyData data)
 	id = 1001;
 	curHP = enemyData.HP;
 	SetBoundBox(0, 0, 50, 50); 
-
+	if (artifact->isOwned(static_cast<int>(ArtifactId::Wine)))
+	{
+		this->enemyData.attackSpeed *= 0.75f;
+	}
+	if (artifact->isOwned(static_cast<int>(ArtifactId::Mirror)))
+	{
+		this->enemyData.speed *= 0.75f;
+	}
 	
 	AddComponent(new Animation(L"..\\Data\\Image\\Enemy\\" + Utility::convertFromString(enemyData.name) + L".png", L"..\\Data\\CSV\\EnemyAni\\" + Utility::convertFromString(enemyData.name) + L".csv"));
 	transform->SetRelativeScale({ 0.4f,0.4f });
@@ -87,11 +95,32 @@ void EnemyBase::Update(float deltaTime)
 			spawnTime = 0;
 		}
 	}
+	if (artifact->isOwned(static_cast<int>(ArtifactId::Garlic)) && isGalric == true)
+	{
+
+		ticTime += deltaTime;
+		damageTimer += deltaTime;
+
+		if (damageTimer >= 1.f)
+		{
+			curHP -= 5.f;
+			damageTimer = 0.f;
+		}
+		if (ticTime > 5.f)
+		{
+			isGalric = false;
+			ticTime = 0.f;
+		}
+	}
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	__super::Render(pRenderTarget);
+	int mHp = static_cast<int>(curHP);
+	std::wstring hp = std::to_wstring(mHp);
+	pRenderTarget->DrawTextW(hp.c_str(), hp.length(), D2DRenderer::GetInstance()->DWriteTextFormat, D2D1::RectF(GetWorldLocation().x - 50, GetWorldLocation().y - 100, GetWorldLocation().x + 50, GetWorldLocation().y),
+		D2DRenderer::GetInstance()->Brush);
 }
 
 void EnemyBase::Hit(float damage, float knockback)
@@ -108,6 +137,10 @@ void EnemyBase::Hit(float damage, float knockback)
 	if(knockback !=0)
 	isHited = true;
 	GetComponent<Movement>()->SetVelocity({ knockback,0 });
+	if (artifact->isOwned(static_cast<int>(ArtifactId::Garlic)))
+	{
+		isGalric = true;
+	}
 }
 
 void EnemyBase::Heal(float heal)

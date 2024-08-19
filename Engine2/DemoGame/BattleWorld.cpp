@@ -19,10 +19,12 @@
 #include "Combination.h"
 #include "Container.h"
 #include "Light.h" // 라이트 테스트
-
+#include "Artifact.h"
+#include "TowerBase.h"
 
 BattleWorld::BattleWorld()
 {
+
 }
 
 BattleWorld::~BattleWorld()
@@ -68,6 +70,13 @@ void BattleWorld::RegisterEvent()
 			Objs["Compensation"]->SetActive(true);
 		else
 			showWave->Show();
+		for (auto& it : m_GameObjects)
+		{
+			if (it->name == "Tower")
+			{
+				dynamic_cast<TowerBase*>(it)->StatUpdate();
+			}
+		}
 	};
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);};
 	gameManager->events[Event::UseGold] = [this]() { goldText->SetDialog(L"신앙심:" + std::to_wstring(gameManager->GetGold())); };
