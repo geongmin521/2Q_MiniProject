@@ -21,10 +21,13 @@ void EnemyFunc::BombAttack(EnemyBase* origin, GameObject* target, float Damage)
 
 void EnemyFunc::RangedAttack(GameObject* target, MathHelper::Vector2F pos, float Damage)
 {
-	Arrow* arrow = new Arrow("Vampire","Vampire", 10, 3,5);
-	arrow->Init(pos, target);
-}
+	if (target != nullptr)
+	{
+		Arrow* arrow = dynamic_cast<Arrow*>(Pools::GetInstance().get()->PopPool(601));
+		arrow->Init(pos, target);
+	}
 
+}
 void EnemyFunc::BossAttack(EnemyBase* origin, GameObject* target, float Damage)
 {
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);

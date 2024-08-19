@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EnemyBase.h"
+#include "TowerBase.h"
 #include "CommonFunc.h"
 #include "CircleCollider.h"
 #include "Circle.h"
@@ -20,6 +21,16 @@ void ArrowFunc::AttackEnemy(GameObject* my,GameObject* target,std::string type, 
 	Pools::GetInstance().get()->AddPool(my);
 }
 
+void ArrowFunc::AttackTower(GameObject* my, GameObject* target, std::string type, float damage, float knockBack)
+{
+	// 추후에 아티팩트 기반으로 데미지 고정값 증가
+	MathHelper::Vector2F dir = (target->GetWorldLocation() - my->GetWorldLocation()).Normalize();
+	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
+	nofity->Hit(damage); //일단 100 넉백수치 받아오기필요
+	//Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2001));
+	//effect->Init(my->GetWorldLocation(), 1.0f); //이펙트 생성
+	Pools::GetInstance().get()->AddPool(my);
+}
 void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damage, float knockBack)
 {
 	std::vector<GameObject*> targets;
@@ -35,8 +46,8 @@ void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damag
 	}
 	
 
-	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
-	effect->Init(myCol.owner->GetWorldLocation(), 0.25f); //이펙트 생성
+	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2002));
+	effect->Init(myCol.owner->GetWorldLocation(), 1.0f); //이펙트 생성
 	myCol.SetCollisionType(CollisionType::NoCollision); 
 	Pools::GetInstance().get()->AddPool(myCol.owner);
 	

@@ -58,11 +58,12 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 		AttackFunc = [this, damage, knockBack]() { ArrowFunc::AttackEnemys(*GetComponent<CircleCollider>(), damage, knockBack); };
 		id = 513;
 	}
-	if (type == "vampire")
+	if (type == "Normal")
 	{
 		AddComponent(new BezierMovement(transform, speed));
-		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::AttackEnemy(this, this->target, type, damage, knockBack); };
-		id = 500000;
+		transform->SetRelativeScale({ 0.3f,0.3f });
+		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::AttackTower(this, this->target, type, damage, knockBack); };
+		id = 601;
 	}
 }
 
@@ -75,8 +76,12 @@ void Arrow::Init(MathHelper::Vector2F location, GameObject* target)
 {
 	if(target !=nullptr)
 	this->target = target;
-	if(GetComponent<BezierMovement>() != nullptr)
-	GetComponent<BezierMovement>()->target = target;
+	if (GetComponent<BezierMovement>() != nullptr)
+	{
+		GetComponent<BezierMovement>()->target = target;
+		GetComponent<BezierMovement>()->Init();
+
+	}
 
 	CircleCollider* cirCle = GetComponent<CircleCollider>();
 	if (cirCle)
@@ -95,10 +100,10 @@ void Arrow::Update(float deltaTime)
 		GetComponent<Movement>()->SetVelocity(dir * speed);
 	}
 	__super::Update(deltaTime);
-	/*if (target->GetActive() == false)
+	if (target->GetActive() == false)
 	{
 		Pools::GetInstance().get()->AddPool(this);
-	}*/
+	}
 	if (type == "HiddenArrow")
 	{
 		elapsedTime2 += deltaTime;
@@ -114,7 +119,7 @@ void Arrow::Update(float deltaTime)
 			Pools::GetInstance().get()->AddPool(this);
 		}
 	}
-	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() < 3.0f)
+	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() < 2.0f)
 	{
 		AttackFunc(); //풀에넣는건 각 어택안에서
 	}

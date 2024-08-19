@@ -9,6 +9,12 @@ BezierMovement::BezierMovement(Transform* transform, float speed)
     this->speed = speed;
 }
 
+void BezierMovement::Init()
+{
+    t = 0;
+    ellipsedTime  = 0;
+}
+
 void BezierMovement::Update(float deltaTime)
 {
     if (target == nullptr)

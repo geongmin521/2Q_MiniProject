@@ -8,12 +8,14 @@ public:
     BezierMovement(Transform* transform, float speed);
    
     virtual ~BezierMovement() = default;
+
+    void Init();
     Transform* transform;
     GameObject* target;
     Vector2F preDir; // 회전을위해 필요한거
     Vector2F curDir; // 회전을위해 필요한거
     Vector2F position[3];
-    float t;
+    float t =0;
     float ellipsedTime;
     float speed;
 
@@ -24,7 +26,7 @@ public:
         float height = (position[2].x - position[0].x) / 5;
 
         Vector2F mid =  (position[2] + position[0]) / 2;
-        mid.y += -((position[2].x - position[0].x) / 5);
+        mid.y -= std::abs(((position[2].x - position[0].x) / 5));
 
         return mid;
     };
