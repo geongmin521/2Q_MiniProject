@@ -36,7 +36,7 @@ void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성�
 {
 	if (compensationId == -1)
 		return; //선택안됨
-	artifact->SelectAtrifact(compensationId);
+	artifact->SelectArtifact(compensationId);
 	SetActive(false);
 }
 

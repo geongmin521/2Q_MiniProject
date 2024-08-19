@@ -23,7 +23,7 @@ void TowerFunc::Heal(std::vector<GameObject*>& targets)
 	{
 		TowerBase* healTower = dynamic_cast<TowerBase*>(tower);
 		if(healTower != nullptr)
-			healTower->Heal(1000 + artifact->HolyPower.Attack);
+			healTower->Heal(1000 + (artifact->HolyPower.atkLevel * 5));
 	}
 }
 
@@ -36,7 +36,7 @@ void TowerFunc::MeleeAttack(GameObject* my,std::vector<GameObject*>& targets)
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
 		if (enemy != nullptr)
 		{
-			damageEnemy->Hit(Utility::CalCul(myTower->towerData.Type, damageEnemy->enemyData.Type, myTower->towerData.ATK + artifact->PilePower.Attack),myTower->towerData.knockBack); 
+			damageEnemy->Hit(Utility::CalCul(myTower->towerData.Type, damageEnemy->enemyData.Type, myTower->towerData.ATK + (artifact->PilePower.atkLevel * 2)), myTower->towerData.knockBack);
 		}
 	}
 }

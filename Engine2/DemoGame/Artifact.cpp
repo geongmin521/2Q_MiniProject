@@ -2,6 +2,7 @@
 #include "Artifact.h"
 #include "Factory.h"
 #include "Image.h"
+#include "TowerBase.h"
 
 Artifact::Artifact()
 {
@@ -13,86 +14,297 @@ Artifact::~Artifact()
 {
 }
 
-void Artifact::SelectAtrifact(int id)
+void Artifact::SelectArtifact(int id)
 {
 	ownedArtifact.push_back(id);
-	//아티팩트 csv이름이랑 이미지 이름 일치시키기
-	Make(Image)(L"Crossbow.png").setPosition({ 100.f * ownedArtifact.size() ,100});
-}
-
-void Artifact::PowerUP(int id)
-{
-	// csv나오면 구성
-	// 일단은 스탯과 vector를 분리
 	switch (id)
 	{
 	case 1:
-		WaterPower.Attack += 2;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::WaterDamageUp));
+		WaterPower.atkLevel++;
 		break;
 	case 2:
-		PilePower.Attack += 2;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::PileDamageUp));
+		PilePower.atkLevel++;
 		break;
-	case 3:
-		BowPower.Attack += 2;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::BowDamageUp));
+	case  3:
+		BowPower.atkLevel++;
 		break;
 	case 4:
-		HolyPower.Attack += 2;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::HolyDamageUp));
+		HolyPower.atkLevel++;
 		break;
 	case 5:
-		WaterPower.Hp += 50;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::WaterHpUp));
+		WaterPower.hpLevel++;
 		break;
 	case 6:
-		PilePower.Hp += 50;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::PileHpUp));
+		PilePower.hpLevel++;
 		break;
 	case 7:
-		BowPower.Hp += 50;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::BowHpUp));
+		BowPower.hpLevel++;
 		break;
 	case 8:
-		HolyPower.Hp += 50;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::HolyHpUp));
+		HolyPower.hpLevel++;
 		break;
 	case 9:
-		WaterPower.attackSpeed += 0.2f;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::WaterSpeedUp));
+		WaterPower.spdLevel++;
 		break;
 	case 10:
-		PilePower.attackSpeed += 0.2f;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::PileSpeedUp));
+		PilePower.spdLevel++;
 		break;
 	case 11:
-		BowPower.attackSpeed += 0.2f;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::BowSpeedUp));
+		BowPower.spdLevel++;
 		break;
 	case 12:
-		HolyPower.attackSpeed += 0.2f;
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::HolySpeedUp));
+		HolyPower.spdLevel++;
 		break;
-	case 13:
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::Garlic));
-		break;
-	case 14:
-		// 재화가 어떻게 구성되어있는지 몰라서 후 구현
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::Bible));
-		break;
-	case 15:
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::SilverRing));
-		break;
-	case 16:
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::laurel));
-		break;
-	case 17:
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::Wine));
-		break;
-	case 18:
-		ownedArtifact.push_back(static_cast<int>(ArtifactId::Mirror));
-		break;
+	}
+	//아티팩트 csv이름이랑 이미지 이름 일치시키기
+	Make(Image)(L"Crossbow.png").setPosition({ 100.f * ownedArtifact.size() ,100 });
+}
+
+void Artifact::SelectArtifact(ArtifactId id)
+{
+	ownedArtifact.push_back(static_cast<int>(id));
+}
+
+void Artifact::PowerUP(int level, TowerBase* tower)
+{
+	// csv나오면 구성
+	// 일단은 스탯과 vector를 분리
+	if (level == 1)
+	{
+		if (tower->towerData.Type == "Crossbow")
+		{
+			if (artifact->BowPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 40;
+			}
+			else if (artifact->BowPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 60;
+			}
+			if (artifact->BowPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.8f;
+			}
+			else if (artifact->BowPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.6f;
+			}
+		}
+		else if (tower->towerData.Type == "Water")
+		{
+			if (artifact->WaterPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 40;
+			}
+			else if (artifact->WaterPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 60;
+			}
+			if (artifact->WaterPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 1.3f;
+			}
+			else if (artifact->WaterPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 1.1f;
+			}
+		}
+		else if (tower->towerData.Type == "Pile")
+		{
+			if (artifact->PilePower.hpLevel == 2)
+			{
+				tower->towerData.HP = 70;
+			}
+			else if (artifact->PilePower.hpLevel == 3)
+			{
+				tower->towerData.HP = 90;
+			}
+			if (artifact->PilePower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.8f;
+			}
+			else if (artifact->PilePower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.6f;
+			}
+		}
+		else if (tower->towerData.Type == "HolyCross")
+		{
+			if (artifact->HolyPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 50;
+			}
+			else if (artifact->HolyPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 70;
+			}
+			if (artifact->HolyPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.8f;
+			}
+			else if (artifact->HolyPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.6f;
+			}
+		}
+	}
+	else if (level == 2)
+	{
+		if (tower->towerData.Type == "Crossbow")
+		{
+			if (artifact->BowPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 70;
+			}
+			else if (artifact->BowPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 90;
+			}
+			if (artifact->BowPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.55f;
+			}
+			else if (artifact->BowPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.35f;
+			}
+		}
+		else if (tower->towerData.Type == "Water")
+		{
+			if (artifact->WaterPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 70;
+			}
+			else if (artifact->WaterPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 90;
+			}
+			if (artifact->WaterPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 1.05f;
+			}
+			else if (artifact->WaterPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.85f;
+			}
+		}
+		else if (tower->towerData.Type == "Pile")
+		{
+			if (artifact->PilePower.hpLevel == 2)
+			{
+				tower->towerData.HP = 170;
+			}
+			else if (artifact->PilePower.hpLevel == 3)
+			{
+				tower->towerData.HP = 190;
+			}
+			if (artifact->PilePower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.8f;
+			}
+			else if (artifact->PilePower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.6f;
+			}
+		}
+		else if (tower->towerData.Type == "HolyCross")
+		{
+			if (artifact->HolyPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 95;
+			}
+			else if (artifact->HolyPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 115;
+			}
+			if (artifact->HolyPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.8f;
+			}
+			else if (artifact->HolyPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.6f;
+			}
+		}
+	}
+	else if (level == 3)
+	{
+		if (tower->towerData.Type == "Crossbow")
+		{
+			if (artifact->BowPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 120;
+			}
+			else if (artifact->BowPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 140;
+			}
+			if (artifact->BowPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.3f;
+			}
+			else if (artifact->BowPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.1f;
+			}
+		}
+		else if (tower->towerData.Type == "Water")
+		{
+			if (artifact->WaterPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 120;
+			}
+			else if (artifact->WaterPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 140;
+			}
+			if (artifact->WaterPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.8f;
+			}
+			else if (artifact->WaterPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.6f;
+			}
+		}
+		else if (tower->towerData.Type == "Pile")
+		{
+			if (artifact->PilePower.hpLevel == 2)
+			{
+				tower->towerData.HP = 420;
+			}
+			else if (artifact->PilePower.hpLevel == 3)
+			{
+				tower->towerData.HP = 440;
+			}
+			if (artifact->PilePower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.8f;
+			}
+			else if (artifact->PilePower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.6f;
+			}
+		}
+		else if (tower->towerData.Type == "HolyCross")
+		{
+			if (artifact->HolyPower.hpLevel == 2)
+			{
+				tower->towerData.HP = 170;
+			}
+			else if (artifact->HolyPower.hpLevel == 3)
+			{
+				tower->towerData.HP = 190;
+			}
+			if (artifact->HolyPower.spdLevel == 2)
+			{
+				tower->towerData.attackSpeed = 0.8f;
+			}
+			else if (artifact->HolyPower.spdLevel == 3)
+			{
+				tower->towerData.attackSpeed = 0.6f;
+			}
+		}
 	}
 }
 
@@ -107,5 +319,23 @@ bool Artifact::isOwned(int id)
 	return false;
 }
 
+int Artifact::checkLevel(int id)
+{
+	std::unordered_map<int, int> frequency;
+	int cnt = 0;
+	for (auto& num : ownedArtifact)
+	{
+		frequency[num]++;
+	}
+	for (auto& pair : frequency)
+	{
+		if (pair.second > 1)
+		{
+			cnt++;
+		}
+	}
+
+	return cnt;
+}
 
 

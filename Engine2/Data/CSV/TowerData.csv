@@ -1,6 +1,6 @@
 타워 ID,이름,성급,타입,공격력,사거리,체력,공격 속도,공격 범위,넉백 수치,특수능력
 int,string,int,string,float,float,float,float,float,float,string
-0,CrossbowTower,1,Crossbow,3,600,20,1,0,25,None
+0,CrossbowTower,1,Crossbow,20,600,20,1,0,25,None
 1,2StarCrossbowTower,2,Crossbow,7,700,50,0.75,0,25,None
 2,3StarCrossbowTower,3,Crossbow,10,700,100,0.5,0,25,double
 3,WaterTower,1,Water,5,500,20,1.5,1,50,None

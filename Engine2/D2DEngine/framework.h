@@ -28,6 +28,7 @@
 #include <variant>
 #include <climits> 
 #include <unordered_map>
+#include <unordered_set>
 #include "algorithm"
 #include <d2d1effects_2.h>
 #include "Utility.h"

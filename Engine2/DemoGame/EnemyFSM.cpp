@@ -125,7 +125,7 @@ void EnemyAttack::ExitState()
 
 void EnemyDead::EnterState()
 {
-	if (enemy->isSpawned = false)
+	if (enemy->isSpawned == false)
 	{
 		gameManager->LiveEenmy--;
 	}
