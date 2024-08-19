@@ -41,5 +41,7 @@ public:
 
     //test ¿Ã∆Â∆Æ
     bool hitEffct = false;
+    int hitConunt = 0;
+    float hitEffctDelay = 0.0f;
 };
 

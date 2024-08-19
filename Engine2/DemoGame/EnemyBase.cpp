@@ -42,6 +42,15 @@ EnemyBase::EnemyBase(EnemyData data)
 	SetAbility(data.ability);
 	AddComponent(new Movement(transform));
 	
+	D2D1_MATRIX_5X4_F redEmphasis =
+	{
+		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
+		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+	};
+
+	D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(enemyData.name), GetComponent<Animation>()->bitmap, redEmphasis);
 }
 
 void EnemyBase::SetAbility(std::string ability)
@@ -90,6 +99,18 @@ void EnemyBase::Update(float deltaTime)
 			spawnTime = 0;
 		}
 	}
+
+	if (hitEffct)
+	{
+		hitEffctDelay += deltaTime * 10;
+		hitConunt++;
+	}
+
+	if (hitEffctDelay > 2)
+	{
+		hitEffctDelay = 0;
+		hitEffct = false;
+	}
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
@@ -100,7 +121,20 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	}
 	else
 	{
-	
+		Animation* animationComponent = GetComponent<Animation>();
+		static_cast<Renderer*>(animationComponent);
+
+		D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(animationComponent)->imageTransform *
+			transform->worldTransform *
+			D2DRenderer::cameraTransform;
+
+		pRenderTarget->SetTransform(Transform);
+
+		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
+			FindEffect(Utility::convertFromString(enemyData.name)),
+			{ 0 ,0 }, GetComponent<Animation>()->srcRect);
+
+		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 	}
 }
 
@@ -118,6 +152,7 @@ void EnemyBase::Hit(float damage, float knockback)
 	if(knockback !=0)
 	isHited = true;
 	GetComponent<Movement>()->SetVelocity({ knockback,0 });
+	hitEffct = true;
 }
 
 void EnemyBase::Heal(float heal)
