@@ -5,6 +5,7 @@
 #include "TowerBase.h"
 #include "EnemyBase.h"
 #include "Arrow.h"
+#include "Effect.h"
 #include "Pools.h"
 
 void TowerFunc::FireBullet(GameObject* target, MathHelper::Vector2F pos,float id) 
@@ -21,8 +22,12 @@ void TowerFunc::Heal(std::vector<GameObject*>& targets)
 	for (auto& tower : targets)
 	{
 		TowerBase* healTower = dynamic_cast<TowerBase*>(tower);
-		if(healTower != nullptr)
+		if (healTower != nullptr)
+		{
 			healTower->Heal(1000);
+			Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
+			effect->Init(L"Light.png", tower->GetWorldLocation(), 0.3f); //이펙트 생성
+		}
 	}
 }
 

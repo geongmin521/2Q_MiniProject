@@ -81,15 +81,6 @@ void EnemyBase::Update(float deltaTime)
 			elapsedTime = 0;
 		}
 	}
-	if (enemyData.name == "BossEnemy")
-	{
-		spawnTime += deltaTime;
-		if (spawnTime > 5.f)
-		{
-			ability();
-			spawnTime = 0;
-		}
-	}
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
@@ -137,7 +128,6 @@ void EnemyBase::Attack()
 
 void EnemyBase::ability()
 {
-	GetComponent<FiniteStateMachine>()->SetNextState("Ability");
 	Ability();
 }
 

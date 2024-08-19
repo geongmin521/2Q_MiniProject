@@ -102,6 +102,16 @@ void EnemyAttack::Update(float deltaTime)
 		AttackTimer = 0;
 		owner->SetNextState("Attack"); 
 	}
+
+	if (enemy->enemyData.name == "BossEnemy")
+	{
+		enemy->spawnTime += deltaTime;
+		if (enemy->spawnTime > 5.f)
+		{
+			owner->SetNextState("Ability");
+			enemy->spawnTime = 0;
+		}
+	}
 	if (enemy->target.empty()) 
 	{
 		owner->SetNextState("Idle");
@@ -125,7 +135,7 @@ void EnemyAttack::ExitState()
 
 void EnemyDead::EnterState()
 {
-	if (enemy->isSpawned = false)
+	if (enemy->isSpawned == false)
 	{
 		gameManager->LiveEenmy--;
 	}
@@ -134,11 +144,15 @@ void EnemyDead::EnterState()
 		
 	}
 	// 데스 애니메이션
+	ani->SetAnimation(2, false, false);
 }
 
 void EnemyDead::Update(float deltaTime)
 {
-	enemy->SetActive(false);
+	if (ani->IsEnd())
+	{
+		enemy->SetActive(false);
+	}
 }
 
 void EnemyDead::ExitState()
@@ -148,7 +162,7 @@ void EnemyDead::ExitState()
 void EnemyAbility::EnterState()
 {
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
-	ani->SetAnimation(3, false);
+	ani->SetAnimation(3, false, false);
 	ani->isLoop = false;
 }
 
@@ -156,6 +170,7 @@ void EnemyAbility::Update(float deltaTime)
 {
 	if (ani->IsEnd())
 	{
+		enemy->ability();
 		owner->SetNextState("Idle");
 		enemy->target.clear();
 	}

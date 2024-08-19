@@ -161,7 +161,7 @@ void Shop::Spawn()
 	for (auto var : compensationList)
 	{	
 		GameObject* tower = Pools::GetInstance().get()->PopPool(var);  
-		if (tower != nullptr)
+		if (dynamic_cast<TowerBase*>(tower) != nullptr)
 		{
 			dynamic_cast<TowerBase*>(tower)->Init(Containers[inven]->transform->GetWorldLocation());
 			Containers[inven]->OnDrop(tower); 

@@ -21,13 +21,13 @@
 
 #include "Arrow.h"
 
-Arrow::Arrow(std::string type,float damage,float attackArea,float knockBack) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
+Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,float knockBack) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
 {
-	this->speed = 1.5f;
+	this->speed = 2.0f;
 	this->type = type;
 	SetBoundBox(0, 0, attackArea, attackArea);
-	renderOrder = 95;
-	AddComponent(new Bitmap(L"..\\Data\\Image\\" + Utility::convertFromString(type) + L".png"));
+	renderOrder = 101;
+	AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(name) + L"Arrow.png"));
 	//발사되는순간에 적의 위치를 받아오는게 맞지.. 
 	if (type == "Crossbow")
 	{
@@ -99,7 +99,6 @@ void Arrow::Update(float deltaTime)
 	{
 		Pools::GetInstance().get()->AddPool(this);
 	}*/
-	static float abc = 0;
 	if (type == "HiddenArrow")
 	{
 		elapsedTime2 += deltaTime;
@@ -115,10 +114,9 @@ void Arrow::Update(float deltaTime)
 			Pools::GetInstance().get()->AddPool(this);
 		}
 	}
-	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() < 5.0f)
+	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() < 3.0f)
 	{
 		AttackFunc(); //풀에넣는건 각 어택안에서
-		
 	}
 	
 

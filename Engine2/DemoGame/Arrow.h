@@ -7,7 +7,7 @@ class Arrow : public GameObject , IColliderNotify
 private:
     float speed = 0.3f;
 public:
-    Arrow(std::string type, float damage, float attackArea, float knockBack);
+    Arrow(std::string name,std::string type, float damage, float attackArea, float knockBack);
     virtual ~Arrow();
     GameObject* target;
     MathHelper::Vector2F preDir;

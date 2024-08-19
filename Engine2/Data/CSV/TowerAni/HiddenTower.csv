@@ -1,3 +1,4 @@
-2,
-0,../Data/CSV/TowerAni/KenIdle.csv
-1,../Data/CSV/TowerAni/KenAttack.csv
+3,
+0,../Data/CSV/TowerAni/HiddenIdle.csv
+1,../Data/CSV/TowerAni/HiddenAttack.csv
+2,../Data/CSV/TowerAni/HiddenDeath.csv

@@ -34,7 +34,6 @@ void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damag
 	
 
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
-
 	effect->Init(L"Light.png", myCol.owner->GetWorldLocation(), 0.3f); //ÀÌÆåÆ® »ý¼º
 	myCol.SetCollisionType(CollisionType::NoCollision); 
 	Pools::GetInstance().get()->AddPool(myCol.owner);

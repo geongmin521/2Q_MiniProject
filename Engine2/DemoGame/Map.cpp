@@ -30,7 +30,7 @@ Map::Map()
 		}			
 	for(int i=0;i< 4;i++)
 		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(i*3));
-	//grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
+	grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
 
 	Make(Sculpture)().setPosition({ 100 , WinHalfSizeY });
 }

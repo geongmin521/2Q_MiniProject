@@ -2,7 +2,7 @@
 int,string,int,string,float,float,float,float,float,float,string
 100,NormalEnemy,1,Normal,5,100,200,10,1,1,None
 101,ThrowEnemy,2,Normal,10,300,500,20,1,1,None
-102,BatEnemy,1,Speed,5,100,200,10,1.5,2,None
+102,BatEnemy,1,Speed,5,100,200,10,1.5,2,Destroy
 103,BombEnemy,2,Speed,30,100,200,15,1,2,Destroy
 104,DeffendEnemy,1,Deffend,10,100,200,35,2.5,0.5,None
 105,2StarDeffendEnemy,2,Deffend,15,100,200,100,2.5,0.5,None

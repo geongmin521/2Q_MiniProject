@@ -6,17 +6,23 @@
 #include "Pools.h"
 #include "Effect.h"
 
-Effect::Effect()
+Effect::Effect(int id, std::string imagepath, std::string csvpath, bool isAni)
 {
-	AddComponent(new Bitmap(L"..\\Data\\Image\\Light.png")); //이펙트를 종류별로 다 다른객체로 만들어둬야하나 prefab처럼 //아니면 그림바꿔치기?
-	renderOrder = 90;
+	this->id = id;
+	//Add를 멀 받아서 멀기준으로 만들어주지
+	if (isAni == true)
+	{
+		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(imagepath) + L".png", L"..\\Data\\CSV\\TowerAni\\" + Utility::convertFromString(csvpath) + L".csv"));
+		GetComponent<Animation>()->SetAnimation(0, false, false);
+		transform->SetRelativeScale({ 0.25f,0.25f });
+	}
+	else
+	{
+		AddComponent(new Bitmap(L"..\\Data\\Image\\Light.png"));
+	}
+	renderOrder = 102;
 }
 
-Effect::Effect(MathHelper::Vector2F location, float _duration)
-{
-	this->transform->SetRelativeLocation(location);
-	this->duration = _duration;
-}
 
 Effect::~Effect()
 {
@@ -25,21 +31,39 @@ Effect::~Effect()
 
 void Effect::Init(std::wstring imagePath, MathHelper::Vector2F location, float _duration)
 {
-	transform->SetRelativeLocation(location);
-	duration = _duration;
 	//AddComponent(new Bitmap(L"..\\Data\\Image\\" + imagePath);
-	GetComponent<Bitmap>()->LoadD2DBitmap(L"..\\Data\\Image\\" + imagePath);
-	elapsedTime = 0;   
+//GetComponent<Bitmap>()->LoadD2DBitmap(L"..\\Data\\Image\\" + imagePath);
+	transform->SetRelativeLocation(location);
+	if (GetComponent<Bitmap>() != nullptr)
+	{
+		duration = _duration;
+		elapsedTime = 0;
+	}
+	if (GetComponent<Animation>() != nullptr)
+	GetComponent<Animation>()->SetAnimation(0, false, false);
 }
 
 void Effect::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	elapsedTime += deltaTime;
-	if (elapsedTime >= duration)
+
+	if (GetComponent<Bitmap>() != nullptr) //비트맵만있을땐 시간지나면 지워지게끔
+
 	{
-		SetActive(false);           
+		elapsedTime += deltaTime;
+		if (elapsedTime >= duration)
+		{
+			Pools::GetInstance()->AddPool(this);
+		}
 	}
+
+	if (GetComponent<Animation>() != nullptr)  //비트맵만 점점사라지는 이펙트가 있을수있으니까
+	{
+		if (GetComponent<Animation>()->IsEnd())
+			Pools::GetInstance()->AddPool(this);
+	}
+
+	
 }
 
 void Effect::Render(ID2D1HwndRenderTarget* pRenderTarget, float Alpha)
