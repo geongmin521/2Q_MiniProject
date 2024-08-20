@@ -1,20 +1,20 @@
-ï»¿ë³´ìƒ ID,íƒ€ìž…,ì´ë¦„,ì ìš© íƒ€ìž…,ì ìš© ìŠ¤íƒ¯,íš¨ê³¼,ë³´ìƒì´ë¦„,ì¶œë ¥ í…ìŠ¤íŠ¸
+º¸»ó ID,Å¸ÀÔ,ÀÌ¸§,Àû¿ë Å¸ÀÔ,Àû¿ë ½ºÅÈ,È¿°ú,º¸»óÀÌ¸§,Ãâ·Â ÅØ½ºÆ®
 int,string,string,float,string,float,string,string
-500,Normal,CrossbowATK,Crossbow,Attack,2,ì„±ìˆ˜ ê³µê²©ë ¥ ì¦ê°€,ì„±ìˆ˜ì˜ ê³µê²©ë ¥ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-501,Normal,CrossbowHP,Crossbow,Health,20,ë§ëš ê³µê²©ë ¥ ì¦ê°€,ë§ëšì˜ ê³µê²©ë ¥ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-502,Normal,CrossbowATS,Crossbow,AttackSPD,0.2,ì„ê¶ ê³µê²©ë ¥ ì¦ê°€,ì„ê¶ì˜ ê³µê²©ë ¥ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-503,Normal,WaterATK,Water,Attack,2,ì‹­ìžê°€ ê³µê²©ë ¥ ì¦ê°€,ì‹­ìžê°€ì˜ íšŒë³µëŸ‰ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-504,Normal,WaterHP,Water,Health,20,ì„±ìˆ˜ ì²´ë ¥ ì¦ê°€,ì„±ìˆ˜ ìºë¦­í„°ì˜ ì²´ë ¥ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-505,Normal,WaterATS,Water,AttackSPD,0.2,ë§ëš ì²´ë ¥ ì¦ê°€,ë§ëš ìºë¦­í„°ì˜ ì²´ë ¥ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-506,Normal,PileATK,Plie,Attack,2,ì„ê¶ ì²´ë ¥ ì¦ê°€,ì„ê¶ ìºë¦­í„°ì˜ ì²´ë ¥ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-507,Normal,PileHP,Plie,Health,20,ì‹­ìžê°€ ì²´ë ¥ ì¦ê°€,ì‹­ìžê°€ ìºë¦­í„°ì˜ ì²´ë ¥ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-508,Normal,PileATS,Plie,AttackSPD,0.2,ì„±ìˆ˜ ê³µê²©ì†ë„ ì¦ê°€,ì„±ìˆ˜ ìºë¦­í„°ì˜ ê³µê²© ì†ë„ê°€ ì¦ê°€í•©ë‹ˆë‹¤.
-509,Normal,HolyCrossATK,HolyCross,Attack,5,ë§ëš ê³µê²©ì†ë„ ì¦ê°€,ë§ëš ìºë¦­í„°ì˜ ê³µê²© ì†ë„ê°€ ì¦ê°€í•©ë‹ˆë‹¤.
-510,Normal,HolyCrossHP,HolyCross,Health,20,ì„ê¶ ê³µê²©ì†ë„ ì¦ê°€,ì„ê¶ ìºë¦­í„°ì˜ ê³µê²© ì†ë„ê°€ ì¦ê°€í•©ë‹ˆë‹¤.
-511,Normal,HolyCrossATS,HolyCross,AttackSPD,0.2,ì‹­ìžê°€ ê³µê²©ì†ë„ ì¦ê°€,ì‹­ìžê°€ ìºë¦­í„°ì˜ íšŒë³µ ì†ë„ê°€ ì¦ê°€í•©ë‹ˆë‹¤.
-512,Special,DotDamage,Character,DotDamage,5,ë§ˆëŠ˜,ì¼ì • ì‹œê°„ ë™ì•ˆ ì ë“¤ì—ê²Œ ì¶”ê°€ ì§€ì† í”¼í•´ë¥¼ ìž…íž™ë‹ˆë‹¤.
-513,Special,BonuSpiety,None,Spiety,15,ì„±ì„œ,ì‹ ì•™ì‹¬ì˜ íšë“ëŸ‰ì´ ì¦ê°€í•©ë‹ˆë‹¤.
-514,Special,CharacterRange,Character,Range,100,ì€ë°˜ì§€,ë‚´ ëª¨ë“  ìºë¦­í„°ì˜ ê³µê²© ì‚¬ê±°ë¦¬ê°€ ì¦ê°€í•©ë‹ˆë‹¤.
-515,Special,CharacterKnockback,Character,Knockback,15,ì›”ê³„ìˆ˜,ë‚´ ëª¨ë“  ìºë¦­í„°ì˜ ë„‰ë°± ìˆ˜ì¹˜ê°€ ì¦ê°€í•©ë‹ˆë‹¤.
-516,Special,EnemyMove,Enemy,MoveSPD,-0.25,ì™€ì¸,ì ë“¤ì˜ ê³µê²© ì†ë„ê°€ ê°ì†Œí•©ë‹ˆë‹¤.
-517,Special,EnemyATS,Enemy,AttackSPD,-0.25,ê±°ìš¸,ì ë“¤ì˜ ì´ë™ ì†ë„ê°€ ì¤„ì–´ë“­ë‹ˆë‹¤.
+500,Normal,CrossbowATK,Crossbow,Attack,2,¼º¼ö °ø°Ý·Â Áõ°¡,¼º¼öÀÇ °ø°Ý·ÂÀÌ Áõ°¡ÇÕ´Ï´Ù.
+501,Normal,CrossbowHP,Crossbow,Health,20,¸»¶Ò °ø°Ý·Â Áõ°¡,¸»¶ÒÀÇ °ø°Ý·ÂÀÌ Áõ°¡ÇÕ´Ï´Ù.
+502,Normal,CrossbowATS,Crossbow,AttackSPD,0.2,¼®±Ã °ø°Ý·Â Áõ°¡,¼®±ÃÀÇ °ø°Ý·ÂÀÌ Áõ°¡ÇÕ´Ï´Ù.
+503,Normal,WaterATK,Water,Attack,2,½ÊÀÚ°¡ °ø°Ý·Â Áõ°¡,½ÊÀÚ°¡ÀÇ È¸º¹·®ÀÌ Áõ°¡ÇÕ´Ï´Ù.
+504,Normal,WaterHP,Water,Health,20,¼º¼ö Ã¼·Â Áõ°¡,¼º¼ö Ä³¸¯ÅÍÀÇ Ã¼·ÂÀÌ Áõ°¡ÇÕ´Ï´Ù.
+505,Normal,WaterATS,Water,AttackSPD,0.2,¸»¶Ò Ã¼·Â Áõ°¡,¸»¶Ò Ä³¸¯ÅÍÀÇ Ã¼·ÂÀÌ Áõ°¡ÇÕ´Ï´Ù.
+506,Normal,PileATK,Plie,Attack,2,¼®±Ã Ã¼·Â Áõ°¡,¼®±Ã Ä³¸¯ÅÍÀÇ Ã¼·ÂÀÌ Áõ°¡ÇÕ´Ï´Ù.
+507,Normal,PileHP,Plie,Health,20,½ÊÀÚ°¡ Ã¼·Â Áõ°¡,½ÊÀÚ°¡ Ä³¸¯ÅÍÀÇ Ã¼·ÂÀÌ Áõ°¡ÇÕ´Ï´Ù.
+508,Normal,PileATS,Plie,AttackSPD,0.2,¼º¼ö °ø°Ý¼Óµµ Áõ°¡,¼º¼ö Ä³¸¯ÅÍÀÇ °ø°Ý ¼Óµµ°¡ Áõ°¡ÇÕ´Ï´Ù.
+509,Normal,HolyCrossATK,HolyCross,Attack,5,¸»¶Ò °ø°Ý¼Óµµ Áõ°¡,¸»¶Ò Ä³¸¯ÅÍÀÇ °ø°Ý ¼Óµµ°¡ Áõ°¡ÇÕ´Ï´Ù.
+510,Normal,HolyCrossHP,HolyCross,Health,20,¼®±Ã °ø°Ý¼Óµµ Áõ°¡,¼®±Ã Ä³¸¯ÅÍÀÇ °ø°Ý ¼Óµµ°¡ Áõ°¡ÇÕ´Ï´Ù.
+511,Normal,HolyCrossATS,HolyCross,AttackSPD,0.2,½ÊÀÚ°¡ °ø°Ý¼Óµµ Áõ°¡,½ÊÀÚ°¡ Ä³¸¯ÅÍÀÇ È¸º¹ ¼Óµµ°¡ Áõ°¡ÇÕ´Ï´Ù.
+512,Special,DotDamage,Character,DotDamage,5,¸¶´Ã,ÀÏÁ¤ ½Ã°£ µ¿¾È Àûµé¿¡°Ô Ãß°¡ Áö¼Ó ÇÇÇØ¸¦ ÀÔÈü´Ï´Ù.
+513,Special,BonuSpiety,None,Spiety,15,¼º¼­,½Å¾Ó½ÉÀÇ È¹µæ·®ÀÌ Áõ°¡ÇÕ´Ï´Ù.
+514,Special,CharacterRange,Character,Range,100,Àº¹ÝÁö,³» ¸ðµç Ä³¸¯ÅÍÀÇ °ø°Ý »ç°Å¸®°¡ Áõ°¡ÇÕ´Ï´Ù.
+515,Special,CharacterKnockback,Character,Knockback,15,¿ù°è¼ö,³» ¸ðµç Ä³¸¯ÅÍÀÇ ³Ë¹é ¼öÄ¡°¡ Áõ°¡ÇÕ´Ï´Ù.
+516,Special,EnemyMove,Enemy,MoveSPD,-0.25,¿ÍÀÎ,ÀûµéÀÇ °ø°Ý ¼Óµµ°¡ °¨¼ÒÇÕ´Ï´Ù.
+517,Special,EnemyATS,Enemy,AttackSPD,-0.25,°Å¿ï,ÀûµéÀÇ ÀÌµ¿ ¼Óµµ°¡ ÁÙ¾îµì´Ï´Ù.
