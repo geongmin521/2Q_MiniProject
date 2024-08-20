@@ -22,7 +22,7 @@
 #include "Pools.h"
 #include "World.h"
 #include "D2DRenderer.h"
-
+#include "Dotween.h"
 #include "D2DRenderer.h"
 #include "D2DEffectManager.h"
 #include "ColorMatrixEffect.h"
@@ -44,6 +44,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	id = towerData.id;
 	curHP = towerData.HP;
 	prevHp = towerData.HP;
+	maxHP = towerData.HP;
 	curSpeed = towerData.attackSpeed;
 
 	if (towerData.Type == "Pile")
@@ -89,7 +90,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 
-	Make(HPBar)(curHP, data.HP).setPosition({ 0 , -90 }).setParent(transform).Get(hpbar);
+	Make(HPBar)(curHP, maxHP).setPosition({ 0 , -90 }).setParent(transform).Get(hpbar);
 
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
 		Make(TowerStar)().setPosition({ 20.f * i , -115 }).setParent(transform);
@@ -115,7 +116,12 @@ void TowerBase::Init(MathHelper::Vector2F pos)
 	hitEffct = false;
 	StatUpdate();
 	transform->SetRelativeLocation(pos); 
+	if (towerData.Type == "Pile")
+		transform->SetRelativeScale({ 0.8f,0.8f });  //합칠떄 작아진 크기 다시복구 타워크기 변경가능성있어서 일단 이렇게 
+	else
+		transform->SetRelativeScale({ 1.0f,1.0f });
 	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
+
 	
 }
 
@@ -125,25 +131,29 @@ void TowerBase::StatUpdate()
 	if (towerData.Type == "Water")
 	{
 		curHP = (prevHp + (artifact->WaterPower.hpLevel * 20));
-		hpbar->Init(towerData.HP + (artifact->WaterPower.hpLevel * 20));
+		maxHP = towerData.HP + (artifact->WaterPower.hpLevel * 20);
+		hpbar->Init(maxHP);
 		curSpeed = (towerData.attackSpeed + (artifact->WaterPower.spdLevel * 0.2));
 	}
 	else if (towerData.Type == "Pile")
 	{
 		curHP = (prevHp + (artifact->PilePower.hpLevel * 20));
-		hpbar->Init(towerData.HP + (artifact->PilePower.hpLevel * 20));
+		maxHP = towerData.HP + (artifact->PilePower.hpLevel * 20);
+		hpbar->Init(maxHP);
 		curSpeed = (towerData.attackSpeed + (artifact->PilePower.spdLevel * 0.2));
 	}
-	else if (towerData.Type == "CrossBow")
+	else if (towerData.Type == "Crossbow")
 	{
 		curHP = (prevHp + (artifact->BowPower.hpLevel * 20));
-		hpbar->Init(towerData.HP + (artifact->BowPower.hpLevel * 20));
+		maxHP = towerData.HP + (artifact->BowPower.hpLevel * 20);
+		hpbar->Init(maxHP);
 		curSpeed = (towerData.attackSpeed + (artifact->BowPower.spdLevel * 0.2));
 	}
 	else if (towerData.Type == "HolyCross")
 	{
 		curHP = (prevHp + (artifact->HolyPower.hpLevel * 20));
-		hpbar->Init(towerData.HP + (artifact->HolyPower.hpLevel * 20));
+		maxHP = towerData.HP + (artifact->HolyPower.hpLevel * 20);
+		hpbar->Init(maxHP);
 		curSpeed = (towerData.attackSpeed + (artifact->HolyPower.spdLevel * 0.2));
 	}
 	if (artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
@@ -171,6 +181,17 @@ void TowerBase::Update(float deltaTime)
 		{
 			hitEffctDelay = 0;
 			hitEffct = false;
+		}
+	}
+
+	if (isMerge == true)
+	{
+		mergeTime += deltaTime;
+		if (mergeTime >= 0.6f)
+		{
+			Pools::GetInstance().get()->AddPool(this);
+			mergeTime = 0;
+			isMerge = false;
 		}
 	}
 }
@@ -242,15 +263,15 @@ void TowerBase::Heal(float heal)
 {
 	float healHP = curHP;
 	healHP += heal;
-	if (healHP >= towerData.HP)
-		curHP = towerData.HP;
+	if (healHP >= maxHP)
+		curHP = maxHP;
 	else
 		curHP += heal;
 }
 
 void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게.. 
 {
-	if (gameManager->isBattle == true) //전투중에는 드래그 불가 //아 여기만 막는다고 전체가 막히는게 아니지?
+	if (gameManager->isBattle == true || isMerge == true) //전투중에는 드래그 불가 //아 여기만 막는다고 전체가 막히는게 아니지?
 		return;
 	if (container)
 		container->Clear();
@@ -258,7 +279,7 @@ void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게..
 
 void TowerBase::StayDrag(const MouseState& state) 
 {
-	if (gameManager->isBattle == true) //시작을 못하면 이것도 아예안들어왔으면좋겠는데.. 흠.. //일단 전투시작이 늦게 들어와야하고.. 
+	if (gameManager->isBattle == true || isMerge == true) //시작을 못하면 이것도 아예안들어왔으면좋겠는데.. 흠.. //일단 전투시작이 늦게 들어와야하고.. 
 		//ondrop 이벤트도 막아야함 .. 그게또 위치를 변경해주는거라.. 
 		return;
 	transform->SetRelativeLocation(state.GetMousePos());
@@ -329,10 +350,16 @@ void TowerBase::OnDoubleClick()
 	{
 		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
 		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation());
-		
+		auto targetloca = GetWorldLocation();
 		for(auto& sametower : towers)
 		{
-			Pools::GetInstance().get()->AddPool(sametower); //같은타워 풀에넣고
+			auto& sameloca = sametower->transform->relativeLocation;
+			new DOTween(sametower->transform->GetRelativeScale().x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.3f);
+			new DOTween(sametower->transform->GetRelativeScale().y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.3f);
+			new DOTween(sameloca.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 0.75f, sameloca.x, targetloca.x);
+			new DOTween(sameloca.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 0.75f, sameloca.y, targetloca.y);
+			sametower->isMerge = true;
+			//Pools::GetInstance().get()->AddPool(sametower); //같은타워 풀에넣고
 			if(sametower->container)
 			sametower->container->Clear();
 		}

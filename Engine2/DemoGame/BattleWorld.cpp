@@ -64,6 +64,10 @@ void BattleWorld::MakeUI()//샵 빼고 여기서 어떤 기능 필요한지 분석한다음에. 헤더
 void BattleWorld::RegisterEvent()
 {
 	gameManager->events[Event::EndWave] = [this]() { //웨이브 종료시 함수
+		artifact->SelectArtifact(5);
+		artifact->SelectArtifact(6);
+		artifact->SelectArtifact(7);
+		artifact->SelectArtifact(8);
 		shop->GetSwapButton()->SetInteractive(true);
 		shop->init();
 		gameManager->chance = 1;
@@ -85,11 +89,11 @@ void BattleWorld::RegisterEvent()
 
 				if (tower)
 				{
-					if (tower->curHP < 0)
+					if (tower->curHP <= 0)
 					{
 						tower->prevHp = tower->towerData.HP;
 					}
-					tower->prevHp = tower->curHP;
+					tower->curHP = tower->prevHp;
 					tower->StatUpdate();
 				}
 			}
