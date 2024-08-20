@@ -36,6 +36,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	}
 	
 	AddComponent(new Animation(L"..\\Data\\Image\\Enemy\\" + Utility::convertFromString(enemyData.name) + L".png", L"..\\Data\\CSV\\EnemyAni\\" + Utility::convertFromString(enemyData.name) + L".csv"));
+
 	transform->SetRelativeScale({ 0.5f,0.5f });
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
 	Make(HPBar)(curHP, enemyData.HP).setPosition({ 0 , -170 }).setParent(transform).Get<HPBar>();
@@ -64,7 +65,7 @@ EnemyBase::EnemyBase(EnemyData data)
 		transform->SetRelativeScale({ 0.65f, 0.65f });
 		renderOrder = 101;
 	}
-	if (enemyData.Type == "Boss") { renderOrder = 102; transform->SetRelativeScale({ 0.8f, 0.8f });}
+	if (enemyData.Type == "Boss") { renderOrder = 102; transform->SetRelativeScale({ 1.0f, 1.0f });}
 	if (enemyData.Type == "Speed") { renderOrder = 103; }
 }
 
@@ -163,6 +164,7 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 
 void EnemyBase::Hit(float damage, float knockback)
 {
+	if (enemyData.Type == "Boss") knockback = 0;
 	float Hpdame = curHP - damage;  
 	if (Hpdame <= 0)
 	{

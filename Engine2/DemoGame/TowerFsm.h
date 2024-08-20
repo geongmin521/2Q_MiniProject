@@ -10,7 +10,6 @@ public:
 	 ~TowerFSM();
 	TowerBase* tower;
 	Animation* ani; 
-	float cooldown = 0;
 };
 
 class TowerShared : public TowerFSM //공유전이입니다. 현재 상태를 업데이트하기전에 호출되어 공유전이의 특정조건을 만족하면 상태를 전이합니다. 

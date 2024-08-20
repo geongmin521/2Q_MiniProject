@@ -23,10 +23,11 @@
 
 Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,float knockBack) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
 {
-	this->speed = 2.0f;
+	this->speed = 1.0f;
 	this->type = type;
 	SetBoundBox(0, 0, attackArea, attackArea);
 	renderOrder = 101;
+	if(type != "HiddenArrow")
 	AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(name) + L"Arrow.png"));
 	//발사되는순간에 적의 위치를 받아오는게 맞지.. 
 	if (type == "Crossbow")
@@ -44,7 +45,7 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 	}
 	if (type == "Hidden")
 	{
-		this->speed = 30.0f;
+		this->speed = 130.0f;
 		AddComponent(new Movement(transform));
 		transform->SetRelativeScale({ 0.3f,0.3f });
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
@@ -53,7 +54,9 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 	}
 	if (type == "HiddenArrow")
 	{
-		transform->SetRelativeScale({ 0.10f,0.10f }); 
+		AddComponent(new Animation((L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(name) + L"Arrow.png"), L"..\\Data\\CSV\\TowerAni\\HiddenArrow.csv"));
+		transform->SetRelativeScale({ 1.5f,1.5f });
+		GetComponent<Animation>()->SetAnimation(0, false, false);
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
 		AttackFunc = [this, damage, knockBack]() { ArrowFunc::AttackEnemys(*GetComponent<CircleCollider>(), damage, knockBack); };
 		id = 513;
@@ -82,13 +85,17 @@ void Arrow::Init(MathHelper::Vector2F location, GameObject* target)
 		GetComponent<BezierMovement>()->Init();
 
 	}
-
+	
 	CircleCollider* cirCle = GetComponent<CircleCollider>();
 	if (cirCle)
 		cirCle->SetCollisionType(CollisionType::Overlap); //여기서 다시 키는게맞나? 공격하고 끄고
 	elapsedTime = 0;
 	elapsedTime2 = 0;
 	this->transform->SetRelativeLocation(location);
+
+	if(GetComponent<Animation>() != nullptr)
+	GetComponent<Animation>()->SetAnimation(0, false, false);
+	Attackstart = false;
 }
 
 
@@ -100,12 +107,22 @@ void Arrow::Update(float deltaTime)
 		GetComponent<Movement>()->SetVelocity(dir * speed);
 	}
 	__super::Update(deltaTime);
-	if (target->GetActive() == false)
+	/*if (target->GetActive() == false)
 	{
 		Pools::GetInstance().get()->AddPool(this);
-	}
+	}*/
 	if (type == "HiddenArrow")
 	{
+		if (GetComponent<Animation>()->IsEnd())
+		{
+			Attackstart = true;
+		}
+		if (Attackstart == true)
+		{
+			GetComponent<Animation>()->SetAnimation(1, false, true);
+			Attackstart = false;
+			
+		}
 		elapsedTime2 += deltaTime;
 		if (elapsedTime2 > attackTime)
 		{
@@ -119,7 +136,8 @@ void Arrow::Update(float deltaTime)
 			Pools::GetInstance().get()->AddPool(this);
 		}
 	}
-	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() < 2.0f)
+
+	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() <= 15.0f)
 	{
 		AttackFunc(); //풀에넣는건 각 어택안에서
 	}

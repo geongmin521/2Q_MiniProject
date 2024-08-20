@@ -7,6 +7,7 @@
 #include "Transform.h"
 #include "Pools.h"
 #include "EnemyBase.h"
+#include "GameManager.h"
 #include "Container.h"
 
 TowerFSM::TowerFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
@@ -50,13 +51,13 @@ void TowerIdle::EnterState()
 void TowerIdle::Update(float DeltaTime) //타겟으로 본인도 들어오나? 타겟은 등록된 태그만 먹게해놨는데.. 
 {
 	tower->Search();
-	if (tower->target.empty() == false)
+	if (tower->target.empty() == false && gameManager->isBattle == true)
 	{
-		cooldown += DeltaTime;
+		tower->cooldown += DeltaTime;
 
-		if (cooldown > tower->towerData.attackSpeed)
+		if (tower->cooldown > tower->towerData.attackSpeed)
 		{
-			cooldown = 0; 
+			tower->cooldown = 0;
 			owner->SetNextState("Attack");
 		}	
 	}

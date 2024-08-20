@@ -17,7 +17,7 @@
 #include "HPBar.h"
 #include "TowerStar.h"
 #include "ToolTip.h"
-
+#include "Effect.h"
 #include "CommonFunc.h"
 #include "Pools.h"
 #include "World.h"
@@ -52,6 +52,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	{
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Bitmap>()->bitmap, redEmphasis);
+		transform->SetRelativeScale({ 0.8f,0.8f });
 	}
 	else if (towerData.Type == "Hidden")
 	{
@@ -75,7 +76,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	if (type == TowerType::Crossbow || type == TowerType::Water || type == TowerType::Hidden) //같은 알고리즘 
 	{
 		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation(), towerData.id); };
+		AttackFunc = [this]() { TowerFunc::FireBullet(this,target[0], this->transform->GetWorldLocation(), towerData.id); };
 	}
 	if (type == TowerType::Pile)
 	{
@@ -85,7 +86,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	if (type == TowerType::HolyCross)
 	{
 		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::Heal(target); };
+		AttackFunc = [this]() { TowerFunc::Heal(target,towerData.ATK); };
 	}
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
@@ -110,6 +111,8 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {
+	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2003));
+			effect->Init({ pos.x - 5, pos.y + 53}, 0.90f); //이펙트 생성
 	curHP = towerData.HP;
 	hitEffct = false;
 	StatUpdate();
@@ -306,6 +309,7 @@ void TowerBase::OnDoubleClick()
 	{
 		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
 		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation());
+		
 		for(auto& sametower : towers)
 		{
 			Pools::GetInstance().get()->AddPool(sametower); //같은타워 풀에넣고

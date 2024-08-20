@@ -33,7 +33,7 @@ public: //나중에 은닉화할 데이터는 빼기
     std::vector<GameObject*> target;
     std::function<void(void)> Search; //아이디로 타입구분해서 각각의 타워에 맞는 기능을 넣어주기
     std::function<void(void)> AttackFunc;
-
+    float cooldown = 0;
     //test 이펙트
     bool hitEffct = false;
     float hitEffctDelay = 0.0f;
@@ -45,6 +45,11 @@ public:
     TowerBase(TowerData data);
     virtual ~TowerBase() = default; //진짜 어떻게 해야할지를 모르겠네 허 허.. //불렛만 다르면 되는거지 적 불렛이랑 다른게 뭐지?  
 
+    //TowerBase mainTower
+    //bool 재료
+    // 재료가 트루되면 메인타워로 가
+    // 가서 없어져
+    // 재료타워 합성(mainTower)
     void Init(MathHelper::Vector2F pos);
 
     void StatUpdate();

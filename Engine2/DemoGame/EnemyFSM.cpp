@@ -27,7 +27,7 @@ EnemyFSM::~EnemyFSM()
 
 void EnemyIdle::EnterState()
 {
-	ani->SetAnimation(0, false);
+	ani->SetAnimation(0, false,true);
 	ani->isLoop = true;
 }
 
@@ -135,6 +135,7 @@ void EnemyAttack::ExitState()
 
 void EnemyDead::EnterState()
 {
+	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	if (enemy->isSpawned == false)
 	{
 		gameManager->LiveEenmy--;
@@ -149,6 +150,7 @@ void EnemyDead::EnterState()
 
 void EnemyDead::Update(float deltaTime)
 {
+	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	if (ani->IsEnd())
 	{
 		enemy->SetActive(false);

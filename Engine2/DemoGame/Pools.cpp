@@ -69,9 +69,15 @@ GameObject* Pools::PopPool(int id)
 		if (id == 2000) //effect는 아이디 담아둔 csv가없는대 다 하드코딩을 써둬야하나?
 			return Make(Effect)(id, "HealEffect", "Heal").Get<Effect>();
 		if (id == 2001) 
-			return Make(Effect)(id, "CrossbowAttack", "Crossbow").Get<Effect>();
+			return Make(Effect)(id, "CrossbowEffect", "Crossbow").Get<Effect>();
 		if (id == 2002) 
-			return Make(Effect)(id, "WaterAttack", "Water").Get<Effect>();
+			return Make(Effect)(id, "WaterEffect", "Water").Get<Effect>();
+		if (id == 2003)
+			return Make(Effect)(id, "SummonEffect", "Summon",93).Get<Effect>();
+		if (id == 2004)
+			return Make(Effect)(id, "BatBoomEffect", "BatBoom").Get<Effect>();
+		if (id == 2005)
+			return Make(Effect)(id, "BossKoong", "Boss").Get<Effect>();
 	}
 }
 

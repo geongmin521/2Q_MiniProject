@@ -13,6 +13,7 @@ public:
     MathHelper::Vector2F preDir;
     MathHelper::Vector2F curDir;
     std::string type;
+    bool Attackstart = false; //히든타워용 애니메이션 전환 
     float knockBack;
     float duration = 2.0f;
     float elapsedTime;

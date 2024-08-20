@@ -2,11 +2,8 @@
 #include "GameObject.h"
 class Effect : public GameObject
 {
-
-	float duration = 0; //이펙트 유지시간
-	float elapsedTime = 0;
 public:
-	Effect(int id, std::string imagepath, std::string csvpath,bool isAni =true);
+	Effect(int id, std::string imagepath, std::string csvpath,int renderorder = 102);
 	virtual ~Effect();
 	
 	void Init(MathHelper::Vector2F location, float _scale,float _duration = 0);

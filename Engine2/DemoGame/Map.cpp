@@ -9,7 +9,7 @@
 #include "Circle.h"
 #include "GameManager.h"
 #include "Sculpture.h"
-
+#include "Effect.h"
 #include "D2DEffectManager.h"
 #include "CrossFadeEffect.h"
 #include "D2DRenderer.h"
@@ -36,8 +36,8 @@ Map::Map()
 				setPosition({ LPad + i * (gridSize +10) + zigzag, TopPadding + j * (gridSize+30) }).
 				Get<Container>();
 		}			
-	for(int i=0;i< 4;i++)
-		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(i*3));
+	for (int i = 0; i < 4; i++)
+		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(i * 3));
 	grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
 
 	Make(Sculpture)().setPosition({ 100 , WinHalfSizeY });
