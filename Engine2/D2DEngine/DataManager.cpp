@@ -70,6 +70,7 @@ void parseTokens(std::wstringstream& wss, std::vector<T>& var) { //토큰내에 여러
 std::wifstream DataManager::FileOften(std::wstring fileName)
 {
 	std::wifstream file(L"..\\Data\\CSV\\"+ fileName + L".csv"); //읽기
+	//file.imbue(std::locale("en_US.UTF-8"));
 	if (!file.is_open()) {
 		assert(false && "파일이 존재하지 않습니다.");
 	}

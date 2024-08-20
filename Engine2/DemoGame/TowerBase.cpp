@@ -16,13 +16,10 @@
 #include "TowerFsm.h"
 #include "HPBar.h"
 #include "TowerStar.h"
-#include "ToolTip.h"
 #include "Effect.h"
 #include "CommonFunc.h"
 #include "Pools.h"
 #include "World.h"
-#include "D2DRenderer.h"
-#include "Dotween.h"
 #include "D2DRenderer.h"
 #include "D2DEffectManager.h"
 #include "ColorMatrixEffect.h"
@@ -70,7 +67,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	SetBoundBox(0, 0, 150,150);
 	EventSystem::GetInstance().get()->Ui.insert(this);
 
-	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
+	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, nullptr, CollisionLayer::Tower));
 	TowerType type = (TowerType)(towerData.id / 3);
 
 	if (type == TowerType::Crossbow || type == TowerType::Water || type == TowerType::Hidden) //같은 알고리즘 
@@ -102,12 +99,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	fsm->CreateState<TowerShared>("Shared");
 	fsm->CreateState<TowerDeath>("Death");
 	fsm->SetNextState("Idle");
-	//testEffect = 1; //닷트윈 사용법 예시 //값이 적용될매개변수를 하나 가지고있고 생성해서 넣어주기
-	//new DOTween(testEffect, EasingEffect::InBounce, StepAnimation::StepOnceForward);
-
 }
-
-//오브젝트풀에서 타워를 빼올때.. init을 거쳐야겠는데? 초기화 상태에 대해 알고있자.. 
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {
@@ -122,8 +114,6 @@ void TowerBase::Init(MathHelper::Vector2F pos)
 	else
 		transform->SetRelativeScale({ 1.0f,1.0f });
 	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
-
-	
 }
 
 void TowerBase::StatUpdate()
@@ -303,22 +293,6 @@ void TowerBase::FailDrop()
 	if (container != nullptr) //이거 널검사하는거 겁나 귀찮은데 define으로 만들까?
 		transform->SetRelativeLocation(container->GetWorldLocation());
 
-}
-
-void TowerBase::OnBlock(Collider* ownedComponent, Collider* otherComponent)
-{
-}
-
-void TowerBase::OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent)
-{
-}
-
-void TowerBase::OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)
-{
-}
-
-void TowerBase::OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)
-{
 }
 
 void TowerBase::OnDoubleClick()

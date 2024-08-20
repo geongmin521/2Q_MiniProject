@@ -24,7 +24,7 @@ class TowerStar;
 class ToolTip;
 class HPBar;
 class TowerBase :
-    public GameObject , public IDamageNotify , public IDragAble, public IColliderNotify, public IDoubleClickAble, public IOnMouse
+    public GameObject , public IDamageNotify , public IDragAble, public IDoubleClickAble, public IOnMouse
 {
 public: //나중에 은닉화할 데이터는 빼기
     TowerData towerData;   
@@ -71,11 +71,6 @@ public:
     virtual void StayDrag(const MouseState& state) override;
     virtual void EndDrag(const MouseState& state) override;
     virtual void FailDrop() override;
-
-    virtual void OnBlock(Collider* ownedComponent, Collider* otherComponent)        override;
-    virtual void OnBeginOverlap(Collider* ownedComponent, Collider* otherComponent) override;
-    virtual void OnStayOverlap(Collider* ownedComponent, Collider* otherComponent)  override;
-    virtual void OnEndOverlap(Collider* ownedComponent, Collider* otherComponent)   override;
 
     virtual void OnDoubleClick() override;
 

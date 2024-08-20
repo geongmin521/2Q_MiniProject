@@ -102,12 +102,11 @@ void BattleWorld::RegisterEvent()
 				}
 			}
 		}
-
-		};
+	};
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);
 	Music::soundManager->StopMusic(Music::eSoundChannel::BGM); };
 	//Music::soundManager->PlayMusic(Music::eSoundList::GameOver, Music::eSoundChannel::BGM); };
-	};
+	//};
 	gameManager->events[Event::OpenGodStore] = [this]() {Objs["GodStore"]->SetActive(true); };
 	gameManager->events[Event::UseGold] = [this]() { goldText->SetDialog(L"½Å¾Ó½É:" + std::to_wstring(gameManager->GetGold())); };
 	gameManager->Compensation = [this](bool special) { Objs["Compensation"]->SetActive(true); };

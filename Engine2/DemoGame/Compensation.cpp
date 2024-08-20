@@ -8,6 +8,7 @@
 #include "Artifact.h"
 #include "GameManager.h"
 #include "D2DFont.h"
+#include "DataManager.h"
 
 Compensation::Compensation() 
 {
@@ -22,19 +23,14 @@ Compensation::Compensation()
 		explain[i] = new D2DFont(L"");
 	for (int i = 0; i < 3; i++)
 	{
-		Make(Button)(L"Frame", [this,i]() {compensationId = i; btn->SetInteractive(true); }). //두번째웨이브일때는 그냥 아이디 3만 더해주기
+		Make(Button)(L"Frame", [this,i]() {selectedId = compensationId[i]; btn->SetInteractive(true); },ButtonType::Active). //두번째웨이브일때는 그냥 아이디 3만 더해주기
 			AddComponent(name[i]).
 			AddComponent(explain[i]).
 			setPos_Parent({ LPad - 100 * i, 0 }, transform);
 	}
 	
 	//보상확정 버튼 
-	Make(Button)(L"Commit", [this]() {
-		bool special = false;
-		if (gameManager->curWaveId == 3 || gameManager->curWaveId == 6)
-			special = true; 
-		GetCompensation(special); 
-		}).
+	Make(Button)(L"Commit", [this]() {GetCompensation(); }).
 		setPos_Parent_Text({ LPad + 500, 300 }, this->transform, L"선택 완료", 20).Get(btn);
 	SetActive(false);
 
@@ -78,9 +74,9 @@ void Compensation::Update(float deltatime)
 
 void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성역상점이랑 보상페이지는 성격이 많이다르긴한데.. 
 {
-	if (compensationId == -1)
+	if (selectedId == -1)
 		return; //선택안됨
-	artifact->SelectArtifact(compensationId);
+	artifact->SelectArtifact(selectedId);
 	isSelect = true;
 	auto& scale = transform->relativeScale;
 	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.05);
@@ -89,7 +85,16 @@ void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성�
 
 void Compensation::Enable()
 {
-	compensationId = -1;
+	if (gameManager->curWaveId == 3 || gameManager->curWaveId == 6) //내일 유물이랑.. 보상 선택더 잘 해놓기.. 
+	{
+		//특별보상 에서 뽑기.. 
+	}
+	else
+	{
+		name[0]->SetDialog(Utility::convertFromString(dataManager->getArtifactData(0).nameText));
+	}
+
+	selectedId = -1;
 	isSelect = false;
 	auto& scale = transform->relativeScale;
 	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 1);
