@@ -24,7 +24,6 @@
 
 BattleWorld::BattleWorld()
 {
-	artifact->SelectArtifact(8);
 
 }
 
@@ -75,7 +74,6 @@ void BattleWorld::RegisterEvent()
 		{
 			showWave->Show();
 		}
-		artifact->SelectArtifact(8);
 		for (auto& it : m_GameObjects)
 		{
 			if (it && it->name == "Tower")
@@ -98,7 +96,6 @@ void BattleWorld::RegisterEvent()
 void BattleWorld::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	std::cout << artifact->HolyPower.hpLevel << std::endl;
 	gameManager->Update();
 }
 

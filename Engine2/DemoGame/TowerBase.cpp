@@ -104,6 +104,16 @@ void TowerBase::StatUpdate()
 	{
 		artifact->PowerUP(3, this);
 	}
+
+	if (artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
+	{
+		artifact->RangeUp(this);
+	}
+
+	if (artifact->isOwned(static_cast<int>(ArtifactId::laurel)))
+	{
+		artifact->knockbackUp(this);
+	}
 }
 
 

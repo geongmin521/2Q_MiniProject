@@ -308,6 +308,95 @@ void Artifact::PowerUP(int level, TowerBase* tower)
 	}
 }
 
+void Artifact::RangeUp(TowerBase* tower)
+{
+	if (tower->towerData.Type == "Crossbow")
+	{
+		if (tower->towerData.level == 1)
+		{
+			tower->towerData.attackRange = 700.0f;
+		}
+		else if (tower->towerData.level == 2)
+		{
+			tower->towerData.attackRange = 800.0f;
+		}
+		else if (tower->towerData.level == 3)
+		{
+			tower->towerData.attackRange = 800.0f;
+		}
+		
+	}
+	else if (tower->towerData.Type == "Water")
+	{
+		if (tower->towerData.level == 1)
+		{
+			tower->towerData.attackRange = 600.0f;
+		}
+		else if (tower->towerData.level == 2)
+		{
+			tower->towerData.attackRange = 600.0f;
+		}
+		else if (tower->towerData.level == 3)
+		{
+			tower->towerData.attackRange = 700.0f;
+		}
+	}
+	else if (tower->towerData.Type == "Pile")
+	{
+		if (tower->towerData.level == 1)
+		{
+			tower->towerData.attackRange = 200.0f;
+		}
+		else if (tower->towerData.level == 2)
+		{
+			tower->towerData.attackRange = 200.0f;
+		}
+		else if (tower->towerData.level == 3)
+		{
+			tower->towerData.attackRange = 200.0f;
+		}
+	}
+	else if (tower->towerData.Type == "HolyCross")
+	{
+		if (tower->towerData.level == 1)
+		{
+			tower->towerData.attackRange = 275.0f;
+		}
+		else if (tower->towerData.level == 2)
+		{
+			tower->towerData.attackRange = 275.0f;
+		}
+		else if (tower->towerData.level == 3)
+		{
+			tower->towerData.attackRange = 350.0f;
+		}
+	}
+	else if (tower->towerData.Type == "Hidden")
+	{
+		tower->towerData.attackRange = 1300.0f;
+	}
+}
+
+void Artifact::knockbackUp(TowerBase* tower)
+{
+	if (tower->towerData.Type == "Crossbow")
+	{
+		tower->towerData.knockBack = 40.f;
+	}
+	else if (tower->towerData.Type == "Water")
+	{
+		tower->towerData.knockBack = 65.f;
+	}
+	else if (tower->towerData.Type == "Pile")
+	{
+		tower->towerData.knockBack = 15.f;
+	}
+	else if (tower->towerData.Type == "Hidden")
+	{
+		tower->towerData.knockBack = 30.f;
+	}
+}
+
 bool Artifact::isOwned(int id)
 {
 	std::vector<int>::iterator it;
