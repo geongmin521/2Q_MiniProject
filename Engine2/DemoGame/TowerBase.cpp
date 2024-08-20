@@ -83,7 +83,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	if (type == TowerType::HolyCross)
 	{
 		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::Heal(target); };
+		AttackFunc = [this]() { TowerFunc::Heal(this ,target); };
 	}
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();

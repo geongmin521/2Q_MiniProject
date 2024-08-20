@@ -18,14 +18,15 @@ void TowerFunc::FireBullet(GameObject* target, MathHelper::Vector2F pos,float id
 	}
 }
 
-void TowerFunc::Heal(std::vector<GameObject*>& targets) 
+void TowerFunc::Heal(GameObject* my, std::vector<GameObject*>& targets)
 {
+	TowerBase* myTower = dynamic_cast<TowerBase*>(my);
 	for (auto& tower : targets)
 	{
 		TowerBase* healTower = dynamic_cast<TowerBase*>(tower);
 		if (healTower != nullptr)
 		{
-			healTower->Heal(1000 + (artifact->HolyPower.atkLevel * 5));
+			healTower->Heal(myTower->towerData.ATK + (artifact->HolyPower.atkLevel * 5));
 			Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
 			effect->Init(tower->GetWorldLocation(), 0.25f); //이펙트 생성
 		}
