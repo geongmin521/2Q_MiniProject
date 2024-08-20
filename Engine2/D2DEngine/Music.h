@@ -31,11 +31,11 @@ namespace Music
         Reward,
         WaveStart,
         TowerUpgrade,
+        PileHitted,
         Size
     };
     class SoundManager;  
     extern SoundManager* soundManager;  
-
     class SoundManager final
     {
     public:

@@ -15,6 +15,7 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::Reward, false, "../Data/Sound/Interface/RewardPopup.wav");
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::WaveStart, true, "../Data/Sound/Interface/WaveStart.wav");
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::TowerUpgrade, false, "../Data/Sound/Tower/TowerUpgrade.wav");
+	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::PileHitted, false, "../Data/Sound/Tower/PileHitted.wav");
 
 	SceneManager::GetInstance().get()->ChangeScene(new TitleWorld); 
 
@@ -22,7 +23,6 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 
 void DemoGameApp::Run()
 {
-	//Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
 	__super::Run();
 }
 

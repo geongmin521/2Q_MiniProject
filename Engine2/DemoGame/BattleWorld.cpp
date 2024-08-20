@@ -21,10 +21,11 @@
 #include "Light.h" // 라이트 테스트
 #include "Artifact.h"
 #include "TowerBase.h"
+#include "Music.h"
 
 BattleWorld::BattleWorld()
 {
-	
+	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
 }
 
 BattleWorld::~BattleWorld()
@@ -96,7 +97,9 @@ void BattleWorld::RegisterEvent()
 		}
 
 		};
-	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true); };
+	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);
+	Music::soundManager->StopMusic(Music::eSoundChannel::BGM); };
+	//Music::soundManager->PlayMusic(Music::eSoundList::GameOver, Music::eSoundChannel::BGM); };
 	gameManager->events[Event::UseGold] = [this]() { goldText->SetDialog(L"신앙심:" + std::to_wstring(gameManager->GetGold())); };
 	gameManager->events[Event::Reset] = [this]() { Pools::GetInstance().get()->reset(); };//또 싱글톤이면서 이전게임의 데이터를 담고있는애가있나? 
 } 
