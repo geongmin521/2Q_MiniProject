@@ -12,7 +12,7 @@
 #include "CircleCollider.h"
 #include "CommonFunc.h"
 #include "GameManager.h"
-
+#include "Music.h"
 
 EnemyFSM::EnemyFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
@@ -146,6 +146,10 @@ void EnemyDead::EnterState()
 	}
 	// 데스 애니메이션
 	ani->SetAnimation(2, false, false);
+	if (enemy->enemyData.Type == "Speed")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::BatDestroy, Music::eSoundChannel::Effect);
+	}
 }
 
 void EnemyDead::Update(float deltaTime)
@@ -155,7 +159,7 @@ void EnemyDead::Update(float deltaTime)
 	{
 		enemy->SetActive(false);
 	}
-}
+}	
 
 void EnemyDead::ExitState()
 {

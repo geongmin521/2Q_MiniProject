@@ -26,6 +26,7 @@
 #include "D2DRenderer.h"
 #include "D2DEffectManager.h"
 #include "ColorMatrixEffect.h"
+#include "Music.h"
 
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
 {
@@ -259,6 +260,12 @@ void TowerBase::Hit(float damage, float knockback)
 	else
 	curHP -= damage;
 	hitEffct = true;
+
+	// 일단 여기에다 넣어보고 나중에 좋은 위치 생각
+	if (towerData.Type == "Pile")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::PileHitted, Music::eSoundChannel::Effect2);
+	}
 }
 
 void TowerBase::Heal(float heal)

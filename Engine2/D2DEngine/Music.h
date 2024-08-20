@@ -17,17 +17,25 @@ namespace Music
     enum class eSoundChannel
     {
         BGM,
+        Effect,
+        Effect2,
         Size
     };
 
     enum class eSoundList
     {
-        BGM,
+        GameOver,
+        MainTheme,
+        BatDestroy,
+        Lock,
+        Reward,
+        WaveStart,
+        TowerUpgrade,
+        PileHitted,
         Size
     };
     class SoundManager;  
     extern SoundManager* soundManager;  
-
     class SoundManager final
     {
     public:
