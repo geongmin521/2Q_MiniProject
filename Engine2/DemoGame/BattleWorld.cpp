@@ -22,6 +22,8 @@
 #include "Artifact.h"
 #include "TowerBase.h"
 
+#include "D2DFontManager.h"
+
 BattleWorld::BattleWorld()
 {
 	
@@ -33,6 +35,9 @@ BattleWorld::~BattleWorld()
 
 void BattleWorld::MakeObject()
 {
+	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\DNFBitBitv2.ttf", L"Test");
+	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\Maplestory Bold.ttf", L"Map");
+
 	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //효과를 위한 오파시티 맵
 	Make(EnemySpawner)();
 	Make(Map)();
@@ -51,7 +56,7 @@ void BattleWorld::MakeUI()//샵 빼고 여기서 어떤 기능 필요한지 분석한다음에. 헤더
 	Make(Button)(L"smallBack.png",[]() {timeManager->SetTimeScale(1); }).setPosition({ WinSizeX - 300, 200 });
 	Make(Button)(L"smallBack.png",[]() {timeManager->SetTimeScale(2); }).setPosition({ WinSizeX - 200, 200 });
 	Make(Shop)().setPosition(WinHalfSizeXY).Get<Shop>(shop);  shop->SetOtherUI(Objs["Combination"]);
-	Make(ShowWave)().setPosition(WinHalfSizeXY).Get<ShowWave>(showWave); //UI 패널들을 다시모아도될거같기도하고.. 
+	Make(ShowWave)().setPosition({ WinHalfSizeX+1200,WinHalfSizeY}).Get<ShowWave>(showWave); //UI 패널들을 다시모아도될거같기도하고.. 
 
 
 	Make(Combination)().setPosition (WinHalfSizeXY).Get(Objs["Combination"]);
@@ -64,10 +69,6 @@ void BattleWorld::MakeUI()//샵 빼고 여기서 어떤 기능 필요한지 분석한다음에. 헤더
 void BattleWorld::RegisterEvent()
 {
 	gameManager->events[Event::EndWave] = [this]() { //웨이브 종료시 함수
-		artifact->SelectArtifact(5);
-		artifact->SelectArtifact(6);
-		artifact->SelectArtifact(7);
-		artifact->SelectArtifact(8);
 		shop->GetSwapButton()->SetInteractive(true);
 		shop->init();
 		gameManager->chance = 1;

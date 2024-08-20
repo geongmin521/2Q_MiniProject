@@ -21,7 +21,12 @@ D2DFont::D2DFont(const std::wstring _Dialog)
 D2DFont::~D2DFont()
 {
 	SAFE_RELEASE(FontBrush);
-	SAFE_RELEASE(DWriteTextFormat);
+
+	if (!DWriteTextFormat)
+	{
+		SAFE_RELEASE(DWriteTextFormat);
+	}
+
 	SAFE_RELEASE(DWriteTextLayout);
 }
 

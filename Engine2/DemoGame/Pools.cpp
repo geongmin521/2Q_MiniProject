@@ -78,6 +78,8 @@ GameObject* Pools::PopPool(int id)
 			return Make(Effect)(id, "BatBoomEffect", "BatBoom").Get<Effect>();
 		if (id == 2005)
 			return Make(Effect)(id, "BossKoong", "Boss").Get<Effect>();
+		if (id == 2006)
+			return Make(Effect)(id, "Place", "Place",93).Get<Effect>();
 	}
 }
 

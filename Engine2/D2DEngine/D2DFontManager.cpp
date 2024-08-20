@@ -1,14 +1,15 @@
 #include "pch.h"
 #include "D2DFontManager.h"
+#include "Helper.h"
 
 D2DFontManager::~D2DFontManager()
 {
-	if (FontSetBuilder) FontSetBuilder->Release();
-	if (DWriteFactory) DWriteFactory->Release();
+	SAFE_RELEASE(FontSetBuilder);
+	SAFE_RELEASE(DWriteFactory);
 
 	for (auto& font : fontMap)
 	{
-		if (font.second) font.second->Release();
+		if (font.second != nullptr) font.second->Release();
 	}
 }
 

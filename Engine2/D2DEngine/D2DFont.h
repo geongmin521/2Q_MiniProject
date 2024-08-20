@@ -18,7 +18,7 @@ class D2DFont : public Renderer
 public:
 	D2DFont() = default;		 // 배틀 월드에서 어디선가 사용하고 있는듯 일단 만들어 놓음 
 	D2DFont(const std::wstring _Dialog); // 최초 생성의 폰트 위치는 왼쪽 정렬에 단락은 가운데
-	~D2DFont();
+	virtual ~D2DFont();
 
 private:
 	float FontSize = 10; 

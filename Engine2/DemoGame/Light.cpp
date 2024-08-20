@@ -67,10 +67,10 @@ Light::Light()
 	D2DEffectManager::GetInstance()->CreatePointSpecularEffect(L"Specular", firstBitmap->bitmap, LightTransform);
 	D2DEffectManager::GetInstance()->FindIEffect<PointSpecularEffect>(L"Specular")->LightZonter = 100;
 
-	AddComponent(new D2DFont(L"다람쥐"));
-	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\DNFBitBitv2.ttf", L"Test");
-	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\Maplestory Bold.ttf", L"Map");
+	AddComponent(new D2DFont(L"다람쥐")); //텍스트박스
+
 	
+
 	GetComponent<D2DFont>()->SetSize(70.f, {0, 9});
 	GetComponent<D2DFont>()->SetBoxSize(200, 200);
 	GetComponent<D2DFont>()->SetWriteTextFormat(D2DFontManager::GetInstance()->FindFont(L"Map"));

@@ -8,7 +8,7 @@ TowerStar::TowerStar()
 {
 	AddComponent(new Bitmap(L"..\\Data\\Image\\1Star.png")); 
 	renderOrder = 101;
-	transform->SetRelativeScale({ 0.2f,0.2f });
+	transform->SetRelativeScale({ 0.05f,0.05f });
 }
 
 TowerStar::~TowerStar()

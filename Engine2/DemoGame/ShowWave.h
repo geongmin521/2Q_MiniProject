@@ -10,6 +10,12 @@ private:
 public:
 	ShowWave();
 	~ShowWave();
+
+	bool isMid = false;
+	bool isExit = false;
+	float elapsedTime;
+	float middleTime = 3.0f; //중앙에 있을시간
+	void Update(float deltatime);
 	void Show();
 
 };

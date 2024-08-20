@@ -189,6 +189,8 @@ void TowerBase::Update(float deltaTime)
 		mergeTime += deltaTime;
 		if (mergeTime >= 0.6f)
 		{
+			if(container)
+				container->Clear();
 			Pools::GetInstance().get()->AddPool(this);
 			mergeTime = 0;
 			isMerge = false;
@@ -354,8 +356,8 @@ void TowerBase::OnDoubleClick()
 		for(auto& sametower : towers)
 		{
 			auto& sameloca = sametower->transform->relativeLocation;
-			new DOTween(sametower->transform->GetRelativeScale().x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.3f);
-			new DOTween(sametower->transform->GetRelativeScale().y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.3f);
+			new DOTween(sametower->transform->GetRelativeScale().x, EasingEffect::OutCirc, StepAnimation::StepOnceForward, 1.f, 1, 0.1f);
+			new DOTween(sametower->transform->GetRelativeScale().y, EasingEffect::OutCirc, StepAnimation::StepOnceForward, 1.f, 1, 0.1f);
 			new DOTween(sameloca.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 0.75f, sameloca.x, targetloca.x);
 			new DOTween(sameloca.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 0.75f, sameloca.y, targetloca.y);
 			sametower->isMerge = true;

@@ -43,7 +43,7 @@ void Animation::Update(float fTimeElapsed)
 	size_t MaxFrameCount = animationInfo->Frames.size();
 
 	if (isLoop == false && animationEnd == true)
-		frameIndexCurr = MaxFrameCount;
+		frameIndexCurr = MaxFrameCount-1;
 
 	frameTime += fTimeElapsed;
 

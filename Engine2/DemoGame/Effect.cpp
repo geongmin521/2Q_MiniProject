@@ -21,12 +21,12 @@ Effect::~Effect()
 
 }
 
-void Effect::Init(MathHelper::Vector2F location,float _scale,float _duration)
+void Effect::Init(MathHelper::Vector2F location,float _scale,bool loop)
 {
 	transform->SetRelativeScale({ _scale,_scale });
 	transform->SetRelativeLocation(location);
 	if (GetComponent<Animation>() != nullptr)
-	GetComponent<Animation>()->SetAnimation(0, false, false);
+	GetComponent<Animation>()->SetAnimation(0, false, loop);
 }
 
 void Effect::Update(float deltaTime)

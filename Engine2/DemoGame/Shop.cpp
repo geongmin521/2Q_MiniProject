@@ -51,7 +51,7 @@ void Shop::init()
 	{
 		isLock[i] = false;
 	}
-	reroll = 5;
+	reroll = 50;
 	rerollText->SetDialog(L"리롤 가능 횟수" + std::to_wstring(reroll));
 }
 

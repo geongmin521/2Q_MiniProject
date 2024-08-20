@@ -43,6 +43,7 @@ public: //나중에 은닉화할 데이터는 빼기
     float prevHp;
     float maxHP;
 
+    float doubleTime = 0;
     float curSpeed;
     bool isMerge = false;
     float mergeTime = 0;

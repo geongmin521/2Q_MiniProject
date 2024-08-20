@@ -73,6 +73,8 @@ void TowerIdle::ExitState()
 
 void TowerAttack::EnterState()
 {
+	doubleTime = 0.1f;
+	attackcount = 0;
 	if (ani != nullptr)
 	ani->SetAnimation(1, false,false);
 	
@@ -83,12 +85,26 @@ void TowerAttack::Update(float DeltaTime) //공속이 애니메이션보다 빨라지면.. 공�
 {
 	if ((ani != nullptr && ani->IsEnd()) || ani == nullptr )  //말뚝타워는 애니메이션이없이 비트맵이라 추가
 	{
-		tower->Attack(DeltaTime);
-		owner->SetNextState("Idle");
+		if (tower->towerData.ability == "double")
+		{
+			doubleTime += DeltaTime;
+			if (doubleTime > 0.15f)
+			{
+				tower->Attack(DeltaTime);
+				attackcount++;
+				doubleTime = 0;
+			}
+			if (attackcount == 2)
+			{
+				owner->SetNextState("Idle");
+			}
+		}
+		else
+		{
+			tower->Attack(DeltaTime);
+			owner->SetNextState("Idle");
+		}
 	}
-
-	
-	
 }
 
 void TowerAttack::ExitState()
