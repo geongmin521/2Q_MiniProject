@@ -36,13 +36,13 @@ void TowerFunc::MeleeAttack(GameObject* my,std::vector<GameObject*>& targets)
 {
 	TowerBase* myTower = dynamic_cast<TowerBase*>(my);
 	// 추후에 아티팩트 기반으로 데미지 고정값 증가
-
+		
 	for (auto& enemy : targets)
 	{		
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
 		if (enemy != nullptr)
 		{
-			damageEnemy->Hit(Utility::CalCul(myTower->towerData.Type, damageEnemy->enemyData.Type, myTower->towerData.ATK + (artifact->PilePower.atkLevel * 2)), myTower->towerData.knockBack);
+			damageEnemy->Hit(Utility::CalCul(myTower->towerData.Type, damageEnemy->enemyData.Type, myTower->towerData.ATK + (artifact->PilePower.atkLevel * 2)), myTower->towerData.knockBack + artifact->knockback);
 		}
 	}
 }

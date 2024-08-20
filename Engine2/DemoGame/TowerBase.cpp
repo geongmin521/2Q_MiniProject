@@ -66,23 +66,23 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	EventSystem::GetInstance().get()->Ui.insert(this);
 	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 
-	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
+	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange + artifact->Range), CollisionType::Overlap, this, CollisionLayer::Tower));
 	toolTip = Make(ToolTip)(L"성수타워", L"공격력", L"생명력", L"공격력").setParent(transform).setActive(false).setPosition({100, 0}).Get<ToolTip>();
 	TowerType type = (TowerType)(towerData.id / 3);
 
 	if (type == TowerType::Crossbow || type == TowerType::Water || type == TowerType::Hidden) //같은 알고리즘 
 	{
-		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
+		Search = [this]() { CommonFunc::FindTarget(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange + artifact->Range); };
 		AttackFunc = [this]() { TowerFunc::FireBullet(target[0], this->transform->GetWorldLocation(), towerData.id); };
 	}
 	if (type == TowerType::Pile)
 	{
-		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange); };
+		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Enemy", target, towerData.attackRange + artifact->Range); };
 		AttackFunc = [this]() { TowerFunc::MeleeAttack(this,target); };
 	}
 	if (type == TowerType::HolyCross)
 	{
-		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange); };
+		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange + artifact->Range); };
 		AttackFunc = [this]() { TowerFunc::Heal(target); };
 	}
 
@@ -143,12 +143,12 @@ void TowerBase::StatUpdate()
 	}
 	if (artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
 	{
-		artifact->RangeUp(this);
+		artifact->levelUp(15);
 	}
 
-	if (artifact->isOwned(static_cast<int>(ArtifactId::laurel)))
+	if (artifact->isOwned(static_cast<int>(ArtifactId::Laurel)))
 	{
-		artifact->knockbackUp(this);
+		artifact->levelUp(16);
 	}
 }
 
@@ -156,11 +156,6 @@ void TowerBase::StatUpdate()
 void TowerBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	if (towerData.Type == "HolyCross")
-	{
-		std::cout << curHP << std::endl;
-	}
-	
 	//transform->SetRelativeScale({ testEffect, testEffect });
 
 	if (hitEffct)

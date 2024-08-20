@@ -20,10 +20,12 @@ enum class ArtifactId
 	Garlic = 13,
 	Bible = 14,
 	SilverRing = 15,
-	laurel = 16,
+	Laurel = 16,
 	Wine = 17,
 	Mirror = 18,
 };
+
+std::wstring artifactIdToString(int id); 
 
 #define artifact Artifact::GetInstance().get()
 
@@ -34,6 +36,11 @@ class Artifact : public SingletonBase<Artifact>
 		int atkLevel = 0;
 		int spdLevel = 0;
 		int hpLevel = 0;
+
+
+		void increaseAtk() { atkLevel++; }
+		void increaseHp() { hpLevel++; }
+		void increaseSpd() { spdLevel++; }
 	};
 public:
 	artifactPower WaterPower;
@@ -43,18 +50,22 @@ public:
 
 	ArtifactData artifactData;
 
+	float knockback = 0.f;
+	float Range = 0.f;
+
+	std::unordered_map<int, std::function<void()>> levelUpActions;
+
 	// 스탯 증가를 한번만 하기위한 변수
 	bool isUpdate = false;
 
 	Artifact();
 	virtual ~Artifact();
 	void RangeUp(TowerBase* tower);
-	void knockbackUp(TowerBase* tower);
-
+	void Init();
 	void levelUp(int id);
 	bool isOwned(int id);
 	void SelectArtifact(int id);
-
+	int bibleGold(int gold);
 	std::vector<int> ownedArtifact;
 
 };
