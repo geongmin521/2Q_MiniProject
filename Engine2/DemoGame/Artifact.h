@@ -55,9 +55,6 @@ public:
 
 	std::unordered_map<int, std::function<void()>> levelUpActions;
 
-	// 스탯 증가를 한번만 하기위한 변수
-	bool isUpdate = false;
-
 	Artifact();
 	virtual ~Artifact();
 	void Init();

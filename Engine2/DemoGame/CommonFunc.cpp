@@ -4,16 +4,20 @@
 #include "GameObject.h"
 #include "circle.h"
 #include "Transform.h"
+#include "Artifact.h"
 
 void CommonFunc::FindTarget(CircleCollider& myCol, std::string tag, std::vector<GameObject*>& target, float Range) //단일 타겟 검색
 {
 	target.clear();
 	GameObject* enemy = nullptr;
 	int minDistance = INT_MAX;
+	if (myCol.owner->name == "Tower")
+		Range += artifact->Range;
 	for (auto& tragetCol : myCol.collideStatePrev)
 	{
 		if (tragetCol->owner->name == tag && tragetCol->owner->GetActive() == true)
 		{
+			
 			float distance = myCol.circle->GetDistance(tragetCol->owner->transform->GetWorldLocation());
 			if (distance < minDistance && distance < Range)
 			{
@@ -29,10 +33,13 @@ void CommonFunc::FindTarget(CircleCollider& myCol, std::string tag, std::vector<
 void CommonFunc::FindTargets(CircleCollider& myCol, std::string tag, std::vector<GameObject*>& targets, float Range) //여러 타겟 검사하기
 {
 	targets.clear();
+	if (myCol.owner->name == "Tower")
+		Range += artifact->Range;
 	for (auto& tragetCol : myCol.collideStatePrev) 
 	{
 		if (tragetCol->owner->name == tag && tragetCol->owner->GetActive() == true)
 		{
+
 			float distance = (myCol.owner->GetWorldLocation() - tragetCol->owner->GetWorldLocation()).Length();
 			if (distance > Range)
 				continue;
