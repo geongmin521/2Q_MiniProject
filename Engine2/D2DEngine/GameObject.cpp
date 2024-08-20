@@ -69,7 +69,6 @@ void GameObject::AddComponent(Component* pComponent)
 {
 	pComponent->SetOwner(this);
 	ownedComponents.push_back(pComponent);
-
 }
 
 void GameObject::SetActive(bool active)

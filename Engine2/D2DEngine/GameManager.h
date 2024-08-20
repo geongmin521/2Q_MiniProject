@@ -7,12 +7,15 @@ enum Event
 	EndWave,
 	SpawnEnemy,
 	UseGold,
+	OpenCombination,
+	OpenGodStore,
 	Reset
 };
 
 #define gameManager GameManager::GetInstance().get()
 
 class Button;
+class GameObject;
 class GameManager :public SingletonBase<GameManager>//싱글톤에 리셋을 부여하던가 아니면 데이터는 싱글톤이 아니고 관리만 싱글톤으로 하는것도 방법이긴하네.. 
 {
 private:
@@ -24,6 +27,8 @@ public:
 	int LiveEenmy = 0; 
 	int chance = 1; 
 	std::map<Event, std::function<void(void)>> events; 
+	std::function<GameObject*(std::string key)> getObject; 
+	std::function<void(bool)> Compensation; 
 	GameManager();
 	~GameManager(); 
 	void Update();

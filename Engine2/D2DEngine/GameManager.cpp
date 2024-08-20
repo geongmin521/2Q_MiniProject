@@ -19,7 +19,7 @@ void GameManager::Update()
 		switch (WaveLevel) // 스테이지 별 보상 좀 보상이 규칙성있게 받는게 아니여서 코드 좀 더러움
 		{
 		case 1:
-			gold += 12;
+			gold += 12; //아니 이걸 왜 이따구로 짬 이거 짠 사람은 진짜 나한테 혼나야함
 			break;
 		case 2:
 			gold += 14;

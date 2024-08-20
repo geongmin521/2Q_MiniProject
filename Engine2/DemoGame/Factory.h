@@ -11,7 +11,8 @@ using namespace MathHelper;
 class World;
 class GameObject;
 class Transform;
-
+class D2DFont;
+class Component;
 class Factory 
 {
 private:
@@ -58,6 +59,7 @@ public:
 	Factory& setRoot(std::vector<GameObject*>* Root); 
 	Factory& setActive(bool active); 
 	Factory& setRenderOrder(int order); 
-	Factory& AddText(std::wstring text, int size, int posx=0, int posy=0);
+	Factory& AddText(std::wstring text, int size, int posx=0, int posy=0, D2DFont** fontcomponent = nullptr);
+	Factory& AddComponent(Component* pComponent);
 	void build() { InsertWorld(object); }
 };

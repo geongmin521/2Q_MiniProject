@@ -10,7 +10,6 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->Init();
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::BGM,true,"../Data/Sound/bonfire.mp3");
 	SceneManager::GetInstance().get()->ChangeScene(new TitleWorld); 
-
 } 
 
 void DemoGameApp::Run()

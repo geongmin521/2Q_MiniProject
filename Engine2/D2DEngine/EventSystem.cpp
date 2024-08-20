@@ -116,7 +116,7 @@ void EventSystem::ClickEvent()
 {
 	std::cout << "클릭 판정"; 
 	GameObject* curUi = FindTargetUI();							
-	IClickAble* clickAble = dynamic_cast<IClickAble*>(curUi);	
+	IClickAble* clickAble = dynamic_cast<IClickAble*>(curUi);	//뭐야 지운거같은데.. 왜 들어오지.. 
 	if (clickAble)
 		clickAble->OnClick(); 
 }

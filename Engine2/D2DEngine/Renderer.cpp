@@ -41,14 +41,21 @@ void Renderer::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 	pRenderTarget->SetTransform(Transform);
 }
 
-void Renderer::LoadD2DBitmap(const std::wstring strFilePath)
+bool Renderer::LoadD2DBitmap(const std::wstring strFilePath)
 {
-	ResourceManager::Instance->CreateD2DBitmapFromFile(strFilePath, &bitmap);
-	DstRect.right = bitmap->GetSize().width;
-	DstRect.bottom = bitmap->GetSize().height;
-	srcRect.right = bitmap->GetSize().width;
-	srcRect.bottom = bitmap->GetSize().height;
-	strBitmapFilePath = strFilePath;
+	if (ResourceManager::Instance->CreateD2DBitmapFromFile(strFilePath, &bitmap) == true)
+	{
+		DstRect.right = bitmap->GetSize().width;
+		DstRect.bottom = bitmap->GetSize().height;
+		srcRect.right = bitmap->GetSize().width;
+		srcRect.bottom = bitmap->GetSize().height;
+		strBitmapFilePath = strFilePath;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 MathHelper::Vector2F Renderer::GetSize()

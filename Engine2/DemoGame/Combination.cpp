@@ -7,11 +7,35 @@
 Combination::Combination()
 {
 	renderOrder += 100;
-	Make(Button)(L"smallBack.png", [this]() { SetActive(false); }).setPos_Parent({500, -400},this->transform);//나가기 버튼
-	Make(Image)(L"Combination.png").setParent(this->transform);	//조합표	
+
+	Make(Image)(L"UI/Pop_up/popup_Recipe.png").setParent(this->transform);	//배경	
+	Make(Image)(L"UI/Pop_up/popup_Recipe1p.png").setParent(this->transform).Get(recipe);	//조합표	
+	Make(Button)(L"Left.png", [this]() { NextPage(true); }, ButtonType::Single).setPos_Parent({ -1100, 0 }, this->transform);//왼쪽 페이지로 교체
+	Make(Button)(L"Right.png", [this]() { NextPage(false); }, ButtonType::Single).setPos_Parent({ 1100, 0 }, this->transform);//오른쪽 페이조교체
+	Make(Button)(L"Return", [this]() { SetActive(false); }).setPos_Parent({0, 450},this->transform);//나가기 버튼
 	SetActive(false);
 }
 
 Combination::~Combination()
 {
+}
+
+void Combination::NextPage(bool left)
+{
+	if (left)
+	{
+		if (curPage == 1)
+		{
+			curPage = 0;
+			recipe->ChangeImage(L"../Data/Image/UI/Pop_up/popup_Recipe1p.png");
+		}
+	}
+	else
+	{
+		if (curPage == 0)
+		{
+			curPage = 1;
+			recipe->ChangeImage(L"../Data/Image/UI/Pop_up/popup_Recipe2p.png");
+		}
+	}
 }

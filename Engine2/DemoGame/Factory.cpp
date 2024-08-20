@@ -67,7 +67,7 @@ Factory& Factory::setRenderOrder(int order)
     return *this;
 }
 
-Factory& Factory::AddText(std::wstring text, int size, int posx,int posy) 
+Factory& Factory::AddText(std::wstring text, int size, int posx,int posy, D2DFont** fontcomponent)
 {
     D2DFont* Text = new D2DFont(text); 
     object->AddComponent(Text);
@@ -76,8 +76,18 @@ Factory& Factory::AddText(std::wstring text, int size, int posx,int posy)
         Text->SetBoxSize(bitmap->GetSize()); 
     Text->SetSize(size, { 0,(unsigned int)text.size() });
     Text->SetPos(posx, posy);
+    if (fontcomponent != nullptr)
+        *fontcomponent = Text;
     return *this;
 }
+
+Factory& Factory::AddComponent(Component* pComponent)
+{ 
+    pComponent->SetOwner(object);
+    object->ownedComponents.push_back(pComponent);
+    return *this;
+}
+
 
 void Factory::InsertWorld(GameObject* obj)
 {
