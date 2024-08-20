@@ -3,6 +3,8 @@
 #include "Factory.h"
 #include "Button.h"
 #include "Image.h"
+#include "Transform.h"
+#include "DOTween.h"
 #include "Artifact.h"
 
 Compensation::Compensation() 
@@ -32,15 +34,36 @@ Compensation::~Compensation() //버튼누르면 현재 보상 아이디를 저장하고 있다가 확
 {
 }
 
+void Compensation::Update(float deltatime)
+{
+	__super::Update(deltatime);
+	if(isSelect)
+	elapsedTime += deltatime;
+	if (deleteTime < elapsedTime)
+	{
+		SetActive(false);
+		elapsedTime = 0;
+	}
+}
+
+
 void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성역상점이랑 보상페이지는 성격이 많이다르긴한데.. 
 {
 	if (compensationId == -1)
 		return; //선택안됨
 	artifact->SelectArtifact(compensationId);
-	SetActive(false);
+	isSelect = true;
+	auto& scale = transform->relativeScale;
+	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.05);
+	new DOTween(scale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.05);
 }
 
 void Compensation::Enable()
 {
 	compensationId = -1;
+	isSelect = false;
+	auto& scale = transform->relativeScale;
+	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 1);
+	new DOTween(scale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 1);
+	elapsedTime = 0;
 }

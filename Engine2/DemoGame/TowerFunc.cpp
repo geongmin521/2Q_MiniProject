@@ -18,7 +18,7 @@ void TowerFunc::FireBullet(TowerBase* my,GameObject* target, MathHelper::Vector2
 	}
 	else
 	{
-		my->cooldown = my->towerData.attackSpeed;
+		my->cooldown = my->towerData.attackSpeed;  //원거리타워 공격중 적죽으면 바로 다시 공격하게해달래서 추가
 	}
 }
 

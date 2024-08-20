@@ -77,7 +77,7 @@ void EnemyBase::SetAbility(std::string ability)
 	}
 	else if (ability == "Throw") //¿ø°Å¸®
 	{
-		attack = [this]() {EnemyFunc::RangedAttack(target[0], transform->GetWorldLocation(), curATK); };
+		attack = [this]() {EnemyFunc::RangedAttack(target[0], this->GetWorldLocation(), curATK); };
 	}
 	else if (ability == "Destroy") //Æø¹ß
 	{

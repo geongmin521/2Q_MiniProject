@@ -4,6 +4,7 @@
 #include "HPBar.h"
 #include "Artifact.h"
 
+//큰 hp바 새로만들어야함 두 비트맵이 서로다른 트랜스폼 가지기가 안됨
 HPBar::HPBar(float& curHp, float maxHp) : curHp(curHp) , maxHp(maxHp)
 {
 	hpBar = new Bitmap(L"..\\Data\\Image\\hpbar.png");

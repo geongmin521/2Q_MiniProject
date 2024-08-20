@@ -106,6 +106,7 @@ void Arrow::Update(float deltaTime)
 		MathHelper::Vector2F dir = (target->GetWorldLocation() - GetWorldLocation()).Normalize();
 		GetComponent<Movement>()->SetVelocity(dir * speed);
 	}
+
 	__super::Update(deltaTime);
 	/*if (target->GetActive() == false)
 	{
