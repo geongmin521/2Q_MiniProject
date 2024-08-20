@@ -60,7 +60,6 @@ public:
 
 	Artifact();
 	virtual ~Artifact();
-	void RangeUp(TowerBase* tower);
 	void Init();
 	void levelUp(int id);
 	bool isOwned(int id);
