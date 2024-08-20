@@ -1,10 +1,10 @@
 적 ID,이름,레벨,타입,공격력,사거리,감지 범위,체력,공격 속도,이동 속도,특수능력
 int,string,int,string,float,float,float,float,float,float,string
-100,NormalEnemy,1,Normal,5,100,200,10,1,1,None
-101,ThrowEnemy,2,Normal,10,300,500,20,1,1,Throw
-102,BatEnemy,1,Speed,5,100,200,10,1.5,2,Destroy
-103,BombEnemy,2,Speed,30,100,200,15,1,2,Destroy
-104,DeffendEnemy,1,Deffend,10,100,200,35,2.5,0.5,None
-105,2StarDeffendEnemy,2,Deffend,15,100,200,100,2.5,0.5,None
-106,3StarDeffendEnemy,3,Deffend,20,100,200,200,2.5,0.5,None
+100,NormalEnemy,1,Normal,5,90,300,10,1.5,0.75,None
+101,ThrowEnemy,2,Normal,10,300,500,20,1.5,0.75,None
+102,BatEnemy,1,Speed,20,90,300,10,50,1.5,Destroy
+103,BombEnemy,2,Speed,40,90,300,15,50,1.5,Destroy
+104,DeffendEnemy,1,Deffend,10,100,300,50,3,0.5,None
+105,2StarDeffendEnemy,2,Deffend,15,100,300,100,3,0.5,None
+106,3StarDeffendEnemy,3,Deffend,20,100,300,200,3,0.5,None
 107,BossEnemy,1,Boss,50,400,500,500,1,1,SpawnVat

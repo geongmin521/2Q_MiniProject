@@ -30,9 +30,11 @@ public:
 template<typename T>
 T* World::FindObject(const std::string& GameObjectName)
 {
-	if (m_GameObjects.empty())return nullptr;
+	if (m_GameObjects.empty()) { return nullptr; }
+
 	for (auto& GameObject : this->m_GameObjects)
 	{
+		if (GameObject->name.empty()) { continue; }
 		if (GameObject->name == GameObjectName)
 		{
 			T* foundObject = dynamic_cast<T*>(GameObject);

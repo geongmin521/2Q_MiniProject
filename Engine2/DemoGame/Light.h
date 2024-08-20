@@ -19,9 +19,9 @@ public:
 
 	Transform* LightTransform;
 	Bitmap* firstBitmap = nullptr;
-	Bitmap* secondBitmap = nullptr;
 
-	bool test = false;
+
+	bool test = true;
 
 	// 
 	float TestNum = 0;

@@ -33,6 +33,7 @@ public: // ÀÌÆåÆ® »ý¼º
 
 public: // ºû È¿°ú
 	void CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, Transform* _Transform);
+	void CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, float _TransformX, float _TransformY);
 };
 
 template<typename T>

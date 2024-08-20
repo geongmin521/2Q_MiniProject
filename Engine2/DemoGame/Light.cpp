@@ -19,18 +19,17 @@
 #include "PointSpecularEffect.h"
 #include "BorderEffect.h"
 
+#include "Animation.h"
+
 Light::Light()
 {
-	AddComponent(new Bitmap(L"..\\Data\\Image\\afternoon.png"));
+	AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\HiddenTower.png"));
 	renderOrder = 0;
 	transform->SetRelativeLocation({ 0, 0 });
 	SetBoundBox(0, 0, 40, 36);
 
-	AddComponent(new Bitmap(L"..\\Data\\Image\\night.png"));
-	auto bitmap = GetComponent<Bitmap>()->bitmap;
-
 	firstBitmap = dynamic_cast<Bitmap*>(ownedComponents[1]);
-	secondBitmap = dynamic_cast<Bitmap*>(ownedComponents[2]);
+
 
 	D2D1_MATRIX_5X4_F redEmphasis =
 	{
@@ -40,32 +39,19 @@ Light::Light()
 		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
 	};
 
-//	blurEffect->SetInputEffect(0, colorEffect);
-//	lightEffect->SetInputEffect(0, blurEffect); 
-//	EdgeEffect->SetInputEffect(0, colorEffect);
-//	Affine->SetInputEffect(0, lightEffect);
-
-//	Specular->SetInputEffect(0, colorEffect);
-//	Specular->SetInputEffect(0, BlendEffect);
-//	Specular->SetInputEffect(0, lightEffect);
-
-//	colorEffect->SetInputEffect(0, pointEffect); // 컬러 변경에 라이트효과을 넣었을때
-//	BlendEffect->SetInputEffect(0, pointEffect); // 최종 어떤 비트맵이랑 합쳐서 보여줄지
-//	ID2D1Effect* Cross = D2DEffectManager::GetInstance()->FindEffect(L"CrossFadeEffect");
-//	blurEffect->SetInputEffect(0, Cross);
-
 	// 24. 8 . 14 text
-	D2DEffectManager::GetInstance()->CreateGaussianBlurEffect(L"test", secondBitmap->bitmap, 10);
-	D2DEffectManager::GetInstance()->CreateCrossFadeEffect(L"Cross", firstBitmap->bitmap, secondBitmap->bitmap);
+//	D2DEffectManager::GetInstance()->CreateGaussianBlurEffect(L"test", secondBitmap->bitmap, 10);
 	D2DEffectManager::GetInstance()->CreateMorphologyEffect(L"Morphology", firstBitmap->bitmap, TestNum);
 
+
 	//24. 8 . 16 test
-//	D2DEffectManager::GetInstance()->CreateBorderEffect(L"Border", firstBitmap->bitmap);
+	// D2DEffectManager::GetInstance()->CreateBorderEffect(L"Border", firstBitmap->bitmap);
 	// 라이트 효과 테스트
 	AddComponent(new Transform());
-	LightTransform = dynamic_cast<Transform*>(ownedComponents[3]);
-	D2DEffectManager::GetInstance()->CreatePointSpecularEffect(L"Specular", firstBitmap->bitmap, LightTransform);
+//	LightTransform = dynamic_cast<Transform*>(ownedComponents[2]);
+	D2DEffectManager::GetInstance()->CreatePointSpecularEffect(L"Specular", firstBitmap->bitmap, 0,0);
 	D2DEffectManager::GetInstance()->FindIEffect<PointSpecularEffect>(L"Specular")->LightZonter = 100;
+
 
 	AddComponent(new D2DFont(L"다람쥐"));
 	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\DNFBitBitv2.ttf", L"Test");
@@ -74,6 +60,12 @@ Light::Light()
 	GetComponent<D2DFont>()->SetSize(70.f, {0, 9});
 	GetComponent<D2DFont>()->SetBoxSize(200, 200);
 	GetComponent<D2DFont>()->SetWriteTextFormat(D2DFontManager::GetInstance()->FindFont(L"Map"));
+
+	AddComponent(new Animation(L"..\\Data\\Image\\Tower\\HiddenTower.png", L"..\\Data\\CSV\\TowerAni\\HiddenTower.csv"));
+	AddComponent(new Bitmap(L"..\\Data\\Image\\LightBackground.png"));
+
+	D2DEffectManager::GetInstance()->CreateBlendEffect(L"LightText", firstBitmap->bitmap, GetComponent<Bitmap>()->bitmap);
+	D2DEffectManager::GetInstance()->FindEffect(L"LightText")->SetInputEffect(0,D2DEffectManager::GetInstance()->FindEffect(L"Specular"));
 }
 
 Light::~Light()
@@ -85,6 +77,8 @@ void Light::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
 
+	D2DEffectManager::GetInstance()->FindIEffect<PointSpecularEffect>(L"Specular")->SetLightPos(GetComponent<Animation>()->CenterPos.x, GetComponent<Animation>()->CenterPos.y);
+//	D2DEffectManager::GetInstance()->FindIEffect<PointSpecularEffect>(L"Specular")->SetLightPos(100, 100);
 	if (inputSystem->isKeyDown(VK_RIGHT))
 	{
 		transform->AddRelativeLocation(10, 0);
@@ -145,7 +139,7 @@ void Light::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	pRenderTarget->SetTransform(transform->worldTransform);
 	if (test == true)
 	{
-//		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->FindEffect(L"Border"));
+		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->FindEffect(L"LightText"), { 0 ,0 }, GetComponent<Animation>()->srcRect);
 	}
 	else
 	{

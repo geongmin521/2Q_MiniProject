@@ -25,16 +25,16 @@
 BattleWorld::BattleWorld()
 {
 	artifact->SelectArtifact(8);
-
 }
 
 BattleWorld::~BattleWorld()
 {
+
 }
 
 void BattleWorld::MakeObject()
 {
-	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //효과를 위한 오파시티 맵
+//	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //효과를 위한 오파시티 맵
 	Make(EnemySpawner)();
 	Make(Map)();
 	MakeUI();
@@ -59,7 +59,7 @@ void BattleWorld::MakeUI()//샵 빼고 여기서 어떤 기능 필요한지 분석한다음에. 헤더
 	Make(Compensation)().setPosition(WinHalfSizeXY).Get(Objs["Compensation"]);
 	Make(Button)(L"UI.png", [this]() { Objs["Combination"]->SetActive(true); }).setPosition(WinSizeXYAdd(-600, -100)).AddText(L"조합식", 50); //조합식
 	Make(GameOver)().setPosition({ WinHalfSizeXY }).Get(Objs["GameOver"]);
-	//Make(Light)();
+//	Make(Light)();
 }
 
 void BattleWorld::RegisterEvent()
@@ -92,7 +92,7 @@ void BattleWorld::RegisterEvent()
 			}
 		}
 
-		};
+	};
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true); };
 	gameManager->events[Event::UseGold] = [this]() { goldText->SetDialog(L"신앙심:" + std::to_wstring(gameManager->GetGold())); };
 	gameManager->events[Event::Reset] = [this]() { Pools::GetInstance().get()->reset(); };//또 싱글톤이면서 이전게임의 데이터를 담고있는애가있나? 

@@ -33,7 +33,7 @@ public:
 	void SetAnimation(int index, bool mirror, bool isloop = true);
 	void Reverse(); 
 
-	// 이펙트 test로 만든 불값
-	bool Testbool = true;
+	// 이펙트 센터 구하기 위해 일단 추가를 함
+	D2D1_POINT_2F CenterPos;
 };
 

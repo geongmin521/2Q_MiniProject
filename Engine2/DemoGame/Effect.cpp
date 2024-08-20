@@ -22,7 +22,6 @@ Effect::Effect(int id, std::string imagepath, std::string csvpath, bool isAni)
 	renderOrder = 102;
 }
 
-
 Effect::~Effect()
 {
 
@@ -31,7 +30,7 @@ Effect::~Effect()
 void Effect::Init(MathHelper::Vector2F location,float _scale,float _duration)
 {
 	//AddComponent(new Bitmap(L"..\\Data\\Image\\" + imagePath);
-//GetComponent<Bitmap>()->LoadD2DBitmap(L"..\\Data\\Image\\" + imagePath);
+	//GetComponent<Bitmap>()->LoadD2DBitmap(L"..\\Data\\Image\\" + imagePath);
 	transform->SetRelativeScale({ _scale,_scale });
 	transform->SetRelativeLocation(location);
 	if (GetComponent<Bitmap>() != nullptr)
