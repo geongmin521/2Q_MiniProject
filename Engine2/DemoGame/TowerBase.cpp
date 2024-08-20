@@ -42,11 +42,9 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	};
 
 	id = towerData.id;
-
-	
-	StatUpdate();
-
 	curHP = towerData.HP;
+	prevHp = towerData.HP;
+	curSpeed = towerData.attackSpeed;
 
 	if (towerData.Type == "Pile")
 	{
@@ -86,12 +84,12 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	if (type == TowerType::HolyCross)
 	{
 		Search = [this]() { CommonFunc::FindTargets(*GetComponent<CircleCollider>(), "Tower", target, towerData.attackRange); };
-		AttackFunc = [this]() { TowerFunc::Heal(target,towerData.ATK); };
+		AttackFunc = [this]() { TowerFunc::Heal(this ,target); };
 	}
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 
-	Make(HPBar)(curHP, this->towerData.HP).setPosition({ 0 , -90 }).setParent(transform);
+	Make(HPBar)(curHP, data.HP).setPosition({ 0 , -90 }).setParent(transform).Get(hpbar);
 
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
 		Make(TowerStar)().setPosition({ 20.f * i , -115 }).setParent(transform);
@@ -113,27 +111,49 @@ void TowerBase::Init(MathHelper::Vector2F pos)
 {
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2003));
 			effect->Init({ pos.x - 5, pos.y + 53}, 0.90f); //이펙트 생성
-	curHP = towerData.HP;
+
 	hitEffct = false;
 	StatUpdate();
 	transform->SetRelativeLocation(pos); 
 	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
+	
 }
 
 void TowerBase::StatUpdate()
 {
 	// 일단 값 때려 넣기
-	if (towerData.level == 1)
+	if (towerData.Type == "Water")
 	{
-		artifact->PowerUP(1, this);
+		curHP = (prevHp + (artifact->WaterPower.hpLevel * 20));
+		hpbar->Init(towerData.HP + (artifact->WaterPower.hpLevel * 20));
+		curSpeed = (towerData.attackSpeed + (artifact->WaterPower.spdLevel * 0.2));
 	}
-	else if (towerData.level == 2)
+	else if (towerData.Type == "Pile")
 	{
-		artifact->PowerUP(2, this);
+		curHP = (prevHp + (artifact->PilePower.hpLevel * 20));
+		hpbar->Init(towerData.HP + (artifact->PilePower.hpLevel * 20));
+		curSpeed = (towerData.attackSpeed + (artifact->PilePower.spdLevel * 0.2));
 	}
-	else if (towerData.level == 3)
+	else if (towerData.Type == "CrossBow")
 	{
-		artifact->PowerUP(3, this);
+		curHP = (prevHp + (artifact->BowPower.hpLevel * 20));
+		hpbar->Init(towerData.HP + (artifact->BowPower.hpLevel * 20));
+		curSpeed = (towerData.attackSpeed + (artifact->BowPower.spdLevel * 0.2));
+	}
+	else if (towerData.Type == "HolyCross")
+	{
+		curHP = (prevHp + (artifact->HolyPower.hpLevel * 20));
+		hpbar->Init(towerData.HP + (artifact->HolyPower.hpLevel * 20));
+		curSpeed = (towerData.attackSpeed + (artifact->HolyPower.spdLevel * 0.2));
+	}
+	if (artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
+	{
+		GetComponent<CircleCollider>()->circle->radius = towerData.attackRange + artifact->Range;
+	}
+
+	if (artifact->isOwned(static_cast<int>(ArtifactId::Laurel)))
+	{
+
 	}
 }
 
@@ -141,10 +161,6 @@ void TowerBase::StatUpdate()
 void TowerBase::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
-	if (towerData.Type == "HolyCross")
-	{
-		std::cout << towerData.HP << std::endl;
-	}
 	//transform->SetRelativeScale({ testEffect, testEffect });
 
 	if (hitEffct)
@@ -161,13 +177,17 @@ void TowerBase::Update(float deltaTime)
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
+	int mHp = static_cast<int>(curHP);
+	int mAtkspd = static_cast<int>(towerData.attackSpeed);
+	std::wstring hp = std::to_wstring(mHp) + L" " + std::to_wstring(mAtkspd);
+	pRenderTarget->DrawTextW(hp.c_str(), hp.length(), D2DRenderer::GetInstance()->DWriteTextFormat, D2D1::RectF(GetWorldLocation().x - 50, GetWorldLocation().y - 300, GetWorldLocation().x + 50, GetWorldLocation().y),
+		D2DRenderer::GetInstance()->Brush);
 	if (hitEffct == false)
 	{
 		__super::Render(pRenderTarget);
 	}
 	else
 	{
-
 		if (towerData.Type == "Pile")
 		{
 			Bitmap* BitmapComponent = GetComponent<Bitmap>();

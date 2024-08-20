@@ -2,6 +2,7 @@
 #include "Bitmap.h"
 #include "Transform.h"
 #include "HPBar.h"
+#include "Artifact.h"
 
 HPBar::HPBar(float& curHp, float maxHp) : curHp(curHp) , maxHp(maxHp)
 {
@@ -14,9 +15,15 @@ HPBar::~HPBar()
 {
 }
 
+void HPBar::Init(float maxHp)
+{
+	this->maxHp = maxHp;
+}
+
 void HPBar::Update(float deltaTime) 
 {
 	__super::Update(deltaTime);
+
 	float scaleX = (curHp / maxHp);  // 체력 퍼센트
 	float origin = hpBar->bitmap->GetSize().width;     // 원래 크기
 	float newOrigin = origin * scaleX;

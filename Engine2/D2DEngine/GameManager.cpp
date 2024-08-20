@@ -4,6 +4,8 @@
 
 #include "D2DEffectManager.h"
 #include "CrossFadeEffect.h"
+#include "../DemoGame/Artifact.h"
+
 GameManager::GameManager()
 {
 }
@@ -19,25 +21,25 @@ void GameManager::Update()
 		switch (WaveLevel) // 스테이지 별 보상 좀 보상이 규칙성있게 받는게 아니여서 코드 좀 더러움
 		{
 		case 1:
-			gold += 12;
+			gold += artifact->bibleGold(12);
 			break;
 		case 2:
-			gold += 14;
+			gold += artifact->bibleGold(14);
 			break;
 		case 3:
-			gold += 18;
+			gold += artifact->bibleGold(18);
 			break;
 		case 4:
-			gold += 18;
+			gold += artifact->bibleGold(18);
 			break;
 		case 5:
-			gold += 20;
+			gold += artifact->bibleGold(20);
 			break;
 		case 6:
-			gold += 24;
+			gold += artifact->bibleGold(24);
 			break;
 		case 7:
-			gold += 26;
+			gold += artifact->bibleGold(26);
 			break;
 		default:
 			break;

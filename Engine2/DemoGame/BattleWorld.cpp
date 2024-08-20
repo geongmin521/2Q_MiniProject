@@ -24,8 +24,7 @@
 
 BattleWorld::BattleWorld()
 {
-	artifact->SelectArtifact(8);
-
+	
 }
 
 BattleWorld::~BattleWorld()
@@ -78,7 +77,6 @@ void BattleWorld::RegisterEvent()
 		{
 			showWave->Show();
 		}
-		artifact->SelectArtifact(8);
 		for (auto& it : m_GameObjects)
 		{
 			if (it && it->name == "Tower")
@@ -87,6 +85,11 @@ void BattleWorld::RegisterEvent()
 
 				if (tower)
 				{
+					if (tower->curHP < 0)
+					{
+						tower->prevHp = tower->towerData.HP;
+					}
+					tower->prevHp = tower->curHP;
 					tower->StatUpdate();
 				}
 			}
