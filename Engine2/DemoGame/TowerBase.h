@@ -41,7 +41,7 @@ public: //나중에 은닉화할 데이터는 빼기
     float curHP;        //타워각자가 가질 현재 체력 //hp 참조로 넘겨주면될듯? 그럼 게임오브젝트에 필요없겠지? 
     float prevHp;
 
-    float curRange;
+    float curSpeed;
 public:
     
     TowerBase(TowerData data);

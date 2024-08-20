@@ -48,7 +48,6 @@ public:
 
 	Artifact();
 	virtual ~Artifact();
-	void PowerUP(int level, TowerBase* tower);
 	void RangeUp(TowerBase* tower);
 	void knockbackUp(TowerBase* tower);
 

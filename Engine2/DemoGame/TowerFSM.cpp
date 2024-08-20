@@ -54,7 +54,7 @@ void TowerIdle::Update(float DeltaTime) //타겟으로 본인도 들어오나? 타겟은 등록�
 	{
 		cooldown += DeltaTime;
 
-		if (cooldown > tower->towerData.attackSpeed)
+		if (cooldown > tower->curSpeed)
 		{
 			cooldown = 0; 
 			owner->SetNextState("Attack");
