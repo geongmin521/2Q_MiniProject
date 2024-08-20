@@ -61,11 +61,17 @@ GameObject* Pools::PopPool(int id)
 		else if(id < 500)
 			return Make(EnemyBase)(dataManager->getEnemyData(id)).Get<EnemyBase>();
 		else if (id <= 512)
-			return Make(Arrow)(dataManager->getTowerData(id- 500).Type, dataManager->getTowerData(id - 500).ATK, dataManager->getTowerData(id - 500).attackArea, DataManager::GetInstance().get()->getTowerData(id - 500).knockBack).Get<Arrow>();
+			return Make(Arrow)(dataManager->getTowerData(id - 500).name, dataManager->getTowerData(id - 500).Type, dataManager->getTowerData(id - 500).ATK, dataManager->getTowerData(id - 500).attackArea, DataManager::GetInstance().get()->getTowerData(id - 500).knockBack).Get<Arrow>();
 		else if (id == 513)
-			return Make(Arrow)("HiddenArrow", dataManager->getTowerData(12).ATK, dataManager->getTowerData(12).attackArea, DataManager::GetInstance().get()->getTowerData(512).knockBack).Get<Arrow>();
-		else if (id == 2000)
-			return Make(Effect)().Get<Effect>();
+			return Make(Arrow)("HiddenArrow","HiddenArrow", dataManager->getTowerData(12).ATK, dataManager->getTowerData(12).attackArea, DataManager::GetInstance().get()->getTowerData(512).knockBack).Get<Arrow>();
+		if(id == 601)
+			return Make(Arrow)(dataManager->getEnemyData(id - 500).name, dataManager->getEnemyData(id - 500).Type, dataManager->getEnemyData(id - 500).ATK, dataManager->getEnemyData(id - 500).ATK, DataManager::GetInstance().get()->getTowerData(0).ATK).Get<Arrow>();
+		if (id == 2000) //effect는 아이디 담아둔 csv가없는대 다 하드코딩을 써둬야하나?
+			return Make(Effect)(id, "HealEffect", "Heal").Get<Effect>();
+		if (id == 2001) 
+			return Make(Effect)(id, "CrossbowAttack", "Crossbow").Get<Effect>();
+		if (id == 2002) 
+			return Make(Effect)(id, "WaterAttack", "Water").Get<Effect>();
 	}
 }
 

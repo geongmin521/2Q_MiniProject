@@ -118,7 +118,6 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 //		};
 //
 //		D2DRenderer::GetInstance()->CreateColorMatrixEffect(bitmap, redEmphasis);
-//		D2DEffect::GetInstance()->CreateEdgeEffect(L"Edge", bitmap);
 //		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"Edge"), {0,0}, srcRect);
 	}
 

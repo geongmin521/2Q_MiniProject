@@ -14,6 +14,8 @@
 #include "GameManager.h"
 #include "Dotween.h"
 
+#include "D2DEffectManager.h"
+#include "CrossFadeEffect.h"
 Shop::Shop() 
 {
 	Make(GameObject)().setParent(transform).Get(child);
@@ -79,7 +81,7 @@ void Shop::Update(float deltaTime)
 		}
 		if (count == 4 && gameManager->isBattle == false)  //타워가 전부 비어있는지 검사
 		{
-			shop_spawnButton->SetInteractive(true);
+			shop_spawnButton->SetInteractive(true);	
 		}
 		else
 		{
@@ -89,7 +91,12 @@ void Shop::Update(float deltaTime)
 	else if (curState = ButtonState::TowerSpawn)
 	{
 		if (child->GetActive() == false) //상점이 꺼져있는상태면 활성화
-			shop_spawnButton->SetInteractive(true);
+			shop_spawnButton->SetInteractive(true);	
+	}
+	
+	if (gameManager->isBattle == true)
+	{
+		D2DEffectManager::GetInstance()->FindIEffect<CrossFadeEffect>(L"MapFade")->isFadeIn = false;
 	}
 }
 
@@ -161,7 +168,7 @@ void Shop::Spawn()
 	for (auto var : compensationList)
 	{	
 		GameObject* tower = Pools::GetInstance().get()->PopPool(var);  
-		if (tower != nullptr)
+		if (dynamic_cast<TowerBase*>(tower) != nullptr)
 		{
 			dynamic_cast<TowerBase*>(tower)->Init(Containers[inven]->transform->GetWorldLocation());
 			Containers[inven]->OnDrop(tower); 

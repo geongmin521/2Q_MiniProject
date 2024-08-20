@@ -224,6 +224,18 @@
     <ClInclude Include="IDoubleClickAble.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="CrossFadeEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="MorphologyEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderEffect.h">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DFontManager.h">
+      <Filter>소스 파일\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -354,6 +366,18 @@
     </ClCompile>
     <ClCompile Include="PointSpecularEffect.cpp">
       <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="CrossFadeEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="MorphologyEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="BorderEffect.cpp">
+      <Filter>소스 파일\Effect\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DFontManager.cpp">
+      <Filter>소스 파일\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

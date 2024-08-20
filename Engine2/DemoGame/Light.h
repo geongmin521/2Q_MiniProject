@@ -21,8 +21,10 @@ public:
 	Bitmap* firstBitmap = nullptr;
 	Bitmap* secondBitmap = nullptr;
 
-	bool test = true;
+	bool test = false;
 
+	// 
+	float TestNum = 0;
 
 };
 

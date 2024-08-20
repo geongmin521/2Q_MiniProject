@@ -41,5 +41,9 @@ public:
     float curATK; 
     std::vector<GameObject*> target; 
     EnemyData enemyData;
+
+    //test ¿Ã∆Â∆Æ
+    bool hitEffct = false;
+    float hitEffctDelay = 0.0f;
 };
 

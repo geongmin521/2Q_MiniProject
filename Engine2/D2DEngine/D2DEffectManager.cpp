@@ -8,6 +8,9 @@
 #include "ColorMatrixEffect.h"
 #include "BlendEffect.h"
 #include "PointSpecularEffect.h"
+#include "CrossFadeEffect.h"
+#include "MorphologyEffect.h"
+#include "BorderEffect.h"
 
 D2DEffectManager::D2DEffectManager()
 {
@@ -49,10 +52,6 @@ void D2DEffectManager::Update(float deltaTime)
 	}
 }
 
-void D2DEffectManager::Render(ID2D1RenderTarget* pRenderTarget)
-{
-
-}
 
 void D2DEffectManager::CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal)
 {
@@ -73,6 +72,7 @@ void D2DEffectManager::CreateColorMatrixEffect(std::wstring _KeyName, ID2D1Bitma
 	dynamic_cast<ColorMatrixEffect*>(newEffect)->ColorMatrix = _ColorMatrix;
 	Effects.insert(std::make_pair(_KeyName, newEffect));
 }
+// D2D1_MATRIX_5X4_F 값
 // | Red Multiplier | Green Multiplier | Blue Multiplier | Alpha Multiplier | Red Offset   |
 // |-------------------- | -------------------- | -------------------- | -------------------- | --------------|
 // | Green Multiplier | Red Multiplier | Blue Multiplier | Alpha Multiplier | Green Offset |
@@ -88,7 +88,43 @@ void D2DEffectManager::CreateBlendEffect(std::wstring _KeyName, ID2D1Bitmap* _Bi
 	Effects.insert(std::make_pair(_KeyName, newEffect));
 }
 
+void D2DEffectManager::CreateCrossFadeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, ID2D1Bitmap* _BitmapTwo)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	if (nullptr == D2DRenderer::GetInstance()->DeviceContext) { return; }
 
+	IEffect* newEffect = new CrossFadeEffect(_Bitmap, _BitmapTwo);
+	Effects.insert(std::make_pair(_KeyName, newEffect));
+}
+
+void D2DEffectManager::CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, int val)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	if (nullptr == D2DRenderer::GetInstance()->DeviceContext) { return; }
+
+	IEffect* newEffect = new MorphologyEffect(_Bitmap);
+	Effects.insert(std::make_pair(_KeyName, newEffect));
+}
+
+void D2DEffectManager::CreateBorderEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	if (nullptr == D2DRenderer::GetInstance()->DeviceContext) { return; }
+
+	IEffect* newEffect = new BorderEffect(_Bitmap);
+	Effects.insert(std::make_pair(_KeyName, newEffect));
+}
+
+void D2DEffectManager::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, Transform* _Transform)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	if (nullptr == D2DRenderer::GetInstance()->DeviceContext) { return; }
+
+	IEffect* newEffect = new PointSpecularEffect(_Bitmap, _Transform);
+	Effects.insert(std::make_pair(_KeyName, newEffect));
+}
+
+// 일단 혹시 몰라서 남겨놓음 사용할 일이 있을가 과연...
 //	void D2DEffectManager::CreateDistantDiffuseEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)
 //	{
 //		if (Effects.find(_KeyName) != Effects.end()) { return; }
@@ -132,42 +168,7 @@ void D2DEffectManager::CreateBlendEffect(std::wstring _KeyName, ID2D1Bitmap* _Bi
 //		distantDiffuseEffect->SetValue(D2D1_DISTANTDIFFUSE_PROP_SCALE_MODE, scaleMode);
 //		Effects.insert(std::make_pair(_KeyName, distantDiffuseEffect));
 //	}
-//	
-//	
-//	void D2DEffectManager::CreateMorphologyEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, int val)
-//	{
-//		if (Effects.find(_KeyName) != Effects.end()) { return; }
-//		ID2D1Effect* morphologyEffect;
-//		D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1Morphology, &morphologyEffect);
-//		morphologyEffect->SetInput(0, _Bitmap);
-//	
-//		morphologyEffect->SetValue(D2D1_MORPHOLOGY_PROP_MODE, D2D1_MORPHOLOGY_MODE_ERODE);
-//		morphologyEffect->SetValue(D2D1_MORPHOLOGY_PROP_WIDTH, val);
-//		Effects.insert(std::make_pair(_KeyName, morphologyEffect));
-//	}
-//	//D2D1_MATRIX_5X4_F redEmphasis =
-//	//		{
-//	//		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
-//	//		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
-//	//		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
-//	//		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
-//	//		};
-//	
-//	void D2DEffectManager::CreateCrossFadeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, ID2D1Bitmap* _BitmapTwo)
-//	{
-//		if (Effects.find(_KeyName) != Effects.end()) { return; }
-//	
-//		ID2D1Effect* CrossFadeEffect = NULL;
-//		D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1CrossFade, &CrossFadeEffect);
-//	
-//		CrossFadeEffect->SetInput(0, _Bitmap);
-//		CrossFadeEffect->SetInput(1, _BitmapTwo);
-//	
-//		CrossFadeEffect->SetValue(D2D1_CROSSFADE_PROP_WEIGHT, 0.5f);
-//	
-//		Effects.insert(std::make_pair(_KeyName, CrossFadeEffect));
-//	}
-//	
+	
 //	void D2DEffectManager::CreateSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, Transform* LightTransform)
 //	{
 //		if (Effects.find(_KeyName) != Effects.end()) { return; }
@@ -219,22 +220,8 @@ void D2DEffectManager::CreateBlendEffect(std::wstring _KeyName, ID2D1Bitmap* _Bi
 //		Effects.insert(std::make_pair(_KeyName, DistantSpecularEffect));
 //	}
 //	
-void D2DEffectManager::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, Transform* _Transform)
-{
-	if (Effects.find(_KeyName) != Effects.end()) { return; }
-	if (nullptr == D2DRenderer::GetInstance()->DeviceContext) { return; }
 
-	IEffect* newEffect = new PointSpecularEffect(_Bitmap, _Transform);
-	Effects.insert(std::make_pair(_KeyName, newEffect));
-
-	// 마스크 비트맵을 이펙트에 적용   이거 왜 했는지 기억 안나서 일단 주석
-//	ID2D1Effect* maskEffect = nullptr;
-//	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1BitmapSource, &maskEffect);
-//	maskEffect->SetInput(0, _Bitmap);
-//	pointSpecularEffect->SetInputEffect(1, maskEffect);
-
-}
-
+// 사용 안할거 같아서 일단 제외
 //	void D2DEffectManager::Create2DAffineTransform(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, D2D1_MATRIX_3X2_F* matrix)
 //	{
 //		if (Effects.find(_KeyName) != Effects.end()) { return; }

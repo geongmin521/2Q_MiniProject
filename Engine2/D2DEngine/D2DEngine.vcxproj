@@ -151,6 +151,7 @@
     <ClInclude Include="BezierMovement.h" />
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BlendEffect.h" />
+    <ClInclude Include="BorderEffect.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CameraScene.h" />
     <ClInclude Include="Circle.h" />
@@ -159,6 +160,8 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ColorMatrixEffect.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CrossFadeEffect.h" />
+    <ClInclude Include="D2DFontManager.h" />
     <ClInclude Include="GaussianBlurEffect.h" />
     <ClInclude Include="IEffect.h" />
     <ClInclude Include="D2DEffectManager.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="IOnMouse.h" />
     <ClInclude Include="MathHelper.h" />
+    <ClInclude Include="MorphologyEffect.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="pch.h" />
@@ -208,6 +212,7 @@
     <ClCompile Include="BezierMovement.cpp" />
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BlendEffect.cpp" />
+    <ClCompile Include="BorderEffect.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CameraScene.cpp" />
     <ClCompile Include="Circle.cpp" />
@@ -216,7 +221,9 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ColorMatrixEffect.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="CrossFadeEffect.cpp" />
     <ClCompile Include="D2DEffectManager.cpp" />
+    <ClCompile Include="D2DFontManager.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Dotween.cpp" />
@@ -230,6 +237,7 @@
     <ClCompile Include="GaussianBlurEffect.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="MorphologyEffect.cpp" />
     <ClCompile Include="Movement.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="pch.cpp">

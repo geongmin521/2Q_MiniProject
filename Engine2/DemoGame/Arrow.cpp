@@ -21,13 +21,13 @@
 
 #include "Arrow.h"
 
-Arrow::Arrow(std::string type,float damage,float attackArea,float knockBack) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
+Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,float knockBack) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
 {
-	this->speed = 1.5f;
+	this->speed = 2.0f;
 	this->type = type;
 	SetBoundBox(0, 0, attackArea, attackArea);
-	renderOrder = 95;
-	AddComponent(new Bitmap(L"..\\Data\\Image\\" + Utility::convertFromString(type) + L".png"));
+	renderOrder = 101;
+	AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(name) + L"Arrow.png"));
 	//발사되는순간에 적의 위치를 받아오는게 맞지.. 
 	if (type == "Crossbow")
 	{
@@ -58,11 +58,12 @@ Arrow::Arrow(std::string type,float damage,float attackArea,float knockBack) //�
 		AttackFunc = [this, damage, knockBack]() { ArrowFunc::AttackEnemys(*GetComponent<CircleCollider>(), damage, knockBack); };
 		id = 513;
 	}
-	if (type == "vampire")
+	if (type == "Normal")
 	{
 		AddComponent(new BezierMovement(transform, speed));
-		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::AttackEnemy(this, this->target, type, damage, knockBack); };
-		id = 500000;
+		transform->SetRelativeScale({ 0.3f,0.3f });
+		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::AttackTower(this, this->target, type, damage, knockBack); };
+		id = 601;
 	}
 }
 
@@ -75,8 +76,12 @@ void Arrow::Init(MathHelper::Vector2F location, GameObject* target)
 {
 	if(target !=nullptr)
 	this->target = target;
-	if(GetComponent<BezierMovement>() != nullptr)
-	GetComponent<BezierMovement>()->target = target;
+	if (GetComponent<BezierMovement>() != nullptr)
+	{
+		GetComponent<BezierMovement>()->target = target;
+		GetComponent<BezierMovement>()->Init();
+
+	}
 
 	CircleCollider* cirCle = GetComponent<CircleCollider>();
 	if (cirCle)
@@ -95,11 +100,10 @@ void Arrow::Update(float deltaTime)
 		GetComponent<Movement>()->SetVelocity(dir * speed);
 	}
 	__super::Update(deltaTime);
-	/*if (target->GetActive() == false)
+	if (target->GetActive() == false)
 	{
 		Pools::GetInstance().get()->AddPool(this);
-	}*/
-	static float abc = 0;
+	}
 	if (type == "HiddenArrow")
 	{
 		elapsedTime2 += deltaTime;
@@ -115,10 +119,9 @@ void Arrow::Update(float deltaTime)
 			Pools::GetInstance().get()->AddPool(this);
 		}
 	}
-	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() < 5.0f)
+	if (type != "HiddenArrow" && (target->GetWorldLocation() - GetWorldLocation()).Length() < 2.0f)
 	{
 		AttackFunc(); //풀에넣는건 각 어택안에서
-		
 	}
 	
 

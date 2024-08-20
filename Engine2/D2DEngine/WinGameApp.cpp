@@ -9,9 +9,13 @@
 #include "SceneManager.h"
 #include "EventSystem.h"
 
+// 폰트 텍스트
+#include "D2DFontManager.h"
+
 #ifdef _DEBUG
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
+
 
 
 HWND WinGameApp::hWnd = nullptr;
@@ -132,6 +136,7 @@ void WinGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	RegisterClassExW(&wcex);
 	InitInstance(hInstance, nShowCmd);
 	D2DRenderer::GetInstance(hWnd);
+	D2DFontManager::GetInstance()->InitializeDWrite();
 }
 
 void WinGameApp::Run() 
