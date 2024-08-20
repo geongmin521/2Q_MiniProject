@@ -10,6 +10,7 @@
 #include "D2DFont.h"
 #include "DataManager.h"
 
+#include "Music.h"
 Compensation::Compensation() 
 {
 	float LPad = 100; 
@@ -27,6 +28,7 @@ Compensation::Compensation()
 			AddComponent(name[i]).
 			AddComponent(explain[i]).
 			setPos_Parent({ LPad - 100 * i, 0 }, transform);
+		Music::soundManager->PlayMusic(Music::eSoundList::Reward, Music::eSoundChannel::Effect2);
 	}
 	
 	//보상확정 버튼 

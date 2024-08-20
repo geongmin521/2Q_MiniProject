@@ -50,7 +50,7 @@ namespace Music
         mChannel[(int)chanel]->setVolume(volume);
     }
 
-    SoundManager::SoundManager(): mSystem(), mChannel{}, mSoundList{}, mVolume(0.5f)
+    SoundManager::SoundManager(): mSystem(), mChannel{}, mSoundList{}, mVolume(0.3f)
     {
     }
 
