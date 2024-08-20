@@ -42,11 +42,9 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	};
 
 	id = towerData.id;
-
-	
-	StatUpdate();
-
 	curHP = towerData.HP;
+	prevHp = towerData.HP;
+	curSpeed = towerData.attackSpeed;
 
 	if (towerData.Type == "Pile")
 	{
@@ -90,7 +88,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 
-	Make(HPBar)(curHP, this->towerData.HP).setPosition({ 0 , -90 }).setParent(transform);
+	Make(HPBar)(curHP, data.HP).setPosition({ 0 , -90 }).setParent(transform).Get(hpbar);
 
 	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
 		Make(TowerStar)().setPosition({ 20.f * i , -115 }).setParent(transform);
@@ -110,7 +108,6 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {
-	curHP = towerData.HP;
 	hitEffct = false;
 	StatUpdate();
 	transform->SetRelativeLocation(pos); 
@@ -120,19 +117,30 @@ void TowerBase::Init(MathHelper::Vector2F pos)
 void TowerBase::StatUpdate()
 {
 	// 일단 값 때려 넣기
-	if (towerData.level == 1)
+	if (towerData.Type == "Water")
 	{
-		artifact->PowerUP(1, this);
+		curHP = (prevHp + (artifact->WaterPower.hpLevel * 20));
+		hpbar->Init(towerData.HP + (artifact->WaterPower.hpLevel * 20));
+		curSpeed = (towerData.attackSpeed + (artifact->WaterPower.spdLevel * 0.2));
 	}
-	else if (towerData.level == 2)
+	else if (towerData.Type == "Pile")
 	{
-		artifact->PowerUP(2, this);
+		curHP = (prevHp + (artifact->PilePower.hpLevel * 20));
+		hpbar->Init(towerData.HP + (artifact->PilePower.hpLevel * 20));
+		curSpeed = (towerData.attackSpeed + (artifact->PilePower.spdLevel * 0.2));
 	}
-	else if (towerData.level == 3)
+	else if (towerData.Type == "CrossBow")
 	{
-		artifact->PowerUP(3, this);
+		curHP = (prevHp + (artifact->BowPower.hpLevel * 20));
+		hpbar->Init(towerData.HP + (artifact->BowPower.hpLevel * 20));
+		curSpeed = (towerData.attackSpeed + (artifact->BowPower.spdLevel * 0.2));
 	}
-
+	else if (towerData.Type == "HolyCross")
+	{
+		curHP = (prevHp + (artifact->HolyPower.hpLevel * 20));
+		hpbar->Init(towerData.HP + (artifact->HolyPower.hpLevel * 20));
+		curSpeed = (towerData.attackSpeed + (artifact->HolyPower.spdLevel * 0.2));
+	}
 	if (artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
 	{
 		artifact->RangeUp(this);
@@ -150,8 +158,9 @@ void TowerBase::Update(float deltaTime)
 	__super::Update(deltaTime);
 	if (towerData.Type == "HolyCross")
 	{
-		std::cout << towerData.HP << std::endl;
+		std::cout << curHP << std::endl;
 	}
+	
 	//transform->SetRelativeScale({ testEffect, testEffect });
 
 	if (hitEffct)
@@ -168,6 +177,11 @@ void TowerBase::Update(float deltaTime)
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
+	int mHp = static_cast<int>(curHP);
+	int mAtkspd = static_cast<int>(towerData.attackSpeed);
+	std::wstring hp = std::to_wstring(mHp) + L" " + std::to_wstring(mAtkspd);
+	pRenderTarget->DrawTextW(hp.c_str(), hp.length(), D2DRenderer::GetInstance()->DWriteTextFormat, D2D1::RectF(GetWorldLocation().x - 50, GetWorldLocation().y - 300, GetWorldLocation().x + 50, GetWorldLocation().y),
+		D2DRenderer::GetInstance()->Brush);
 	if (hitEffct == false)
 	{
 		__super::Render(pRenderTarget);
@@ -227,12 +241,12 @@ void TowerBase::Hit(float damage, float knockback)
 
 void TowerBase::Heal(float heal)
 {
-	float healHP = curHP;
-	healHP += heal;
-	if (healHP >= towerData.HP)
-		curHP = towerData.HP;
-	else
-		curHP += heal;
+	//float healHP = curHP;
+	//healHP += heal;
+	//if (healHP >= towerData.HP)
+	//	curHP = towerData.HP;
+	//else
+	//	curHP += heal;
 }
 
 void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게.. 

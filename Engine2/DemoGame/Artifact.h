@@ -31,9 +31,9 @@ class Artifact : public SingletonBase<Artifact>
 {
 	struct  artifactPower
 	{
-		int atkLevel = 1;
-		int spdLevel = 1;
-		int hpLevel = 1;
+		int atkLevel = 0;
+		int spdLevel = 0;
+		int hpLevel = 0;
 	};
 public:
 	artifactPower WaterPower;
@@ -52,10 +52,9 @@ public:
 	void RangeUp(TowerBase* tower);
 	void knockbackUp(TowerBase* tower);
 
+	void levelUp(int id);
 	bool isOwned(int id);
-	int checkLevel(int id);
 	void SelectArtifact(int id);
-	void SelectArtifact(ArtifactId id);
 
 	std::vector<int> ownedArtifact;
 

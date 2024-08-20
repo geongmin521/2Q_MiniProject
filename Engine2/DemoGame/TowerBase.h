@@ -33,15 +33,17 @@ public: //나중에 은닉화할 데이터는 빼기
     std::vector<GameObject*> target;
     std::function<void(void)> Search; //아이디로 타입구분해서 각각의 타워에 맞는 기능을 넣어주기
     std::function<void(void)> AttackFunc;
-
     //test 이펙트
     bool hitEffct = false;
     float hitEffctDelay = 0.0f;
 
-public:
+    HPBar* hpbar;
     float curHP;        //타워각자가 가질 현재 체력 //hp 참조로 넘겨주면될듯? 그럼 게임오브젝트에 필요없겠지? 
     float prevHp;
 
+    float curRange;
+public:
+    
     TowerBase(TowerData data);
     virtual ~TowerBase() = default; //진짜 어떻게 해야할지를 모르겠네 허 허.. //불렛만 다르면 되는거지 적 불렛이랑 다른게 뭐지?  
 

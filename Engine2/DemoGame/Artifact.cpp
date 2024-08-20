@@ -7,6 +7,7 @@
 Artifact::Artifact()
 {
 	//dataManager->CSVReader(L"ArtifactData");
+	// csv 없음 값 강제로 대입함
 }
 
 Artifact::~Artifact()
@@ -17,54 +18,11 @@ Artifact::~Artifact()
 void Artifact::SelectArtifact(int id)
 {
 	ownedArtifact.push_back(id);
-	switch (id)
-	{
-	case 1:
-		WaterPower.atkLevel++;
-		break;
-	case 2:
-		PilePower.atkLevel++;
-		break;
-	case  3:
-		BowPower.atkLevel++;
-		break;
-	case 4:
-		HolyPower.atkLevel++;
-		break;
-	case 5:
-		WaterPower.hpLevel++;
-		break;
-	case 6:
-		PilePower.hpLevel++;
-		break;
-	case 7:
-		BowPower.hpLevel++;
-		break;
-	case 8:
-		HolyPower.hpLevel++;
-		break;
-	case 9:
-		WaterPower.spdLevel++;
-		break;
-	case 10:
-		PilePower.spdLevel++;
-		break;
-	case 11:
-		BowPower.spdLevel++;
-		break;
-	case 12:
-		HolyPower.spdLevel++;
-		break;
-	}
+	levelUp(id);
 	//아티팩트 csv이름이랑 이미지 이름 일치시키기
 	Make(Image)(L"Crossbow.png").setPosition({ 100.f * ownedArtifact.size() ,100 });
 }
-
-void Artifact::SelectArtifact(ArtifactId id)
-{
-	ownedArtifact.push_back(static_cast<int>(id));
-}
-
+// 스탯이 언제 올라가야할지 모르겠어서 고정 값 대입
 void Artifact::PowerUP(int level, TowerBase* tower)
 {
 	// csv나오면 구성
@@ -397,6 +355,49 @@ void Artifact::knockbackUp(TowerBase* tower)
 	}
 }
 
+void Artifact::levelUp(int id)
+{
+	switch (id)
+	{
+	case 1:
+		WaterPower.atkLevel++;
+		break;
+	case 2:
+		PilePower.atkLevel++;
+		break;
+	case  3:
+		BowPower.atkLevel++;
+		break;
+	case 4:
+		HolyPower.atkLevel++;
+		break;
+	case 5:
+		WaterPower.hpLevel++;
+		break;
+	case 6:
+		PilePower.hpLevel++;
+		break;
+	case 7:
+		BowPower.hpLevel++;
+		break;
+	case 8:
+		HolyPower.hpLevel++;
+		break;
+	case 9:
+		WaterPower.spdLevel++;
+		break;
+	case 10:
+		PilePower.spdLevel++;
+		break;
+	case 11:
+		BowPower.spdLevel++;
+		break;
+	case 12:
+		HolyPower.spdLevel++;
+		break;
+	}
+}
+
 bool Artifact::isOwned(int id)
 {
 	std::vector<int>::iterator it;
@@ -408,23 +409,5 @@ bool Artifact::isOwned(int id)
 	return false;
 }
 
-int Artifact::checkLevel(int id)
-{
-	std::unordered_map<int, int> frequency;
-	int cnt = 0;
-	for (auto& num : ownedArtifact)
-	{
-		frequency[num]++;
-	}
-	for (auto& pair : frequency)
-	{
-		if (pair.second > 1)
-		{
-			cnt++;
-		}
-	}
-
-	return cnt;
-}
 
 
