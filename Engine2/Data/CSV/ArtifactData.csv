@@ -1,16 +1,20 @@
-웨이브 ID,웨이브 레벨,레벨 파워,유닛 ID,유닛 등장 간격,유닛 수
-int,int,float,float,int,int
-1000,1,1,100,1 ,7 
-1001,2,1.2,100_102,1_3,10_2
-1002,2,1.2,100_104,1_5,10_1
-1003,2,1.2,100_101,1_4,10_2
-1004,3,1.4,100_101_104,1_3_5,10_2_2
-1005,3,1.4,100_102_104,1_3_5,10_2_2
-1006,4,1.5,100_101_105,1_3_5,15_3_1
-1007,4,1.5,100_103_105,1_3_5,15_3_1
-1008,5,1.6,100_101_103_105,1_2_3_5,15_5_3_2
-1009,5,1.6,100_102_103_105,1_2_3_5,15_5_3_2
-1010,6,1.8,100_101_102_106,1_2_3_7,20_7_6_1
-1011,6,1.8,100_102_104_106,1_2_3_7,20_10_2_1
-1012,7,1.9,100_101_103_106,1_1_3_7,25_10_3_2
-1013,8,2,100_103_106_107,1_3_5_15,25_5_3_1
+보상 ID,타입,이름,적용 타입,적용 스탯,효과,보상이름,출력 텍스트
+int,string,string,float,string,float,string,string
+500,Normal,CrossbowATK,Crossbow,Attack,2,성수 공격력 증가,성수의 공격력이 증가합니다.
+501,Normal,CrossbowHP,Crossbow,Health,20,말뚝 공격력 증가,말뚝의 공격력이 증가합니다.
+502,Normal,CrossbowATS,Crossbow,AttackSPD,0.2,석궁 공격력 증가,석궁의 공격력이 증가합니다.
+503,Normal,WaterATK,Water,Attack,2,십자가 공격력 증가,십자가의 회복량이 증가합니다.
+504,Normal,WaterHP,Water,Health,20,성수 체력 증가,성수 캐릭터의 체력이 증가합니다.
+505,Normal,WaterATS,Water,AttackSPD,0.2,말뚝 체력 증가,말뚝 캐릭터의 체력이 증가합니다.
+506,Normal,PileATK,Plie,Attack,2,석궁 체력 증가,석궁 캐릭터의 체력이 증가합니다.
+507,Normal,PileHP,Plie,Health,20,십자가 체력 증가,십자가 캐릭터의 체력이 증가합니다.
+508,Normal,PileATS,Plie,AttackSPD,0.2,성수 공격속도 증가,성수 캐릭터의 공격 속도가 증가합니다.
+509,Normal,HolyCrossATK,HolyCross,Attack,5,말뚝 공격속도 증가,말뚝 캐릭터의 공격 속도가 증가합니다.
+510,Normal,HolyCrossHP,HolyCross,Health,20,석궁 공격속도 증가,석궁 캐릭터의 공격 속도가 증가합니다.
+511,Normal,HolyCrossATS,HolyCross,AttackSPD,0.2,십자가 공격속도 증가,십자가 캐릭터의 회복 속도가 증가합니다.
+512,Special,DotDamage,Character,DotDamage,5,마늘,일정 시간 동안 적들에게 추가 지속 피해를 입힙니다.
+513,Special,BonuSpiety,None,Spiety,15,성서,신앙심의 획득량이 증가합니다.
+514,Special,CharacterRange,Character,Range,100,은반지,내 모든 캐릭터의 공격 사거리가 증가합니다.
+515,Special,CharacterKnockback,Character,Knockback,15,월계수,내 모든 캐릭터의 넉백 수치가 증가합니다.
+516,Special,EnemyMove,Enemy,MoveSPD,-0.25,와인,적들의 공격 속도가 감소합니다.
+517,Special,EnemyATS,Enemy,AttackSPD,-0.25,거울,적들의 이동 속도가 줄어듭니다.

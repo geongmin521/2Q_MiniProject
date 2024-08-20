@@ -28,7 +28,6 @@ class TowerBase :
 {
 public: //나중에 은닉화할 데이터는 빼기
     TowerData towerData;   
-    ToolTip* toolTip; //하나만 필요하긴한데.. 모든 객체가 들고있는게 그냥 불편함.. 
     Container* container; //본인이 담겨있는 컨테이너.. 
     std::vector<GameObject*> target;
     std::function<void(void)> Search; //아이디로 타입구분해서 각각의 타워에 맞는 기능을 넣어주기

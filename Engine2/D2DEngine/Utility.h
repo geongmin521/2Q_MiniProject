@@ -55,5 +55,11 @@ public:
 		wstr.assign(str.begin(), str.end());
 		return wstr;
 	}
+
+	static std::string convertFromWString(const std::wstring& wstr) { //어뭐야.. wstring에서 string형변환하니까.. 한글이 들어오네? 
+		std::string str;
+		str.assign(wstr.begin(), wstr.end());
+		return str;
+	}
 };
 

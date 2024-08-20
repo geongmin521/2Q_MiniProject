@@ -33,7 +33,8 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	renderOrder = 100;
 	this->towerData = data; 
 	name = "Tower"; //이름에서 태그로 변경하기
-
+	id = towerData.id;
+	curHP = towerData.HP;
 	D2D1_MATRIX_5X4_F redEmphasis =
 	{
 		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
@@ -47,6 +48,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	prevHp = towerData.HP;
 	maxHP = towerData.HP;
 	curSpeed = towerData.attackSpeed;
+
 
 	if (towerData.Type == "Pile")
 	{
@@ -67,10 +69,8 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 	SetBoundBox(0, 0, 150,150);
 	EventSystem::GetInstance().get()->Ui.insert(this);
-	//이건 어떻게 해야할지 모르겟네.. 박스랑 원충돌부터 인규형이 넘겨준걸 제대로처리할까? //그렇게 하고나면.. 잘될텐데.. 콜라이더 업데이트에서 중심값 업데이트되게 처리하고.
 
 	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), data.attackRange), CollisionType::Overlap, this, CollisionLayer::Tower));
-	toolTip = Make(ToolTip)(L"성수타워", L"공격력", L"생명력", L"공격력").setParent(transform).setActive(false).setPosition({100, 0}).Get<ToolTip>();
 	TowerType type = (TowerType)(towerData.id / 3);
 
 	if (type == TowerType::Crossbow || type == TowerType::Water || type == TowerType::Hidden) //같은 알고리즘 
@@ -240,8 +240,7 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 			D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
 				FindEffect(Utility::convertFromString(towerData.name)),
 				{ 0 ,0 }, GetComponent<Animation>()->srcRect);
-		}
-		
+		}		
 		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 	}
 }
@@ -383,10 +382,15 @@ void TowerBase::OnDoubleClick()
 
 void TowerBase::OnMouse() 
 {
-	toolTip->SetActive(true);
+	MathHelper::Vector2F pos = transform->GetWorldLocation();
+	gameManager->getObject("ToolTip")->transform->SetRelativeLocation({ pos.x + 200 , pos.y });
+	GameObject* tooltip = gameManager->getObject("ToolTip"); //와 진짜 이거 모르겠네.. 나중에 찾아보자.
+	tooltip->SetActive(true); //아니 이거랑 무슨 상관이지? 
+	std::wstring path = L"../Data/Image/UI/tooltip/" + Utility::convertFromString(towerData.name) + L".png";
+	gameManager->getObject("ToolTip")->GetComponent<Bitmap>()->LoadD2DBitmap(path);
 }
 
 void TowerBase::OutMouse() 
 {
-	toolTip->SetActive(false); 
+	gameManager->getObject("ToolTip")->SetActive(false);
 }

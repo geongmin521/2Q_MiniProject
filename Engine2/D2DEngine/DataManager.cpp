@@ -10,7 +10,7 @@ DataManager::DataManager()
 	EnemyDataRead();
 	TowerDataRead();
 	WaveDataRead();
-	//ArtifactDataRead(); //아직 csv 없음
+	ArtifactDataRead(); //아직 csv 없음
 }
 
 DataManager::~DataManager()
@@ -39,6 +39,11 @@ std::string convertFromString<std::string>(const std::wstring& wstr) {
 	std::string str;
 	str.assign(wstr.begin(), wstr.end());
 	return str;
+}
+
+template <> //변환되지않음
+std::wstring convertFromString<std::wstring>(const std::wstring& wstr) {
+	return wstr;
 }
 
 // 파싱 함수
@@ -169,8 +174,11 @@ void DataManager::ArtifactDataRead()
 				parseToken(wss, data.id);
 				parseToken(wss, data.type);
 				parseToken(wss, data.name);
-				parseToken(wss, data.tenant);
-				parseToken(wss, data.ability);
+				parseToken(wss, data.target);
+				parseToken(wss, data.part);
+				parseToken(wss, data.power);
+				parseToken(wss, data.nameText);
+				parseToken(wss, data.explainText);
 			}
 			artifactData[data.id] = data;
 		}

@@ -23,7 +23,8 @@ bool ResourceManager::CreateD2DBitmapFromFile(std::wstring strFilePath, ID2D1Bit
 		return true;
 	}
 	ID2D1Bitmap* bmp;
-	NewBitmapFromFile(strFilePath.c_str(), &bmp);
+	if (FAILED(NewBitmapFromFile(strFilePath.c_str(), &bmp)))
+		return false;
 	m_BitmapMap[strFilePath] = bmp;		
 	*bitmap = m_BitmapMap[strFilePath]; 
 	(*bitmap)->AddRef();

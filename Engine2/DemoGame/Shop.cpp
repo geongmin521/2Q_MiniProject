@@ -19,29 +19,27 @@
 Shop::Shop() 
 {
 	Make(GameObject)().setParent(transform).Get(child);
-	ImagePath = { L"Crossbow.png",L"Water.png",L"Pile.png",L"HolyCross.png",L"vampire.png" };
+	ImagePath = { L"Crossbow_shadow.png",L"holywater_shadow.png",L"anchor_shadow.png",L"Holycross_shadow.png",L"Skul_shadow.png" };
 	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" };
-	Make(Image)(L"BigBack.png").setScale({ 2,2 }).setParent(child->transform);
-	float LPad = -200; 
+	Make(Image)(L"UI/Pop_up/popup.png").AddText(L"", 20,0,-600, &compensationText).setParent(child->transform);
+	float LPad = -960; 
 	for (int i = 0; i < 5; i++)//아이콘
-		Make(Image)(L"Crossbow.png").setPos_Parent({ LPad + i * 130 , -100 }, child->transform).Get<Image>(Icons);
+		Make(Image)(L"Crossbow.png").setPos_Parent({ LPad + i * 480 , -200 }, child->transform).Get<Image>(Icons);
 	for (int i = 0; i < 5; i++)//리롤 잠그기
-		Make(Button)(L"smallBack.png", [i, this]() { isLock[i] = !isLock[i]; }).setPos_Parent_Text({ LPad + i * 130, 0 }, child->transform, L"Lock", 20);
+		Make(Button)(L"lock", [i, this]() { isLock[i] = !isLock[i]; }, ButtonType::Active).setPos_Parent({ LPad + i * 480, 130 }, child->transform); //매커니즘이 좀다른데.. 아예 다른걸로 만들까? 똑같이 하면되는데 그냥 온클릭에서 처리할까? 
 	//리롤 버튼	 //같은색깔 끼리 모이니까 이쁘긴한데 가독성은 뭐가 나을려나..
 	//조합표 확인 버튼
 	//소환하기 버튼
 	//소환하기 버튼
 	//리롤 횟수 텍스트박스
 	//상점 활성화 버튼
-	Make(Button)(L"ImageBack.png", std::bind(&Shop::Reroll, this)).setPos_Parent_Text({ LPad + 250, 100 }, child->transform, L"전체리롤", 30).GetComponent<D2DFont>(rerollButtonText);
-	Make(Button)(L"ImageBack.png", [this]() {combination->SetActive(true); }).setPos_Parent_Text({ LPad + 650, +100 }, child->transform, L"조합식", 30);
-	Make(Button)(L"ImageBack.png", std::bind(&Shop::Spawn, this)).setPos_Parent_Text({ LPad + 650, +200 }, child->transform, L"소환하기", 30);
-	Make(Image)(L"ImageBack.png").setPos_Parent_Text({ LPad + 250, +200 }, child->transform, L"", 20).GetComponent<D2DFont>(compensationText);
-	Make(Image)(L"ImageBack.png").setPos_Parent_Text({ LPad + 250, +300 }, child->transform, L"리롤 가능 횟수" + std::to_wstring(reroll), 20).GetComponent<D2DFont>(rerollText);
-	Make(Button)(L"UI.png", []() {}).setPosition(WinSizeXYAdd(-200, -100)).AddText(L"적 소환", 50).Get<Button>(shop_spawnButton);
+	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"",20,0,0, &rerollButtonText).AddText(L"", 20, 0, -100, &rerollText).setPos_Parent({0, 320}, child->transform); //이건 텍스트로 처리이제 더이상못함.. 
+	Make(Button)(L"Create", [this]() {combination->SetActive(true); }).setScale({ 1.4f,1.4f }).setPos_Parent({ -980, +400 }, child->transform);
+	Make(Button)(L"summon", std::bind(&Shop::Spawn, this)).setPos_Parent({980, +400 }, child->transform);
+	Make(Button)(L"CS", []() {}).setPosition(WinSizeXYAdd(-200, -100)).Get<Button>(shop_spawnButton);
 
 	for (int i = 0; i < 4; i++) //타워 인벤
-		Make(Container)().setPosition({ 100.0f + i * 150, WinSizeY - 100 }).Get<Container>(Containers);
+		Make(Container)().setPosition({ 400.0f + i * 150, WinSizeY - 100 }).Get<Container>(Containers);
 	child->SetActive(false); ChangeButton(ButtonState::TowerSpawn); shop_spawnButton->SetInteractive(true);
 }
 
@@ -51,8 +49,8 @@ void Shop::init()
 	{
 		isLock[i] = false;
 	}
-	reroll = 50;
-	rerollText->SetDialog(L"리롤 가능 횟수" + std::to_wstring(reroll));
+	reroll = 5;
+	rerollText->SetDialog(std::to_wstring(reroll));
 }
 
 Shop::~Shop()
@@ -61,15 +59,11 @@ Shop::~Shop()
 
 void Shop::Update(float deltaTime) 
 {
+	__super::Update(deltaTime);
 	if (gameManager->chance <= 0)
 		ChangeButton(ButtonState::EnemySpawn);
 	else
 		ChangeButton(ButtonState::TowerSpawn); 
-
-	for (int i = 0; i < 5; i++)
-	{
-		//Icons[i]->transform->SetRelativeScale({ test, test}); //트랜스폼의 그걸넘기는것보다 이게 신뢰도가 높네.. 다른데서 관여를해서그런가? 
-	}
 
 	if (curState == ButtonState::EnemySpawn) 
 	{
@@ -102,8 +96,8 @@ void Shop::Update(float deltaTime)
 
 void Shop::Reroll() 
 {
-	if (reroll <= 0)
-		rerollButtonText->SetDialog(L"전체리롤 -10 신앙심");
+	//if (reroll <= 0)
+	//	rerollButtonText->SetDialog(L"전체리롤 -10 신앙심"); //이건 어떻게 처리하지?
 	
 	if(reroll > 0)
 		reroll--;
@@ -116,21 +110,19 @@ void Shop::Reroll()
 
 	for (int i = 0; i < Icons.size(); i++) //
 	{
-		//std::cout << "애니메이션 생성";
-		//new DOTween(test, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1);
 		new DOTween(Icons[i]->transform->relativeScale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1); //이게 왜 안되는지 설명해줄분 구함...
 		new DOTween(Icons[i]->transform->relativeScale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1);
 	} 
 	compensationList.clear();
 	Text = L""; //텍스트 초기화
 	
-	rerollText->SetDialog(L"리롤 가능 횟수" +std::to_wstring(reroll));
+	rerollText->SetDialog(std::to_wstring(reroll));
 	for (int i = 0; i < 5; i++)
 	{
 		if (isLock[i])
 			continue;
 		int random = Utility::RandomBetween(0, ImagePath.size() - 1);
-		Icons[i]->ChangeImage(L"../Data/Image/" + ImagePath[random]);
+		Icons[i]->ChangeImage(L"../Data/Image/UI/Icon/" + ImagePath[random]);
 		Id[i] = random;
 	}
 
@@ -231,12 +223,14 @@ void Shop::ChangeButton(ButtonState state)
 
 	if (curState == ButtonState::EnemySpawn)
 	{
-		shop_spawnButton->GetComponent<D2DFont>()->SetDialog(L"적소환");
+		shop_spawnButton->name = "Combat";
+		shop_spawnButton->GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/UI/Button/Combat_Nomal.png");
 		shop_spawnButton->SetListener([this]() { gameManager->events[Event::SpawnEnemy](); });
 	}
 	else if(curState == ButtonState::TowerSpawn) //이게 가독성이 좀더좋은듯?
 	{
-		shop_spawnButton->GetComponent<D2DFont>()->SetDialog(L"타워소환");
+		shop_spawnButton->name = "CS";
+		shop_spawnButton->GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/UI/Button/CS_Nomal.png");
 		shop_spawnButton->SetListener([this]() { child->SetActive(true); Reroll(); init(); gameManager->chance--; });
 	}	
 	shop_spawnButton->SetInteractive(false);

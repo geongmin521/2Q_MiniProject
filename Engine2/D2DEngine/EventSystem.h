@@ -6,6 +6,9 @@ class IDragAble;
 class IDropAble;
 class IOnMouse;
 class GameObject;
+
+#define eventSystem EventSystem::GetInstance().get()
+
 class EventSystem : public SingletonBase<EventSystem>
 {
 private :

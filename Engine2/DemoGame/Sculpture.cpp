@@ -7,14 +7,18 @@
 #include "Effect.h"
 #include "Pools.h"
 #include "GameManager.h"
+#include "Factory.h"
+#include "EventSystem.h"
 
 Sculpture::Sculpture() //얘가 iclickable을 상속받을까?
 {
-	name = "Tower";
-	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), 500.0f), CollisionType::Overlap, nullptr, CollisionLayer::Tower)); //이렇게 보내면될까? //그냥 박스로해버릴까? 
-	AddComponent(new Bitmap(L"../Data/Image/1Star.png")); //이렇게 보내면될까? 
+	name = "Tower"; 
+	SetBoundBox(0,0, 150,150);
+	AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), 500.0f), CollisionType::Overlap, nullptr, CollisionLayer::Tower)); 
+	AddComponent(new Bitmap(L"../Data/Image/Statue_Nomal.png"));
 	GetComponent<CircleCollider>()->SetOffset({ -300,0 });
-	hp = 100; //위쪽으로 지나가는 애들이 따라와야할텐데... 
+	eventSystem->Ui.insert(this);
+	hp = 100; 
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2006));
 	effect->Init({ GetWorldLocation().x +100 ,GetWorldLocation().y + 300}, 1.3f,true); //이펙트 생성
 }
@@ -44,4 +48,20 @@ void Sculpture::Hit(float damage, float knockback)
 
 void Sculpture::Heal(float heal)
 {
+}
+
+void Sculpture::OnClick()
+{
+	if(gameManager->isBattle ==false)
+		gameManager->events[Event::OpenGodStore]();
+}
+
+void Sculpture::OnMouse()
+{
+	GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/Statue_OnMouse.png");
+}
+
+void Sculpture::OutMouse()
+{
+	GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/Statue_Nomal.png");
 }

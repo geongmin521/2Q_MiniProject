@@ -6,28 +6,57 @@
 #include "Transform.h"
 #include "DOTween.h"
 #include "Artifact.h"
+#include "GameManager.h"
+#include "D2DFont.h"
 
 Compensation::Compensation() 
 {
-	float LPad = 200; 
+	float LPad = 100; 
 	//배경
-	Make(Image)(L"BigBack.png").setPosition({ LPad , 100 }).setScale({2,2}).setParent(this->transform);
+	Make(Image)(L"UI/Pop_up/Popup_SpecialReward.png").setPosition({ LPad , 100 }).setParent(this->transform);
 
-	Make(Button)(L"smallBack.png", [this]() {compensationId = 1; btn->SetInteractive(true); }). //두번째웨이브일때는 그냥 아이디 3만 더해주기
-		AddText(L"석궁 공격력 강화", 20, 0, -100).
-		AddText(L"석궁 캐릭터의 \n공격력이 소폭\n 증가한다", 20, 0, 100).
-		setPos_Parent({ -100, 0 }, transform);
-	Make(Button)(L"smallBack.png", [this]() {compensationId = 2; btn->SetInteractive(true); }).
-		AddText(L"성수 공격 속도 강화", 20, 0, -100).
-		AddText(L"성수 캐릭터의 \n공격속도가 소폭\n 증가한다", 20, 0, 100).
-		setPos_Parent({ 0, 0 }, transform);
-	Make(Button)(L"smallBack.png", [this]() {compensationId = 3; btn->SetInteractive(true); }).
-		AddText(L"십자가 회복 강화", 20, 0, -100).
-		AddText(L"십자가 캐릭터의 \n회복력이 소폭\n 증가한다", 20, 0, 100).
-		setPos_Parent({ 100, 0 }, transform);
+	//csv로 타입 받아서 만들기.. 
+	for (int i = 0; i < 3; i++)
+		name[i] = new D2DFont(L""); //이걸 그냥 더해버리면.. 사이즈를 내가 다해야함? 
+	for (int i = 0; i < 3; i++)
+		explain[i] = new D2DFont(L"");
+	for (int i = 0; i < 3; i++)
+	{
+		Make(Button)(L"Frame", [this,i]() {compensationId = i; btn->SetInteractive(true); }). //두번째웨이브일때는 그냥 아이디 3만 더해주기
+			AddComponent(name[i]).
+			AddComponent(explain[i]).
+			setPos_Parent({ LPad - 100 * i, 0 }, transform);
+	}
+	
 	//보상확정 버튼 
-	Make(Button)(L"ImageBack.png", [this]() {GetCompensation(); }).setPos_Parent_Text({ LPad + 500, 300 }, this->transform, L"선택 완료", 20).Get(btn);
+	Make(Button)(L"Commit", [this]() {
+		bool special = false;
+		if (gameManager->curWaveId == 3 || gameManager->curWaveId == 6)
+			special = true; 
+		GetCompensation(special); 
+		}).
+		setPos_Parent_Text({ LPad + 500, 300 }, this->transform, L"선택 완료", 20).Get(btn);
 	SetActive(false);
+
+	//내일 아 csv를 오늘부터 테스트하고 넘겨야할듯. 
+	texts.push_back(L"성수의 공격력이 증가합니다."); //나중에 csv 한글 텍스트 읽는거 테스타하기 그 인코딩이 유니-8 csv인듯
+	texts.push_back(L"말뚝의 공격력이 증가합니다.");
+	texts.push_back(L"석궁의 공격력이 증가합니다.");
+	texts.push_back(L"십자가의 회복량이 증가합니다.");
+	texts.push_back(L"성수 캐릭터의 체력이 증가합니다.");
+	texts.push_back(L"말뚝 캐릭터의 체력이 증가합니다.");
+	texts.push_back(L"석궁 캐릭터의 체력이 증가합니다.");
+	texts.push_back(L"십자가 캐릭터의 체력이 증가합니다.");
+	texts.push_back(L"성수 캐릭터의 공격 속도가 증가합니다.");
+	texts.push_back(L"말뚝 캐릭터의 공격 속도가 증가합니다.");
+	texts.push_back(L"석궁 캐릭터의 공격 속도가 증가합니다.");
+	texts.push_back(L"십자가 캐릭터의 회복 속도가 증가합니다.");
+	texts.push_back(L"일정 시간 동안 적들에게 추가 지속 피해를 입힙니다.");
+	texts.push_back(L"신앙심의 획득량이 증가합니다.");
+	texts.push_back(L"내 모든 캐릭터의 공격 사거리가 증가합니다.");
+	texts.push_back(L"내 모든 캐릭터의 넉백 수치가 증가합니다.");
+	texts.push_back(L"적들의 공격 속도가 감소합니다.");
+	texts.push_back(L"적들의 이동 속도가 줄어듭니다.");
 }
 
 Compensation::~Compensation() //버튼누르면 현재 보상 아이디를 저장하고 있다가 확정하면 아키펙트 매니저한테 전해주기

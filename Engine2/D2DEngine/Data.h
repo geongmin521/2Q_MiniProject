@@ -44,6 +44,9 @@ struct ArtifactData
     int id;
     std::string type;
     std::string name;
-    std::string tenant;
-    std::string ability;
+    std::string target; //효과가 적용되는 대상
+    std::string part; //효과가 적용되는 부위
+    float power;
+    std::string nameText;
+    std::string explainText;
 };

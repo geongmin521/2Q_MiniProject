@@ -18,7 +18,6 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::PileHitted, false, "../Data/Sound/Tower/PileHitted.wav");
 
 	SceneManager::GetInstance().get()->ChangeScene(new TitleWorld); 
-
 } 
 
 void DemoGameApp::Run()
