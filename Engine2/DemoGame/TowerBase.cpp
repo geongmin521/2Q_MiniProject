@@ -334,6 +334,10 @@ void TowerBase::Hit(float damage, float knockback)
 	{
 		Music::soundManager->PlayMusic(Music::eSoundList::PileHitted, Music::eSoundChannel::TowerHitted);
 	}
+	else
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::TowerHitted, Music::eSoundChannel::TowerHitted);
+	}
 }
 
 void TowerBase::Heal(float heal)

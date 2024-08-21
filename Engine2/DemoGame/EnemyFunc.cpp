@@ -9,6 +9,8 @@
 #include "Transform.h"
 void EnemyFunc::NormalAttack(GameObject* target, float Damage)
 {
+	if (target == nullptr)
+		return;
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
 	nofity->Hit(Damage);
 }

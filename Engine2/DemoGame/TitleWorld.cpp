@@ -11,8 +11,10 @@
 #include "EventSystem.h"
 #include "CollisionManager.h"
 
+#include "Music.h"
 TitleWorld::TitleWorld()
 {
+	Music::soundManager->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
 }
 
 TitleWorld::~TitleWorld() 

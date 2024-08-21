@@ -116,7 +116,7 @@ void EnemyBase::Update(float deltaTime)
 
 		if (damageTimer >= 1.f)
 		{
-			curHP -= 5.f;
+			Hit(5.f);
 			damageTimer = 0.f;
 		}
 		if (ticTime > 5.f)
