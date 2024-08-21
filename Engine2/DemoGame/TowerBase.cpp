@@ -183,7 +183,8 @@ void TowerBase::Update(float deltaTime)
 	__super::Update(deltaTime);
 
 	//transform->SetRelativeScale({ testEffect, testEffect });
-
+	if(towerData.Type == "Crossbow")
+		std::cout << curSpeed << std::endl;
 	if (towerData.Type == "Hidden")
 	{
 		float X = GetComponent<Animation>()->CenterPos.x;

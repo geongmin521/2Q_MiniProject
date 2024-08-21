@@ -15,8 +15,8 @@ Artifact::Artifact()	//진짜 화나네.. 이따구로 해놓고 다했다는건가? 적용은 시켜본
 }
 
 Artifact::~Artifact()
-
 {
+	
 }
 
 void Artifact::SelectArtifact(int id)
@@ -28,6 +28,12 @@ void Artifact::SelectArtifact(int id)
 		Make(ArtifactObject)(id, 60.f * ownedArtifact.size(), 80);
 	}
 	//아티팩트 csv이름이랑 이미지 이름 일치시키기
+}
+void Artifact::ResetStat(artifactPower power)
+{
+	power.atkLevel = 0;
+	power.spdLevel = 0;
+	power.hpLevel = 0;
 }
 // 스탯이 언제 올라가야할지 모르겠어서 고정 값 대입
 
