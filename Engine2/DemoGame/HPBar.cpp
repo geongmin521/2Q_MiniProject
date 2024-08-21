@@ -60,7 +60,6 @@ void HPBar::Update(float deltaTime)
 		float origin = hpBar->bitmap->GetSize().width * Scale;     // 원래 크기
 		float newOrigin = origin * scaleX;
 		float move = (origin - newOrigin) / 2.0f;
-		GetComponent<Bitmap>().
 		// 1. 스케일 조정 (중앙 기준)
 		transform->SetRelativeScale({ scaleX * Scale, 1}); 
 		// 2. 왼쪽 기준으로 위치 보정

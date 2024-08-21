@@ -228,7 +228,7 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	if (hitEffct == false && isBlurEffect == false)
 	{
 		if(towerData.Type != "Hidden")
-		__super::Render(pRenderTargetm,alpha);
+		__super::Render(pRenderTarget,alpha);
 	}
 	else if(hitEffct == true && isBlurEffect == false)
 	{
