@@ -43,7 +43,7 @@ void D2DFontManager::LoadFont(std::wstring fontFilePath, std::wstring fontName)
 
 	if (fontMap.find(fontName) != fontMap.end())
 	{
-		MessageBoxW(nullptr, L"Font with the specified name already exists.", L"Error", MB_OK);
+//		MessageBoxW(nullptr, L"Font with the specified name already exists.", L"Error", MB_OK);
 		return;
 	}
 
