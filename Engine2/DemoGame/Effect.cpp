@@ -23,6 +23,7 @@ Effect::~Effect()
 }
 
 void Effect::Init(MathHelper::Vector2F location,float _scale,bool loop)
+{
 //GetComponent<Bitmap>()->LoadD2DBitmap(L"..\\Data\\Image\\" + imagePath);
 	transform->SetRelativeScale({ _scale,_scale });
 	transform->SetRelativeLocation(location);
