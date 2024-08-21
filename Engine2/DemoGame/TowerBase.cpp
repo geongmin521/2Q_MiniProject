@@ -25,7 +25,7 @@
 #include "ColorMatrixEffect.h"
 #include "Music.h"
 #include "PointSpecularEffect.h"
-
+#include "DataManager.h"
 #include "Map.h"	
 
 TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하고..  //오브젝트 풀에서도 init을하고 줘야할거같은데.. 
@@ -48,7 +48,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	prevHp = towerData.HP;
 	maxHP = towerData.HP;
 	curSpeed = towerData.attackSpeed;
-
+	knockBack = towerData.knockBack;
 
 	if (towerData.Type == "Pile")
 	{
@@ -125,40 +125,54 @@ void TowerBase::StatUpdate()
 	// 일단 값 때려 넣기
 	if (towerData.Type == "Water")
 	{
-		curHP = (prevHp + (artifact->WaterPower.hpLevel * 20));
-		maxHP = towerData.HP + (artifact->WaterPower.hpLevel * 20);
+		curHP = (prevHp + (artifact->WaterPower.hpLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::WaterHpUp)).power));
+		maxHP = towerData.HP + (artifact->WaterPower.hpLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::WaterHpUp)).power);
 		hpbar->Init(maxHP);
-		curSpeed = (towerData.attackSpeed + (artifact->WaterPower.spdLevel * 0.2));
+		curSpeed = (towerData.attackSpeed - (artifact->WaterPower.spdLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::WaterSpeedUp)).power));
+		if (curSpeed < 0)
+			curSpeed = 0;
+
 	}
 	else if (towerData.Type == "Pile")
 	{
-		curHP = (prevHp + (artifact->PilePower.hpLevel * 20));
-		maxHP = towerData.HP + (artifact->PilePower.hpLevel * 20);
+		curHP = (prevHp + (artifact->PilePower.hpLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::PileHpUp)).power));
+		maxHP = towerData.HP + (artifact->PilePower.hpLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::PileHpUp)).power);
 		hpbar->Init(maxHP);
-		curSpeed = (towerData.attackSpeed + (artifact->PilePower.spdLevel * 0.2));
+		curSpeed = (towerData.attackSpeed - (artifact->PilePower.spdLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::PileSpeedUp)).power));
+		if (curSpeed < 0)
+			curSpeed = 0;
+
 	}
 	else if (towerData.Type == "Crossbow")
 	{
-		curHP = (prevHp + (artifact->BowPower.hpLevel * 20));
-		maxHP = towerData.HP + (artifact->BowPower.hpLevel * 20);
+		curHP = (prevHp + (artifact->CrossbowPower.hpLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::BowHpUp)).power));
+		maxHP = towerData.HP + (artifact->CrossbowPower.hpLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::BowHpUp)).power);
 		hpbar->Init(maxHP);
-		curSpeed = (towerData.attackSpeed + (artifact->BowPower.spdLevel * 0.2));
+		curSpeed = (towerData.attackSpeed - (artifact->CrossbowPower.spdLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::BowSpeedUp)).power));
+		if (curSpeed < 0)
+			curSpeed = 0;
+
 	}
 	else if (towerData.Type == "HolyCross")
 	{
-		curHP = (prevHp + (artifact->HolyPower.hpLevel * 20));
-		maxHP = towerData.HP + (artifact->HolyPower.hpLevel * 20);
+		curHP = (prevHp + (artifact->HolyPower.hpLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::HolyHpUp)).power));
+		maxHP = towerData.HP + (artifact->HolyPower.hpLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::HolyHpUp)).power);
 		hpbar->Init(maxHP);
-		curSpeed = (towerData.attackSpeed + (artifact->HolyPower.spdLevel * 0.2));
+		curSpeed = (towerData.attackSpeed - (artifact->HolyPower.spdLevel * dataManager->getArtifactData(static_cast<int>(ArtifactId::HolySpeedUp)).power));
+		if (curSpeed < 0)
+			curSpeed = 0;
+		
 	}
 	if (artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
 	{
-		GetComponent<CircleCollider>()->circle->radius = towerData.attackRange + artifact->Range;
+		ArtifactData art = dataManager->getArtifactData(static_cast<int>(ArtifactId::SilverRing));
+		GetComponent<CircleCollider>()->circle->radius = towerData.attackRange + art.power;
 	}
 
 	if (artifact->isOwned(static_cast<int>(ArtifactId::Laurel)))
 	{
-
+		ArtifactData art = dataManager->getArtifactData(static_cast<int>(ArtifactId::Laurel));
+		knockBack = towerData.knockBack + art.power;
 	}
 }
 
@@ -169,7 +183,8 @@ void TowerBase::Update(float deltaTime)
 	__super::Update(deltaTime);
 
 	//transform->SetRelativeScale({ testEffect, testEffect });
-
+	if(towerData.Type == "Crossbow")
+		std::cout << curSpeed << std::endl;
 	if (towerData.Type == "Hidden")
 	{
 		float X = GetComponent<Animation>()->CenterPos.x;

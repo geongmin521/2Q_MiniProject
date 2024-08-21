@@ -5,14 +5,18 @@
 #include "circle.h"
 #include "Transform.h"
 #include "Artifact.h"
+#include "DataManager.h"
 
 void CommonFunc::FindTarget(CircleCollider& myCol, std::string tag, std::vector<GameObject*>& target, float Range) //단일 타겟 검색
 {
 	target.clear();
 	GameObject* enemy = nullptr;
 	int minDistance = INT_MAX;
-	if (myCol.owner->name == "Tower")
-		Range += artifact->Range;
+	if (myCol.owner->name == "Tower" && artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
+	{
+		ArtifactData art = dataManager->getArtifactData(static_cast<int>(ArtifactId::SilverRing));
+		Range += art.power;
+	}
 	for (auto& tragetCol : myCol.collideStatePrev)
 	{
 		if (tragetCol->owner->name == tag && tragetCol->owner->GetActive() == true)
@@ -33,8 +37,11 @@ void CommonFunc::FindTarget(CircleCollider& myCol, std::string tag, std::vector<
 void CommonFunc::FindTargets(CircleCollider& myCol, std::string tag, std::vector<GameObject*>& targets, float Range) //여러 타겟 검사하기
 {
 	targets.clear();
-	if (myCol.owner->name == "Tower")
-		Range += artifact->Range;
+	if (myCol.owner->name == "Tower" && artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
+	{
+		ArtifactData art = dataManager->getArtifactData(static_cast<int>(ArtifactId::SilverRing));
+		Range += art.power;
+	}
 	for (auto& tragetCol : myCol.collideStatePrev) 
 	{
 		if (tragetCol->owner->name == tag && tragetCol->owner->GetActive() == true)

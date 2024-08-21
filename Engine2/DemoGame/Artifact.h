@@ -36,23 +36,15 @@ class Artifact : public SingletonBase<Artifact>
 		int spdLevel = 0;
 		int hpLevel = 0;
 
-
 		void increaseAtk() { atkLevel++; }
 		void increaseHp() { hpLevel++; }
 		void increaseSpd() { spdLevel++; }
 	};
 public:
 	artifactPower WaterPower;
-	artifactPower BowPower;
+	artifactPower CrossbowPower;
 	artifactPower HolyPower;
 	artifactPower PilePower;
-
-	ArtifactData artifactData;
-
-	float knockback = 0.f;
-	float Range = 0.f;
-
-	Image* m_Image;
 
 	std::unordered_map<int, std::function<void()>> levelUpActions;
 
@@ -62,6 +54,9 @@ public:
 	void levelUp(int id);
 	bool isOwned(int id);
 	void SelectArtifact(int id);
+
+	void ResetStat(artifactPower power);
+
 	std::vector<int> ownedArtifact;
 
 };

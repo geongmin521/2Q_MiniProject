@@ -18,7 +18,7 @@ void TowerFunc::FireBullet(TowerBase* my,GameObject* target, MathHelper::Vector2
 	}
 	else
 	{
-		my->cooldown = my->towerData.attackSpeed;  //원거리타워 공격중 적죽으면 바로 다시 공격하게해달래서 추가
+		my->cooldown = my->curSpeed;  //원거리타워 공격중 적죽으면 바로 다시 공격하게해달래서 추가
 	}
 }
 
@@ -46,8 +46,8 @@ void TowerFunc::MeleeAttack(GameObject* my,std::vector<GameObject*>& targets)
 	{		
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
 		if (enemy != nullptr)
-		{
-			damageEnemy->Hit(Utility::CalCul(myTower->towerData.Type, damageEnemy->enemyData.Type, myTower->towerData.ATK + (artifact->PilePower.atkLevel * 2)), myTower->towerData.knockBack + artifact->knockback);
+		{			
+			damageEnemy->Hit(Utility::CalCul(myTower->towerData.Type, damageEnemy->enemyData.Type, myTower->towerData.ATK + (artifact->PilePower.atkLevel * 2)), myTower->knockBack);
 		}
 	}
 }
