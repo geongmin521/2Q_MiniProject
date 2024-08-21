@@ -32,7 +32,7 @@ public:
 		case EffectId::Water: return L"Water";
 		case EffectId::Summon: return L"Summon";
 		case EffectId::BatBoom: return L"BatBoom";
-		case EffectId::BossKoong: return L"Boss";
+		case EffectId::BossKoong: return L"BossKoong";
 		case EffectId::Place: return L"Place";
 		default: return L"";
 		}

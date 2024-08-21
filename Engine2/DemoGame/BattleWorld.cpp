@@ -66,8 +66,7 @@ void BattleWorld::MakeUI()
 		}, ButtonType::Active).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
 
 	// 테스트용 아티팩트 소환
-
-	Make(Button)(L"Resume", [this]() {	int a = Utility::RandomBetween(501, 517); artifact->SelectArtifact(510); }, ButtonType::Active).setPosition({WinSizeX -330, 150});
+	//Make(Button)(L"Resume", [this]() {	int a = Utility::RandomBetween(501, 517); artifact->SelectArtifact(510); }, ButtonType::Active).setPosition({WinSizeX -330, 150});
 
 	TimeScaleButton[0]->SetIsEnable(false);
 	TimeScaleButton[2]->SetIsEnable(false);
