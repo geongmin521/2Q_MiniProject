@@ -42,15 +42,15 @@ void Artifact::Init()
 	// 단순 스탯 증가만
 	levelUpActions[500] = [this]() { WaterPower.increaseAtk(); };
 	levelUpActions[501] = [this]() { PilePower.increaseAtk(); };
-	levelUpActions[502] = [this]() { BowPower.increaseAtk(); };
+	levelUpActions[502] = [this]() { CrossbowPower.increaseAtk(); };
 	levelUpActions[503] = [this]() { HolyPower.increaseAtk(); };
 	levelUpActions[504] = [this]() { WaterPower.increaseHp(); };
 	levelUpActions[505] = [this]() { PilePower.increaseHp(); };
-	levelUpActions[506] = [this]() { BowPower.increaseHp(); };
+	levelUpActions[506] = [this]() { CrossbowPower.increaseHp(); };
 	levelUpActions[507] = [this]() { HolyPower.increaseHp(); };
 	levelUpActions[508] = [this]() { WaterPower.increaseSpd(); };
 	levelUpActions[509] = [this]() { PilePower.increaseSpd(); };
-	levelUpActions[510] = [this]() { BowPower.increaseSpd(); };
+	levelUpActions[510] = [this]() { CrossbowPower.increaseSpd(); };
 	levelUpActions[511] = [this]() { HolyPower.increaseSpd(); };
 	
 }

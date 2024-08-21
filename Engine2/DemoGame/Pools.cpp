@@ -65,7 +65,7 @@ GameObject* Pools::PopPool(int id)
 		else if (id == 513)
 			return Make(Arrow)("HiddenArrow","HiddenArrow", dataManager->getTowerData(12).ATK, dataManager->getTowerData(12).attackArea, DataManager::GetInstance().get()->getTowerData(512).knockBack).Get<Arrow>();
 		if(id == 601)
-			return Make(Arrow)(dataManager->getEnemyData(id - 500).name, dataManager->getEnemyData(id - 500).Type, dataManager->getEnemyData(id - 500).ATK, dataManager->getEnemyData(id - 500).ATK, DataManager::GetInstance().get()->getTowerData(0).ATK).Get<Arrow>();
+			return Make(Arrow)(dataManager->getEnemyData(id - 500).name, dataManager->getEnemyData(id - 500).Type, dataManager->getEnemyData(id - 500).ATK, 0, 0).Get<Arrow>();
 		if (id == 2000) 
 			return Make(Effect)(id, "HealEffect", "Heal").Get<Effect>();
 		if (id == 2001) 
