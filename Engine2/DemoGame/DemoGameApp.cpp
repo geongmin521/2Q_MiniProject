@@ -22,6 +22,9 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::WaveStart, false, "../Data/Sound/Interface/WaveStart.wav");	// effect1
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::TowerUpgrade, false, "../Data/Sound/Tower/TowerUpgrade.wav");	// effect1 -> 타워가 2성이나 3성으로 소환될때 + 합성할때 소리 나야해서 2번 적기?
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::PileHitted, false, "../Data/Sound/Tower/PileHitted.wav");		//  TowerHitted, -> 몬스터랑 겹침
+	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::TowerHitted, false, "../Data/Sound/Tower/TowerHitted.wav");	// 미구현
+	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::TowerDestroy, false, "../Data/Sound/Tower/TowerDestroy.wav");	// 미구현
+	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::PileHitted, false, "../Data/Sound/Tower/PileHitted.wav");		// TowerHitted
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::TowerReplace, false, "../Data/Sound/Tower/TowerReplace.mp3");	// effect1 
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::CrossbowAttack, false, "../Data/Sound/Tower/ArrowAttack.mp3");	// TowerAttack
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::WaterAttack, false, "../Data/Sound/Tower/WaterAttack.mp3");	// TowerAttack
@@ -29,11 +32,10 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
     Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HolyCrossAttack, false, "../Data/Sound/Tower/Heal.mp3");	            // TowerAttack
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::CrossbowEffect, false, "../Data/Sound/Tower/ArrowEffect.mp3");	// TowerEffect
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::WaterEffect, false, "../Data/Sound/Tower/WaterEffect.mp3");	// TowerEffect
+	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HiddenEffect, false, "../Data/Sound/Tower/HiddenEffect.wav");	
 	
 
 	SceneManager::GetInstance().get()->ChangeScene(new IntroWorld); //인트로 추가해달래서
-    SetCustomCursor(hInstance, L"..\\Data\\Image\\2Star.bmp");
-    
 } 
 
 void DemoGameApp::Run()

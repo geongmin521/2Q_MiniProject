@@ -40,6 +40,8 @@ namespace Music
         WaveStart,
         TowerUpgrade,
         PileHitted,
+        TowerHitted,
+        TowerDestroy,
         TowerReplace,   
         CrossbowAttack,
         WaterAttack,
