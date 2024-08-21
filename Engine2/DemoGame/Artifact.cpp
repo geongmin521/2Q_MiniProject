@@ -5,8 +5,9 @@
 #include "Dotween.h"
 #include "TowerBase.h"
 #include "DataManager.h"
+#include "ArtifactObject.h"
 
-Artifact::Artifact()//진짜 화나네.. 이따구로 해놓고 다했다는건가? 적용은 시켜본건가? 
+Artifact::Artifact()	//진짜 화나네.. 이따구로 해놓고 다했다는건가? 적용은 시켜본건가? 
 {
 	//dataManager->CSVReader(L"ArtifactData");
 	// csv 없음 값 강제로 대입함
@@ -21,7 +22,10 @@ Artifact::~Artifact()
 void Artifact::SelectArtifact(int id)
 {
 	ownedArtifact.push_back(id);
+	
 	levelUp(id);
+	Make(ArtifactObject)(id, 25.f * ownedArtifact.size(), 80);
+
 	//아티팩트 csv이름이랑 이미지 이름 일치시키기
 }
 int Artifact::bibleGold(int gold)
@@ -57,8 +61,8 @@ void Artifact::Init()
 
 void Artifact::levelUp(int id)
 {
-	std::wstring original = L"Artifact/" + Utility::convertFromString(dataManager->getArtifactData(id).filePath) + L".png";
-	Make(Image)(original).setScale({ 0.5f ,0.5f }).setPosition({ 50.f * ownedArtifact.size() ,100 });
+	//std::wstring original = L"Artifact/" + Utility::convertFromString(dataManager->getArtifactData(id).filePath) + L".png";
+	//Make(Image)(original).setScale({ 0.5f ,0.5f }).setPosition({ 50.f * ownedArtifact.size() ,100 });
 
 	auto action = levelUpActions.find(id);
 	if (action != levelUpActions.end()) 

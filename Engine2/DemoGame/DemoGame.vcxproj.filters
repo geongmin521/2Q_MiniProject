@@ -142,6 +142,9 @@
     <ClInclude Include="Sculpture.h">
       <Filter>Map</Filter>
     </ClInclude>
+    <ClInclude Include="ArtifactObject.h">
+      <Filter>Artifact</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">
@@ -240,6 +243,9 @@
     </ClCompile>
     <ClCompile Include="Sculpture.cpp">
       <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ArtifactObject.cpp">
+      <Filter>Artifact</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
