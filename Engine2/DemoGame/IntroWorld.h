@@ -10,7 +10,6 @@ public:
 	Image* image;
 	
 	int introNum = 0;
-
 	float elapsedTime = 0;
 	virtual void Update(float deltaTime) override;
 	void MakeObject() override;

@@ -33,8 +33,19 @@ void EnemyIdle::EnterState()
 
 void EnemyIdle::Update(float deltaTime)
 {
+	AttackTimer += deltaTime;
 	if (enemy->target.empty() == false)
 	{
+		if (enemy->enemyData.name == "BossEnemy")
+		{
+			enemy->spawnTime += deltaTime;
+			if (enemy->spawnTime > 5.f)
+			{
+				enemy->spawnTime = 0;
+				owner->SetNextState("Ability");
+				enemy->spawnTime = 0;
+			}
+		}
 		MathHelper::Vector2F targetPos = enemy->target[0]->GetWorldLocation();
 		MathHelper::Vector2F curPos = enemy->GetWorldLocation();
 		float length = (targetPos - curPos).Length();
@@ -42,8 +53,13 @@ void EnemyIdle::Update(float deltaTime)
 			enemy->target.clear();
 		if (length < enemy->enemyData.attackRange) //공격사거리 안쪽이다.
 		{
+			if (!enemy->isHited)
 			enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
-			owner->SetNextState("Attack");
+			if (enemy->enemyData.attackSpeed < AttackTimer)
+			{
+				AttackTimer = 0;
+				owner->SetNextState("Attack");
+			}
 		}
 		else
 		{
@@ -102,36 +118,13 @@ void EnemyAttack::EnterState()
 
 void EnemyAttack::Update(float deltaTime)
 {
-	AttackTimer += deltaTime;
-	if (enemy->enemyData.attackSpeed < AttackTimer) 
-	{
-		AttackTimer = 0;
-		owner->SetNextState("Attack"); 
+	if (ani->IsEnd()) 
+	{				
+		enemy->Attack();
+		owner->SetNextState("Idle");
+		enemy->target.clear();
 	}
 
-	if (enemy->enemyData.name == "BossEnemy")
-	{
-		enemy->spawnTime += deltaTime;
-		if (enemy->spawnTime > 5.f)
-		{
-			owner->SetNextState("Ability");
-			enemy->spawnTime = 0;
-		}
-	}
-	if (enemy->target.empty()) 
-	{
-		owner->SetNextState("Idle");
-		return;
-	}
-	else
-	{
-		if (ani->IsEnd()) 
-		{				
-			enemy->Attack();
-			owner->SetNextState("Idle");
-			enemy->target.clear();
-		}
-	}
 }
 
 void EnemyAttack::ExitState()

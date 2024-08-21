@@ -96,9 +96,9 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 
-	Make(HPBar)(curHP, maxHP,"Tower",true).setPosition({0 , -80}).setParent(transform).Get(hpbar);
-	Make(HPBar)(curHP, maxHP,"Tower").setPosition({0 , -80}).setParent(transform).Get(hpbar);
-	Make(TowerStar)(data.level).setPosition({ 0 , -100 }).setParent(transform);
+	Make(HPBar)(curHP, maxHP,"Tower",true).setPosition({0 , -110}).setParent(transform).Get(hpbar);
+	Make(HPBar)(curHP, maxHP,"Tower").setPosition({0 , -110}).setParent(transform).Get(hpbar);
+	Make(TowerStar)(data.level).setPosition({ 0 , -130 }).setParent(transform);
 
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");

@@ -17,9 +17,9 @@ void IntroWorld::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
 	elapsedTime += deltaTime;
-	if (elapsedTime > 2.0f)
+	if (elapsedTime > 0.3f)          //한페이지 넘기는 시간은 기획이랑 논의 
 	{
-		if(introNum > 1)
+		if(introNum > 1)           //1이 총 페이지 숫자가 될 예정
 			SceneManager::GetInstance().get()->ChangeScene(new TitleWorld);
 		else
 		{

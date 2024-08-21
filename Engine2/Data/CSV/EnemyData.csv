@@ -1,7 +1,7 @@
 적 ID,이름,레벨,타입,공격력,사거리,감지 범위,체력,공격 속도,이동 속도,특수능력
 int,string,int,string,float,float,float,float,float,float,string
 100,NormalEnemy,1,Normal,5,90,300,10,1.5,0.75,None
-101,ThrowEnemy,2,Normal,10,300,500,20,1.5,0.75,None
+101,ThrowEnemy,2,Normal,10,300,500,20,1.5,0.75,Throw
 102,BatEnemy,1,Speed,20,90,300,10,50,1.5,None
 103,BombEnemy,2,Speed,40,90,300,15,50,1.5,Destroy
 104,DeffendEnemy,1,Deffend,10,100,300,50,3,0.5,None

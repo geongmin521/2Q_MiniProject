@@ -36,7 +36,7 @@ void Pools::AddPool(GameObject* _Object)
 		PoolList[_Object->id].push_back(_Object);
 	}
 	_Object->SetActive(false);
-	_Object->transform->SetRelativeLocation({ 4000, 4000 });
+	//_Object->transform->SetRelativeLocation({ 4000, 4000 });
 }
 
 //타워는 0이시작
@@ -66,20 +66,8 @@ GameObject* Pools::PopPool(int id)
 			return Make(Arrow)("HiddenArrow","HiddenArrow", dataManager->getTowerData(12).ATK, dataManager->getTowerData(12).attackArea, DataManager::GetInstance().get()->getTowerData(512).knockBack).Get<Arrow>();
 		if(id == 601)
 			return Make(Arrow)(dataManager->getEnemyData(id - 500).name, dataManager->getEnemyData(id - 500).Type, dataManager->getEnemyData(id - 500).ATK, dataManager->getEnemyData(id - 500).ATK, DataManager::GetInstance().get()->getTowerData(0).ATK).Get<Arrow>();
-		if (id == 2000) 
-			return Make(Effect)(id, "HealEffect", "Heal").Get<Effect>();
-		if (id == 2001) 
-			return Make(Effect)(id, "CrossbowEffect", "Crossbow").Get<Effect>();
-		if (id == 2002) 
-			return Make(Effect)(id, "WaterEffect", "Water").Get<Effect>();
-		if (id == 2003)
-			return Make(Effect)(id, "SummonEffect", "Summon",93).Get<Effect>();
-		if (id == 2004)
-			return Make(Effect)(id, "BatBoomEffect", "BatBoom").Get<Effect>();
-		if (id == 2005)
-			return Make(Effect)(id, "BossKoong", "Boss").Get<Effect>();
-		if (id == 2006)
-			return Make(Effect)(id, "Place", "Place",93).Get<Effect>();
+		if (id >2000 || id < 2100) 
+			return Make(Effect)(id).Get<Effect>();
 	}
 }
 

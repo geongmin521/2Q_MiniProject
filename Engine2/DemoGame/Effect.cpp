@@ -6,10 +6,12 @@
 #include "Pools.h"
 #include "Effect.h"
 
-Effect::Effect(int id, std::string imagepath, std::string csvpath,int renderOrder)
+Effect::Effect(int id)
 {
+	std::wstring effect = idtoString(static_cast<EffectId>(id));
 	this->id = id;
-	AddComponent(new Animation(L"..\\Data\\Image\\Effect\\" + Utility::convertFromString(imagepath) + L".png", L"..\\Data\\CSV\\Effect\\" + Utility::convertFromString(csvpath) + L".csv"));
+	AddComponent(new Animation(L"..\\Data\\Image\\Effect\\" + effect + L"Effect.png", L"..\\Data\\CSV\\Effect\\" + effect + L".csv"));
+	renderOrder = 102;
 	GetComponent<Animation>()->SetAnimation(0, false, false);
 	this->renderOrder = renderOrder;
 }
