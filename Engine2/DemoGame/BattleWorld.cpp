@@ -24,14 +24,13 @@
 #include "Artifact.h"
 #include "TowerBase.h"
 #include "Music.h"
-
 #include "D2DFontManager.h"
 
 BattleWorld::BattleWorld()
 {	
 	// 낮 밤 바뀌는거 물어볼 것 따로 변수가 있는지?
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
-	artifact->SelectArtifact(501);
+	//artifact->SelectArtifact(501);
 }
 
 BattleWorld::~BattleWorld()
@@ -81,6 +80,24 @@ void BattleWorld::MakeUI()
 void BattleWorld::RegisterEvent()
 {
 	gameManager->events[Event::EndWave] = [this]() { //웨이브 종료시 함수
+
+		artifact->SelectArtifact(501);
+		artifact->SelectArtifact(502);
+		artifact->SelectArtifact(503);
+		artifact->SelectArtifact(504);
+		artifact->SelectArtifact(505);
+		artifact->SelectArtifact(506);
+		artifact->SelectArtifact(507);
+		artifact->SelectArtifact(508);
+		artifact->SelectArtifact(509);
+		artifact->SelectArtifact(510);
+		artifact->SelectArtifact(511);
+		artifact->SelectArtifact(512);
+		artifact->SelectArtifact(513);
+		artifact->SelectArtifact(514);
+		artifact->SelectArtifact(515);
+		artifact->SelectArtifact(516);
+		artifact->SelectArtifact(517);
 		shop->GetSwapButton()->SetInteractive(true);
 		shop->init();
 		gameManager->chance = 1;
