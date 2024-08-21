@@ -31,6 +31,7 @@ BattleWorld::BattleWorld()
 {	
 	// 낮 밤 바뀌는거 물어볼 것 따로 변수가 있는지?
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
+	artifact->SelectArtifact(501);
 	//Music::soundManager->GetInstance()->SetVolume(0.1f, Music::eSoundChannel::BGM);
 }
 
@@ -45,7 +46,7 @@ void BattleWorld::MakeObject()
 	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\Maplestory Bold.ttf", L"Map");
 
 	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //효과를 위한 오파시티 맵
-	Make(Image)(L"UI/mainUI/MainFrame.png").setScale({ 0.75f,0.75f }).setRenderOrder(-90).setPosition(WinHalfSizeXY); //UI 프레임
+	Make(Image)(L"UI/mainUI/MainFrame.png").setScale({ 0.75f,0.75f }).AddText(L"0",80,-430,260).setRenderOrder(-90).setPosition(WinHalfSizeXY).GetComponent<D2DFont>(goldText); //UI 프레임
 	Make(EnemySpawner)();
 	Make(Map)();
 	MakeUI();
@@ -68,7 +69,7 @@ void BattleWorld::MakeUI()
 	Make(Combination)().setScale({0.75,0.75}).setPosition(WinHalfSizeXY).Get(Objs["Combination"]);
 	Make(Shop)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get<Shop>(shop);  shop->SetOtherUI(Objs["Combination"]);
 	Make(ShowWave)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get<ShowWave>(showWave); //UI 패널들을 다시모아도될거같기도하고.. 
-	Make(Compensation)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get(Objs["Compensation"]);
+	Make(Compensation)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get(compensation);
 	Make(Button)(L"Create", [this]() { Objs["Combination"]->SetActive(true); }).setPosition(WinSizeXYAdd(-600, -100)); //조합식
 	Make(GameOver)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GameOver"]);
 	Make(Image)(L"UI/tooltip/HolyCrossTower.png").setActive(false).Get(Objs["ToolTip"]);
@@ -83,14 +84,11 @@ void BattleWorld::RegisterEvent()
 		gameManager->chance = 1;
 		shop->ChangeButton(ButtonState::TowerSpawn);
 		Objs["WaveCount"]->GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/UI/mainUI/gauge"+std::to_wstring(gameManager->WaveLevel) + L".png");
-		if (gameManager->WaveLevel == 3 || gameManager->WaveLevel == 6)
-		{
-			//Objs["Compensation"]->SetActive(true);
-		}
-		else
-		{
-			showWave->Show();
-		}
+
+		if (gameManager->WaveLevel == 3 || gameManager->WaveLevel == 6)		
+			gameManager->Compensation(true);		
+		else		
+			gameManager->Compensation(false);			
 		for (auto& it : m_GameObjects)
 		{
 			if (it && it->name == "Tower")
@@ -115,8 +113,9 @@ void BattleWorld::RegisterEvent()
 		Music::soundManager->PlayMusic(Music::eSoundList::GameOver, Music::eSoundChannel::BGM); 
 		};
 	gameManager->events[Event::OpenGodStore] = [this]() {Objs["GodStore"]->SetActive(true); };
-	gameManager->events[Event::UseGold] = [this]() { goldText->SetDialog(L"신앙심:" + std::to_wstring(gameManager->GetGold())); };
-	gameManager->Compensation = [this](bool special) { Objs["Compensation"]->SetActive(true); };
+	gameManager->events[Event::UseGold] = [this]() { goldText->SetDialog(std::to_wstring(gameManager->GetGold())); };
+	gameManager->events[Event::ShowWaveFunc] = [this]() { showWave->Show(); };
+	gameManager->Compensation = [this](bool special) { compensation->ChoseCompensation(special); compensation->SetActive(true);  };
 	gameManager->getObject = [this](std::string key) { return Objs[key]; };
 }
 void BattleWorld::TimeScaleIsClick(int num)

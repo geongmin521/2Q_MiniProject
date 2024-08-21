@@ -2,7 +2,9 @@
 #include "GameObject.h"
 class Effect : public GameObject
 {
+
 public:
+	int id;
 	Effect(int id, std::string imagepath, std::string csvpath,int renderorder = 102);
 	virtual ~Effect();
 	

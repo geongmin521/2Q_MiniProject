@@ -26,8 +26,6 @@ enum class ArtifactId
 	Mirror = 18,
 };
 
-std::wstring artifactIdToString(int id); 
-
 #define artifact Artifact::GetInstance().get()
 
 class Artifact : public SingletonBase<Artifact>
