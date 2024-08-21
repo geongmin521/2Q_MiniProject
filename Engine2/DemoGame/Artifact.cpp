@@ -47,9 +47,6 @@ void Artifact::Init()
 	levelUpActions[510] = [this]() { BowPower.increaseSpd(); };
 	levelUpActions[511] = [this]() { HolyPower.increaseSpd(); };
 	
-	// 특수 아티팩트 
-	levelUpActions[514] = [this]() { Range += 100.f; };
-	levelUpActions[515] = [this]() { knockback += 15.f; };
 }
 
 void Artifact::levelUp(int id)

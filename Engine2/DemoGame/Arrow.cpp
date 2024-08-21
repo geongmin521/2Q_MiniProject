@@ -18,8 +18,9 @@
 
 #include "World.h"
 #include "Effect.h"
-
 #include "Arrow.h"
+
+#include "Artifact.h"
 
 Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,float knockBack) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
 {
@@ -29,6 +30,12 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 	renderOrder = 101;
 	if(type != "HiddenArrow")
 	AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(name) + L"Arrow.png"));
+
+	if (artifact->isOwned(static_cast<int>(ArtifactId::Laurel)))
+	{
+		ArtifactData data = dataManager->getArtifactData(static_cast<int>(ArtifactId::Laurel));
+		knockBack += data.power;
+	}
 	//발사되는순간에 적의 위치를 받아오는게 맞지.. 
 	if (type == "Crossbow")
 	{

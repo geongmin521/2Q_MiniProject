@@ -48,10 +48,6 @@ public:
 	artifactPower PilePower;
 
 	ArtifactData artifactData;
-
-	float knockback = 0.f;
-	float Range = 0.f;
-
 	Image* m_Image;
 
 	std::unordered_map<int, std::function<void()>> levelUpActions;
