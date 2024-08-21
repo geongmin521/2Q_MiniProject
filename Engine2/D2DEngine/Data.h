@@ -43,10 +43,11 @@ struct ArtifactData
 {
     int id;
     std::string type;
+    std::string filePath;
     std::string name;
     std::string target; //효과가 적용되는 대상
     std::string part; //효과가 적용되는 부위
     float power;
-    std::string nameText;
+    std::string nameText; 
     std::string explainText;
 };

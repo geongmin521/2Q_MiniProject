@@ -57,9 +57,9 @@ void ShowWave::Update(float deltatime)
 }
 
 
-void ShowWave::Show()  //이게 보여질때 데이터 매니저한테 가져오는걸로할까 이게 제일 처음이긴할텐데.. 
+void ShowWave::Show()  
 {
-	dataManager->ChoseWave(); //오류테스트
+	dataManager->ChoseWave(); 
 	isMid = false;
 	isExit = false;
 	elapsedTime = 0;

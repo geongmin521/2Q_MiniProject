@@ -45,7 +45,6 @@ void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damag
 		}
 	}
 	
-
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2002));
 	effect->Init(myCol.owner->GetWorldLocation(), 1.0f); //이펙트 생성
 	myCol.SetCollisionType(CollisionType::NoCollision); 
@@ -55,7 +54,6 @@ void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damag
 
 void ArrowFunc::HiddenAttack(CircleCollider& myCol,float damage)
 {
-	
 	Arrow* arrow = dynamic_cast<Arrow*>(Pools::GetInstance().get()->PopPool(513)); //513만따로 히든애로우용 으로?
 	arrow->Init(myCol.owner->GetWorldLocation());
 	Pools::GetInstance().get()->AddPool(myCol.owner);
@@ -73,8 +71,6 @@ void ArrowFunc::AttackEnemys(CircleCollider& myCol, float damage, float knockBac
 			damageEnemy->Hit(damage + (artifact->WaterPower.atkLevel * 2), knockBack + artifact->knockback);
 		}
 	}
-	
-
 }
 
 

@@ -3,8 +3,9 @@
 #include "Factory.h"
 #include "Image.h"
 #include "TowerBase.h"
+#include "DataManager.h"
 
-Artifact::Artifact()
+Artifact::Artifact()//진짜 화나네.. 이따구로 해놓고 다했다는건가? 적용은 시켜본건가? 
 {
 	//dataManager->CSVReader(L"ArtifactData");
 	// csv 없음 값 강제로 대입함
@@ -29,7 +30,6 @@ int Artifact::bibleGold(int gold)
 		return gold = gold + (gold * 0.3);
 	}
 	return gold;
-	
 }
 // 스탯이 언제 올라가야할지 모르겠어서 고정 값 대입
 
@@ -56,7 +56,7 @@ void Artifact::Init()
 
 void Artifact::levelUp(int id)
 {
-	std::wstring original = L"Artifact/" + artifactIdToString(id) + L".png";
+	std::wstring original = L"Artifact/" + Utility::convertFromString(dataManager->getArtifactData(id).filePath) + L".png";
 	Make(Image)(original).setScale({ 0.5f ,0.5f }).setPosition({ 50.f * ownedArtifact.size() ,100 });
 
 	auto action = levelUpActions.find(id);
@@ -77,36 +77,3 @@ bool Artifact::isOwned(int id)
 	return false;
 }
 
-std::wstring artifactIdToString(int id)
-{
-	switch (id) {
-	case 1:
-	case 5:
-	case 9:
-		return L"Water";
-	case 2:
-	case 6:
-	case 10:
-		return L"Pile";
-	case 3:
-	case 7:
-	case 11:
-		return L"Bow";
-	case 4:
-	case 8:
-	case 12:
-		return L"Holy";
-	case 13:
-		return L"Garlic";
-	case 14:
-		return L"Bible";
-	case 15:
-		return L"SilverRing";
-	case 16:
-		return L"Laurel";
-	case 17:
-		return L"Wine";
-	case 18:
-		return L"Mirror";
-	}
-}
