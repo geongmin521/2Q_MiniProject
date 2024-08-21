@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EventSystem.h"
+#include "GameManager.h"
 #include "InputSystem.h"
 #include "IClickAble.h"
 #include "IDragAble.h"
@@ -8,6 +9,11 @@
 #include "IDoubleClickAble.h"
 #include "UI.h"
 #include "AABB.h"
+
+EventSystem::EventSystem()
+{
+	gameManager->Reset.push_back([this]() { reset(); });
+}
 
 void EventSystem::reset()
 {

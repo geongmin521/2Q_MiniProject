@@ -25,7 +25,7 @@ Button::Button(std::wstring imagePath, std::function<void(void)> func ,ButtonTyp
 	}
 	else if (type == ButtonType::Single)
 	{
-		path = L"../Data/Image/UI/Button/" + imagePath;
+		path = L"../Data/Image/UI/Button/" + imagePath + L".png";
 		Click = [this]() { Single(); };
 	}
 

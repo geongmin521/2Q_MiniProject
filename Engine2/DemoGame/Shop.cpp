@@ -39,7 +39,7 @@ Shop::Shop()
 	Make(Button)(L"CS", []() {}).setPosition(WinSizeXYAdd(-200, -100)).setScale({ 0.9,0.9 }).Get<Button>(shop_spawnButton);
 
 	for (int i = 0; i < 4; i++) //타워 인벤
-		Make(Container)(i).setPosition({ 400.0f + i * 150, WinSizeY - 100 }).Get<Container>(Containers);
+		Make(Container)(i).setPosition({ 475.0f + i * 150, WinSizeY - 100 }).Get<Container>(Containers);
 	child->SetActive(false); ChangeButton(ButtonState::TowerSpawn); shop_spawnButton->SetInteractive(true);
 
 }
@@ -185,8 +185,7 @@ void Shop::MakeText(int order, int count)
 		if (Text != L"") 
 			Text += L"+";
 		compensationList.push_back(order * 3 + 0);
-		compensationList.push_back(order * 3 + 0);
-		Text += L"1성" + TowerName[order] + L"2개"; 
+		Text += L"1성" + TowerName[order] + L"1개"; 
 	}
 	else if (count == 3)
 	{

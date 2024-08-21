@@ -30,7 +30,7 @@ Map::Map()
 	D2DEffectManager::GetInstance()->CreateCrossFadeEffect(L"MapFade", afternoonBitmap->bitmap, nightBitmap->bitmap);
 
 	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
-	int LPad = 400;
+	int LPad = 475;
 	int TopPadding = 300;	
 	float gridSize = 150;
 	for (int i = 0; i < 4; i++)	
@@ -41,9 +41,10 @@ Map::Map()
 				setPosition({ LPad + i * (gridSize +10) + zigzag, TopPadding + j * (gridSize+30) }).
 				Get<Container>();
 		}			
-	for (int i = 0; i < 4; i++)
-		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(i * 3));
-	grid[0][1]->OnDrop(Pools::GetInstance().get()->PopPool(12));
+	int order[4] = { 0,1,3,2 };
+	for(int i=0;i< 4;i++)
+		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(order[i]*3));
+	grid[1][2]->OnDrop(Pools::GetInstance().get()->PopPool(12));
 
 	Make(Sculpture)().setPosition({ 113 + 117 / 2, 374 + 176 / 2 }).setScale({ 0.75f,0.75f });
 }

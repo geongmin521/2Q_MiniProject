@@ -20,8 +20,8 @@ public:
 	int dragThresholdX;
 	int dragThresholdY;
 
-	EventSystem() = default;
-	~EventSystem() = default;
+	EventSystem();
+	virtual ~EventSystem() = default;
 	virtual void reset() override;
 	std::set<GameObject*> Ui; 
 	IDragAble* curDrag;
@@ -37,7 +37,5 @@ public:
 	void ClickEvent();
 	void DoubleClickEvent();
 	void OnMouseEvent();
-
-	
 };
 

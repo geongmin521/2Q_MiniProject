@@ -70,12 +70,12 @@ void D2DFont::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 	pRenderTarget->GetTransform(&Transform);
 	D2D1_MATRIX_3X2_F finalTransform = Transform * D2D1::Matrix3x2F::Translation(Pos.x, Pos.y);
 
-#if(_DEBUG)
+#if(_DEBUG) //디버그 모드일대 텍스트 위치가 다름
 		D2D1_RECT_F FontRect = { Pos.x , Pos.y, BoxSize.width + Pos.x , BoxSize.height+ Pos.y };
 		pRenderTarget->SetTransform(finalTransform); // 고민사항
 		pRenderTarget->DrawRectangle(FontRect, FontBrush, 2.f);
 #endif
-		//pRenderTarget->SetTransform(finalTransform); // 고민사항
+		pRenderTarget->SetTransform(finalTransform); // 고민사항
 		pRenderTarget->DrawTextLayout(Pos, DWriteTextLayout, FontBrush, D2D1_DRAW_TEXT_OPTIONS_NONE);
 	
 		//pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity()); // 렌더 통해서 안그려서 그런가?

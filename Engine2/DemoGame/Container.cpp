@@ -29,7 +29,9 @@ void Container::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	if (gameManager->isBattle == true)
 		return;//전투중에는 그리지않음
 	__super::Render(pRenderTarget, Alpha);
+#if(_DEBUG) 
 	D2DRenderer::GetInstance()->DrawAABB(*boundBox); 
+#endif
 }
 
 void Container::Update(float deltaTime)
@@ -46,7 +48,7 @@ bool Container::OnDrop(GameObject* ui)
 		return false;
 	tower->container = this;
 	isContain = true;
-	ui->transform->SetRelativeLocation(transform->GetWorldLocation());
+	ui->transform->SetRelativeLocation({ transform->GetWorldLocation().x, transform->GetWorldLocation().y - 50 });
 	return true;
 }
 

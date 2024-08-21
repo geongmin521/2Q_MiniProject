@@ -55,9 +55,9 @@ void BattleWorld::MakeObject()
 void BattleWorld::MakeUI()
 {
 	Make(GodStore)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GodStore"]);
-	Make(Button)(L"Pause", [this]() {timeManager->SetTimeScale(0); TimeScaleIsClick(0); }, ButtonType::Active).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
-	Make(Button)(L"Resume",[this]()  {timeManager->SetTimeScale(1); TimeScaleIsClick(1); }, ButtonType::Active).setPosition({ WinSizeX - 210, 75 }).Get(TimeScaleButton[1]);
-	Make(Button)(L"Multi",[this]() {timeManager->SetTimeScale(2); TimeScaleIsClick(2); }, ButtonType::Active).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
+	Make(Button)(L"Pause", [this]() {timeManager->SetTimeScale(0); TimeScaleIsClick(0); }, ButtonType::Single).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
+	Make(Button)(L"Resume",[this]()  {timeManager->SetTimeScale(1); TimeScaleIsClick(1); }, ButtonType::Single).setPosition({ WinSizeX - 210, 75 }).Get(TimeScaleButton[1]);
+	Make(Button)(L"Multi",[this]() {timeManager->SetTimeScale(2); TimeScaleIsClick(2); }, ButtonType::Single).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
 	TimeScaleButton[0]->SetIsEnable(false);
 	TimeScaleButton[2]->SetIsEnable(false);
 
@@ -117,8 +117,14 @@ void BattleWorld::TimeScaleIsClick(int num)
 	for (int i = 0; i < 3; i++)
 	{
 		if (i == num)
+		{
+			TimeScaleButton[i]->SetIsEnable(true);
 			continue;
-		TimeScaleButton[i]->SetIsEnable(false);
+		}
+		else
+		{
+			TimeScaleButton[i]->SetIsEnable(false);
+		}	
 	}
 }
 
