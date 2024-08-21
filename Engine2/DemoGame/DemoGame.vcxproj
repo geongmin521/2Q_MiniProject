@@ -157,6 +157,7 @@
     <ClInclude Include="GodStore.h" />
     <ClInclude Include="HPBar.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="IntroWorld.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Pools.h" />
     <ClInclude Include="Sculpture.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="GodStore.cpp" />
     <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="IntroWorld.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Pools.cpp" />
     <ClCompile Include="Sculpture.cpp" />

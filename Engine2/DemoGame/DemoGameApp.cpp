@@ -3,6 +3,7 @@
 #include "Music.h"
 #include "SceneManager.h"
 #include "TitleWorld.h"
+#include "IntroWorld.h"
 
 
 
@@ -30,7 +31,7 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::WaterEffect, false, "../Data/Sound/Tower/WaterEffect.mp3");	// TowerEffect
 	
 
-	SceneManager::GetInstance().get()->ChangeScene(new TitleWorld); 
+	SceneManager::GetInstance().get()->ChangeScene(new IntroWorld); //인트로 추가해달래서
     SetCustomCursor(hInstance, L"..\\Data\\Image\\2Star.bmp");
     
 } 
