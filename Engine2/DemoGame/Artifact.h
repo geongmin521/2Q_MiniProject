@@ -2,6 +2,7 @@
 #include "SingletonBase.h"
 #include "Data.h"
 
+class Image;
 class TowerBase;
 enum class ArtifactId
 {
@@ -52,6 +53,8 @@ public:
 
 	float knockback = 0.f;
 	float Range = 0.f;
+
+	Image* m_Image;
 
 	std::unordered_map<int, std::function<void()>> levelUpActions;
 

@@ -50,6 +50,24 @@ namespace Music
         mChannel[(int)chanel]->setVolume(volume);
     }
 
+    void SoundManager::SetPause(eSoundChannel channel, bool isPaused)
+    {
+        // true¸é Á¤Áö
+        FMOD_RESULT result = mChannel[static_cast<int>(channel)]->setPaused(isPaused);
+        if (result != FMOD_OK) {
+        }
+    }
+
+   // bool SoundManager::IsPlay(eSoundChannel channel)
+   // {
+   //     bool IsPlayed = false;
+   //     FMOD_RESULT result = mChannel[static_cast<int>(channel)]->isPlaying(&IsPlayed);
+   //     if (result != FMOD_OK) {
+   //         
+   //     }
+   //     return IsPlayed;
+   // }
+
     eSoundList SoundManager::toEnum(const std::string& str)
     {
         auto it = stringToEnumMap.find(str);

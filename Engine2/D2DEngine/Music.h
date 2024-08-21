@@ -45,10 +45,12 @@ namespace Music
         WaterAttack,
         HiddenAttack,
         HolyCrossAttack,
+        PileAttack,
         CrossbowEffect,
         WaterEffect,
         HiddenEffect,
         HolyCrossEffect,
+        PileEffect,
         Size
     };
     class SoundManager;  
@@ -72,6 +74,10 @@ namespace Music
 
         void SetIsWrong(int index, bool ture) { IsWrong[index] = ture;}
 
+        void SetPause(eSoundChannel channel, bool isPaused);
+
+        //bool IsPlay(eSoundChannel channel);
+
         eSoundList toEnum(const std::string& str);
     private:
         // 할때마다 추가할것 일단 공통적인 tower + enemy만
@@ -81,8 +87,12 @@ namespace Music
                 {"WaterAttack", eSoundList::WaterAttack},
                 {"HiddenAttack", eSoundList::HiddenAttack},
                 {"HolyCrossAttack", eSoundList::HolyCrossAttack},
+                {"PileAttack", eSoundList::PileAttack},
                 {"CrossbowEffect", eSoundList::CrossbowEffect},
                 {"HolyCrossEffect", eSoundList::HolyCrossEffect},
+                {"WaterEffect", eSoundList::WaterEffect},
+                {"HiddenEffect", eSoundList::HiddenEffect},
+                {"PileEffect", eSoundList::PileEffect},
                 {"PileHitted", eSoundList::PileHitted},
                 {"BatDestroy", eSoundList::BatDestroy},
                 {"BatBombDestroy", eSoundList::BatBombDestroy},
@@ -94,6 +104,7 @@ namespace Music
         ~SoundManager();
 
     private:
+
         static SoundManager* mInstance;
         bool IsWrong[6] = { false, false, false, false, false, false };
         FMOD::System* mSystem;

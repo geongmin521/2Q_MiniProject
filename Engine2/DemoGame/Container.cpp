@@ -32,7 +32,7 @@ bool Container::OnDrop(GameObject* ui)
 	TowerBase* tower = dynamic_cast<TowerBase*>(ui);
 	if (tower == nullptr)
 		return false;
-	if (isContain == true|| gameManager->isBattle == true) 
+	if (isContain == true || gameManager->isBattle == true) 
 		return false;
 	tower->container = this;
 	isContain = true;

@@ -2,6 +2,7 @@
 #include "Artifact.h"
 #include "Factory.h"
 #include "Image.h"
+#include "Dotween.h"
 #include "TowerBase.h"
 
 Artifact::Artifact()
@@ -56,8 +57,9 @@ void Artifact::Init()
 
 void Artifact::levelUp(int id)
 {
-	std::wstring original = L"Artifact/" + artifactIdToString(id) + L".png";
-	Make(Image)(original).setScale({ 0.5f ,0.5f }).setPosition({ 50.f * ownedArtifact.size() ,100 });
+	std::wstring original = L"Artifact/" + artifactIdToString(id) + L".png"; 
+	Make(Image)(original).setScale({ 0.5f ,0.5f }).setPosition({ 50.f * ownedArtifact.size() ,100 }).Get(m_Image);
+	
 
 	auto action = levelUpActions.find(id);
 	if (action != levelUpActions.end()) 
