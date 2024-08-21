@@ -39,7 +39,8 @@ EnemyBase::EnemyBase(EnemyData data)
 
 	transform->SetRelativeScale({ 0.5f,0.5f });
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
-	Make(HPBar)(curHP, enemyData.HP).setPosition({ 0 , -170 }).setParent(transform).Get<HPBar>();
+	Make(HPBar)(curHP, enemyData.HP,enemyData.Type,true).setPosition({0 , -200}).setParent(transform).Get<HPBar>();
+	Make(HPBar)(curHP, enemyData.HP,enemyData.Type).setPosition({0 , -200}).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
 	fsm->CreateState<EnemyIdle>("Idle");

@@ -102,9 +102,9 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 {
 	if (animationInfo == nullptr)
 		return;
-	__super::Render(pRenderTarget);
+	__super::Render(pRenderTarget,Alpha);
 
-	pRenderTarget->DrawBitmap(bitmap, DstRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+	pRenderTarget->DrawBitmap(bitmap, DstRect, Alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
 	pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 

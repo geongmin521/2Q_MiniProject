@@ -55,7 +55,6 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Bitmap>()->bitmap, redEmphasis);
 		D2DEffectManager::GetInstance()->CreateGaussianBlurEffect(L"PileBlur", GetComponent<Bitmap>()->bitmap, 5.0f); // 흐리게 효과
-		transform->SetRelativeScale({ 0.8f,0.8f });
 	}
 	else if (towerData.Type == "Hidden")
 	{
@@ -97,10 +96,9 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 
-	Make(HPBar)(curHP, maxHP).setPosition({ 0 , -90 }).setParent(transform).Get(hpbar);
-
-	for (int i = 0; i < data.level; i++)//상대좌표를 줘야하는데이건 그냥 들고있는방식으로할까? 	
-		Make(TowerStar)().setPosition({ 20.f * i , -115 }).setParent(transform);
+	Make(HPBar)(curHP, maxHP,"Tower",true).setPosition({0 , -80}).setParent(transform).Get(hpbar);
+	Make(HPBar)(curHP, maxHP,"Tower").setPosition({0 , -80}).setParent(transform).Get(hpbar);
+	Make(TowerStar)(data.level).setPosition({ 0 , -100 }).setParent(transform);
 
 	AddComponent(fsm);
 	fsm->CreateState<TowerIdle>("Idle");
@@ -118,10 +116,7 @@ void TowerBase::Init(MathHelper::Vector2F pos)
 	hitEffct = false;
 	StatUpdate();
 	transform->SetRelativeLocation(pos); 
-	if (towerData.Type == "Pile")
-		transform->SetRelativeScale({ 0.8f,0.8f });  //합칠떄 작아진 크기 다시복구 타워크기 변경가능성있어서 일단 이렇게 
-	else
-		transform->SetRelativeScale({ 1.0f,1.0f });
+	transform->SetRelativeScale({ 1.0f,1.0f });  //합칠떄 작아진 크기 다시복구 
 	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
 }
 
@@ -205,6 +200,11 @@ void TowerBase::Update(float deltaTime)
 			isMerge = false;
 		}
 	}
+	if (isMerged == true)
+	{
+		new DOTween(alpha, EasingEffect::InOutCirc, StepAnimation::StepOnceForward, 3.f, 0.2f, 1.f);
+		isMerged = false;
+	}
 }
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
@@ -228,7 +228,7 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	if (hitEffct == false && isBlurEffect == false)
 	{
 		if(towerData.Type != "Hidden")
-		__super::Render(pRenderTarget);
+		__super::Render(pRenderTarget,alpha);
 	}
 	else if(hitEffct == true && isBlurEffect == false)
 	{
@@ -362,6 +362,8 @@ void TowerBase::FailDrop()
 
 void TowerBase::OnDoubleClick()
 {
+	if (gameManager->isBattle == true || isMerge == true || isMerged == true) //전투중이거나 합성재료타워거나 합성연출중인 타워일경우 스킵
+		return;
 	GameObject* newTower =nullptr;
 	std::vector<TowerBase*> towers;
 	int merageCount = 2; //합칠떄필요한 자신제외 같은 기물수
@@ -370,7 +372,8 @@ void TowerBase::OnDoubleClick()
 	for (auto& tower : owner->m_GameObjects)
 	{
 		TowerBase* sameTower = dynamic_cast<TowerBase*>(tower);
-		if(sameTower != nullptr && tower->GetActive() == true && sameTower != this && sameTower->towerData.id == this->towerData.id)
+		if(sameTower == nullptr) continue;  
+		if(tower->GetActive() == true && sameTower != this && sameTower->towerData.id == this->towerData.id && sameTower->isMerge == false)
 		{
 			if (towers.size() == merageCount)
 			{
@@ -397,6 +400,7 @@ void TowerBase::OnDoubleClick()
 	{
 		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
 		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation());
+		dynamic_cast<TowerBase*>(newTower)->isMerged = true;
 		auto targetloca = GetWorldLocation();
 		for(auto& sametower : towers)
 		{

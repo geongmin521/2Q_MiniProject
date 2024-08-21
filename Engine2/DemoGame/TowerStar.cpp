@@ -4,11 +4,21 @@
 #include "TowerStar.h"
 
 
-TowerStar::TowerStar()
+TowerStar::TowerStar(int Level)
 {
-	AddComponent(new Bitmap(L"..\\Data\\Image\\1Star.png")); 
+	switch (Level)
+	{
+	case 1:
+		AddComponent(new Bitmap(L"..\\Data\\Image\\UI\\TowerUI\\star1.png"));
+		break;
+	case 2:
+		AddComponent(new Bitmap(L"..\\Data\\Image\\UI\\TowerUI\\star2.png"));
+		break;
+	default:
+		AddComponent(new Bitmap(L"..\\Data\\Image\\UI\\TowerUI\\star3.png"));
+		break;
+	}
 	renderOrder = 101;
-	transform->SetRelativeScale({ 0.05f,0.05f });
 }
 
 TowerStar::~TowerStar()

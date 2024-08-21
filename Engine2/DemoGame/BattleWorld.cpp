@@ -56,8 +56,11 @@ void BattleWorld::MakeObject()
 void BattleWorld::MakeUI()
 {
 	Make(GodStore)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GodStore"]);
-	Make(Button)(L"Pause", [this]() {timeManager->SetTimeScale(0); TimeScaleIsClick(0); }, ButtonType::Active).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
-	Make(Button)(L"Resume",[this]()  {timeManager->SetTimeScale(1); TimeScaleIsClick(1); }, ButtonType::Active).setPosition({ WinSizeX - 210, 75 }).Get(TimeScaleButton[1]);
+	Make(Button)(L"Pause", [this]() {timeManager->SetTimeScale(0); TimeScaleIsClick(0); 
+	Music::soundManager->SetPause(Music::eSoundChannel::BGM, true); }, ButtonType::Active).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
+	Make(Button)(L"Resume",[this]()  {timeManager->SetTimeScale(1); TimeScaleIsClick(1);
+	Music::soundManager->SetPause(Music::eSoundChannel::BGM, false);
+		}, ButtonType::Active).setPosition({ WinSizeX - 210, 75 }).Get(TimeScaleButton[1]);
 	Make(Button)(L"Multi",[this]() {timeManager->SetTimeScale(2); TimeScaleIsClick(2); }, ButtonType::Active).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
 	TimeScaleButton[0]->SetIsEnable(false);
 	TimeScaleButton[2]->SetIsEnable(false);
@@ -95,9 +98,9 @@ void BattleWorld::RegisterEvent()
 				{
 					if (tower->curHP <= 0)
 					{
-						tower->prevHp = tower->towerData.HP;
+						tower->curHP = tower->towerData.HP;
 					}
-					tower->curHP = tower->prevHp;
+					tower->prevHp = tower->curHP;
 					tower->StatUpdate();
 				}
 			}

@@ -6,9 +6,11 @@ class HPBar : public GameObject
 private:
 	float& curHp;
 	float maxHp;
+	float Scale = 1.0f;
 public:
 	Bitmap* hpBar;
-	HPBar(float& curHp, float maxHp);
+	bool isFrame = false;
+	HPBar(float& curHp, float maxHp,std::string tag,bool isFrame = false);
 	virtual ~HPBar();
 	virtual void Init(float maxHp);
 	virtual void Update(float deltaTime);

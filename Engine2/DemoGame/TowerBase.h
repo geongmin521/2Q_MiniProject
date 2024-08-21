@@ -46,6 +46,8 @@ public: //나중에 은닉화할 데이터는 빼기
     float doubleTime = 0;
     float curSpeed;
     bool isMerge = false;
+    bool isMerged = false;
+    float alpha = 1.0f;
     float mergeTime = 0;
 public:
     
