@@ -59,7 +59,6 @@ EnemyBase::EnemyBase(EnemyData data)
 		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
 	};
 
-	D2DEffectManager::GetInstance()->CreateGaussianBlurEffect(Utility::convertFromString(enemyData.name) + L"Blur", GetComponent<Animation>()->bitmap, 10.0f);
 	D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(enemyData.name), GetComponent<Animation>()->bitmap, redEmphasis);
 	if (enemyData.Type == "Deffend") // 방어형일 경우 크기 수정 및 레이어 순서 변경 (적 레이어는 속도> 보스> 방어> 일반 순)
 	{
@@ -140,11 +139,11 @@ void EnemyBase::Update(float deltaTime)
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
-	if (hitEffct == false && isBlurEffect == false)
+	if (hitEffct == false)
 	{
 		__super::Render(pRenderTarget);
 	}
-	else if(hitEffct == true && isBlurEffect == false)
+	else if(hitEffct == true)
 	{
 		Animation* animationComponent = GetComponent<Animation>();
 		static_cast<Renderer*>(animationComponent);
@@ -162,23 +161,6 @@ void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 	}
 
-	if (isBlurEffect)
-	{
-		Animation* animationComponent = GetComponent<Animation>();
-		static_cast<Renderer*>(animationComponent);
-
-		D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(animationComponent)->imageTransform *
-			transform->worldTransform *
-			D2DRenderer::cameraTransform;
-
-		pRenderTarget->SetTransform(Transform);
-
-		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
-			FindEffect(Utility::convertFromString(enemyData.name) + L"Blur"),
-			{ 0 ,0 }, GetComponent<Animation>()->srcRect);
-
-		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
-	}
 }
 
 void EnemyBase::Hit(float damage, float knockback)

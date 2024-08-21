@@ -21,6 +21,7 @@ ShowWave::ShowWave()
 	for (int i = 0; i < 4; i++)	
 		Make(Image)(L"Enemy/One/NormalEnemy.png").setPos_Parent({LPad + i * 400 ,0}, transform).AddText(L"", 70,0,95).Get<Image>(images[i]);		
 	//Make(Button)(L"smallBack", [this]() { SetActive(false); }).setPos_Parent({ 400, -400 }, transform);
+	
 	SetActive(false);
 }
 

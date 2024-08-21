@@ -40,8 +40,7 @@ BattleWorld::~BattleWorld()
 
 void BattleWorld::MakeObject()
 {
-	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\DNFBitBitv2.ttf", L"Test");
-	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\Maplestory Bold.ttf", L"Map");
+	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\Pretendard-Bold.otf", L"Result");
 
 	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //효과를 위한 오파시티 맵
 	Make(Image)(L"UI/mainUI/MainFrame.png").setScale({ 0.75f,0.75f }).setRenderOrder(-90).setPosition(WinHalfSizeXY); //UI 프레임

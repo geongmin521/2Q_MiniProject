@@ -54,14 +54,11 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	{
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Bitmap>()->bitmap, redEmphasis);
-		D2DEffectManager::GetInstance()->CreateGaussianBlurEffect(L"PileBlur", GetComponent<Bitmap>()->bitmap, 5.0f); // 흐리게 효과
 		transform->SetRelativeScale({ 0.8f,0.8f });
 	}
 	else if (towerData.Type == "Hidden")
 	{
 		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\TowerAni\\" + Utility::convertFromString(towerData.name) + L".csv"));
-
-	D2DEffectManager::GetInstance()->CreateGaussianBlurEffect(Utility::convertFromString(towerData.name) + L"Blur", GetComponent<Animation>()->bitmap, 5.0f); // 흐리게 효과
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Animation>()->bitmap, redEmphasis); // 히트 이펙트
 		D2DEffectManager::GetInstance()->CreatePointSpecularEffect(L"HiddenSpecular", GetComponent<Animation>()->bitmap, 0, 0);
 		D2DEffectManager::GetInstance()->FindIEffect<PointSpecularEffect>(L"HiddenSpecular")->LightZonter = 300;	
@@ -70,7 +67,6 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	{
 		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\TowerAni\\TowerBase.csv"));
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Animation>()->bitmap, redEmphasis);
-		D2DEffectManager::GetInstance()->CreateGaussianBlurEffect(Utility::convertFromString(towerData.name) + L"Blur", GetComponent<Animation>()->bitmap, 5.0f); // 흐리게 효과
 	}
 
 	SetBoundBox(0, 0, 150,150);
@@ -209,7 +205,7 @@ void TowerBase::Update(float deltaTime)
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
-	if (towerData.Type == "Hidden" && isBlurEffect == false)
+	if (towerData.Type == "Hidden")
 	{
 		Animation* animationComponent = GetComponent<Animation>();
 		static_cast<Renderer*>(animationComponent);
@@ -225,12 +221,12 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 		__super::Render(pRenderTarget);
 	}
 
-	if (hitEffct == false && isBlurEffect == false)
+	if (hitEffct == false )
 	{
 		if(towerData.Type != "Hidden")
 		__super::Render(pRenderTarget);
 	}
-	else if(hitEffct == true && isBlurEffect == false)
+	else
 	{
 		if (towerData.Type == "Pile")
 		{
@@ -262,39 +258,6 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 				{ 0 ,0 }, GetComponent<Animation>()->srcRect);
 		}
 		
-		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
-	}
-
-	if (isBlurEffect)
-	{
-		if (towerData.Type == "Pile")
-		{
-			Bitmap* BitmapComponent = GetComponent<Bitmap>();
-			static_cast<Renderer*>(BitmapComponent);
-
-			D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(BitmapComponent)->imageTransform *
-				transform->worldTransform *
-				D2DRenderer::cameraTransform;
-
-			pRenderTarget->SetTransform(Transform);
-
-			D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->FindEffect(L"PileBlur"));
-		}
-		else
-		{
-			Animation* animationComponent = GetComponent<Animation>();
-			static_cast<Renderer*>(animationComponent);
-
-			D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(animationComponent)->imageTransform *
-				transform->worldTransform *
-				D2DRenderer::cameraTransform;
-
-			pRenderTarget->SetTransform(Transform);
-
-			D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
-				FindEffect(Utility::convertFromString(towerData.name)+ L"Blur"),
-				{ 0 ,0 }, GetComponent<Animation>()->srcRect);
-		}
 		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 	}
 }
