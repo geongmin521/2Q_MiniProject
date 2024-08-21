@@ -35,7 +35,7 @@ void ShowWave::Update(float deltatime)
 	__super::Update(deltatime);
 	
 	elapsedTime += deltatime;
-	if (!isMid && elapsedTime >= 3.f)
+	if (!isMid && elapsedTime >= 2.3f)
 	{
 		isMid = true; //중앙에 왔다고하면 3초대기후 
 		elapsedTime = 0;
@@ -46,7 +46,7 @@ void ShowWave::Update(float deltatime)
 		isExit = true;
 		auto& loca = transform->relativeLocation;
 		elapsedTime = 0;
-		new DOTween(loca.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 5.f, loca.x, loca.x- 2000);
+		new DOTween(loca.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 4.f, loca.x, loca.x- 2000);
 	}
 
 	if (isMid && isExit && elapsedTime >= 5.0f)
@@ -60,7 +60,7 @@ void ShowWave::Update(float deltatime)
 
 void ShowWave::Show()  //이게 보여질때 데이터 매니저한테 가져오는걸로할까 이게 제일 처음이긴할텐데.. 
 {
-	dataManager->ChoseWave(); //오류테스트
+	dataManager->ChoseWave();
 	isMid = false;
 	isExit = false;
 	elapsedTime = 0;
@@ -81,7 +81,7 @@ void ShowWave::Show()  //이게 보여질때 데이터 매니저한테 가져오는걸로할까 이게 �
 		images[i]->SetActive(false);
 	}
 	auto& loca = transform->relativeLocation;
-	new DOTween(loca.x, EasingEffect::OutBack, StepAnimation::StepOnceForward, 3.f, loca.x, WinHalfSizeX);
+	new DOTween(loca.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 3.f, loca.x, WinHalfSizeX);
 	
 }
 

@@ -26,11 +26,13 @@
 #include "Music.h"
 
 #include "D2DFontManager.h"
+#include "ProductionCamera.h"
 
 BattleWorld::BattleWorld()
 {
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
 	artifact->SelectArtifact(8);
+	
 }
 
 BattleWorld::~BattleWorld()
@@ -68,6 +70,7 @@ void BattleWorld::MakeUI()
 	Make(GameOver)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GameOver"]);
 	Make(Image)(L"UI/tooltip/HolyCrossTower.png").setActive(false).Get(Objs["ToolTip"]);
 	Make(Image)(L"UI/mainUI/gauge0.png").setScale({0.75,0.75}).setPosition({ WinHalfSizeX , 65 }).Get(Objs["WaveCount"]); //웨이브 주기.. 
+	Make(ProductionCamera)().Get()->name = "Camera";
 }
 
 void BattleWorld::RegisterEvent()

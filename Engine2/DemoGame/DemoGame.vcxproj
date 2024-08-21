@@ -162,6 +162,7 @@
     <ClInclude Include="Image.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Pools.h" />
+    <ClInclude Include="ProductionCamera.h" />
     <ClInclude Include="Sculpture.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="ShowWave.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Pools.cpp" />
+    <ClCompile Include="ProductionCamera.cpp" />
     <ClCompile Include="Sculpture.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShowWave.cpp" />

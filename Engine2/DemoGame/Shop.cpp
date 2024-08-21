@@ -10,12 +10,14 @@
 #include "EnemySpawner.h"
 #include "Button.h"
 #include "TowerBase.h"
+#include "World.h"
 #include "D2DFont.h"
 #include "GameManager.h"
 #include "Dotween.h"
 
 #include "D2DEffectManager.h"
 #include "CrossFadeEffect.h"
+#include "ProductionCamera.h"
 Shop::Shop() 
 {
 	Make(GameObject)().setParent(transform).Get(child);
@@ -100,7 +102,7 @@ void Shop::Reroll()
 {
 	//if (reroll <= 0)
 	//	rerollButtonText->SetDialog(L"전체리롤 -10 신앙심"); //이건 어떻게 처리하지?
-	
+
 	if(reroll > 0)
 		reroll--;
 	else if(gameManager->GetGold() >= 10)
