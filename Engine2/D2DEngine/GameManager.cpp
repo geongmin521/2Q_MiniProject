@@ -31,7 +31,10 @@ void GameManager::Update()
 			{
 				gold += goldReward[WaveLevel] + goldReward[WaveLevel] * 0.3f;
 			}
-			//gold += goldReward[WaveLevel];
+			else
+			{
+				gold += goldReward[WaveLevel];
+			}
 		}
 		dataManager->ChoseWave();
 		D2DEffectManager::GetInstance()->FindIEffect<CrossFadeEffect>(L"MapFade")->isFadeIn = true;
@@ -46,7 +49,7 @@ void GameManager::reset()
 	WaveLevel = 1;
 	curWaveId = 1000;
 	LiveEenmy = 0;
-	gold = 100;
+	gold = 0;
 	chance = 1;
 	if (events[Event::ShowWaveFunc] != nullptr)
 		events[Event::ShowWaveFunc] = nullptr; //다시시작할때 터져서 일단 이렇게 처리함

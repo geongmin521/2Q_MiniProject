@@ -105,9 +105,6 @@
     <ClInclude Include="Combination.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="Container.h">
-      <Filter>UI\UIBase</Filter>
-    </ClInclude>
     <ClInclude Include="Artifact.h">
       <Filter>Artifact</Filter>
     </ClInclude>
@@ -147,6 +144,9 @@
     </ClInclude>
     <ClInclude Include="ArtifactObject.h">
       <Filter>Artifact</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>UI\UIBase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -210,9 +210,6 @@
     <ClCompile Include="Combination.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="Container.cpp">
-      <Filter>UI\UIBase</Filter>
-    </ClCompile>
     <ClCompile Include="Artifact.cpp">
       <Filter>Artifact</Filter>
     </ClCompile>
@@ -252,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="ArtifactObject.cpp">
       <Filter>Artifact</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>UI\UIBase</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

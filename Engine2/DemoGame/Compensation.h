@@ -20,6 +20,7 @@ public:
 
 	float elapsedTime;
 	bool isSelect = false;
+	bool showonce = true; //처음 게임 시작할때 한번만 보이기 위함
 	float deleteTime = 0.8f; 
 	void Update(float deltatime);
 	void GetCompensation();

@@ -12,5 +12,6 @@ public:
 	GodStore();
 	~GodStore();
 	void GetCompensation();
+	virtual void Enable() override;
 	void TimeScaleIsClick(int num);
 };

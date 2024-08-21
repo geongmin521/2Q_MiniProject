@@ -8,6 +8,12 @@
 #include "Transform.h"
 #include "Effect.h"
 #include "DataManager.h"
+#include "GameManager.h"
+
+Pools::Pools()
+{
+	gameManager->Reset.push_back([this]() { reset(); });
+}
 
 Pools::~Pools()
 {

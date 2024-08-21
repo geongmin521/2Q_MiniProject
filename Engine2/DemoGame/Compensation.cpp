@@ -122,10 +122,15 @@ void Compensation::Enable()
 	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 0.75f);
 	new DOTween(scale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 0.75f);
 	elapsedTime = 0;
+	for(int i=0;i<3;i++)
+		compensationButton[i]->SetIsEnable(false);
 }
 
 void Compensation::Disable()
 {
-	if(gameManager->events[Event::ShowWaveFunc] != nullptr) //그냥 열릴때랑 상점에서 열릴때랑 다른데 이건 어떻게 구분할까.. 
+	if (gameManager->events[Event::ShowWaveFunc] != nullptr && showonce == true)
+	{
+		showonce = false;
 		gameManager->events[Event::ShowWaveFunc]();
+	}	
 }

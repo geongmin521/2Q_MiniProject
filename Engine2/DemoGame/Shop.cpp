@@ -27,7 +27,7 @@ Shop::Shop()
 	Make(Image)(L"UI/Pop_up/popup.png").AddText(L"", 30, 30, 175, &compensationText).AddText(L"", 50, 443, -210, &goldText).setParent(child->transform);
 	float LPad = -960; 
 	for (int i = 0; i < 5; i++)//아이콘
-		Make(Image)(L"Crossbow.png").setPos_Parent({ LPad + i * 480 , -200 }, child->transform).Get<Image>(Icons);
+		Make(Image)(L"UI/Icon/Crossbow_shadow.png").setPos_Parent({ LPad + i * 480 , -200 }, child->transform).Get<Image>(Icons);
 	for (int i = 0; i < 5; i++)//리롤 잠그기
 		Make(Button)(L"lock", [i, this]() { isLock[i] = !isLock[i];
 		if (isLock[i])
@@ -59,7 +59,7 @@ void Shop::init() //여기가 처음에 들어오는데네
 	}
 	for (int i = 0; i < 5; i++)
 		lockButton[i]->SetIsEnable(true);
-	reroll = 500;
+	reroll = 2;
 	rerollText->SetDialog(std::to_wstring(reroll));
 }
 

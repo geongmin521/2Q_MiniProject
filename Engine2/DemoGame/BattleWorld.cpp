@@ -89,6 +89,7 @@ void BattleWorld::RegisterEvent()
 		shop->init();
 		gameManager->chance = 1;
 		shop->ChangeButton(ButtonState::TowerSpawn);
+		compensation->showonce = true;
 		Objs["WaveCount"]->GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/UI/mainUI/gauge"+std::to_wstring(gameManager->WaveLevel) + L".png");
 
 		if (gameManager->WaveLevel == 3 || gameManager->WaveLevel == 6)		

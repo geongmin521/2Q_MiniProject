@@ -8,10 +8,8 @@
 #include "ArtifactObject.h"
 #include "GameManager.h"
 
-Artifact::Artifact()	//진짜 화나네.. 이따구로 해놓고 다했다는건가? 적용은 시켜본건가? 
-{						// 죄송합니다
-	//dataManager->CSVReader(L"ArtifactData");
-	// csv 없음 값 강제로 대입함
+Artifact::Artifact()
+{					
 	gameManager->Reset.push_back([this]() { reset(); });
 	Init();
 }
@@ -29,7 +27,7 @@ void Artifact::reset()
 void Artifact::SelectArtifact(int id)
 {
 	levelUp(id);
-	if(id >= 512)
+	if(id >= 500)
 	{ 
 		ownedArtifact.push_back(id);
 		Make(ArtifactObject)(id, 60.f * ownedArtifact.size(), 80);

@@ -16,7 +16,7 @@ GodStore::GodStore()
 
 	for (int i = 0; i < 3; i++)
 	{
-		Make(Button)(L"Frame", [this,i]() {if (cost[i] <= gameManager->GetGold()) btn->SetInteractive(true); compensationId = i; TimeScaleIsClick(i); }, ButtonType::Active).
+		Make(Button)(L"Frame", [this,i]() {if (cost[i] <= gameManager->GetGold()) btn->SetInteractive(true); compensationId = i+1; TimeScaleIsClick(i); }, ButtonType::Active).
 			AddText(name[i], 50, 0, -110).
 			AddText(costtext[i], 50, 0, 120).
 			AddText(compensation[i], 50, 0, 150).
@@ -62,6 +62,12 @@ void GodStore::GetCompensation() //돈이 없으면확실히 비활성화 상태로 만드는게 좋
 	
 	gameManager->UseGold(cost[compensationId-1]);
 	SetActive(false);
+}
+
+void GodStore::Enable()
+{
+	for (int i = 0; i < 3; i++)
+		CompensationBtn[i]->SetIsEnable(false);
 }
 
 void GodStore::TimeScaleIsClick(int num)
