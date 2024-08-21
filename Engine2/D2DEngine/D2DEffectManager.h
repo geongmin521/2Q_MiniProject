@@ -12,7 +12,7 @@ private:
 public:
 	D2DEffectManager();
 	~D2DEffectManager();
-
+	virtual void reset() override;
 	ID2D1Effect* FindEffect(const std::wstring& keyName); // 용도 IEffect안에 있는 DefaultEffect에 접근하기 위해
 	template<typename T>
 	T* FindIEffect(const std::wstring& keyName);  // 용도 IEffect 접근용

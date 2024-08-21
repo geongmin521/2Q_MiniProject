@@ -65,9 +65,9 @@ void BattleWorld::MakeUI()
 	Make(Shop)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get<Shop>(shop);  shop->SetOtherUI(Objs["Combination"]);
 	Make(ShowWave)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get<ShowWave>(showWave); //UI 패널들을 다시모아도될거같기도하고.. 
 	Make(Compensation)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get(compensation);
-	Make(Button)(L"Create", [this]() { Objs["Combination"]->SetActive(true); }).setPosition(WinSizeXYAdd(-600, -100)); //조합식
+	Make(Button)(L"Recipe", [this]() { Objs["Combination"]->SetActive(true); }).setScale({0.9,0.9}).setPosition(WinSizeXYAdd(-600, -100)); //조합식
 	Make(GameOver)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GameOver"]);
-	Make(Image)(L"UI/tooltip/HolyCrossTower.png").setActive(false).Get(Objs["ToolTip"]);
+	Make(Image)(L"UI/tooltip/HolyCrossTower.png").setScale({ 0.65f,0.65f }).setActive(false).setBoundBox(0,0).Get(Objs["ToolTip"]);
 	Make(Image)(L"UI/mainUI/gauge0.png").setScale({0.75,0.75}).setPosition({ WinHalfSizeX , 65 }).Get(Objs["WaveCount"]); //웨이브 주기.. 
 }
 
@@ -101,6 +101,7 @@ void BattleWorld::RegisterEvent()
 				}
 			}
 		}
+		goldText->SetDialog(std::to_wstring(gameManager->GetGold()));
 	};
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);
 	Music::soundManager->StopMusic(Music::eSoundChannel::BGM); };

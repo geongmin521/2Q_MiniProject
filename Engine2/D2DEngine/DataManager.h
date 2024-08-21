@@ -26,6 +26,7 @@ public:
     std::vector<int> getNormalArtifactID() {return normalArtifactID;}
     std::vector<int> getSpecialArtifactID() {return SpecialArtifactID;}
     DataManager();
-    ~DataManager();
+    ~DataManager();	
+    virtual void reset() override;
     std::wifstream FileOften(std::wstring fileName);
 };

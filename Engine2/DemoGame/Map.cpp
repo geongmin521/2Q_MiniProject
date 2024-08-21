@@ -27,7 +27,6 @@ Map::Map()
 	AddComponent(new Bitmap(L"..\\Data\\Image\\night.png")); // 맵 변경을 위해 추가함
 	nightBitmap = dynamic_cast<Bitmap*>(ownedComponents[2]); // 맵 변경을 위해 추가함
 	D2DEffectManager::GetInstance()->CreateGaussianBlurEffect(L"nightBlur", nightBitmap->bitmap, 5.0f);
-
 	D2DEffectManager::GetInstance()->CreateCrossFadeEffect(L"MapFade", afternoonBitmap->bitmap, nightBitmap->bitmap);
 
 	transform->SetRelativeLocation({ WinHalfSizeX, WinHalfSizeY });
@@ -38,7 +37,7 @@ Map::Map()
 		for (int j = 0; j < 4; j++)
 		{
 			int zigzag = j % 2 == 0 ? gridSize / 2 : 0;
-			grid[i][j] = Make(Container)(i*4 + j).
+			grid[i][j] = Make(Container)(i * 4 + j + 4).
 				setPosition({ LPad + i * (gridSize +10) + zigzag, TopPadding + j * (gridSize+30) }).
 				Get<Container>();
 		}			
@@ -56,6 +55,7 @@ Map::~Map()
 void Map::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
+
 }
 
 void Map::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)

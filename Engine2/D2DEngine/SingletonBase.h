@@ -40,6 +40,8 @@ class SingletonBase {
                 delete instance;
             }
         };
+
+        virtual void reset() = 0;
     
     protected:
     

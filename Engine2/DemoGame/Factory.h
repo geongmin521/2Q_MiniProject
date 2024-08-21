@@ -59,6 +59,8 @@ public:
 	Factory& setRoot(std::vector<GameObject*>* Root); 
 	Factory& setActive(bool active); 
 	Factory& setRenderOrder(int order); 
+	Factory& setBoundBox(int width,int height); 
+	Factory& AddRenderOrder(int order); 
 	Factory& AddText(std::wstring text, int size, int posx=0, int posy=0, D2DFont** fontcomponent = nullptr);
 	Factory& AddComponent(Component* pComponent);
 	void build() { InsertWorld(object); }

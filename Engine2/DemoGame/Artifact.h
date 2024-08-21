@@ -46,8 +46,6 @@ public:
 	artifactPower HolyPower;
 	artifactPower PilePower;
 
-	ArtifactData artifactData;
-
 	float knockback = 0.f;
 	float Range = 0.f;
 
@@ -55,6 +53,7 @@ public:
 
 	Artifact();
 	virtual ~Artifact();
+	virtual void reset() override;
 	void Init();
 	void levelUp(int id);
 	bool isOwned(int id);

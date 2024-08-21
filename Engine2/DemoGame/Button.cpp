@@ -9,6 +9,7 @@
 
 Button::Button(std::wstring imagePath, std::function<void(void)> func ,ButtonType type)
 {
+	renderOrder += 10;
 	name = Utility::convertFromWString(imagePath);
 	SetListener(func);
 	std::wstring path;

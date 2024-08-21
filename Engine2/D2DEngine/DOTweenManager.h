@@ -12,6 +12,7 @@ private:
 public:
     DOTweenManager();
     ~DOTweenManager();
+    virtual void reset() override;
     void PushTween(DOTween* tween) { 
         tweens.push_back(tween); 
     }

@@ -16,8 +16,8 @@ private:
 public:
 	CollisionManager();
 	~CollisionManager();
+	virtual void reset() override;
 	void CollisionCheck();
-	void Clear() {colliders.clear(); }
 	void AddRemove(Collider* col);
 	void pushCollider(Collider* col);
 };

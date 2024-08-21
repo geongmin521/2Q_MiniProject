@@ -14,6 +14,7 @@ private:
 
 public:
 	virtual ~D2DFontManager();
+	virtual void reset() override;
 	void InitializeDWrite();
 	void LoadFont(std::wstring fontFilePath, std::wstring fontName);
 	void AddFont(std::wstring fontName, IDWriteFontCollection1* pFontCollection, IDWriteTextFormat** ppTextFormat);

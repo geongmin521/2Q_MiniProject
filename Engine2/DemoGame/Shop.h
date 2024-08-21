@@ -28,7 +28,9 @@ private:
 	D2DFont* compensationText;
 	D2DFont* rerollText;
 	D2DFont* rerollButtonText;
+	D2DFont* goldText;
 	Button* shop_spawnButton; 
+	Button* lockButton[5]; 
 	ButtonState curState = EnemySpawn;
 	GameObject* child; //자식을 관리하기 위한 트랜스폼
 

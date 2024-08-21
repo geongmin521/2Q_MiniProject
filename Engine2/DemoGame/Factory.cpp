@@ -44,7 +44,7 @@ Factory& Factory::setScale(Vector2F scale) {
 
 Factory& Factory::setParent(Transform* parent)
 {
-    object->renderOrder = parent->owner->renderOrder + 1; 
+    object->renderOrder += parent->owner->renderOrder + 1;  //setrenderorder가 씹히는데.. 순서가 중요하긴하지.. 부모의 렌더 오더를 더해줄까?
     object->transform->SetParent(parent);
     return *this;
 }
@@ -64,6 +64,18 @@ Factory& Factory::setActive(bool active)
 Factory& Factory::setRenderOrder(int order)
 {
     object->renderOrder = order;
+    return *this;
+}
+
+Factory& Factory::setBoundBox(int width, int height)
+{
+    object->SetBoundBox(0, 0, width, height);
+    return *this;
+}
+
+Factory& Factory::AddRenderOrder(int order)
+{
+    object->renderOrder += order;
     return *this;
 }
 

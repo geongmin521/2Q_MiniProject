@@ -10,11 +10,16 @@ DataManager::DataManager()
 	TowerDataRead();
 	WaveDataRead();
 	ArtifactDataRead(); //아직 csv 없음
+	gameManager->Reset.push_back([this]() { reset(); });
 }
 
 DataManager::~DataManager()
 {
 
+}
+
+void DataManager::reset()
+{
 }
 
 template <typename T>

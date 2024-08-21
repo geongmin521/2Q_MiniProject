@@ -21,35 +21,38 @@ Shop::Shop()
 	Make(GameObject)().setParent(transform).Get(child);
 	ImagePath = { L"Crossbow_shadow.png",L"holywater_shadow.png",L"anchor_shadow.png",L"Holycross_shadow.png",L"Skul_shadow.png" };
 	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" };
-	Make(Image)(L"UI/Pop_up/popup.png").AddText(L"", 20,0,-600, &compensationText).setParent(child->transform);
+	Make(Image)(L"UI/Pop_up/popup.png").AddText(L"", 30, 30, 175, &compensationText).AddText(L"", 50, 443, -210, &goldText).setParent(child->transform);
 	float LPad = -960; 
 	for (int i = 0; i < 5; i++)//아이콘
 		Make(Image)(L"Crossbow.png").setPos_Parent({ LPad + i * 480 , -200 }, child->transform).Get<Image>(Icons);
 	for (int i = 0; i < 5; i++)//리롤 잠그기
-		Make(Button)(L"lock", [i, this]() { isLock[i] = !isLock[i]; }, ButtonType::Active).setPos_Parent({ LPad + i * 480, 130 }, child->transform); //매커니즘이 좀다른데.. 아예 다른걸로 만들까? 똑같이 하면되는데 그냥 온클릭에서 처리할까? 
+		Make(Button)(L"lock", [i, this]() { isLock[i] = !isLock[i]; }, ButtonType::Active).setPos_Parent({ LPad + i * 480, 130 }, child->transform).Get(lockButton[i]);
 	//리롤 버튼	 //같은색깔 끼리 모이니까 이쁘긴한데 가독성은 뭐가 나을려나..
 	//조합표 확인 버튼
 	//소환하기 버튼
 	//소환하기 버튼
 	//리롤 횟수 텍스트박스
 	//상점 활성화 버튼
-	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"",20,0,0, &rerollButtonText).AddText(L"", 20, 0, -100, &rerollText).setPos_Parent({0, 320}, child->transform); //이건 텍스트로 처리이제 더이상못함.. 
+	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"",40,50, 0, &rerollButtonText).AddText(L"", 50, 50, 0, &rerollText).setPos_Parent({0, 320}, child->transform);
 	Make(Button)(L"Create", [this]() {combination->SetActive(true); }).setScale({ 1.4f,1.4f }).setPos_Parent({ -980, +400 }, child->transform);
 	Make(Button)(L"summon", std::bind(&Shop::Spawn, this)).setPos_Parent({980, +400 }, child->transform);
-	Make(Button)(L"CS", []() {}).setPosition(WinSizeXYAdd(-200, -100)).Get<Button>(shop_spawnButton);
+	Make(Button)(L"CS", []() {}).setPosition(WinSizeXYAdd(-200, -100)).setScale({ 0.9,0.9 }).Get<Button>(shop_spawnButton);
 
 	for (int i = 0; i < 4; i++) //타워 인벤
-		Make(Container)().setPosition({ 400.0f + i * 150, WinSizeY - 100 }).Get<Container>(Containers);
+		Make(Container)(i).setPosition({ 400.0f + i * 150, WinSizeY - 100 }).Get<Container>(Containers);
 	child->SetActive(false); ChangeButton(ButtonState::TowerSpawn); shop_spawnButton->SetInteractive(true);
+
 }
 
-void Shop::init()
+void Shop::init() //여기가 처음에 들어오는데네
 {
 	for (int i = 0; i < 5; i++)
 	{
 		isLock[i] = false;
 	}
-	reroll = 5;
+	for (int i = 0; i < 5; i++)
+		lockButton[i]->SetIsEnable(true);
+	reroll = 500;
 	rerollText->SetDialog(std::to_wstring(reroll));
 }
 
@@ -64,7 +67,7 @@ void Shop::Update(float deltaTime)
 		ChangeButton(ButtonState::EnemySpawn);
 	else
 		ChangeButton(ButtonState::TowerSpawn); 
-
+	goldText->SetDialog(L"신암심:" + std::to_wstring(gameManager->GetGold()));
 	if (curState == ButtonState::EnemySpawn) 
 	{
 		int count = 0;
@@ -98,9 +101,8 @@ void Shop::Update(float deltaTime)
 
 void Shop::Reroll() 
 {
-	//if (reroll <= 0)
-	//	rerollButtonText->SetDialog(L"전체리롤 -10 신앙심"); //이건 어떻게 처리하지?
-	
+	if (reroll <= 0)
+		rerollButtonText->SetDialog(L" - 10 신앙심"); 
 	if(reroll > 0)
 		reroll--;
 	else if(gameManager->GetGold() >= 10)
@@ -112,7 +114,9 @@ void Shop::Reroll()
 
 	for (int i = 0; i < Icons.size(); i++) //
 	{
-		new DOTween(Icons[i]->transform->relativeScale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1); //이게 왜 안되는지 설명해줄분 구함...
+		if (isLock[i] == true)
+			continue;
+		new DOTween(Icons[i]->transform->relativeScale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1); 
 		new DOTween(Icons[i]->transform->relativeScale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.2, 1);
 	} 
 	compensationList.clear();
@@ -237,3 +241,5 @@ void Shop::ChangeButton(ButtonState state)
 	}	
 	shop_spawnButton->SetInteractive(false);
 }
+
+

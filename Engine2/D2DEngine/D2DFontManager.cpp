@@ -13,6 +13,10 @@ D2DFontManager::~D2DFontManager()
 	}
 }
 
+void D2DFontManager::reset()
+{
+}
+
 void D2DFontManager::InitializeDWrite()
 {
 	HRESULT hresult = S_OK;

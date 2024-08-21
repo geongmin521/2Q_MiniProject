@@ -5,7 +5,6 @@
 #include "Button.h"
 #include "DataManager.h"
 #include "GameManager.h"
-#include "Image.h"
 #include "DOTween.h"
 #include "Transform.h"
 #include "D2DFontManager.h"
@@ -13,6 +12,7 @@
 
 ShowWave::ShowWave()
 {
+	renderOrder += 100;
 	float LPad = -200;
 	//배경
 	//적들아이콘
@@ -20,7 +20,7 @@ ShowWave::ShowWave()
 	Make(Image)(L"UI/Pop_up/popup_Round.png").setParent(this->transform);
 	for (int i = 0; i < 4; i++)	
 		Make(Image)(L"Enemy/One/NormalEnemy.png").setPos_Parent({LPad + i * 400 ,0}, transform).AddText(L"", 70,0,95).Get<Image>(images[i]);		
-	//Make(Button)(L"smallBack", [this]() { SetActive(false); }).setPos_Parent({ 400, -400 }, transform);
+	Make(Button)(L"Ready", [this]() { SetActive(false); }).setScale({0.75f,0.75f}).setPos_Parent({ 820, -480 }, transform);
 	SetActive(false);
 }
 
