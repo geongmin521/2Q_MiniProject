@@ -52,14 +52,13 @@ void D2DEffectManager::Update(float deltaTime)
 	}
 }
 
-
 void D2DEffectManager::CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }
 	if (nullptr == D2DRenderer::GetInstance()->DeviceContext) { return; }
 
 	IEffect* newEffect = new GaussianBlurEffect(_Bitmap);
-	dynamic_cast<GaussianBlurEffect*>(newEffect)->DefaultEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, blurVal);
+	dynamic_cast<GaussianBlurEffect*>(newEffect)->blurVal = blurVal;
 	Effects.insert(std::make_pair(_KeyName, newEffect));
 }
 
@@ -72,6 +71,7 @@ void D2DEffectManager::CreateColorMatrixEffect(std::wstring _KeyName, ID2D1Bitma
 	dynamic_cast<ColorMatrixEffect*>(newEffect)->ColorMatrix = _ColorMatrix;
 	Effects.insert(std::make_pair(_KeyName, newEffect));
 }
+
 // D2D1_MATRIX_5X4_F 값
 // | Red Multiplier | Green Multiplier | Blue Multiplier | Alpha Multiplier | Red Offset   |
 // |-------------------- | -------------------- | -------------------- | -------------------- | --------------|
@@ -123,6 +123,16 @@ void D2DEffectManager::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bit
 	IEffect* newEffect = new PointSpecularEffect(_Bitmap, _Transform);
 	Effects.insert(std::make_pair(_KeyName, newEffect));
 }
+
+void D2DEffectManager::CreatePointSpecularEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, float _TransformX, float _TransformY)
+{
+	if (Effects.find(_KeyName) != Effects.end()) { return; }
+	if (nullptr == D2DRenderer::GetInstance()->DeviceContext) { return; }
+
+	IEffect* newEffect = new PointSpecularEffect(_Bitmap ,_TransformX, _TransformY);
+	Effects.insert(std::make_pair(_KeyName, newEffect));
+}
+
 
 // 일단 혹시 몰라서 남겨놓음 사용할 일이 있을가 과연...
 //	void D2DEffectManager::CreateDistantDiffuseEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap)

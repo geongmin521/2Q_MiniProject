@@ -75,7 +75,10 @@ void Animation::Update(float fTimeElapsed)
 			D2D1::Matrix3x2F::Translation(-Frame.Center.x, -Frame.Center.y);
 	}
 	srcRect = Frame.Source;
-	DstRect = { 0,0,srcRect.right - srcRect.left,srcRect.bottom - srcRect.top };
+	DstRect = { 0, 0, srcRect.right - srcRect.left, srcRect.bottom - srcRect.top };
+	
+	CenterPos.x = (Frame.Source.right + Frame.Source.left) / 2 ;// test
+	CenterPos.y = (Frame.Source.bottom + Frame.Source.top) / 2 ;
 
 //	static float testtimer = 0;
 //	testtimer += 10 * fTimeElapsed;
@@ -101,26 +104,7 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 		return;
 	__super::Render(pRenderTarget);
 
-
-	if (Testbool == true)
-	{	
-		pRenderTarget->DrawBitmap(bitmap, DstRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
-	}
-	else
-	{
-//		// Test 몬스터 피격효과 
-//		D2D1_MATRIX_5X4_F redEmphasis =
-//		{
-//		0.5f, 0.0f, 0.0f, 1.0f, 0.9f,
-//		0.0f, 0.3f, 0.0f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.2f, 0.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
-//		};
-//
-//		D2DRenderer::GetInstance()->CreateColorMatrixEffect(bitmap, redEmphasis);
-//		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffect::GetInstance()->FindEffect(L"Edge"), {0,0}, srcRect);
-	}
-
+	pRenderTarget->DrawBitmap(bitmap, DstRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
 	pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 

@@ -36,6 +36,7 @@ BattleWorld::BattleWorld()
 
 BattleWorld::~BattleWorld()
 {
+
 }
 
 void BattleWorld::MakeObject()

@@ -80,6 +80,8 @@ void Shop::Update(float deltaTime)
 		if (count == 4 && gameManager->isBattle == false)  //타워가 전부 비어있는지 검사
 		{
 			shop_spawnButton->SetInteractive(true);	
+//			TowerBase* tower = dynamic_cast<TowerBase*>(Pools::GetInstance().get()->PopPool(12));
+//			tower->Init({ 0,0 });
 		}
 		else
 		{

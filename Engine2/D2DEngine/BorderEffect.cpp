@@ -7,12 +7,12 @@ using namespace Microsoft::WRL;
 
 BorderEffect::BorderEffect(ID2D1Bitmap* _Bitmap)
 {
-	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1ChromaKey, &DefaultEffect);
-
+	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1ChromaKey, &DefaultEffect); 
+	// 크로마키 적용할 컬러 정하기 위해 CLSID_D2D1ColorMatrix
 	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1ColorMatrix, &colorMatrixEffect);
 	colorMatrixEffect->SetInput(0, _Bitmap);
 	colorMatrixEffect->SetValue(D2D1_COLORMATRIX_PROP_CLAMP_OUTPUT, TRUE);
-
+	// 외각선 구하기
 	ComPtr<ID2D1Effect> edgeDetectionEffect;
 	D2DRenderer::GetInstance()->DeviceContext->CreateEffect(CLSID_D2D1EdgeDetection, &edgeDetectionEffect);
 	edgeDetectionEffect->SetInput(0, _Bitmap);
