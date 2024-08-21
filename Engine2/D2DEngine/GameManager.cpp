@@ -3,9 +3,11 @@
 #include "DataManager.h"
 #include "D2DEffectManager.h"
 #include "CrossFadeEffect.h"
+#include "../DemoGame/Artifact.h"
 
 GameManager::GameManager()
 {
+	
 }
 
 GameManager::~GameManager()
@@ -25,6 +27,10 @@ void GameManager::Update()
 		else
 		{			
 			WaveLevel++;
+			if (artifact->isOwned(static_cast<int>(ArtifactId::Bible)))
+			{
+				gold += goldReward[WaveLevel] + goldReward[WaveLevel] * 0.3f;
+			}
 			gold += goldReward[WaveLevel];
 		}
 		dataManager->ChoseWave();

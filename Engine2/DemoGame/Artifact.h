@@ -6,24 +6,24 @@ class Image;
 class TowerBase;
 enum class ArtifactId
 {
-	WaterDamageUp = 1,
-	PileDamageUp = 2,
-	BowDamageUp = 3,
-	HolyDamageUp = 4,
-	WaterHpUp = 5,
-	PileHpUp = 6,
-	BowHpUp = 7,
-	HolyHpUp = 8,
-	WaterSpeedUp = 9,
-	PileSpeedUp = 10,
-	BowSpeedUp = 11,
-	HolySpeedUp = 12,
-	Garlic = 13,
-	Bible = 14,
-	SilverRing = 15,
-	Laurel = 16,
-	Wine = 17,
-	Mirror = 18,
+	WaterDamageUp = 500,
+	PileDamageUp = 501,
+	BowDamageUp = 502,
+	HolyDamageUp = 503,
+	WaterHpUp = 504,
+	PileHpUp = 505,
+	BowHpUp = 506,
+	HolyHpUp = 507,
+	WaterSpeedUp = 508,
+	PileSpeedUp = 509,
+	BowSpeedUp = 510,
+	HolySpeedUp = 511,
+	Garlic = 512,
+	Bible = 513,
+	SilverRing = 514,
+	Laurel = 515,
+	Wine = 516,
+	Mirror = 517,
 };
 
 #define artifact Artifact::GetInstance().get()
@@ -62,7 +62,6 @@ public:
 	void levelUp(int id);
 	bool isOwned(int id);
 	void SelectArtifact(int id);
-	int bibleGold(int gold);
 	std::vector<int> ownedArtifact;
 
 };

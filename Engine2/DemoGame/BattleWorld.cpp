@@ -24,15 +24,13 @@
 #include "Artifact.h"
 #include "TowerBase.h"
 #include "Music.h"
-
 #include "D2DFontManager.h"
 
 BattleWorld::BattleWorld()
 {	
 	// 낮 밤 바뀌는거 물어볼 것 따로 변수가 있는지?
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
-	artifact->SelectArtifact(501);
-	//Music::soundManager->GetInstance()->SetVolume(0.1f, Music::eSoundChannel::BGM);
+	//artifact->SelectArtifact(501);
 }
 
 BattleWorld::~BattleWorld()
@@ -58,11 +56,19 @@ void BattleWorld::MakeUI()
 {
 	Make(GodStore)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GodStore"]);
 	Make(Button)(L"Pause", [this]() {timeManager->SetTimeScale(0); TimeScaleIsClick(0); 
-	Music::soundManager->SetPause(Music::eSoundChannel::BGM, true); }, ButtonType::Active).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
+	Music::soundManager->SetPause(Music::eSoundChannel::BGM, true); 
+		}, ButtonType::Active).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
 	Make(Button)(L"Resume",[this]()  {timeManager->SetTimeScale(1); TimeScaleIsClick(1);
 	Music::soundManager->SetPause(Music::eSoundChannel::BGM, false);
 		}, ButtonType::Active).setPosition({ WinSizeX - 210, 75 }).Get(TimeScaleButton[1]);
-	Make(Button)(L"Multi",[this]() {timeManager->SetTimeScale(2); TimeScaleIsClick(2); }, ButtonType::Active).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
+	Make(Button)(L"Multi",[this]() {timeManager->SetTimeScale(2); TimeScaleIsClick(2); 
+	Music::soundManager->SetPause(Music::eSoundChannel::BGM, false); 
+		}, ButtonType::Active).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
+
+	// 테스트용 아티팩트 소환
+
+	Make(Button)(L"Resume", [this]() {	int a = Utility::RandomBetween(501, 517); artifact->SelectArtifact(a); }, ButtonType::Active).setPosition({WinSizeX -330, 150});
+
 	TimeScaleButton[0]->SetIsEnable(false);
 	TimeScaleButton[2]->SetIsEnable(false);
 
@@ -79,6 +85,7 @@ void BattleWorld::MakeUI()
 void BattleWorld::RegisterEvent()
 {
 	gameManager->events[Event::EndWave] = [this]() { //웨이브 종료시 함수
+
 		shop->GetSwapButton()->SetInteractive(true);
 		shop->init();
 		gameManager->chance = 1;
