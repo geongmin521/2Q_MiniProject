@@ -9,9 +9,10 @@
 #include "GameManager.h"
 #include "Pools.h"
 #include "EventSystem.h"
-
+#include "Music.h"
 TitleWorld::TitleWorld()
 {
+	Music::soundManager->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
 }
 
 TitleWorld::~TitleWorld() 

@@ -153,6 +153,10 @@ void EnemyDead::EnterState()
 	{
 		Music::soundManager->PlayMusic(Music::eSoundList::DeffendDestroy, Music::eSoundChannel::EnemyHitted2);
 	}
+	else
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::EnemyDestroy, Music::eSoundChannel::EnemyHitted);
+	}
 }
 
 void EnemyDead::Update(float deltaTime)
