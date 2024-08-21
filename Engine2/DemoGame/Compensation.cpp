@@ -28,11 +28,11 @@ Compensation::Compensation()
 			AddComponent(name[i]).
 			AddComponent(explain[i]).
 			setPos_Parent({ LPad - 100 * i, 0 }, transform);
-		Music::soundManager->PlayMusic(Music::eSoundList::Reward, Music::eSoundChannel::Effect1);
 	}
 	
 	//보상확정 버튼 
-	Make(Button)(L"Commit", [this]() {GetCompensation(); }).
+	Make(Button)(L"Commit", [this]() {GetCompensation(); 
+	Music::soundManager->PlayMusic(Music::eSoundList::Reward, Music::eSoundChannel::Effect1); }).
 		setPos_Parent_Text({ LPad + 500, 300 }, this->transform, L"선택 완료", 20).Get(btn);
 	SetActive(false);
 
@@ -76,6 +76,7 @@ void Compensation::Update(float deltatime)
 
 void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성역상점이랑 보상페이지는 성격이 많이다르긴한데.. 
 {
+
 	if (selectedId == -1)
 		return; //선택안됨
 	artifact->SelectArtifact(selectedId);

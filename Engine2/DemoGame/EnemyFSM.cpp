@@ -158,7 +158,7 @@ void EnemyDead::EnterState()
 	}
 	else if (enemy->enemyData.Type == "Deffend")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::DefDestroy, Music::eSoundChannel::EnemyHitted2);
+		Music::soundManager->PlayMusic(Music::eSoundList::DeffendDestroy, Music::eSoundChannel::EnemyHitted2);
 	}
 }
 
