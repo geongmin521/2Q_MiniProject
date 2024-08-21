@@ -18,5 +18,7 @@ public:
 
 	Bitmap* afternoonBitmap = nullptr;
 	Bitmap* nightBitmap = nullptr;
+
+	bool isBlurEffect = false;
 };
 

@@ -34,9 +34,6 @@
     <Filter Include="Artifact">
       <UniqueIdentifier>{9fa061a9-80fd-4703-8872-b9f25197e095}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Light">
-      <UniqueIdentifier>{2d3a1bcd-c88d-4172-a3be-071f65b54f63}</UniqueIdentifier>
-    </Filter>
     <Filter Include="InGameUI">
       <UniqueIdentifier>{ebd91ec1-360b-4ffe-a650-fb901a2de8d9}</UniqueIdentifier>
     </Filter>
@@ -116,9 +113,6 @@
     </ClInclude>
     <ClInclude Include="Container.h">
       <Filter>UIBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Light</Filter>
     </ClInclude>
     <ClInclude Include="Pools.h">
       <Filter>Factory</Filter>
@@ -221,9 +215,6 @@
     </ClCompile>
     <ClCompile Include="Pools.cpp">
       <Filter>Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Light</Filter>
     </ClCompile>
     <ClCompile Include="HPBar.cpp">
       <Filter>InGameUI</Filter>

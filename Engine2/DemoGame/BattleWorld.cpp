@@ -30,10 +30,12 @@
 BattleWorld::BattleWorld()
 {
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
+	artifact->SelectArtifact(8);
 }
 
 BattleWorld::~BattleWorld()
 {
+
 }
 
 void BattleWorld::MakeObject()
