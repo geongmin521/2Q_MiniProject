@@ -17,8 +17,13 @@ namespace Music
     enum class eSoundChannel
     {
         BGM,
-        Effect,
-        Effect2,
+        Effect1,
+        EnemyHitted,
+        EnemyHitted2,
+        TowerHitted,
+        TowerAttack,
+        TowerAttack2,
+        TowerEffect,
         Size
     };
 
@@ -27,11 +32,23 @@ namespace Music
         GameOver,
         MainTheme,
         BatDestroy,
+        BatBombDestroy,
+        DeffendDestroy,
         Lock,
+        UnLock,
         Reward,
         WaveStart,
         TowerUpgrade,
         PileHitted,
+        TowerReplace,   
+        CrossbowAttack,
+        WaterAttack,
+        HiddenAttack,
+        HolyCrossAttack,
+        CrossbowEffect,
+        WaterEffect,
+        HiddenEffect,
+        HolyCrossEffect,
         Size
     };
     class SoundManager;  
@@ -55,8 +72,23 @@ namespace Music
 
         void SetIsWrong(int index, bool ture) { IsWrong[index] = ture;}
 
-
+        eSoundList toEnum(const std::string& str);
     private:
+        // 할때마다 추가할것 일단 공통적인 tower + enemy만
+        const std::unordered_map<std::string, eSoundList> stringToEnumMap = 
+        {
+                {"CrossbowAttack", eSoundList::CrossbowAttack},
+                {"WaterAttack", eSoundList::WaterAttack},
+                {"HiddenAttack", eSoundList::HiddenAttack},
+                {"HolyCrossAttack", eSoundList::HolyCrossAttack},
+                {"CrossbowEffect", eSoundList::CrossbowEffect},
+                {"HolyCrossEffect", eSoundList::HolyCrossEffect},
+                {"PileHitted", eSoundList::PileHitted},
+                {"BatDestroy", eSoundList::BatDestroy},
+                {"BatBombDestroy", eSoundList::BatBombDestroy},
+                {"DeffendDestroy", eSoundList::DeffendDestroy},
+        };
+
         SoundManager();
 
         ~SoundManager();

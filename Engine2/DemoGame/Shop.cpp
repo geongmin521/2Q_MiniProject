@@ -16,6 +16,9 @@
 
 #include "D2DEffectManager.h"
 #include "CrossFadeEffect.h"
+
+#include "Music.h"
+
 Shop::Shop() 
 {
 	Make(GameObject)().setParent(transform).Get(child);
@@ -26,7 +29,11 @@ Shop::Shop()
 	for (int i = 0; i < 5; i++)//아이콘
 		Make(Image)(L"Crossbow.png").setPos_Parent({ LPad + i * 480 , -200 }, child->transform).Get<Image>(Icons);
 	for (int i = 0; i < 5; i++)//리롤 잠그기
-		Make(Button)(L"lock", [i, this]() { isLock[i] = !isLock[i]; }, ButtonType::Active).setPos_Parent({ LPad + i * 480, 130 }, child->transform); //매커니즘이 좀다른데.. 아예 다른걸로 만들까? 똑같이 하면되는데 그냥 온클릭에서 처리할까? 
+		Make(Button)(L"lock", [i, this]() { isLock[i] = !isLock[i];
+		if (isLock[i])
+			Music::soundManager->PlayMusic(Music::eSoundList::Lock, Music::eSoundChannel::Effect1);
+		else
+			Music::soundManager->PlayMusic(Music::eSoundList::UnLock, Music::eSoundChannel::Effect1);}, ButtonType::Active).setPos_Parent({ LPad + i * 480, 130 }, child->transform); //매커니즘이 좀다른데.. 아예 다른걸로 만들까? 똑같이 하면되는데 그냥 온클릭에서 처리할까? 
 	//리롤 버튼	 //같은색깔 끼리 모이니까 이쁘긴한데 가독성은 뭐가 나을려나..
 	//조합표 확인 버튼
 	//소환하기 버튼
@@ -165,9 +172,13 @@ void Shop::Spawn()
 		if (dynamic_cast<TowerBase*>(tower) != nullptr)
 		{
 			dynamic_cast<TowerBase*>(tower)->Init(Containers[inven]->transform->GetWorldLocation());
-			Containers[inven]->OnDrop(tower); 
+			Containers[inven]->OnDrop(tower);			
 		}
 		
+		if (var != 0 && var != 3 && var != 6 && var != 9)
+		{
+			Music::soundManager->PlayMusic(Music::eSoundList::TowerUpgrade, Music::eSoundChannel::Effect1);
+		}
 		inven++;
 	}
 	compensationList.clear(); 

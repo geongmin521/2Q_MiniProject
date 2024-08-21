@@ -50,6 +50,15 @@ namespace Music
         mChannel[(int)chanel]->setVolume(volume);
     }
 
+    eSoundList SoundManager::toEnum(const std::string& str)
+    {
+        auto it = stringToEnumMap.find(str);
+        if (it != stringToEnumMap.end()) {
+            return it->second;
+        }
+    }
+
+
     SoundManager::SoundManager(): mSystem(), mChannel{}, mSoundList{}, mVolume(0.5f)
     {
     }

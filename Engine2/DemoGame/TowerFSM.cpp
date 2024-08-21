@@ -9,12 +9,12 @@
 #include "EnemyBase.h"
 #include "GameManager.h"
 #include "Container.h"
+#include "Music.h"
 
 TowerFSM::TowerFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
 	tower = (TowerBase*)owner->owner;
 	ani = owner->owner->GetComponent<Animation>();
-	
 }
 TowerFSM::~TowerFSM()
 {
@@ -77,9 +77,8 @@ void TowerAttack::EnterState()
 	attackcount = 0;
 	if (ani != nullptr)
 	ani->SetAnimation(1, false,false);
-
-	
-	
+	std::string str = tower->towerData.Type + "Attack";
+	Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), Music::eSoundChannel::TowerAttack);
 	
 }
 
@@ -112,6 +111,8 @@ void TowerAttack::Update(float DeltaTime) //공속이 애니메이션보다 빨라지면.. 공�
 
 void TowerAttack::ExitState()
 {
+	std::string str = tower->towerData.Type + "Effect";
+	Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), Music::eSoundChannel::TowerEffect);
 }
 
 void TowerDeath::EnterState()
