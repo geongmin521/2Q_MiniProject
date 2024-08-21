@@ -17,8 +17,13 @@ namespace Music
     enum class eSoundChannel
     {
         BGM,
-        Effect,
-        Effect2,
+        Effect1,
+        EnemyHitted,
+        EnemyHitted2,
+        TowerHitted,
+        TowerAttack,
+        TowerAttack2,
+        TowerEffect,
         Size
     };
 
@@ -27,11 +32,21 @@ namespace Music
         GameOver,
         MainTheme,
         BatDestroy,
+        BatBombDestroy,
+        DefDestroy,
         Lock,
+        UnLock,
         Reward,
         WaveStart,
         TowerUpgrade,
         PileHitted,
+        TowerReplace,   
+        ArrowAttack,
+        WaterAttack,
+        HiddenAttack,
+        ArrowEffect,
+        WaterEffect,
+        HolyHeal,
         Size
     };
     class SoundManager;  

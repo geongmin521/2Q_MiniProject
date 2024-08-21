@@ -9,6 +9,7 @@
 #include "EnemyBase.h"
 #include "GameManager.h"
 #include "Container.h"
+#include "Music.h"
 
 TowerFSM::TowerFSM(FiniteStateMachine* pOwner, std::string Name) : FSMState(pOwner, Name)
 {
@@ -77,7 +78,22 @@ void TowerAttack::EnterState()
 	attackcount = 0;
 	if (ani != nullptr)
 	ani->SetAnimation(1, false,false);
-	
+	if (tower->towerData.Type == "Crossbow")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::ArrowAttack, Music::eSoundChannel::TowerAttack);
+	}
+	else if (tower->towerData.Type == "Water")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::WaterAttack, Music::eSoundChannel::TowerAttack2);
+	}
+	else if (tower->towerData.Type == "Hidden")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::HiddenAttack, Music::eSoundChannel::TowerAttack);
+	}
+	else if (tower->towerData.Type == "HolyCross")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::HolyHeal, Music::eSoundChannel::Effect1);
+	}
 }
 
 
@@ -109,6 +125,14 @@ void TowerAttack::Update(float DeltaTime) //공속이 애니메이션보다 빨라지면.. 공�
 
 void TowerAttack::ExitState()
 {
+	if (tower->towerData.Type == "Crossbow")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::ArrowEffect, Music::eSoundChannel::TowerEffect);
+	}
+	else if (tower->towerData.Type == "Water")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::WaterEffect, Music::eSoundChannel::TowerEffect);
+	}
 }
 
 void TowerDeath::EnterState()

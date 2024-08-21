@@ -317,7 +317,7 @@ void TowerBase::Hit(float damage, float knockback)
 	// 일단 여기에다 넣어보고 나중에 좋은 위치 생각
 	if (towerData.Type == "Pile")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::PileHitted, Music::eSoundChannel::Effect2);
+		Music::soundManager->PlayMusic(Music::eSoundList::PileHitted, Music::eSoundChannel::TowerHitted);
 	}
 }
 
@@ -349,6 +349,7 @@ void TowerBase::StayDrag(const MouseState& state)
 
 void TowerBase::EndDrag(const MouseState& state) //드래그앤 드롭이니까.. 
 {	
+	Music::soundManager->PlayMusic(Music::eSoundList::TowerReplace, Music::eSoundChannel::Effect1);
 	//container
 }
 
@@ -415,7 +416,7 @@ void TowerBase::OnDoubleClick()
 			dynamic_cast<TowerBase*>(newTower)->container = this->container;
 			this->container->Clear();//여기서 컨테이너를 새타워에 넘겨주고 자기껀 없애고?
 		}
-		Music::soundManager->PlayMusic(Music::eSoundList::TowerUpgrade, Music::eSoundChannel::Effect2);
+		Music::soundManager->PlayMusic(Music::eSoundList::TowerUpgrade, Music::eSoundChannel::TowerHitted);
 	}
 }
 

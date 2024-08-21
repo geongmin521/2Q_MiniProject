@@ -31,7 +31,7 @@ BattleWorld::BattleWorld()
 {	
 	// 낮 밤 바뀌는거 물어볼 것 따로 변수가 있는지?
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
-	Music::soundManager->GetInstance()->SetVolume(0.1f, Music::eSoundChannel::BGM);
+	//Music::soundManager->GetInstance()->SetVolume(0.1f, Music::eSoundChannel::BGM);
 }
 
 BattleWorld::~BattleWorld()
@@ -82,7 +82,7 @@ void BattleWorld::RegisterEvent()
 		Objs["WaveCount"]->GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/UI/mainUI/gauge"+std::to_wstring(gameManager->WaveLevel) + L".png");
 		if (gameManager->WaveLevel == 3 || gameManager->WaveLevel == 6)
 		{
-			Objs["Compensation"]->SetActive(true);
+			//Objs["Compensation"]->SetActive(true);
 		}
 		else
 		{
@@ -105,7 +105,7 @@ void BattleWorld::RegisterEvent()
 				}
 			}
 		}
-		Music::soundManager->PlayMusic(Music::eSoundList::WaveStart, Music::eSoundChannel::Effect);
+		Music::soundManager->PlayMusic(Music::eSoundList::WaveStart, Music::eSoundChannel::Effect1);
 	};
 	
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);

@@ -28,7 +28,7 @@ Compensation::Compensation()
 			AddComponent(name[i]).
 			AddComponent(explain[i]).
 			setPos_Parent({ LPad - 100 * i, 0 }, transform);
-		Music::soundManager->PlayMusic(Music::eSoundList::Reward, Music::eSoundChannel::Effect2);
+		Music::soundManager->PlayMusic(Music::eSoundList::Reward, Music::eSoundChannel::Effect1);
 	}
 	
 	//보상확정 버튼 

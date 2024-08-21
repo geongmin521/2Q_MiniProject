@@ -92,6 +92,12 @@ void EnemyAttack::EnterState()
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	ani->SetAnimation(1, false);
 	ani->isLoop = false;
+
+	if (enemy->enemyData.name == "BombEnemy")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::BatBombDestroy, Music::eSoundChannel::EnemyHitted);
+	}
+
 }
 
 void EnemyAttack::Update(float deltaTime)
@@ -148,7 +154,11 @@ void EnemyDead::EnterState()
 	ani->SetAnimation(2, false, false);
 	if (enemy->enemyData.Type == "Speed")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::BatDestroy, Music::eSoundChannel::Effect);
+		Music::soundManager->PlayMusic(Music::eSoundList::BatDestroy, Music::eSoundChannel::EnemyHitted2);
+	}
+	else if (enemy->enemyData.Type == "Deffend")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::DefDestroy, Music::eSoundChannel::EnemyHitted2);
 	}
 }
 
