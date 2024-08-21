@@ -2,8 +2,7 @@
 #include "DataManager.h"
 #include "GameManager.h"
 #include "Utility.h"
-#include <locale>
-#include <codecvt>
+
 
 DataManager::DataManager()
 {
@@ -174,6 +173,7 @@ void DataManager::ArtifactDataRead()
 			{
 				parseToken(wss, data.id);
 				parseToken(wss, data.type);
+				parseToken(wss, data.filePath);
 				parseToken(wss, data.name);
 				parseToken(wss, data.target);
 				parseToken(wss, data.part);
@@ -182,6 +182,10 @@ void DataManager::ArtifactDataRead()
 				parseToken(wss, data.explainText);
 			}
 			artifactData[data.id] = data;
+			if(data.type == "Normal")
+				normalArtifactID.push_back(data.id);
+			else 
+				SpecialArtifactID.push_back(data.id);
 		}
 	}
 }

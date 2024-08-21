@@ -44,7 +44,7 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 		id = 503;
 	}
 	if (type == "Hidden")
-	{
+	{   
 		this->speed = 130.0f;
 		AddComponent(new Movement(transform));
 		transform->SetRelativeScale({ 0.3f,0.3f });
@@ -83,7 +83,6 @@ void Arrow::Init(MathHelper::Vector2F location, GameObject* target)
 	{
 		GetComponent<BezierMovement>()->target = target;
 		GetComponent<BezierMovement>()->Init();
-
 	}
 	
 	CircleCollider* cirCle = GetComponent<CircleCollider>();
@@ -142,8 +141,6 @@ void Arrow::Update(float deltaTime)
 	{
 		AttackFunc(); //풀에넣는건 각 어택안에서
 	}
-	
-
 }
 
 void Arrow::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)

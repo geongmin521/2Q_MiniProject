@@ -9,11 +9,8 @@
 Effect::Effect(int id, std::string imagepath, std::string csvpath,int renderOrder)
 {
 	this->id = id;
-	
 	AddComponent(new Animation(L"..\\Data\\Image\\Effect\\" + Utility::convertFromString(imagepath) + L".png", L"..\\Data\\CSV\\Effect\\" + Utility::convertFromString(csvpath) + L".csv"));
 	GetComponent<Animation>()->SetAnimation(0, false, false);
-	
-
 	this->renderOrder = renderOrder;
 }
 

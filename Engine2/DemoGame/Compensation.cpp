@@ -12,47 +12,45 @@
 
 Compensation::Compensation() 
 {
-	float LPad = 100; 
+	float LPad = 810; 
 	//배경
-	Make(Image)(L"UI/Pop_up/Popup_SpecialReward.png").setPosition({ LPad , 100 }).setParent(this->transform);
-
+	Make(Image)(L"UI/Pop_up/Popup_SpecialReward.png").setParent(this->transform);
+	renderOrder += 50;
 	//csv로 타입 받아서 만들기.. 
 	for (int i = 0; i < 3; i++)
-		name[i] = new D2DFont(L""); //이걸 그냥 더해버리면.. 사이즈를 내가 다해야함? 
+	{
+		name[i] = new D2DFont(L"");
+		name[i]->SetPos(0, -115);
+		name[i]->SetSize(40, {0,0});
+		name[i]->SetBoxSize({380,80});
+	}
+
 	for (int i = 0; i < 3; i++)
+	{
 		explain[i] = new D2DFont(L"");
+		explain[i]->SetPos(0, 140);
+		explain[i]->SetSize(40, { 0,0 });
+		explain[i]->SetBoxSize({ 380,180 });
+	}
+		
 	for (int i = 0; i < 3; i++)
 	{
 		Make(Button)(L"Frame", [this,i]() {selectedId = compensationId[i]; btn->SetInteractive(true); },ButtonType::Active). //두번째웨이브일때는 그냥 아이디 3만 더해주기
-			AddComponent(name[i]).
+			AddComponent(name[i]). //위치를 좀 정해주고싶은데.. 
 			AddComponent(explain[i]).
-			setPos_Parent({ LPad - 100 * i, 0 }, transform);
+			setPos_Parent({ LPad - (810 * i), -100 }, transform).Get(compensationButton[i]);
+		compensationButton[i]->SetIsEnable(false);
 	}
-	
+
+	//보상을 위한 이미지를 만들고 교체해주기.. 
+	for (int i = 0; i < 3; i++)
+	{
+		Make(Image)(L"Artifact/Bible.png").setPos_Parent({ LPad - (810 * i), -100 }, transform).Get(img[i]);
+	}
 	//보상확정 버튼 
 	Make(Button)(L"Commit", [this]() {GetCompensation(); }).
-		setPos_Parent_Text({ LPad + 500, 300 }, this->transform, L"선택 완료", 20).Get(btn);
+		setPos_Parent({ 0, 410 }, this->transform).Get(btn);
 	SetActive(false);
-
-	//내일 아 csv를 오늘부터 테스트하고 넘겨야할듯. 
-	texts.push_back(L"성수의 공격력이 증가합니다."); //나중에 csv 한글 텍스트 읽는거 테스타하기 그 인코딩이 유니-8 csv인듯
-	texts.push_back(L"말뚝의 공격력이 증가합니다.");
-	texts.push_back(L"석궁의 공격력이 증가합니다.");
-	texts.push_back(L"십자가의 회복량이 증가합니다.");
-	texts.push_back(L"성수 캐릭터의 체력이 증가합니다.");
-	texts.push_back(L"말뚝 캐릭터의 체력이 증가합니다.");
-	texts.push_back(L"석궁 캐릭터의 체력이 증가합니다.");
-	texts.push_back(L"십자가 캐릭터의 체력이 증가합니다.");
-	texts.push_back(L"성수 캐릭터의 공격 속도가 증가합니다.");
-	texts.push_back(L"말뚝 캐릭터의 공격 속도가 증가합니다.");
-	texts.push_back(L"석궁 캐릭터의 공격 속도가 증가합니다.");
-	texts.push_back(L"십자가 캐릭터의 회복 속도가 증가합니다.");
-	texts.push_back(L"일정 시간 동안 적들에게 추가 지속 피해를 입힙니다.");
-	texts.push_back(L"신앙심의 획득량이 증가합니다.");
-	texts.push_back(L"내 모든 캐릭터의 공격 사거리가 증가합니다.");
-	texts.push_back(L"내 모든 캐릭터의 넉백 수치가 증가합니다.");
-	texts.push_back(L"적들의 공격 속도가 감소합니다.");
-	texts.push_back(L"적들의 이동 속도가 줄어듭니다.");
 }
 
 Compensation::~Compensation() //버튼누르면 현재 보상 아이디를 저장하고 있다가 확정하면 아키펙트 매니저한테 전해주기
@@ -62,6 +60,7 @@ Compensation::~Compensation() //버튼누르면 현재 보상 아이디를 저장하고 있다가 확
 void Compensation::Update(float deltatime)
 {
 	__super::Update(deltatime);
+	std::cout << transform->GetRelativeScale().x;
 	if(isSelect)
 	elapsedTime += deltatime;
 	if (deleteTime < elapsedTime)
@@ -79,25 +78,41 @@ void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성�
 	artifact->SelectArtifact(selectedId);
 	isSelect = true;
 	auto& scale = transform->relativeScale;
-	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.05);
-	new DOTween(scale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 1, 0.05);
+	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.75f, 0.05);
+	new DOTween(scale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.75f, 0.05);
 }
 
-void Compensation::Enable()
+void Compensation::ChoseCompensation(bool special)
 {
-	if (gameManager->curWaveId == 3 || gameManager->curWaveId == 6) //내일 유물이랑.. 보상 선택더 잘 해놓기.. 
+	vector<int> result;
+	if (special == false)
+		result = Utility::RandomUniqueValuesFromVector(dataManager->getNormalArtifactID(), 3); //노말 유물 3개뽑기
+	else 
+		result = Utility::RandomUniqueValuesFromVector(dataManager->getSpecialArtifactID(), 3);//특별 유물 3개뽑기
+	for (int i = 0; i < result.size(); i++)
 	{
-		//특별보상 에서 뽑기.. 
+		wstring wtext1 = Utility::StringToWStringA(dataManager->getArtifactData(result[i]).nameText);
+		wstring wtext2 = Utility::StringToWStringA(dataManager->getArtifactData(result[i]).explainText);
+		wstring artifactPath = Utility::StringToWStringA(dataManager->getArtifactData(result[i]).filePath);
+		name[i]->SetDialog(wtext1);
+		explain[i]->SetDialog(wtext2);
+		compensationId[i] = result[i];
+		img[i]->ChangeImage(L"../Data/Image/Artifact/"+ artifactPath +L".png");
 	}
-	else
-	{
-		name[0]->SetDialog(Utility::convertFromString(dataManager->getArtifactData(0).nameText));
-	}
+}
 
+void Compensation::Enable() 
+{
 	selectedId = -1;
 	isSelect = false;
 	auto& scale = transform->relativeScale;
-	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 1);
-	new DOTween(scale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 1);
+	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 0.75f);
+	new DOTween(scale.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 2.f, 0.2, 0.75f);
 	elapsedTime = 0;
+}
+
+void Compensation::Disable()
+{
+	if(gameManager->events[Event::ShowWaveFunc] != nullptr)
+		gameManager->events[Event::ShowWaveFunc]();
 }
