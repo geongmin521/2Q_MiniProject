@@ -42,7 +42,7 @@ class Artifact : public SingletonBase<Artifact>
 	};
 public:
 	artifactPower WaterPower;
-	artifactPower BowPower;
+	artifactPower CrossbowPower;
 	artifactPower HolyPower;
 	artifactPower PilePower;
 
@@ -55,7 +55,7 @@ public:
 	bool isOwned(int id);
 	void SelectArtifact(int id);
 
-	void ResetStat(artifactPower artifact);
+	void ResetStat(artifactPower power);
 
 	std::vector<int> ownedArtifact;
 
