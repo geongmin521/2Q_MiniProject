@@ -32,6 +32,7 @@ class InputSystem : public SingletonBase<InputSystem>
 public:
 	InputSystem();
 	~InputSystem();
+	virtual void reset() override;
 
 	void ResetInput();
 	void UpdateKey();

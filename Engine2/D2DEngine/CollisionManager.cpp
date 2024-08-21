@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CollisionManager.h"
+#include "GameManager.h"
 #include "Collider.h"
 
 CollisionManager::CollisionManager()
@@ -7,12 +8,19 @@ CollisionManager::CollisionManager()
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Enemy));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower, CollisionLayer::Tower));
 	collisonLayer.insert(std::make_pair(CollisionLayer::Tower,CollisionLayer::Bullet));
-	collisonLayer.insert(std::make_pair(CollisionLayer::Enemy,CollisionLayer::Bullet));
+	collisonLayer.insert(std::make_pair(CollisionLayer::Enemy,CollisionLayer::Bullet)); //레이어는 생성될때 만들어져서 안지우기로
+	gameManager->Reset.push_back([this]() { reset(); });
 }
 
 CollisionManager::~CollisionManager()
 {
 	std::cout << "소멸";
+}
+
+void CollisionManager::reset()
+{
+	colliders.clear();
+	remove.clear();
 }
 
 void CollisionManager::CollisionCheck() 

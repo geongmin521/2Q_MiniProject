@@ -50,6 +50,7 @@ public:
 
 	Artifact();
 	virtual ~Artifact();
+	virtual void reset() override;
 	void Init();
 	void levelUp(int id);
 	bool isOwned(int id);

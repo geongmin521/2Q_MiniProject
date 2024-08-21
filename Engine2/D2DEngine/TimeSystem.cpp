@@ -1,11 +1,17 @@
 #include "pch.h"
 #include "TimeSystem.h"
+#include "GameManager.h"
 
 TimeManager::TimeManager() : _CurTime{ 0 }, _PrevTime{ 0 }, _Frequency{ 0 } , _DeltaTime(0), _TimeScale(1.0f)
 {
+	gameManager->Reset.push_back([this]() { reset(); });
 }
 
 TimeManager::~TimeManager()
+{
+}
+
+void TimeManager::reset()
 {
 }
 

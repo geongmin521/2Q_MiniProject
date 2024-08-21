@@ -11,19 +11,26 @@
 #include "CrossFadeEffect.h"
 #include "MorphologyEffect.h"
 #include "BorderEffect.h"
+#include "GameManager.h"
 
 D2DEffectManager::D2DEffectManager()
 {
+	//gameManager->Reset.push_back([this]() { reset(); });
 }
 
 D2DEffectManager::~D2DEffectManager()
+{
+	reset();
+}
+
+void D2DEffectManager::reset()
 {
 	for (auto& pair : Effects)
 	{
 		if (pair.second)
 		{
-			pair.second->~IEffect(); 
-			pair.second = nullptr; 
+			pair.second->~IEffect();
+			pair.second = nullptr;
 		}
 	}
 	Effects.clear(); // 전체 맵을 정리

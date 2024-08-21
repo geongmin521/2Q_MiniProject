@@ -24,6 +24,7 @@ public:
 	void Update(float deltatime);
 	void GetCompensation();
 	void ChoseCompensation(bool special); //º¸»ó»Ì±â.. 
+	void ButtonSelect(int i);
 	virtual void Enable() override;
 	virtual void Disable() override;
 };

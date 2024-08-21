@@ -8,7 +8,7 @@ class TimeManager: public SingletonBase<TimeManager>
 public:
 	TimeManager();
 	~TimeManager();
-
+	virtual void reset() override;
 	void InitTime();
 	void UpdateTime();
 	const float GetFrameRate();

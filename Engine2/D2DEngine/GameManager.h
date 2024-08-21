@@ -10,7 +10,7 @@ enum Event
 	UseGold,
 	OpenCombination,
 	OpenGodStore,
-	Reset
+	//Reset
 };
 
 #define gameManager GameManager::GetInstance().get()
@@ -31,10 +31,12 @@ public:
 	std::map<Event, std::function<void(void)>> events; 
 	std::function<GameObject*(std::string key)> getObject; 
 	std::function<void(bool)> Compensation; 
+	std::vector<std::function<void(void)>> Reset;//원래 다 이렇게했어야했는데 시간이 없으니 이거하나만 빼놓자.  
 	GameManager();
 	~GameManager(); 
 	void Update();
-	void reset();
+	virtual void reset() override;
+	void ResetFunc();
 	int GetGold() { return gold; };
 	void UseGold(int use) { gold -= use; events[Event::UseGold](); }; 
 };

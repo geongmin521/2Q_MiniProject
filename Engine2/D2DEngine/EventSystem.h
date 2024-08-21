@@ -20,22 +20,22 @@ public:
 	int dragThresholdX;
 	int dragThresholdY;
 
-	EventSystem() = default;
-	~EventSystem() = default;
+	EventSystem();
+	virtual ~EventSystem() = default;
+	virtual void reset() override;
 	std::set<GameObject*> Ui; 
 	IDragAble* curDrag;
-	IOnMouse* curOnMouse;
+	std::set<IOnMouse*> curOnMouse;
 	void Updata(float deltaTime);
 	void StayDragEvent();
 	void BeginDragEvent();
 	void EndDragEvent();
-	GameObject* FindTargetUI();
+	GameObject* FindTargetUI(); 
+	std::vector<GameObject*> FindTargetsUI();
 	IDropAble* FindDrop();
 	void DropEvent(GameObject* ui);
 	void ClickEvent();
 	void DoubleClickEvent();
 	void OnMouseEvent();
-
-	
 };
 

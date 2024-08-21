@@ -10,34 +10,26 @@ GodStore::GodStore()
 	renderOrder += 100;
 	//배경
 	Make(Image)(L"UI/Pop_up/Popup_SpecialReward.png").setParent(this->transform);
+	std::wstring name[3] = { L"축복" ,L"성물" ,L"고해성사" };
+	std::wstring costtext[3] = { L"신앙심 20" ,L"신앙심 40" ,L"신앙심 50" };
+	std::wstring compensation[3] = { L"일반 유물",L"특별 유물" , L"소환기회 + 1" };
 
-	//각 보상 버튼 
-	Make(Button)(L"Frame", [this]() {if (cost[0] <= gameManager->GetGold()) btn->SetInteractive(true); compensationId = 1; TimeScaleIsClick(0); }, ButtonType::Active).
-		AddText(L"축복",50,0,-110).
-		AddText(L"신앙심 20", 50, 0, 120).
-		AddText(L"일반 유물", 50, 0, 150).
-		setPos_Parent({-810, -110}, transform).
-		Get(CompensationBtn[0]);
-	Make(Image)(L"UI/Icon/special_item_001.png").setPos_Parent({ -810, -110 }, transform);
-	Make(Button)(L"Frame", [this]() {if (cost[1] <= gameManager->GetGold()) btn->SetInteractive(true); compensationId = 2; TimeScaleIsClick(1); }, ButtonType::Active).
-		AddText(L"성물", 50,0,-110).
-		AddText(L"신앙심 40", 50, 0, 120).
-		AddText(L"특별 유물", 50, 0, 150).
-		setPos_Parent({ 0, -110 },transform).
-		Get(CompensationBtn[1]);
-	Make(Image)(L"UI/Icon/special_item_002.png").setPos_Parent({ 0, -110 }, transform);
-	Make(Button)(L"Frame", [this]() {if (cost[2] <= gameManager->GetGold()) btn->SetInteractive(true); compensationId = 3; TimeScaleIsClick(2); }, ButtonType::Active).
-		AddText(L"고해성사", 50,0,-110).
-		AddText(L"신앙심 50", 50, 0, 120).
-		AddText(L"소환기회 + 1", 50, 0, 150).
-		setPos_Parent({ 810, -110 },transform).
-		Get(CompensationBtn[2]);
-	Make(Image)(L"UI/Icon/special_item_003.png").setPos_Parent({ 810, -110 }, transform);
-	//이거 클리하면 강조된걸로 변하는거지? 
+	for (int i = 0; i < 3; i++)
+	{
+		Make(Button)(L"Frame", [this,i]() {if (cost[i] <= gameManager->GetGold()) btn->SetInteractive(true); compensationId = i; TimeScaleIsClick(i); }, ButtonType::Active).
+			AddText(name[i], 50, 0, -110).
+			AddText(costtext[i], 50, 0, 120).
+			AddText(compensation[i], 50, 0, 150).
+			setPos_Parent({ -810.0f + (i * 810), -110 }, transform).
+			Get(CompensationBtn[i]);
+	}
+	for(int i=0;i< 3;i++)
+		Make(Image)(L"UI/Icon/special_item_00" + std::to_wstring(i + 1) + L".png").AddRenderOrder(10).setScale({0.75,0.75}).setPos_Parent({ -810.0f + (i * 810), -110 }, transform).setBoundBox(0, 0);
+
 	//선택완료 
-	Make(Button)(L"Pray", [this]() {GetCompensation(), SetActive(false); }).setPos_Parent({200, 400}, transform).Get<Button>(btn);
+	Make(Button)(L"Pray", [this]() {GetCompensation(), SetActive(false); }).setPos_Parent({300, 400}, transform).Get<Button>(btn);
 	//나가기 버튼
-	Make(Button)(L"Return", [this]() { SetActive(false); }).setPos_Parent({ -200, 400 }, this->transform);
+	Make(Button)(L"Return", [this]() { SetActive(false); }).setPos_Parent({ -300, 400 }, this->transform);
 	btn->SetInteractive(false); //기도하기 버튼도 보상줄게 있어야 나갈수있는거지? 
 	SetActive(false);
 	for (int i = 0; i < 3; i++)

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EventSystem.h"
+#include "GameManager.h"
 #include "InputSystem.h"
 #include "IClickAble.h"
 #include "IDragAble.h"
@@ -9,7 +10,19 @@
 #include "UI.h"
 #include "AABB.h"
 
-void EventSystem::Updata(float deltaTime) 
+EventSystem::EventSystem()
+{
+	gameManager->Reset.push_back([this]() { reset(); });
+}
+
+void EventSystem::reset()
+{
+	Ui.clear();
+	curDrag = nullptr;
+	curOnMouse.clear();
+}
+
+void EventSystem::Updata(float deltaTime)
 {
 	OnMouseEvent();
 }
@@ -26,7 +39,7 @@ void EventSystem::BeginDragEvent()
 {
 	std::cout << "드래그 판정";
 	GameObject* curUi = FindTargetUI();
-	IDragAble* dragAble = dynamic_cast<IDragAble*>(curUi);
+	IDragAble* dragAble = dynamic_cast<IDragAble*>(curUi); //어? 커렌트가 툴팁이 잡혀? 
 	if (dragAble)
 	{
 		dragAble->BeginDrag(inputSystem->GetMouseState()); 
@@ -44,7 +57,7 @@ void EventSystem::EndDragEvent()
 	curDrag = nullptr; 
 }
 
-GameObject* EventSystem::FindTargetUI()
+GameObject* EventSystem::FindTargetUI() 
 {
 	GameObject* curUi = nullptr;
 	int maxOrder = INT_MIN;
@@ -53,7 +66,7 @@ GameObject* EventSystem::FindTargetUI()
 	float ypos = inputSystem->GetMouseState()._y;
 	MathHelper::Vector2F mousePos{ xpos,ypos };
 
-	for (auto ele : Ui) 
+	for (auto ele : Ui)  //렌더 오더로 처리하긴하는데 겹치는게 너무 많나? 
 	{
 		if (ele->GetActive() == false) //활성화중인것들만 검사
 			continue;		
@@ -66,7 +79,28 @@ GameObject* EventSystem::FindTargetUI()
 			}
 		}
 	}
+	if(curUi != nullptr)
+		std::cout << curUi->name;
 	return curUi;
+}
+
+std::vector<GameObject*> EventSystem::FindTargetsUI()//나중에 찾는 UI를 확정하는 방식만 다르게 해서 중복코드 줄여보자 일단 테스트
+{
+	std::vector<GameObject*> result;
+	float xpos = inputSystem->GetMouseState()._x; //이게 업데이트가 느린건가? 
+	float ypos = inputSystem->GetMouseState()._y;
+	MathHelper::Vector2F mousePos{ xpos,ypos };
+	
+	for (auto ele : Ui)  //렌더 오더로 처리하긴하는데 겹치는게 너무 많나? 
+	{
+		if (ele->GetActive() == false) //활성화중인것들만 검사
+			continue;
+		if (ele->boundBox->CheckPoint(mousePos))
+		{
+			result.push_back(ele);
+		}
+	}
+	return result;
 }
 
 IDropAble* EventSystem::FindDrop() 
@@ -130,30 +164,63 @@ void EventSystem::DoubleClickEvent()
 		doubleClickAble->OnDoubleClick();
 }
 
-void EventSystem::OnMouseEvent()
+//void EventSystem::OnMouseEvent()
+//{
+//	GameObject* curUi = FindTargetUI();
+//	if (curUi == nullptr)
+//		return;
+//
+//	IOnMouse* onMouse = dynamic_cast<IOnMouse*>(curUi); 
+//	if (onMouse && curOnMouse == nullptr)
+//	{
+//		onMouse->OnMouse();
+//		curOnMouse = onMouse;
+//		std::cout << "OnMouse";
+//	}
+//	else if (onMouse != curOnMouse) 
+//	{
+//		curOnMouse->OutMouse();
+//		std::cout << "OutMouse";
+//		curOnMouse = nullptr;
+//	}
+//}
+
+void EventSystem::OnMouseEvent() //테스트용 
 {
-	GameObject* curUi = FindTargetUI();
-	if (curUi == nullptr)
+	std::vector<GameObject*> curUi = FindTargetsUI();	
+	if (curUi.empty())
 		return;
+	std::vector<IOnMouse*> onMouseUis; //현재 마우스가 위에올려진 오브젝트
+	for (int i = 0; i < curUi.size(); i++)
+	{
+		IOnMouse* onMouse = dynamic_cast<IOnMouse*>(curUi[i]);
+	
+		if (onMouse != nullptr)
+		{
+			onMouse->OnMouse();
+			onMouseUis.push_back(onMouse);			
+			curOnMouse.insert(onMouse);
+			std::cout << "OnMouse";
+		}
+		//else if (curOnMouse.find(onMouse) == curOnMouse.end()) //현재 온마우스를 저장하고있지만.. 현재 //저장하고있을까?
+		//{
+		//	onMouse->OutMouse();
+		//	std::cout << "OutMouse";
+		//	curOnMouse.erase(onMouse);
+		//}
+	}
 
-	IOnMouse* onMouse = dynamic_cast<IOnMouse*>(curUi); 
-	if (onMouse && curOnMouse == nullptr)
+	for (auto it = curOnMouse.begin(); it != curOnMouse.end();)
 	{
-		onMouse->OnMouse();
-		curOnMouse = onMouse;
-		std::cout << "OnMouse";
+		if (std::find(onMouseUis.begin(), onMouseUis.end(), *it) == onMouseUis.end()) // onMouseUis에 없는 경우
+		{
+			(*it)->OutMouse();
+			it = curOnMouse.erase(it); // 현재 요소 삭제 후 다음 요소로 이동
+		}
+		else
+		{
+			++it; // 현재 요소가 유지되는 경우 다음 요소로 이동
+		}
 	}
-	//else if (curOnMouse != nullptr && onMouse == curOnMouse) //일단 필요없어서 제외
-	//{
-	//	curOnMouse->StayMouse();
-	//	std::cout << "StayMouse";
-	//}
-	else if (onMouse != curOnMouse) 
-	{
-		curOnMouse->OutMouse();
-		std::cout << "OutMouse";
-		curOnMouse = nullptr;
-	}
+	
 }
-
-

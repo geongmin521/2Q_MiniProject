@@ -13,5 +13,6 @@ public:
 	~SceneManager();
 	void ChangeScene(World* world);
 	World* GetCurWorld() { return curWorld; }
+	virtual void reset() override;
 };
 

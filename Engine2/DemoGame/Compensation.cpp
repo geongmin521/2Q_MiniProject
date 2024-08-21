@@ -13,10 +13,10 @@
 #include "Music.h"
 Compensation::Compensation() 
 {
+	renderOrder += 200;
 	float LPad = 810; 
 	//배경
 	Make(Image)(L"UI/Pop_up/Popup_SpecialReward.png").setParent(this->transform);
-	renderOrder += 50;
 	//csv로 타입 받아서 만들기.. 
 	for (int i = 0; i < 3; i++)
 	{
@@ -36,7 +36,7 @@ Compensation::Compensation()
 		
 	for (int i = 0; i < 3; i++)
 	{
-		Make(Button)(L"Frame", [this,i]() {selectedId = compensationId[i]; btn->SetInteractive(true); },ButtonType::Active). //두번째웨이브일때는 그냥 아이디 3만 더해주기
+		Make(Button)(L"Frame", [this, i]() {selectedId = compensationId[i]; btn->SetInteractive(true); ButtonSelect(i); }, ButtonType::Active). //두번째웨이브일때는 그냥 아이디 3만 더해주기
 			AddComponent(name[i]). //위치를 좀 정해주고싶은데.. 
 			AddComponent(explain[i]).
 			setPos_Parent({ LPad - (810 * i), -100 }, transform).Get(compensationButton[i]);
@@ -46,7 +46,7 @@ Compensation::Compensation()
 	//보상을 위한 이미지를 만들고 교체해주기.. 
 	for (int i = 0; i < 3; i++)
 	{
-		Make(Image)(L"Artifact/Bible.png").setPos_Parent({ LPad - (810 * i), -100 }, transform).Get(img[i]);
+		Make(Image)(L"Artifact/Bible.png").AddRenderOrder(50).setPos_Parent({LPad - (810 * i), -100}, transform).setBoundBox(0,0).Get(img[i]);
 	}
 	//보상확정 버튼 
 	Make(Button)(L"Commit", [this]() {GetCompensation();
@@ -104,6 +104,16 @@ void Compensation::ChoseCompensation(bool special)
 	}
 }
 
+void Compensation::ButtonSelect(int num)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (i == num)
+			continue;
+		compensationButton[i]->SetIsEnable(false);
+	}
+}
+
 void Compensation::Enable() 
 {
 	selectedId = -1;
@@ -116,6 +126,6 @@ void Compensation::Enable()
 
 void Compensation::Disable()
 {
-	if(gameManager->events[Event::ShowWaveFunc] != nullptr)
+	if(gameManager->events[Event::ShowWaveFunc] != nullptr) //그냥 열릴때랑 상점에서 열릴때랑 다른데 이건 어떻게 구분할까.. 
 		gameManager->events[Event::ShowWaveFunc]();
 }

@@ -371,8 +371,10 @@ void TowerBase::EndDrag(const MouseState& state) //드래그앤 드롭이니까..
 void TowerBase::FailDrop()
 {
 	if (container != nullptr) //이거 널검사하는거 겁나 귀찮은데 define으로 만들까?
+	{
 		transform->SetRelativeLocation(container->GetWorldLocation());
-
+		container->isContain = true;
+	}
 }
 
 void TowerBase::OnDoubleClick()
@@ -442,11 +444,21 @@ void TowerBase::OnDoubleClick()
 void TowerBase::OnMouse() 
 {
 	MathHelper::Vector2F pos = transform->GetWorldLocation();
-	gameManager->getObject("ToolTip")->transform->SetRelativeLocation({ pos.x + 200 , pos.y });
-	GameObject* tooltip = gameManager->getObject("ToolTip"); //와 진짜 이거 모르겠네.. 나중에 찾아보자.
-	tooltip->SetActive(true); //아니 이거랑 무슨 상관이지? 
+	//모든 타워는 컨테이너 위에 존재함
+	if (container == nullptr)
+		return;
+	if (container->id < 4)	
+		gameManager->getObject("ToolTip")->transform->SetRelativeLocation({ pos.x + 200 , pos.y - 50 });	
+	else	
+		gameManager->getObject("ToolTip")->transform->SetRelativeLocation({ pos.x + 200 , pos.y });
+
+	GameObject* tooltip = gameManager->getObject("ToolTip");
+	tooltip->SetActive(true);
+	tooltip->renderOrder = renderOrder + 1;
 	std::wstring path = L"../Data/Image/UI/tooltip/" + Utility::convertFromString(towerData.name) + L".png";
 	gameManager->getObject("ToolTip")->GetComponent<Bitmap>()->LoadD2DBitmap(path);
+
+	
 }
 
 void TowerBase::OutMouse() 

@@ -1,7 +1,18 @@
 #include "pch.h"
 #include "InputSystem.h"
+#include "GameManager.h"
 
 InputSystem::InputSystem() 
+{
+	reset();
+	gameManager->Reset.push_back([this]() { reset(); });
+}
+
+InputSystem::~InputSystem()
+{
+}
+
+void InputSystem::reset()
 {
 	for (int i = 0; i < 256; i++) {
 		_isKeyDown[i] = false;
@@ -11,20 +22,16 @@ InputSystem::InputSystem()
 	InitMouse();
 }
 
-InputSystem::~InputSystem()
-{
-}
-
 
 void InputSystem::InitMouse() 
 {
-	_curMouse._x = 0;
-	_curMouse._y = 0;
+	//_curMouse._x = 0;
+	//_curMouse._y = 0;
 	_curMouse._left = false;
 	_curMouse._right = false;
 	_curMouse._middle = false;
 	
-	_prevMouse = _curMouse;
+	//_prevMouse = _curMouse;
 	SetCursorPos(_curMouse._x, _curMouse._y);
 }
 

@@ -6,6 +6,7 @@
 Image::Image(std::wstring ImagePath)
 {
 	AddComponent(new Bitmap(L"../Data/Image/" + ImagePath));
+	SetBoundBox(0, 0, GetComponent<Bitmap>()->GetSize());
 }
 
 Image::~Image()

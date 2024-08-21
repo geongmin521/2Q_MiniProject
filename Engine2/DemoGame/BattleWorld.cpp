@@ -57,13 +57,13 @@ void BattleWorld::MakeUI()
 	Make(GodStore)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GodStore"]);
 	Make(Button)(L"Pause", [this]() {timeManager->SetTimeScale(0); TimeScaleIsClick(0); 
 	Music::soundManager->SetPause(Music::eSoundChannel::BGM, true); 
-		}, ButtonType::Active).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
+		}, ButtonType::Single).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
 	Make(Button)(L"Resume",[this]()  {timeManager->SetTimeScale(1); TimeScaleIsClick(1);
 	Music::soundManager->SetPause(Music::eSoundChannel::BGM, false);
-		}, ButtonType::Active).setPosition({ WinSizeX - 210, 75 }).Get(TimeScaleButton[1]);
+		}, ButtonType::Single).setPosition({ WinSizeX - 210, 75 }).Get(TimeScaleButton[1]);
 	Make(Button)(L"Multi",[this]() {timeManager->SetTimeScale(2); TimeScaleIsClick(2); 
 	Music::soundManager->SetPause(Music::eSoundChannel::BGM, false); 
-		}, ButtonType::Active).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
+		}, ButtonType::Single).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
 
 	// 테스트용 아티팩트 소환
 	//Make(Button)(L"Resume", [this]() {	int a = Utility::RandomBetween(501, 517); artifact->SelectArtifact(510); }, ButtonType::Active).setPosition({WinSizeX -330, 150});
@@ -75,9 +75,9 @@ void BattleWorld::MakeUI()
 	Make(Shop)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get<Shop>(shop);  shop->SetOtherUI(Objs["Combination"]);
 	Make(ShowWave)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get<ShowWave>(showWave); //UI 패널들을 다시모아도될거같기도하고.. 
 	Make(Compensation)().setPosition(WinHalfSizeXY).setScale({ 0.75f,0.75f }).Get(compensation);
-	Make(Button)(L"Create", [this]() { Objs["Combination"]->SetActive(true); }).setPosition(WinSizeXYAdd(-600, -100)); //조합식
+	Make(Button)(L"Recipe", [this]() { Objs["Combination"]->SetActive(true); }).setScale({0.9,0.9}).setPosition(WinSizeXYAdd(-600, -100)); //조합식
 	Make(GameOver)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GameOver"]);
-	Make(Image)(L"UI/tooltip/HolyCrossTower.png").setActive(false).Get(Objs["ToolTip"]);
+	Make(Image)(L"UI/tooltip/HolyCrossTower.png").setScale({ 0.65f,0.65f }).setActive(false).setBoundBox(0,0).Get(Objs["ToolTip"]);
 	Make(Image)(L"UI/mainUI/gauge0.png").setScale({0.75,0.75}).setPosition({ WinHalfSizeX , 65 }).Get(Objs["WaveCount"]); //웨이브 주기.. 
 }
 
@@ -113,6 +113,7 @@ void BattleWorld::RegisterEvent()
 			}
 		}
 		Music::soundManager->PlayMusic(Music::eSoundList::WaveStart, Music::eSoundChannel::Effect1);
+		goldText->SetDialog(std::to_wstring(gameManager->GetGold()));
 	};
 	
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);
@@ -129,8 +130,14 @@ void BattleWorld::TimeScaleIsClick(int num)
 	for (int i = 0; i < 3; i++)
 	{
 		if (i == num)
+		{
+			TimeScaleButton[i]->SetIsEnable(true);
 			continue;
-		TimeScaleButton[i]->SetIsEnable(false);
+		}
+		else
+		{
+			TimeScaleButton[i]->SetIsEnable(false);
+		}	
 	}
 }
 

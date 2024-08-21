@@ -6,17 +6,24 @@
 #include "TowerBase.h"
 #include "DataManager.h"
 #include "ArtifactObject.h"
+#include "GameManager.h"
 
 Artifact::Artifact()	//진짜 화나네.. 이따구로 해놓고 다했다는건가? 적용은 시켜본건가? 
 {						// 죄송합니다
 	//dataManager->CSVReader(L"ArtifactData");
 	// csv 없음 값 강제로 대입함
+	gameManager->Reset.push_back([this]() { reset(); });
 	Init();
 }
 
 Artifact::~Artifact()
 {
-	
+
+}
+
+void Artifact::reset()
+{
+
 }
 
 void Artifact::SelectArtifact(int id)
