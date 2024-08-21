@@ -17,6 +17,8 @@
 
 #include "D2DEffectManager.h"
 #include "ColorMatrixEffect.h"
+#include "World.h"
+#include "ProductionCamera.h"
 
 EnemyBase::EnemyBase(EnemyData data)
 {
@@ -135,6 +137,19 @@ void EnemyBase::Update(float deltaTime)
 		}
 	}
 
+	if (enemyData.Type == "Boss")
+	{
+		if (transform->GetWorldLocation().x < 1700 && isStoppage == false)
+		{
+			isProduction = true;
+			startsiu = true;
+		}
+	}
+	if (startsiu == true)
+	{
+		startsiu = false;
+		owner->FindObject<ProductionCamera>("Camera")->BossAwake();
+	}
 }
 
 void EnemyBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)

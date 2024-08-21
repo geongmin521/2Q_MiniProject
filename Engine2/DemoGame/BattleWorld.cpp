@@ -71,6 +71,10 @@ void BattleWorld::MakeUI()
 	Make(Image)(L"UI/tooltip/HolyCrossTower.png").setActive(false).Get(Objs["ToolTip"]);
 	Make(Image)(L"UI/mainUI/gauge0.png").setScale({0.75,0.75}).setPosition({ WinHalfSizeX , 65 }).Get(Objs["WaveCount"]); //웨이브 주기.. 
 	Make(ProductionCamera)().Get()->name = "Camera";
+
+	// 보스 대사 테스트를 위해 만듬
+	// Make(Image)(L"UI/mainUI/Special_inven.png").setScale({ 0.5 , 0.5 }).setPosition({ 1280, 350 }).AddText(L"크하하하", 35,0,0, &BossDialogue).Get()->name = "BossDialogue";
+	// BossDialogue->SetBoxSize(400, 200);
 }
 
 void BattleWorld::RegisterEvent()

@@ -45,5 +45,9 @@ public:
     //test 이펙트
     bool hitEffct = false;
     float hitEffctDelay = 0.0f;
+    bool isstart = false;
+    bool isProduction = false; // 연출
+    bool isStoppage = false;   // 움직임 방어용
+    bool startsiu = false;
 };
 
