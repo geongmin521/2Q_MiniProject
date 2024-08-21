@@ -77,6 +77,9 @@ void TowerAttack::EnterState()
 	attackcount = 0;
 	if (ani != nullptr)
 	ani->SetAnimation(1, false,false);
+
+	
+	
 	
 }
 

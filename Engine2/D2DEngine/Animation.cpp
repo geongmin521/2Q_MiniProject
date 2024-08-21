@@ -99,12 +99,12 @@ void Animation::Render(ID2D1RenderTarget* pRenderTarget,float Alpha)
 {
 	if (animationInfo == nullptr)
 		return;
-	__super::Render(pRenderTarget);
+	__super::Render(pRenderTarget,Alpha);
 
 
 	if (Testbool == true)
 	{	
-		pRenderTarget->DrawBitmap(bitmap, DstRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+		pRenderTarget->DrawBitmap(bitmap, DstRect, Alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
 	}
 	else
 	{
