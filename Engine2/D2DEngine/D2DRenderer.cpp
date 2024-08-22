@@ -200,7 +200,7 @@ void D2DRenderer::DrawCircle(Circle& circle)
 
 void D2DRenderer::DrawCircle(float CenterX, float CenterY, float radius, float size)
 {
-	Brush->SetColor(D2D1::ColorF(D2D1::ColorF::White));
+	Brush->SetColor(D2D1::ColorF(D2D1::ColorF::Lime));
 
 	D2D1_ELLIPSE ellipse = D2D1::Ellipse(
 		D2D1::Point2F(CenterX, CenterY),  // 원의 중심
