@@ -11,9 +11,9 @@ GodStore::GodStore()
 	renderOrder += 100;
 	//배경
 	Make(Image)(L"UI/Pop_up/popup_Recipe.png").setParent(this->transform);
-	std::wstring name[3] = { L"축복" ,L"성물" ,L"고해성사" };
-	std::wstring costtext[3] = { L"신앙심 20" ,L"신앙심 40" ,L"신앙심 50" };
-	std::wstring compensation[3] = { L"일반 유물",L"특별 유물" , L"소환기회 + 1" };
+	std::wstring name[3] = { L"축복" ,L"고해성사" ,L"성물" };
+	std::wstring costtext[3] = { L"신앙심 20" ,L"신앙심 50" ,L"신앙심 60" };
+	std::wstring compensation[3] = { L"일반 유물",L"소환기회 + 1" , L"특별 유물" };
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -58,11 +58,11 @@ void GodStore::GetCompensation() //돈이 없으면확실히 비활성화 상태로 만드는게 좋
 		gameManager->Compensation(false);
 	}
 	else if(compensationId == 2){
-		//보상선택 +1이 뭐였지? //보상띄우는거였고.. 
-		gameManager->Compensation(true);
+		//보상선택 +1이 뭐였지? //보상띄우는거였고.. 		
+		gameManager->chance++;
 	}
 	else if(compensationId == 3){ //오케이상점도 다만들었고.. 안에 함수만 채워넣으면될거같고
-		gameManager->chance++;
+		gameManager->Compensation(true);
 	}
 	else
 	{

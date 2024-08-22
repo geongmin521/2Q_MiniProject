@@ -28,8 +28,9 @@ void EnemySpawner::CreateEnemy(int id)
 	EnemyBase* enemy = dynamic_cast<EnemyBase*>(Pools::GetInstance().get()->PopPool(id));
 	enemy->transform->SetRelativeLocation({ (float)2000,(float)spawnPos[pos] });
 	enemy->curHP = enemy->enemyData.HP * WavePower;		
+	enemy->curMaxHP = enemy->enemyData.HP * WavePower;		
 	enemy->curATK = enemy->enemyData.ATK * WavePower;	
-	isDead = false;
+	enemy->isDead = false;
 	
 	if (enemy->enemyData.Type == "Boss") // 보스 몬스터 위치 수정
 	{

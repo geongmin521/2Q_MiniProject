@@ -11,7 +11,7 @@ public:
 	std::function<void(void)> func;
 	bool isfun = false;
 	float alpha = 0;
-	float duration = 2.0f;
+	float duration = 4.0f;
 	virtual void Update(float deltaTime) override;
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget, float Alpha = 1) override;
 };
