@@ -16,7 +16,7 @@ Compensation::Compensation()
 	renderOrder += 200;
 	float LPad = 810; 
 	//배경
-	Make(Image)(L"UI/Pop_up/Popup_SpecialReward.png").setParent(this->transform);
+	Make(Image)(L"UI/Pop_up/popup_Recipe.png").setParent(this->transform);
 	//csv로 타입 받아서 만들기.. 
 	for (int i = 0; i < 3; i++)
 	{
@@ -33,7 +33,12 @@ Compensation::Compensation()
 		explain[i]->SetSize(40, { 0,0 });
 		explain[i]->SetBoxSize({ 380,180 });
 	}
-		
+
+	for (int i = 0; i < 3; i++)
+		Make(Image)(L"UI/Pop_up/Nametag.png").AddRenderOrder(10).setPos_Parent({ LPad - (810 * i), -370 }, transform).setBoundBox(0, 0);
+	for (int i = 0; i < 3; i++)
+		Make(Image)(L"UI/Pop_up/Tooltip.png").AddRenderOrder(10).setPos_Parent({ LPad - (810 * i), 200 }, transform).setBoundBox(0, 0);
+
 	for (int i = 0; i < 3; i++)
 	{
 		Make(Button)(L"Frame", [this, i]() {selectedId = compensationId[i]; btn->SetInteractive(true); ButtonSelect(i); }, ButtonType::Active). //두번째웨이브일때는 그냥 아이디 3만 더해주기
@@ -44,10 +49,9 @@ Compensation::Compensation()
 	}
 
 	//보상을 위한 이미지를 만들고 교체해주기.. 
-	for (int i = 0; i < 3; i++)
-	{
-		Make(Image)(L"Artifact/Bible.png").AddRenderOrder(50).setPos_Parent({LPad - (810 * i), -100}, transform).setBoundBox(0,0).Get(img[i]);
-	}
+	for (int i = 0; i < 3; i++)	
+		Make(Image)(L"Artifact/Bible.png").AddRenderOrder(50).setScale({3,3}).setPos_Parent({ LPad - (810 * i), -100 }, transform).setBoundBox(0, 0).Get(img[i]);	
+
 	//보상확정 버튼 
 	Make(Button)(L"Commit", [this]() {GetCompensation();
 	Music::soundManager->PlayMusic(Music::eSoundList::RewardClose, Music::eSoundChannel::Effect2);

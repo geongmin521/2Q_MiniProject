@@ -14,19 +14,17 @@
 #include "D2DFont.h"
 #include "GameManager.h"
 #include "Dotween.h"
-
 #include "D2DEffectManager.h"
 #include "CrossFadeEffect.h"
-
 #include "Music.h"
-
 #include "ProductionCamera.h"
+
 Shop::Shop() 
 {
 	Make(GameObject)().setParent(transform).Get(child);
 	ImagePath = { L"Crossbow_shadow.png",L"holywater_shadow.png",L"anchor_shadow.png",L"Holycross_shadow.png",L"Skul_shadow.png" };
 	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" };
-	Make(Image)(L"UI/Pop_up/popup.png").AddText(L"", 30, 30, 175, &compensationText).AddText(L"", 50, 443, -210, &goldText).setParent(child->transform);
+	Make(Image)(L"UI/Pop_up/popup.png").AddText(L"", 30, 40, 180, &compensationText).AddText(L"", 50, 443, -210, &goldText).setParent(child->transform);
 	float LPad = -960; 
 	for (int i = 0; i < 5; i++)//아이콘
 		Make(Image)(L"UI/Icon/Crossbow_shadow.png").setPos_Parent({ LPad + i * 480 , -200 }, child->transform).Get<Image>(Icons);
@@ -42,7 +40,7 @@ Shop::Shop()
 	//소환하기 버튼
 	//리롤 횟수 텍스트박스
 	//상점 활성화 버튼
-	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"", 40, 50, 0, &rerollButtonText).AddText(L"", 50, 50, 0, &rerollText).setPos_Parent({ 0, 320 }, child->transform);
+	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"", 30, 90, -6, &rerollButtonText).AddText(L"", 60, 70, -6, &rerollText).setPos_Parent({ 0, 320 }, child->transform);
 	Make(Button)(L"Create", [this]() {combination->SetActive(true);
 	Music::soundManager->PlayMusic(Music::eSoundList::PopupOpen, Music::eSoundChannel::Effect1);
 		}).setScale({ 1.4f,1.4f }).setPos_Parent({ -980, +400 }, child->transform);
@@ -114,7 +112,11 @@ void Shop::Reroll()
 {
 	Music::soundManager->PlayMusic(Music::eSoundList::Reroll, Music::eSoundChannel::Effect1);
 	if (reroll <= 0)
-		rerollButtonText->SetDialog(L" - 10 신앙심"); 
+	{
+		rerollButtonText->SetDialog(L" - 10 신앙심");
+		rerollText->SetDialog(L"");
+	}
+		
 	if (reroll > 0) 	
 		reroll--;
 	

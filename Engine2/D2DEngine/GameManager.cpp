@@ -17,7 +17,7 @@ GameManager::~GameManager()
 void GameManager::Update()
 {
 	if (LiveEenmy == 0&& isBattle ==true)//웨이브 클리어
-	{
+	{		
 		if (WaveLevel == 8)
 		{
 			events[Event::GameOverEvent]();
@@ -25,8 +25,7 @@ void GameManager::Update()
 			return;
 		}
 		else
-		{			
-			WaveLevel++;
+		{					
 			if (artifact->isOwned(static_cast<int>(ArtifactId::Bible)))
 			{
 				gold += goldReward[WaveLevel] + goldReward[WaveLevel] * 0.3f;
@@ -36,6 +35,7 @@ void GameManager::Update()
 				gold += goldReward[WaveLevel];
 			}
 		}
+		WaveLevel++;
 		dataManager->ChoseWave();
 		D2DEffectManager::GetInstance()->FindIEffect<CrossFadeEffect>(L"MapFade")->isFadeIn = true;
 		isBattle = false;

@@ -218,6 +218,8 @@ void TowerBase::Update(float deltaTime)
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
+
+
 	if (towerData.Type == "Hidden")
 	{
 		Animation* animationComponent = GetComponent<Animation>();
@@ -232,12 +234,16 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 			FindEffect(L"HiddenSpecular"),
 			{ 0 ,0 }, GetComponent<Animation>()->srcRect);
 		__super::Render(pRenderTarget);
+
+
 	}
 
 	if (hitEffct == false )
 	{
 		if(towerData.Type != "Hidden")
 		__super::Render(pRenderTarget,alpha);
+
+
 	}
 	else
 	{
