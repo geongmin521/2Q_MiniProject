@@ -18,7 +18,7 @@ void GameManager::Update()
 {
 	if (LiveEenmy == 0 && isBattle ==true)//웨이브 클리어
 	{
-		if (WaveLevel == 2)
+		if (WaveLevel == 8)
 		{
 			events[Event::GameClearEvent]();
 			isBattle = false;
@@ -49,7 +49,7 @@ void GameManager::reset()
 	WaveLevel = 1;
 	curWaveId = 1000;
 	LiveEenmy = 0;
-	gold = 100000;
+	gold = 0;
 	chance = 1;
 	if (events[Event::ShowWaveFunc] != nullptr)
 		events[Event::ShowWaveFunc] = nullptr; //다시시작할때 터져서 일단 이렇게 처리함

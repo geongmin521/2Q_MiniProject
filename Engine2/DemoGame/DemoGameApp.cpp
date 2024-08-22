@@ -3,9 +3,6 @@
 #include "Music.h"
 #include "SceneManager.h"
 #include "TitleWorld.h"
-#include "EndingWrold.h"
-
-
 
 void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 {
@@ -54,7 +51,7 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HiddenEffect, false, "../Data/Sound/Tower/HiddenEffect.wav");				// TowerEffect
 	
 
-	SceneManager::GetInstance().get()->ChangeScene(new EndingWrold); //인트로 추가해달래서
+	SceneManager::GetInstance().get()->ChangeScene(new TitleWorld); //인트로 추가해달래서
 	sceneManager->Change();
 } 
 
