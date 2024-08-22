@@ -68,7 +68,7 @@ void ArrowFunc::AttackEnemys(CircleCollider& myCol, float damage, float knockBac
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
 		if (enemy != nullptr)
 		{
-			damageEnemy->Hit(damage + (artifact->WaterPower.atkLevel * 2), knockBack);
+			damageEnemy->Hit(damage, knockBack);
 		}
 	}
 }
