@@ -59,6 +59,19 @@ void D2DEffectManager::Update(float deltaTime)
 	}
 }
 
+void D2DEffectManager::Release()
+{
+	for (auto& pair : Effects)
+	{
+		if (pair.second)
+		{
+			pair.second->~IEffect();
+			pair.second = nullptr;
+		}
+	}
+	Effects.clear(); // 전체 맵을 정리
+}
+
 void D2DEffectManager::CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal)
 {
 	if (Effects.find(_KeyName) != Effects.end()) { return; }

@@ -22,6 +22,8 @@ public:
 
 public: // 트랜스폼 관련 적용
 //	void CreateEdgeEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap);
+	void Release();
+
 
 public: // 이펙트 생성
 	void CreateGaussianBlurEffect(std::wstring _KeyName, ID2D1Bitmap* _Bitmap, const float blurVal); // 흐리게 만들때
