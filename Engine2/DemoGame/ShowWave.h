@@ -3,10 +3,12 @@
 
 class WaveData;
 class Image;
+class D2DFont;
 class ShowWave :public UI
 {
 private:
 	Image* images[4];
+	D2DFont* text;
 public:
 	ShowWave();
 	~ShowWave();

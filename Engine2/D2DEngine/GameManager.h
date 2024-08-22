@@ -24,6 +24,7 @@ private:
 	int gold = 0;
 public:
 	bool isBattle;
+	bool isDrag = false;
 	int WaveLevel = 1;
 	int curWaveId = 1000;
 	int LiveEenmy = 0; 
