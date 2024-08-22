@@ -124,7 +124,7 @@ void EnemyAttack::EnterState()
 	}
 	else if (enemy->enemyData.Type == "Boss")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::BossAttack, Music::eSoundChannel::Enemy1);
+		Music::soundManager->PlayMusic(Music::eSoundList::BossAttack, Music::eSoundChannel::Enemy2);
 	}
 
 }
@@ -148,14 +148,9 @@ void EnemyAttack::ExitState()
 void EnemyDead::EnterState()
 {
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
-	if (enemy->isSpawned == false)
-	{
-		gameManager->LiveEenmy--;
-	}
-	else
-	{
-		
-	}
+
+	gameManager->LiveEenmy--;
+
 	// 데스 애니메이션
 	ani->SetAnimation(2, false, false);
 	//enemy->hitEffct = false;

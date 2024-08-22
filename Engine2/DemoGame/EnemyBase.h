@@ -17,7 +17,6 @@ private:
 
 public:
     bool isHited = false; //맞았다를 머라하지
-    bool isSpawned = false;
     bool isGalric = false;
     float spawnTime = 0;
     float hitedTime = 0.35f; //잠시만 밀리면되니까

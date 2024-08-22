@@ -7,6 +7,8 @@
 #include "Pools.h"
 #include "Effect.h"
 #include "Transform.h"
+#include "GameManager.h"
+
 void EnemyFunc::NormalAttack(GameObject* target, float Damage)
 {
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
@@ -50,6 +52,6 @@ void EnemyFunc::spawnBat(MathHelper::Vector2F pos)
 		EnemyBase* Bat = dynamic_cast<EnemyBase*>(Pools::GetInstance().get()->PopPool(102));
 		Bat->transform->SetRelativeLocation({ pos.x - 50, pos.y + (-90 + i * 90) });
 		Bat->curHP = Bat->enemyData.HP; //여기서 체력 초기화해주기.. 지금까지는 어떻게 되고있던거지?
-		Bat->isSpawned = true;
+		gameManager->LiveEenmy++;
 	}
 }
