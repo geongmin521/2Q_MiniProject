@@ -166,7 +166,7 @@ void EnemyDead::EnterState()
 	}
 	else if (enemy->enemyData.Type == "Boss")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::BossDestroy, Music::eSoundChannel::Enemy2);
+		Music::soundManager->PlayMusic(Music::eSoundList::BossDestroy, Music::eSoundChannel::Boss);
 	}
 	else
 	{
@@ -194,7 +194,7 @@ void EnemyAbility::EnterState()
 	ani->isLoop = false;
 	if (enemy->enemyData.ability == "SpawnVat")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::BossSummon, Music::eSoundChannel::Enemy2);
+		Music::soundManager->PlayMusic(Music::eSoundList::BossSummon, Music::eSoundChannel::Boss);
 	}
 }
 

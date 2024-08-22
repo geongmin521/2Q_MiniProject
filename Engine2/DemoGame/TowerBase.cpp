@@ -116,8 +116,10 @@ void TowerBase::Init(MathHelper::Vector2F pos,bool isMerge)
 	hitEffct = false;
 	StatUpdate();
 	transform->SetRelativeLocation(pos); 
-	transform->SetRelativeScale({ 1.0f,1.0f });  //합칠떄 작아진 크기 다시복구 
+	transform->SetRelativeScale({ 1.0f,1.0f });  //합칠떄 작아진 크기 다시복구
+	curHP = maxHP;
 	GetComponent<FiniteStateMachine>()->SetNextState("Idle");
+
 }
 
 void TowerBase::StatUpdate()
@@ -402,6 +404,8 @@ void TowerBase::OnDoubleClick()
 		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
 		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation(),true);
 		dynamic_cast<TowerBase*>(newTower)->isMerged = true;
+		int level = dynamic_cast<TowerBase*>(newTower)->towerData.level;
+		Music::soundManager->PlayMusic(static_cast<Music::eSoundList>(24 + level), Music::eSoundChannel::Effect2);
 		auto targetloca = GetWorldLocation();
 		for(auto& sametower : towers)
 		{

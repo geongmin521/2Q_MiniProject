@@ -9,6 +9,7 @@
 #include "Arrow.h"
 #include "ArrowFunc.h"
 #include "Artifact.h"
+#include "Music.h"
 
 void ArrowFunc::AttackEnemy(Arrow* my,GameObject* target,std::string type, float damage, float knockBack)
 {
@@ -54,6 +55,7 @@ void ArrowFunc::WaterAttack(Arrow* my,CircleCollider& myCol, std::string type, f
 
 void ArrowFunc::HiddenAttack(CircleCollider& myCol,float damage)
 {
+	Music::soundManager->PlayMusic(Music::eSoundList::HiddenEffect, Music::eSoundChannel::TowerAttack4);
 	Arrow* arrow = dynamic_cast<Arrow*>(Pools::GetInstance().get()->PopPool(513)); //513만따로 히든애로우용 으로?
 	arrow->Init(myCol.owner->GetWorldLocation());
 	Pools::GetInstance().get()->AddPool(myCol.owner);
