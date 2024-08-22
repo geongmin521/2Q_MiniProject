@@ -40,8 +40,9 @@ void Sculpture::Render(ID2D1HwndRenderTarget* pRenderTarget, float Alpha)
 void Sculpture::Hit(float damage, float knockback)
 {
 	hp -= damage;
-	if (hp <= 0)
+	if (hp <= 0 && isAlive == true)
 	{
+		isAlive = false;
 		GameManager::GetInstance().get()->events[Event::GameOverEvent]();
 	}
 }

@@ -16,7 +16,7 @@ GameManager::~GameManager()
 
 void GameManager::Update()
 {
-	if (LiveEenmy == 0&& isBattle ==true)//웨이브 클리어
+	if (LiveEenmy == 0 && isBattle ==true)//웨이브 클리어
 	{
 		if (WaveLevel == 8)
 		{

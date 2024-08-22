@@ -8,7 +8,7 @@ class Sculpture : public GameObject, public IDamageNotify, public IClickAble,pub
 {
 private:
 	float hp;
-	
+	bool isAlive = true;
 public:
 	Sculpture();
 	~Sculpture();
