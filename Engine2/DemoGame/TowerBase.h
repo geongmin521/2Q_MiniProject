@@ -50,6 +50,9 @@ public: //나중에 은닉화할 데이터는 빼기
     bool isMerged = false;
     float alpha = 1.0f;
     float mergeTime = 0;
+
+    bool AttackRangeCircle = false;
+
 public:
     
     TowerBase(TowerData data);
@@ -60,7 +63,7 @@ public:
     // 재료가 트루되면 메인타워로 가
     // 가서 없어져
     // 재료타워 합성(mainTower)
-    void Init(MathHelper::Vector2F pos);
+    void Init(MathHelper::Vector2F pos,bool isMearge =false);
 
     void StatUpdate();
     void AbilityUpdate();

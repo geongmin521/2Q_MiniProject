@@ -50,10 +50,11 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	curSpeed = towerData.attackSpeed;
 	knockBack = towerData.knockBack;
 	AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\Holyaura" + to_wstring(towerData.level) + L".png"));
-	if (towerData.Type == "Pile")
+	if (towerData.Type == "Pile") // 애만 피격이 이상하네?
 	{
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
-		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Bitmap>()->bitmap, redEmphasis);
+		Bitmap* bitmapEffect = dynamic_cast<Bitmap*>(ownedComponents[2]);
+		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), bitmapEffect->bitmap, redEmphasis);
 	}
 	else if (towerData.Type == "Hidden")
 	{
@@ -104,10 +105,13 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	fsm->SetNextState("Idle");
 }
 
-void TowerBase::Init(MathHelper::Vector2F pos)
+void TowerBase::Init(MathHelper::Vector2F pos,bool isMerge)
 {
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000 + towerData.level));
-			effect->Init({ pos.x - 10, pos.y + 15}, 1.0f); //이펙트 생성
+	effect->Init({ pos.x - 10, pos.y + 15 }, 1.0f); //이펙트 생성
+	if(isMerge)
+			effect->Init({ pos.x - 10, pos.y + 65}, 1.0f); //이펙트 생성
+	
 
 	hitEffct = false;
 	StatUpdate();
@@ -235,18 +239,28 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 			FindEffect(L"HiddenSpecular"),
 			{ 0 ,0 }, GetComponent<Animation>()->srcRect);
 		__super::Render(pRenderTarget);
+
+		if (AttackRangeCircle)
+		{
+			D2DRenderer::GetInstance()->DrawCircle(transform->worldTransform.dx, transform->worldTransform.dy, GetComponent<CircleCollider>()->circle->radius, 5.0f);
+		}
 	}
 
 	if (hitEffct == false )
 	{
 		if(towerData.Type != "Hidden")
 		__super::Render(pRenderTarget,alpha);
+		
+		if (AttackRangeCircle && towerData.Type != "Pile")
+		{
+			D2DRenderer::GetInstance()->DrawCircle(transform->worldTransform.dx, transform->worldTransform.dy, GetComponent<CircleCollider>()->circle->radius, 5.0f);
+		}
 	}
 	else
 	{
 		if (towerData.Type == "Pile")
 		{
-			Bitmap* BitmapComponent = GetComponent<Bitmap>();
+			Bitmap* BitmapComponent = dynamic_cast<Bitmap*>(ownedComponents[2]);
 			static_cast<Renderer*>(BitmapComponent);
 
 			D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(BitmapComponent)->imageTransform *
@@ -316,6 +330,9 @@ void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게..
 		return;
 	if (container)
 		container->Clear();
+
+	// GetComponent<CircleCollider>()->circle->radius 이걸로 공격 범위 알 수 있고
+	AttackRangeCircle = true;
 }
 
 void TowerBase::StayDrag(const MouseState& state) 
@@ -330,6 +347,7 @@ void TowerBase::EndDrag(const MouseState& state) //드래그앤 드롭이니까..
 {	
 	Music::soundManager->PlayMusic(Music::eSoundList::TowerReplace, Music::eSoundChannel::Effect1);
 	//container
+	AttackRangeCircle = false;
 }
 
 void TowerBase::FailDrop()
@@ -380,7 +398,7 @@ void TowerBase::OnDoubleClick()
 	if(towers.size() == merageCount && towerData.level < 3)
 	{
 		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
-		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation());
+		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation(),true);
 		dynamic_cast<TowerBase*>(newTower)->isMerged = true;
 		auto targetloca = GetWorldLocation();
 		for(auto& sametower : towers)
@@ -420,8 +438,6 @@ void TowerBase::OnMouse()
 	tooltip->renderOrder = renderOrder + 1;
 	std::wstring path = L"../Data/Image/UI/tooltip/" + Utility::convertFromString(towerData.name) + L".png";
 	gameManager->getObject("ToolTip")->GetComponent<Bitmap>()->LoadD2DBitmap(path);
-
-	
 }
 
 void TowerBase::OutMouse() 

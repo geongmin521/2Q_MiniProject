@@ -128,9 +128,11 @@ void TowerDeath::EnterState()
 
 void TowerDeath::Update(float DeltaTime)
 {
+	tower->curHP = 0;
 	if ((ani != nullptr && ani->IsEnd()) || ani == nullptr)
 	{
 		Pools::GetInstance().get()->AddPool(tower);
+		
 	}
 	
 }

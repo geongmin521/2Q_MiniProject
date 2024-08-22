@@ -17,7 +17,7 @@ void ArrowFunc::AttackEnemy(Arrow* my,GameObject* target,std::string type, float
 	MathHelper::Vector2F dir = (enemy->GetWorldLocation() - my->GetWorldLocation()).Normalize();
 	enemy->Hit(Utility::CalCul(type, enemy->enemyData.Type, damage + (artifact->CrossbowPower.atkLevel * 2)), knockBack); //일단 100 넉백수치 받아오기필요
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2004+ my->level));
-	effect->Init(my->GetWorldLocation(), 1.0f); //이펙트 생성
+	effect->Init(my->GetWorldLocation(), 0.5f); //이펙트 생성
 	Pools::GetInstance().get()->AddPool(my);
 }
 
@@ -68,7 +68,7 @@ void ArrowFunc::AttackEnemys(CircleCollider& myCol, float damage, float knockBac
 		EnemyBase* damageEnemy = dynamic_cast<EnemyBase*>(enemy);
 		if (enemy != nullptr)
 		{
-			damageEnemy->Hit(damage + (artifact->WaterPower.atkLevel * 2), knockBack);
+			damageEnemy->Hit(damage, knockBack);
 		}
 	}
 }

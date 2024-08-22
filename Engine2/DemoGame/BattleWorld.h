@@ -17,7 +17,6 @@ private:
 	Button* TimeScaleButton[3];
 	std::map<std::string, GameObject*> Objs; //따로관리하는 오브젝트
 
-	D2DFont* BossDialogue;			// 보스 대사
 public:
 
 	BattleWorld(); 
