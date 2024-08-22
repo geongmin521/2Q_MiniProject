@@ -50,7 +50,7 @@ Compensation::Compensation()
 
 	//보상을 위한 이미지를 만들고 교체해주기.. 
 	for (int i = 0; i < 3; i++)	
-		Make(Image)(L"Artifact/Bible.png").AddRenderOrder(50).setScale({3,3}).setPos_Parent({ LPad - (810 * i), -100 }, transform).setBoundBox(0, 0).Get(img[i]);	
+		Make(Image)(L"Artifact/Bible.png").AddRenderOrder(50).setScale({0.8,0.8}).setPos_Parent({ LPad - (810 * i), -100 }, transform).setBoundBox(0, 0).Get(img[i]);
 
 	//보상확정 버튼 
 	Make(Button)(L"Commit", [this]() {GetCompensation();
@@ -89,6 +89,7 @@ void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성�
 	if (it != SpecialArtifactID.end()) {
 		SpecialArtifactID.erase(it); //스페셜유물은 뽑고나면 지우기
 	}
+	//holywater_shadow
 	isSelect = true;
 	auto& scale = transform->relativeScale;
 	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.75f, 0.05);
@@ -110,7 +111,7 @@ void Compensation::ChoseCompensation(bool special)
 		name[i]->SetDialog(wtext1);
 		explain[i]->SetDialog(wtext2);
 		compensationId[i] = result[i];
-		img[i]->ChangeImage(L"../Data/Image/Artifact/"+ artifactPath +L".png");
+		img[i]->ChangeImage(L"../Data/Image/Artifact/"+ artifactPath +L"2.png");
 	}
 	Music::soundManager->PlayMusic(Music::eSoundList::RewardOpen, Music::eSoundChannel::Effect1);
 }

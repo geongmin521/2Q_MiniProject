@@ -119,6 +119,7 @@ void TowerAttack::ExitState()
 
 void TowerDeath::EnterState()
 {
+	tower->isDead = true;
 	tower->hitEffct = false;
 	tower->container->Clear();
 	if (ani != nullptr)

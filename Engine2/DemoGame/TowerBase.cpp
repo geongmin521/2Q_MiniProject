@@ -108,7 +108,8 @@ void TowerBase::Init(MathHelper::Vector2F pos)
 {
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000 + towerData.level));
 			effect->Init({ pos.x - 10, pos.y + 15}, 1.0f); //ÀÌÆåÆ® »ý¼º
-
+			 
+	isDead = false;
 	hitEffct = false;
 	StatUpdate();
 	transform->SetRelativeLocation(pos); 

@@ -19,9 +19,8 @@ void CommonFunc::FindTarget(CircleCollider& myCol, std::string tag, std::vector<
 	}
 	for (auto& tragetCol : myCol.collideStatePrev)
 	{
-		if (tragetCol->owner->name == tag && tragetCol->owner->GetActive() == true)
-		{
-			
+		if (tragetCol->owner->name == tag && tragetCol->owner->isDead == false)
+		{			
 			float distance = myCol.circle->GetDistance(tragetCol->owner->transform->GetWorldLocation());
 			if (distance < minDistance && distance < Range)
 			{
@@ -44,7 +43,7 @@ void CommonFunc::FindTargets(CircleCollider& myCol, std::string tag, std::vector
 	}
 	for (auto& tragetCol : myCol.collideStatePrev) 
 	{
-		if (tragetCol->owner->name == tag && tragetCol->owner->GetActive() == true)
+		if (tragetCol->owner->name == tag && tragetCol->owner->isDead == false)
 		{
 
 			float distance = (myCol.owner->GetWorldLocation() - tragetCol->owner->GetWorldLocation()).Length();

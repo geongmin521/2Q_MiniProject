@@ -45,7 +45,7 @@ void BattleWorld::MakeObject()
 	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\Pretendard-Bold.otf", L"Result");
 
 	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //효과를 위한 오파시티 맵
-	Make(Image)(L"UI/mainUI/MainFrame.png").setScale({ 0.75f,0.75f }).AddText(L"0",80,-430,260).setRenderOrder(-90).setPosition(WinHalfSizeXY).GetComponent<D2DFont>(goldText); //UI 프레임
+	Make(Image)(L"UI/mainUI/MainFrame.png").setScale({ 0.75f,0.75f }).AddText(L"0", 60,-430,262).setRenderOrder(-90).setPosition(WinHalfSizeXY).GetComponent<D2DFont>(goldText); //UI 프레임
 	Make(EnemySpawner)();
 	Make(Map)();
 	MakeUI();

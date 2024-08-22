@@ -25,7 +25,7 @@ GodStore::GodStore()
 			Get(CompensationBtn[i]);
 	}
 	for(int i=0;i< 3;i++)
-		Make(Image)(L"UI/Icon/special_item_00" + std::to_wstring(i + 1) + L".png").AddRenderOrder(30).setScale({0.75,0.75}).setPos_Parent({ -810.0f + (i * 810), -110 }, transform).setBoundBox(0, 0);
+		Make(Image)(L"UI/Icon/special_item_00" + std::to_wstring(i + 1) + L".png").AddRenderOrder(30).setScale({0.75,0.75}).setPos_Parent({ -810.0f + (i * 810), -130 }, transform).setBoundBox(0, 0);
 
 	for (int i = 0; i < 3; i++)
 		Make(Image)(L"UI/Pop_up/Nametag.png").AddRenderOrder(10).setPos_Parent({ { -810.0f + (i * 810), -370 } }, transform).setBoundBox(0, 0);
