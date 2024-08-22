@@ -53,6 +53,8 @@ Compensation::Compensation()
 	Music::soundManager->PlayMusic(Music::eSoundList::RewardClose, Music::eSoundChannel::Effect2);
 	}).setPos_Parent({ 0, 410 }, this->transform).Get(btn);
 	SetActive(false);
+
+	SpecialArtifactID = dataManager->getSpecialArtifactID();
 }
 
 Compensation::~Compensation() //버튼누르면 현재 보상 아이디를 저장하고 있다가 확정하면 아키펙트 매니저한테 전해주기
@@ -79,6 +81,10 @@ void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성�
 	if (selectedId == -1)
 		return; //선택안됨
 	artifact->SelectArtifact(selectedId);
+	auto it = std::find(SpecialArtifactID.begin(), SpecialArtifactID.end(), selectedId);
+	if (it != SpecialArtifactID.end()) {
+		SpecialArtifactID.erase(it); //스페셜유물은 뽑고나면 지우기
+	}
 	isSelect = true;
 	auto& scale = transform->relativeScale;
 	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.75f, 0.05);
@@ -91,7 +97,7 @@ void Compensation::ChoseCompensation(bool special)
 	if (special == false)
 		result = Utility::RandomUniqueValuesFromVector(dataManager->getNormalArtifactID(), 3); //노말 유물 3개뽑기
 	else 
-		result = Utility::RandomUniqueValuesFromVector(dataManager->getSpecialArtifactID(), 3);//특별 유물 3개뽑기
+		result = Utility::RandomUniqueValuesFromVector(SpecialArtifactID, 3);//특별 유물 3개뽑기 //이거 3개보다 부족할수없겠지? 유물이 3개이상 뽑을순없겠지? 
 	for (int i = 0; i < result.size(); i++)
 	{
 		wstring wtext1 = Utility::StringToWStringA(dataManager->getArtifactData(result[i]).nameText);

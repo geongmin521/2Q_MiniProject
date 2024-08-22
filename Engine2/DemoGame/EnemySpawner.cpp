@@ -11,9 +11,9 @@
 
 EnemySpawner::EnemySpawner()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		spawnPos.push_back(350 + i * 150);
+		spawnPos.push_back(300 + i * 150);
 	}
 	gameManager->events[Event::SpawnEnemy] = [this]() { StartWave(); };
 }

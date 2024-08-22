@@ -1,9 +1,9 @@
 보상 ID,타입,파일 경로,이름,적용 타입,적용 스탯,효과,보상이름,출력 텍스트
 int,string,string,string,float,string,float,string,string
-500,Normal,Water,CrossbowATK,Crossbow,Attack,2,성수 공격력 증가,성수의 공격력이 증가합니다.
+500,Normal,Water,CrossbowATK,Crossbow,Attack,3,성수 공격력 증가,성수의 공격력이 증가합니다.
 501,Normal,Pile,CrossbowHP,Crossbow,Health,20,말뚝 공격력 증가,말뚝의 공격력이 증가합니다.
 502,Normal,Bow,CrossbowATS,Crossbow,AttackSPD,0.2,석궁 공격력 증가,석궁의 공격력이 증가합니다.
-503,Normal,Holy,WaterATK,Water,Attack,2,십자가 공격력 증가,십자가의 회복량이 증가합니다.
+503,Normal,Holy,WaterATK,Water,Attack,10,십자가 회복력 증가,십자가의 회복량이 증가합니다.
 504,Normal,Water,WaterHP,Water,Health,20,성수 체력 증가,성수 캐릭터의 체력이 증가합니다.
 505,Normal,Pile,WaterATS,Water,AttackSPD,0.2,말뚝 체력 증가,말뚝 캐릭터의 체력이 증가합니다.
 506,Normal,Bow,PileATK,Plie,Attack,2,석궁 체력 증가,석궁 캐릭터의 체력이 증가합니다.
