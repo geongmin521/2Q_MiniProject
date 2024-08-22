@@ -109,7 +109,7 @@ void ProductionCamera::ResetPos()
 			}
 		}
 	}
-	timeManager->SetTimeScale(1.0);
+	timeManager->SetTimeScale(TimeSave);
 }
 
 void ProductionCamera::Earthquake()
@@ -124,6 +124,7 @@ void ProductionCamera::Earthquake()
 	new DOTween(loca.y, EasingEffect::InOutBounce, StepAnimation::StepOnceForward, 3.0f, loca.y, loca.y + 50);
 
 	isEarthquake = true;
+	TimeSave = timeManager->GetTimeScale();
 }
 
 void ProductionCamera::ReseEarthquake()

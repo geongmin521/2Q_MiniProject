@@ -50,6 +50,9 @@ public: //나중에 은닉화할 데이터는 빼기
     bool isMerged = false;
     float alpha = 1.0f;
     float mergeTime = 0;
+
+    bool AttackRangeCircle = false;
+
 public:
     
     TowerBase(TowerData data);

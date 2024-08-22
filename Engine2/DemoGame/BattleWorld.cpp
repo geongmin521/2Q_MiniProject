@@ -85,8 +85,7 @@ void BattleWorld::MakeUI()
 	Make(Image)(L"UI/mainUI/gauge0.png").setScale({0.75,0.75}).setPosition({ WinHalfSizeX , 65 }).Get(Objs["WaveCount"]); //웨이브 주기.. 
 	Make(ProductionCamera)().Get()->name = "Camera";
 
-	 Make(Image)(L"UI/mainUI/Special_inven.png").setScale({ 0.5 , 0.5 }).setPosition({ 1280, 350 }).AddText(L"크하하하", 50,0,0, &BossDialogue).Get()->name = "BossDialogue";
-	 BossDialogue->SetBoxSize(400, 200);
+	 Make(Image)(L"UI/boss_speech.png").setScale({ 1.0 , 1.0 }).setPosition({ 1320, 370 }).Get()->name = "BossDialogue";
 	 FindObject<Image>("BossDialogue")->SetActive(false);
 }
 

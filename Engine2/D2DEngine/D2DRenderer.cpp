@@ -198,6 +198,18 @@ void D2DRenderer::DrawCircle(Circle& circle)
 	RenderTarget->DrawEllipse(&ellipse, greenBrush);
 }
 
+void D2DRenderer::DrawCircle(float CenterX, float CenterY, float radius, float size)
+{
+	Brush->SetColor(D2D1::ColorF(D2D1::ColorF::White));
+
+	D2D1_ELLIPSE ellipse = D2D1::Ellipse(
+		D2D1::Point2F(CenterX, CenterY),  // 원의 중심
+		radius, radius  // 반지름
+	);
+
+	RenderTarget->DrawEllipse(&ellipse, Brush, size);
+}
+
 void D2DRenderer::DrawGradientCircle(const D2D1_POINT_2F& position, float radius, const D2D1_COLOR_F& color)
 {
 	D2D1_GRADIENT_STOP gradientStops[2];

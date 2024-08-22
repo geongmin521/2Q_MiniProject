@@ -20,7 +20,9 @@ public:
 	void DrawBox(int left, int top, int right, int bottom);
 	void DrawAABB(AABB& aabb);
 	void DrawLine(MathHelper::Vector2F start, MathHelper::Vector2F end);
+	
 	void DrawCircle(Circle& circle);
+	void DrawCircle(float CenterX, float CenterY, float radius, float size);
 
 	void DrawGradientCircle(const D2D1_POINT_2F& position, float radius, const D2D1_COLOR_F& color);
 
