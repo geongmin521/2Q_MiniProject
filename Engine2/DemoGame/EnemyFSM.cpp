@@ -111,6 +111,10 @@ void EnemyAttack::EnterState()
 	{
 		Music::soundManager->PlayMusic(Music::eSoundList::BatBombDestroy, Music::eSoundChannel::Enemy1);
 	}
+	else if (enemy->enemyData.Type == "Boss")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::BossAttack, Music::eSoundChannel::Enemy1);
+	}
 
 }
 
@@ -149,6 +153,10 @@ void EnemyDead::EnterState()
 	else if (enemy->enemyData.Type == "Deffend")
 	{
 		Music::soundManager->PlayMusic(Music::eSoundList::DeffendDestroy, Music::eSoundChannel::Enemy2);
+	}
+	else if (enemy->enemyData.Type == "Boss")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::BossDestroy, Music::eSoundChannel::Enemy2);
 	}
 	else
 	{

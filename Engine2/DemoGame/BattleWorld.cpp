@@ -117,8 +117,7 @@ void BattleWorld::RegisterEvent()
 	};
 	
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);
-		//Music::soundManager->PlayMusic(Music::eSoundList::GameOver, Music::eSoundChannel::BGM); °è¼Ó µ¼
-
+		//Music::soundManager->PlayMusic(Music::eSoundList::GameOver, Music::eSoundChannel::BGM); 
 		};
 	gameManager->events[Event::OpenGodStore] = [this]() {Objs["GodStore"]->SetActive(true);
 	Music::soundManager->PlayMusic(Music::eSoundList::RewardOpen, Music::eSoundChannel::Effect1); };

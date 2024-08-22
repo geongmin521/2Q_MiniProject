@@ -173,6 +173,7 @@ void Shop::Reroll()
 
 void Shop::Spawn()
 {
+	Music::soundManager->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect2);
 	int inven = 0;
 	for (auto var : compensationList)
 	{	
