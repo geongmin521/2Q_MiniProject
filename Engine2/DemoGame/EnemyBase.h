@@ -7,12 +7,14 @@
 
 class HPBar;
 class TowerBase;
+
 class EnemyBase :
     public GameObject , IDamageNotify, IColliderNotify
 {
 private:
     std::function<void(void)> attack;
     std::function<void(void)> Ability;
+
 public:
     bool isHited = false; //맞았다를 머라하지
     bool isSpawned = false;
@@ -45,9 +47,9 @@ public:
     //test 이펙트
     bool hitEffct = false;
     float hitEffctDelay = 0.0f;
-    bool isstart = false;
+
     bool isProduction = false; // 연출
     bool isStoppage = false;   // 움직임 방어용
-    bool startsiu = false;
+
 };
 

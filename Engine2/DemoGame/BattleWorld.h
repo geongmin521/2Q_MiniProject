@@ -13,7 +13,7 @@ private:
 	D2DFont* goldText;			//재화텍스트
 	ShowWave* showWave;			//적 웨이브 UI
 	Button* TimeScaleButton[3];
-	std::map<std::string, GameObject*> Objs;//따로관리하는 오브젝트
+	std::map<std::string, GameObject*> Objs; //따로관리하는 오브젝트
 
 	D2DFont* BossDialogue;			// 보스 대사
 public:
