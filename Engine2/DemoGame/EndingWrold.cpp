@@ -22,7 +22,7 @@ void EndingWrold::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
 	Timer += deltaTime;
-	if (Timer > 2 && onceFade == false)
+	if (Timer > 4.5f && onceFade == false)
 	{
 		onceFade = true;
 		Make(FadeOut)([this]() {
