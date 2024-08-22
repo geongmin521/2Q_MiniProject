@@ -12,12 +12,10 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	__super::Initialize(hInstance, nShowCmd);
 	Music::soundManager->GetInstance()->Init();
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::GameOver, true, "../Data/Sound/BGM/GameOver.wav");				// bgm
-	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::GameTheme, true, "../Data/Sound/BGM/Gameplaynight.wav");		// bgm
-	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::MainTheme, true, "../Data/Sound/BGM/MainMenu.wav");		// bgm
+	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::MainTheme, true, "../Data/Sound/BGM/Gameplaynight.wav");		// bgm
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::BatDestroy, false , "../Data/Sound/Enemy/BatDestroy.wav");		// EnemyHitted
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::BatBombDestroy, false , "../Data/Sound/Enemy/BatBombDestroy.mp3");		// EnemyHitted
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::DeffendDestroy, false , "../Data/Sound/Enemy/DefDestroy.wav");		// EnemyHitted
-	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::EnemyDestroy, false , "../Data/Sound/Enemy/EnemyDestroy.wav");		// EnemyHitted
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::Lock, false, "../Data/Sound/Interface/Lock.wav");				// effect1
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::UnLock, false, "../Data/Sound/Interface/Unlock.wav");				// effect1
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::Reward, false, "../Data/Sound/Interface/RewardPopup.mp3");		// effect1
@@ -31,10 +29,10 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::CrossbowAttack, false, "../Data/Sound/Tower/ArrowAttack.mp3");	// TowerAttack
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::WaterAttack, false, "../Data/Sound/Tower/WaterAttack.mp3");	// TowerAttack
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HiddenAttack, false, "../Data/Sound/Tower/HiddenAttack.mp3");	// TowerAttack
-    Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HolyCrossAttack, false, "../Data/Sound/Tower/Heal.mp3");	    // TowerAttack
+    Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HolyCrossAttack, false, "../Data/Sound/Tower/Heal.mp3");	            // TowerAttack
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::CrossbowEffect, false, "../Data/Sound/Tower/ArrowEffect.mp3");	// TowerEffect
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::WaterEffect, false, "../Data/Sound/Tower/WaterEffect.mp3");	// TowerEffect
-	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HiddenEffect, false, "../Data/Sound/Tower/HiddenEffect.wav");	// TowerEffect
+	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HiddenEffect, false, "../Data/Sound/Tower/HiddenEffect.wav");	
 	
 
 	SceneManager::GetInstance().get()->ChangeScene(new IntroWorld); //인트로 추가해달래서

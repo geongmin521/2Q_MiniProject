@@ -127,9 +127,7 @@ void TowerDeath::Update(float DeltaTime)
 {
 	if ((ani != nullptr && ani->IsEnd()) || ani == nullptr)
 	{
-		
 		Pools::GetInstance().get()->AddPool(tower);
-		tower->curHP = tower->maxHP;
 	}
 	
 }

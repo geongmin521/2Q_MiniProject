@@ -29,9 +29,10 @@
 
 BattleWorld::BattleWorld()
 {
+	// 낮 밤 바뀌는거 물어볼 것 따로 변수가 있는지?
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
-	artifact->SelectArtifact(8);
-	
+	//artifact->SelectArtifact(510);
+
 }
 
 BattleWorld::~BattleWorld()
@@ -66,7 +67,7 @@ void BattleWorld::MakeUI()
 		}, ButtonType::Single).setPosition({ WinSizeX - 90, 75 }) .Get(TimeScaleButton[2]);
 
 	// 테스트용 아티팩트 소환
-	Make(Button)(L"Resume", [this]() {	int a = Utility::RandomBetween(501, 517); artifact->SelectArtifact(512); }, ButtonType::Active).setPosition({WinSizeX -330, 150});
+	//Make(Button)(L"Resume", [this]() {	int a = Utility::RandomBetween(501, 517); artifact->SelectArtifact(510); }, ButtonType::Active).setPosition({WinSizeX -330, 150});
 
 	TimeScaleButton[0]->SetIsEnable(false);
 	TimeScaleButton[2]->SetIsEnable(false);
@@ -109,6 +110,10 @@ void BattleWorld::RegisterEvent()
 
 				if (tower)
 				{
+					if (tower->curHP <= 0)
+					{
+						tower->curHP = tower->towerData.HP;
+					}
 					tower->prevHp = tower->curHP;
 					tower->StatUpdate();
 				}
