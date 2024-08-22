@@ -112,7 +112,7 @@ void TowerBase::Init(MathHelper::Vector2F pos,bool isMerge)
 	if(isMerge)
 			effect->Init({ pos.x - 10, pos.y + 65}, 1.0f); //ÀÌÆåÆ® »ý¼º
 	
-
+	isDead = false;
 	hitEffct = false;
 	StatUpdate();
 	transform->SetRelativeLocation(pos); 
@@ -222,6 +222,8 @@ void TowerBase::Update(float deltaTime)
 
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
+
+
 	if (towerData.Type == "Hidden")
 	{
 		Animation* animationComponent = GetComponent<Animation>();

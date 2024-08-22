@@ -70,18 +70,18 @@ void EnemyIdle::Update(float deltaTime)
 					enemy->GetComponent<Movement>()->SetVelocity({ moveDir * enemy->enemyData.speed * 100 }); //테스트용 그리고 csv에서는 스피드와 탐지 범위가 너무작아서 일단이렇게 박아놓음
 			}
 		}
-			else
-			{
-				CommonFunc::FindTarget(*enemy->GetComponent<CircleCollider>(), "Tower", enemy->target, enemy->enemyData.detectRange);
-				if (!enemy->isHited)
-					enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed * 100, 0 });
-			}
+		else
+		{
+			CommonFunc::FindTarget(*enemy->GetComponent<CircleCollider>(), "Tower", enemy->target, enemy->enemyData.detectRange);
+			if (!enemy->isHited)
+				enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed * 100, 0 });
+		}
 		
 	}
-		else // 멈춘 상태
-		{
-			enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
-		}
+	else // 멈춘 상태
+	{
+		enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
+	}
 	
 }
 
@@ -147,6 +147,7 @@ void EnemyAttack::ExitState()
 
 void EnemyDead::EnterState()
 {
+	enemy->isDead = true;
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 
 	gameManager->LiveEenmy--;

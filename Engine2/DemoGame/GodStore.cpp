@@ -10,7 +10,7 @@ GodStore::GodStore()
 {
 	renderOrder += 100;
 	//배경
-	Make(Image)(L"UI/Pop_up/Popup_SpecialReward.png").setParent(this->transform);
+	Make(Image)(L"UI/Pop_up/popup_Recipe.png").setParent(this->transform);
 	std::wstring name[3] = { L"축복" ,L"성물" ,L"고해성사" };
 	std::wstring costtext[3] = { L"신앙심 20" ,L"신앙심 40" ,L"신앙심 50" };
 	std::wstring compensation[3] = { L"일반 유물",L"특별 유물" , L"소환기회 + 1" };
@@ -21,11 +21,17 @@ GodStore::GodStore()
 			AddText(name[i], 50, 0, -110).
 			AddText(costtext[i], 50, 0, 120).
 			AddText(compensation[i], 50, 0, 150).
+			AddRenderOrder(20).
 			setPos_Parent({ -811.0f + (i * 812), -110 }, transform).
 			Get(CompensationBtn[i]);
 	}
 	for(int i=0;i< 3;i++)
-		Make(Image)(L"UI/Icon/special_item_00" + std::to_wstring(i + 1) + L".png").AddRenderOrder(10).setScale({0.75,0.75}).setPos_Parent({ -810.0f + (i * 810), -110 }, transform).setBoundBox(0, 0);
+		Make(Image)(L"UI/Icon/special_item_00" + std::to_wstring(i + 1) + L".png").AddRenderOrder(30).setScale({0.75,0.75}).setPos_Parent({ -810.0f + (i * 810), -130 }, transform).setBoundBox(0, 0);
+
+	for (int i = 0; i < 3; i++)
+		Make(Image)(L"UI/Pop_up/Nametag.png").AddRenderOrder(10).setPos_Parent({ { -810.0f + (i * 810), -370 } }, transform).setBoundBox(0, 0);
+	for (int i = 0; i < 3; i++)
+		Make(Image)(L"UI/Pop_up/Tooltip.png").AddRenderOrder(10).setPos_Parent({ { -810.0f + (i * 810), 200 } }, transform).setBoundBox(0, 0);
 
 	//선택완료 
 	Make(Button)(L"Pray", [this]() {GetCompensation(), SetActive(false);
