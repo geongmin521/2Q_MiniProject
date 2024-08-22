@@ -16,7 +16,7 @@ Compensation::Compensation()
 	renderOrder += 200;
 	float LPad = 810; 
 	//배경
-	Make(Image)(L"UI/Pop_up/Popup_SpecialReward.png").setParent(this->transform);
+	Make(Image)(L"UI/Pop_up/popup_Recipe.png").setParent(this->transform);
 	//csv로 타입 받아서 만들기.. 
 	for (int i = 0; i < 3; i++)
 	{
@@ -33,7 +33,12 @@ Compensation::Compensation()
 		explain[i]->SetSize(40, { 0,0 });
 		explain[i]->SetBoxSize({ 380,180 });
 	}
-		
+
+	for (int i = 0; i < 3; i++)
+		Make(Image)(L"UI/Pop_up/Nametag.png").AddRenderOrder(10).setPos_Parent({ LPad - (810 * i), -370 }, transform).setBoundBox(0, 0);
+	for (int i = 0; i < 3; i++)
+		Make(Image)(L"UI/Pop_up/Tooltip.png").AddRenderOrder(10).setPos_Parent({ LPad - (810 * i), 200 }, transform).setBoundBox(0, 0);
+
 	for (int i = 0; i < 3; i++)
 	{
 		Make(Button)(L"Frame", [this, i]() {selectedId = compensationId[i]; btn->SetInteractive(true); ButtonSelect(i); }, ButtonType::Active). //두번째웨이브일때는 그냥 아이디 3만 더해주기
@@ -44,10 +49,9 @@ Compensation::Compensation()
 	}
 
 	//보상을 위한 이미지를 만들고 교체해주기.. 
-	for (int i = 0; i < 3; i++)
-	{
-		Make(Image)(L"Artifact/Bible.png").AddRenderOrder(50).setPos_Parent({LPad - (810 * i), -100}, transform).setBoundBox(0,0).Get(img[i]);
-	}
+	for (int i = 0; i < 3; i++)	
+		Make(Image)(L"Artifact/Bible.png").AddRenderOrder(50).setScale({0.8,0.8}).setPos_Parent({ LPad - (810 * i), -100 }, transform).setBoundBox(0, 0).Get(img[i]);
+
 	//보상확정 버튼 
 	Make(Button)(L"Commit", [this]() {GetCompensation();
 	Music::soundManager->PlayMusic(Music::eSoundList::RewardClose, Music::eSoundChannel::Effect2);
@@ -84,6 +88,7 @@ void Compensation::GetCompensation() //흠 이것도 추상화하면 합칠수있나? 근데 성�
 	if (it != SpecialArtifactID.end()) {
 		SpecialArtifactID.erase(it); //스페셜유물은 뽑고나면 지우기
 	}
+	//holywater_shadow
 	isSelect = true;
 	auto& scale = transform->relativeScale;
 	new DOTween(scale.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, 0.75f, 0.05);
@@ -105,7 +110,7 @@ void Compensation::ChoseCompensation(bool special)
 		name[i]->SetDialog(wtext1);
 		explain[i]->SetDialog(wtext2);
 		compensationId[i] = result[i];
-		img[i]->ChangeImage(L"../Data/Image/Artifact/"+ artifactPath +L".png");
+		img[i]->ChangeImage(L"../Data/Image/Artifact/"+ artifactPath +L"2.png");
 	}
 	Music::soundManager->PlayMusic(Music::eSoundList::RewardOpen, Music::eSoundChannel::Effect1);
 }

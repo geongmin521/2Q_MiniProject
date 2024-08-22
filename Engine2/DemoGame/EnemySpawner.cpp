@@ -6,7 +6,6 @@
 #include "DataManager.h"
 #include "GameManager.h"
 #include "EnemyBase.h"
-
 #include "ProductionCamera.h"
 
 EnemySpawner::EnemySpawner()
@@ -28,9 +27,9 @@ void EnemySpawner::CreateEnemy(int id)
 	int pos = Utility::RandomBetween(0, spawnPos.size()-1);
 	EnemyBase* enemy = dynamic_cast<EnemyBase*>(Pools::GetInstance().get()->PopPool(id));
 	enemy->transform->SetRelativeLocation({ (float)2000,(float)spawnPos[pos] });
-	enemy->curHP = enemy->enemyData.HP * WavePower; //여기서 체력 초기화해주기.. 지금까지는 어떻게 되고있던거지?
-	enemy->curATK = enemy->enemyData.ATK * WavePower; //여기서 체력 초기화해주기.. 지금까지는 어떻게 되고있던거지?
-	//웨이브 파워만 가져오고싶은데.. 
+	enemy->curHP = enemy->enemyData.HP * WavePower;		
+	enemy->curATK = enemy->enemyData.ATK * WavePower;	
+	isDead = false;
 	
 	if (enemy->enemyData.Type == "Boss") // 보스 몬스터 위치 수정
 	{

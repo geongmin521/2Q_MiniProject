@@ -14,19 +14,17 @@
 #include "D2DFont.h"
 #include "GameManager.h"
 #include "Dotween.h"
-
 #include "D2DEffectManager.h"
 #include "CrossFadeEffect.h"
-
 #include "Music.h"
-
 #include "ProductionCamera.h"
+
 Shop::Shop() 
 {
 	Make(GameObject)().setParent(transform).Get(child);
 	ImagePath = { L"Crossbow_shadow.png",L"holywater_shadow.png",L"anchor_shadow.png",L"Holycross_shadow.png",L"Skul_shadow.png" };
 	TowerName = {L"석궁타워", L"성수타워", L"말뚝타워", L"힐타워" };
-	Make(Image)(L"UI/Pop_up/popup.png").AddText(L"", 30, 30, 175, &compensationText).AddText(L"", 50, 443, -210, &goldText).setParent(child->transform);
+	Make(Image)(L"UI/Pop_up/popup.png").AddText(L"", 30, 40, 180, &compensationText).AddText(L"", 50, 443, -210, &goldText).setParent(child->transform);
 	float LPad = -960; 
 	for (int i = 0; i < 5; i++)//아이콘
 		Make(Image)(L"UI/Icon/Crossbow_shadow.png").setPos_Parent({ LPad + i * 480 , -200 }, child->transform).Get<Image>(Icons);
@@ -42,11 +40,11 @@ Shop::Shop()
 	//소환하기 버튼
 	//리롤 횟수 텍스트박스
 	//상점 활성화 버튼
-	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"", 40, 50, 0, &rerollButtonText).AddText(L"", 50, 50, 0, &rerollText).setPos_Parent({ 0, 320 }, child->transform);
+	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"", 25, 0, 13, &rerollText).setPos_Parent({ 0, 320 }, child->transform);
 	Make(Button)(L"Create", [this]() {combination->SetActive(true);
 	Music::soundManager->PlayMusic(Music::eSoundList::PopupOpen, Music::eSoundChannel::Effect1);
 		}).setScale({ 1.4f,1.4f }).setPos_Parent({ -980, +400 }, child->transform);
-	Make(Button)(L"summon", std::bind(&Shop::Spawn, this)).setPos_Parent({980, +400 }, child->transform);
+	Make(Button)(L"summon", std::bind(&Shop::Spawn, this)).setPos_Parent({985, +395 }, child->transform);
 	Make(Button)(L"CS", []() {}).setPosition(WinSizeXYAdd(-200, -100)).setScale({ 0.9,0.9 }).Get<Button>(shop_spawnButton);
 
 	for (int i = 0; i < 4; i++) //타워 인벤
@@ -57,6 +55,7 @@ Shop::Shop()
 
 void Shop::init() //여기가 처음에 들어오는데네
 {
+	rerollCost = 5;
 	for (int i = 0; i < 5; i++)
 	{
 		isLock[i] = false;
@@ -64,7 +63,7 @@ void Shop::init() //여기가 처음에 들어오는데네
 	for (int i = 0; i < 5; i++)
 		lockButton[i]->SetIsEnable(true);
 	reroll = 3;
-	rerollText->SetDialog(std::to_wstring(reroll));
+	//rerollText->SetDialog(std::to_wstring(reroll));
 }
 
 Shop::~Shop()
@@ -113,14 +112,25 @@ void Shop::Update(float deltaTime)
 void Shop::Reroll() 
 {
 	Music::soundManager->PlayMusic(Music::eSoundList::Reroll, Music::eSoundChannel::Effect1);
-	if (reroll <= 0)
-		rerollButtonText->SetDialog(L" - 10 신앙심"); 
-	if (reroll > 0) 	
-		reroll--;
 	
-	else if(gameManager->GetGold() >= 10)
+	if (reroll > 0) // 좀더 깔끔하게 짜야겠다. 
 	{
-		gameManager->UseGold(10);
+		reroll--;
+		if (reroll == 0)
+		{
+			rerollText->SetDialog(L"-" + std::to_wstring(rerollCost) + L" 신앙심");
+		}
+		else
+		{
+			rerollText->SetDialog(std::to_wstring(reroll));
+		}
+		
+	}	
+	else if(gameManager->GetGold() >= rerollCost)
+	{
+		gameManager->UseGold(rerollCost);
+		rerollCost += 5;
+		rerollText->SetDialog(L"-" + std::to_wstring(rerollCost) + L" 신앙심");
 	}
 	else
 		return;
@@ -135,14 +145,21 @@ void Shop::Reroll()
 	compensationList.clear();
 	Text = L""; //텍스트 초기화
 	
-	rerollText->SetDialog(std::to_wstring(reroll));
+
 	for (int i = 0; i < 5; i++)
 	{
 		if (isLock[i])
 			continue;
-		int random = Utility::RandomBetween(0, ImagePath.size() - 1);
-		Icons[i]->ChangeImage(L"../Data/Image/UI/Icon/" + ImagePath[random]);
-		Id[i] = random;
+		std::vector<int> ableNum;
+		for (int j = 0; j < 5; j++)
+		{		
+			if (Id[i] == j) //리롤했을때 현재 아이디는 안뜨게하기
+				continue;
+			ableNum.push_back(j);
+		}
+		int random = Utility::RandomBetween(0, ableNum.size() - 1); //이전에 들고있던 아이디는 안들고있어야하고.. //초기화를 -1로 하고있고..아니면 1,2,3,4,5,를 들고있으면 확률은 똑같을거니까 문제없을듯>? 
+		Icons[i]->ChangeImage(L"../Data/Image/UI/Icon/" + ImagePath[ableNum[random]]);
+		Id[i] = ableNum[random];
 	}
 
 	int count[5] = { 0,0,0,0,0 };

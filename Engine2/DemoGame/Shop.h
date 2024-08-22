@@ -16,7 +16,7 @@ class Shop: public UI
 {
 private:
 	bool isLock[5];
-	int Id[5]; 
+	int Id[5] = {0,1,2,3,4};
 	int reroll = 10;
 	std::vector<Image*> Icons;				
 	std::vector<std::wstring> ImagePath;	
@@ -27,13 +27,13 @@ private:
 	GameObject* combination;
 	D2DFont* compensationText;
 	D2DFont* rerollText;
-	D2DFont* rerollButtonText;
 	D2DFont* goldText;
 	Button* shop_spawnButton; 
 	Button* lockButton[5]; 
 	ButtonState curState = EnemySpawn;
 	GameObject* child; //자식을 관리하기 위한 트랜스폼
 
+	int rerollCost;
 	float test;
 	bool effectCheck = false;
 

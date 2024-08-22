@@ -21,7 +21,7 @@ public:
 	std::string name;
 	std::vector<Component*> ownedComponents;	
 	std::string gameObjectName;
-	
+	bool isDead; //시간이 없어서 이렇게 처리함
 public:
 	virtual void Update(float deltaTime);
 	virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);

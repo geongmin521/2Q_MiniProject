@@ -25,8 +25,7 @@ void GameManager::Update()
 			return;
 		}
 		else
-		{			
-			WaveLevel++;
+		{					
 			if (artifact->isOwned(static_cast<int>(ArtifactId::Bible)))
 			{
 				gold += goldReward[WaveLevel] + goldReward[WaveLevel] * 0.3f;
@@ -36,6 +35,7 @@ void GameManager::Update()
 				gold += goldReward[WaveLevel];
 			}
 		}
+		WaveLevel++;
 		dataManager->ChoseWave();
 		D2DEffectManager::GetInstance()->FindIEffect<CrossFadeEffect>(L"MapFade")->isFadeIn = true;
 		isBattle = false;
