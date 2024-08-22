@@ -34,5 +34,5 @@ void IntroWorld::Update(float deltaTime)
 
 void IntroWorld::MakeObject()
 {
-	Make(Image)(L"Intro.png").setPosition(WinHalfSizeXY).Get<Image>(image);
+	Make(Image)(L"Intro0.png").setPosition(WinHalfSizeXY).Get<Image>(image);
 }
