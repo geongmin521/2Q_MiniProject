@@ -159,6 +159,10 @@ void TowerBase::StatUpdate()
 			curSpeed = 0;
 		
 	}
+}
+
+void TowerBase::AbilityUpdate()
+{
 	if (artifact->isOwned(static_cast<int>(ArtifactId::SilverRing)))
 	{
 		ArtifactData art = dataManager->getArtifactData(static_cast<int>(ArtifactId::SilverRing));
@@ -175,7 +179,6 @@ void TowerBase::StatUpdate()
 
 void TowerBase::Update(float deltaTime)
 {
-	
 	__super::Update(deltaTime);
 
 	//transform->SetRelativeScale({ testEffect, testEffect });

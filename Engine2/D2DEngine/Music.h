@@ -39,6 +39,7 @@ namespace Music
         GameTheme,
         BossWave,
         Ending,
+        Intro,
         BatDestroy,
         BatBombDestroy,
         DeffendDestroy,

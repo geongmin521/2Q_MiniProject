@@ -63,7 +63,7 @@ public:
     void Init(MathHelper::Vector2F pos);
 
     void StatUpdate();
-
+    void AbilityUpdate();
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);
 

@@ -6,8 +6,10 @@
 #include "TitleWorld.h" 
 #include "BattleWorld.h" 
 #include "GameManager.h"
+#include "Music.h"
 IntroWorld::IntroWorld()
 {
+	Music::soundManager->PlayMusic(Music::eSoundList::Intro, Music::eSoundChannel::BGM);
 }
 
 IntroWorld::~IntroWorld()
