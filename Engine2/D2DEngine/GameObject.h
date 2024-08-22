@@ -13,7 +13,7 @@ private:
 public:
 	GameObject();
 	virtual ~GameObject();	
-	int id;
+	int id = 9999;
 	int renderOrder;
 	AABB* boundBox;
 	World* owner = nullptr;

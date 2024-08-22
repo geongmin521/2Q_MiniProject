@@ -54,7 +54,6 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	{
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Bitmap>()->bitmap, redEmphasis);
-		transform->SetRelativeScale({ 0.8f,0.8f });
 	}
 	else if (towerData.Type == "Hidden")
 	{

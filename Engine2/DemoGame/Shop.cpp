@@ -63,7 +63,7 @@ void Shop::init() //여기가 처음에 들어오는데네
 	}
 	for (int i = 0; i < 5; i++)
 		lockButton[i]->SetIsEnable(true);
-	reroll = 2;
+	reroll = 3;
 	rerollText->SetDialog(std::to_wstring(reroll));
 }
 
@@ -266,7 +266,7 @@ void Shop::ChangeButton(ButtonState state)
 	{
 		shop_spawnButton->name = "CS";
 		shop_spawnButton->GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/UI/Button/CS_Nomal.png");
-		shop_spawnButton->SetListener([this]() { child->SetActive(true); Reroll(); init(); gameManager->chance--; });
+		shop_spawnButton->SetListener([this]() { child->SetActive(true); init();  Reroll(); gameManager->chance--; });
 	}	
 	shop_spawnButton->SetInteractive(false);
 }

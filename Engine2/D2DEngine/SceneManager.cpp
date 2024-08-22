@@ -19,11 +19,11 @@ void SceneManager::ChangeScene(World* world)
 	//{
 	//	gameManager->events[Event::Reset](); //지워졌는데.. 윈도우 이벤트때문에 들어오는건가?  //먼저 지우고 계속들어온느건가?
 	//}
-	gameManager->ResetFunc();
 	if (curWorld != nullptr)
 	{
 		delete curWorld; 
 	}
+	gameManager->ResetFunc();
 	//pool 도 싱글톤이라 초기화를해놔야하는데.. 얘는 들고있을수가없고.. 
 	curWorld = world;
 	curWorld->MakeObject(); 
