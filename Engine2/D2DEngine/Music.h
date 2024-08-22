@@ -31,9 +31,11 @@ namespace Music
     {
         GameOver,
         MainTheme,
+        GameTheme,
         BatDestroy,
         BatBombDestroy,
         DeffendDestroy,
+        EnemyDestroy,
         Lock,
         UnLock,
         Reward,

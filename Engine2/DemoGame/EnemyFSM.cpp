@@ -135,16 +135,14 @@ void EnemyAttack::ExitState()
 void EnemyDead::EnterState()
 {
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
+	
 	if (enemy->isSpawned == false)
 	{
 		gameManager->LiveEenmy--;
 	}
-	else
-	{
-		
-	}
 	// 데스 애니메이션
 	ani->SetAnimation(2, false, false);
+	enemy->hitEffct = false;
 	if (enemy->enemyData.Type == "Speed")
 	{
 		Music::soundManager->PlayMusic(Music::eSoundList::BatDestroy, Music::eSoundChannel::EnemyHitted2);
@@ -152,6 +150,10 @@ void EnemyDead::EnterState()
 	else if (enemy->enemyData.Type == "Deffend")
 	{
 		Music::soundManager->PlayMusic(Music::eSoundList::DeffendDestroy, Music::eSoundChannel::EnemyHitted2);
+	}
+	else
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::EnemyDestroy, Music::eSoundChannel::EnemyHitted);
 	}
 }
 
@@ -173,6 +175,7 @@ void EnemyAbility::EnterState()
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	ani->SetAnimation(3, false, false);
 	ani->isLoop = false;
+	
 }
 
 void EnemyAbility::Update(float deltaTime)
