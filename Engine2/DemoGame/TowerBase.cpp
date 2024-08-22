@@ -104,10 +104,13 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	fsm->SetNextState("Idle");
 }
 
-void TowerBase::Init(MathHelper::Vector2F pos)
+void TowerBase::Init(MathHelper::Vector2F pos,bool isMerge)
 {
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000 + towerData.level));
-			effect->Init({ pos.x - 10, pos.y + 15}, 1.0f); //이펙트 생성
+	effect->Init({ pos.x - 10, pos.y + 15 }, 1.0f); //이펙트 생성
+	if(isMerge)
+			effect->Init({ pos.x - 10, pos.y + 65}, 1.0f); //이펙트 생성
+	
 
 	hitEffct = false;
 	StatUpdate();
@@ -377,7 +380,7 @@ void TowerBase::OnDoubleClick()
 	if(towers.size() == merageCount && towerData.level < 3)
 	{
 		newTower = Pools::GetInstance().get()->PopPool(towerData.id + 1);
-		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation());
+		dynamic_cast<TowerBase*>(newTower)->Init(this->GetWorldLocation(),true);
 		dynamic_cast<TowerBase*>(newTower)->isMerged = true;
 		auto targetloca = GetWorldLocation();
 		for(auto& sametower : towers)

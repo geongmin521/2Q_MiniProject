@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "Button.h"
 #include "GameManager.h"
+#include "Music.h"
 
 GodStore::GodStore()
 {
@@ -27,9 +28,11 @@ GodStore::GodStore()
 		Make(Image)(L"UI/Icon/special_item_00" + std::to_wstring(i + 1) + L".png").AddRenderOrder(10).setScale({0.75,0.75}).setPos_Parent({ -810.0f + (i * 810), -110 }, transform).setBoundBox(0, 0);
 
 	//선택완료 
-	Make(Button)(L"Pray", [this]() {GetCompensation(), SetActive(false); }).setPos_Parent({300, 400}, transform).Get<Button>(btn);
+	Make(Button)(L"Pray", [this]() {GetCompensation(), SetActive(false);
+	Music::soundManager->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect2); }).setPos_Parent({ 300, 400 }, transform).Get<Button>(btn);
 	//나가기 버튼
-	Make(Button)(L"Return", [this]() { SetActive(false); }).setPos_Parent({ -300, 400 }, this->transform);
+	Make(Button)(L"Return", [this]() { SetActive(false);
+	Music::soundManager->PlayMusic(Music::eSoundList::RewardClose, Music::eSoundChannel::Effect1); }).setPos_Parent({ -300, 400 }, this->transform);
 	btn->SetInteractive(false); //기도하기 버튼도 보상줄게 있어야 나갈수있는거지? 
 	SetActive(false);
 	for (int i = 0; i < 3; i++)

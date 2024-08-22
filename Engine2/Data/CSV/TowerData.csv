@@ -12,4 +12,4 @@ int,string,int,string,float,float,float,float,float,float,string
 9,HolyCrossTower,1,HolyCross,10,200,30,2,0,0,Heal
 10,2StarHolyCrossTower,2,HolyCross,30,200,75,2,0,0,Heal
 11,3StarHolyCrossTower,3,HolyCross,50,500,150,3,0,0,Heal
-12,HiddenTower,3,Hidden,50,1500,200,3,100,20,AreaDot
+12,HiddenTower,3,Hidden,5,1500,200,3,100,20,AreaDot
