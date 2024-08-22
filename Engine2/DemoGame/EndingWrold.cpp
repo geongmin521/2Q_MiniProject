@@ -6,9 +6,10 @@
 #include "SceneManager.h"
 #include "TitleWorld.h" 
 #include "FadeOut.h"
-
+#include "Music.h"
 EndingWrold::EndingWrold()
 {
+	Music::soundManager->PlayMusic(Music::eSoundList::Ending, Music::eSoundChannel::BGM);
 }
 
 EndingWrold::~EndingWrold()
