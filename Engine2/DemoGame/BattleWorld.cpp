@@ -133,7 +133,7 @@ void BattleWorld::RegisterEvent()
 	Music::soundManager->PlayMusic(Music::eSoundList::GameOver, Music::eSoundChannel::BGM);
 		};
 	gameManager->events[Event::OpenGodStore] = [this]() {Objs["GodStore"]->SetActive(true);
-	Music::soundManager->PlayMusic(Music::eSoundList::RewardOpen, Music::eSoundChannel::Effect1); };
+	Music::soundManager->PlayMusic(Music::eSoundList::PopupOpen, Music::eSoundChannel::Effect1); };
 	gameManager->events[Event::UseGold] = [this]() { goldText->SetDialog(std::to_wstring(gameManager->GetGold())); };
 	gameManager->events[Event::ShowWaveFunc] = [this]() { showWave->Show(); };
 	gameManager->Compensation = [this](bool special) { compensation->ChoseCompensation(special); compensation->SetActive(true); };

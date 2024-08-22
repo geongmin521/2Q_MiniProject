@@ -54,7 +54,7 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 	}
 	if (type == "Hidden")
 	{   
-		this->speed = 160.0f;
+		this->speed = 320.0f;
 		AddComponent(new Movement(transform));
 		transform->SetRelativeScale({ 0.5f,0.5f });
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));

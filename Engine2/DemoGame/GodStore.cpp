@@ -35,10 +35,10 @@ GodStore::GodStore()
 
 	//선택완료 
 	Make(Button)(L"Pray", [this]() {GetCompensation(), SetActive(false);
-	Music::soundManager->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect2); }).setPos_Parent({ 300, 400 }, transform).Get<Button>(btn);
+	Music::soundManager->PlayMusic(Music::eSoundList::PopupClose, Music::eSoundChannel::Effect2); }).setPos_Parent({ 300, 400 }, transform).Get<Button>(btn);
 	//나가기 버튼
 	Make(Button)(L"Return", [this]() { SetActive(false);
-	Music::soundManager->PlayMusic(Music::eSoundList::RewardClose, Music::eSoundChannel::Effect1); }).setPos_Parent({ -300, 400 }, this->transform);
+	Music::soundManager->PlayMusic(Music::eSoundList::PopupClose, Music::eSoundChannel::Effect1); }).setPos_Parent({ -300, 400 }, this->transform);
 	btn->SetInteractive(false); //기도하기 버튼도 보상줄게 있어야 나갈수있는거지? 
 	SetActive(false);
 	for (int i = 0; i < 3; i++)

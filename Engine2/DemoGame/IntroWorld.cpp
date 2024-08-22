@@ -22,7 +22,7 @@ void IntroWorld::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
 	elapsedTime += deltaTime;
-	if (elapsedTime > 2.5f)          //한페이지 넘기는 시간은 기획이랑 논의 
+	if (elapsedTime > 4.5f)          //한페이지 넘기는 시간은 기획이랑 논의 
 	{
 		if (introNum < 3)
 		introNum++;
@@ -40,6 +40,7 @@ void IntroWorld::Update(float deltaTime)
 
 	if (introNum >= 3)           //3이 총 페이지 숫자가 될 예정
 	{
+		if(elapsedTime > 2.5f)
 		SceneManager::GetInstance().get()->ChangeScene(new BattleWorld);
 		return;
 	}
