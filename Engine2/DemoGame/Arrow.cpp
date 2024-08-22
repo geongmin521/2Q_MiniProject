@@ -54,9 +54,9 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 	}
 	if (type == "Hidden")
 	{   
-		this->speed = 130.0f;
+		this->speed = 160.0f;
 		AddComponent(new Movement(transform));
-		transform->SetRelativeScale({ 0.3f,0.3f });
+		transform->SetRelativeScale({ 0.5f,0.5f });
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
 		AttackFunc = [this,damage]() { ArrowFunc::HiddenAttack(*GetComponent<CircleCollider>(), damage); };
 		id = 512;
@@ -64,7 +64,7 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 	if (type == "HiddenArrow")
 	{
 		AddComponent(new Animation((L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(name) + L"Arrow.png"), L"..\\Data\\CSV\\TowerAni\\HiddenArrow.csv"));
-		transform->SetRelativeScale({ 1.5f,1.5f });
+		transform->SetRelativeScale({ 1.7f,1.7f });
 		GetComponent<Animation>()->SetAnimation(0, false, false);
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
 		AttackFunc = [this, damage, knockBack]() { ArrowFunc::AttackEnemys(*GetComponent<CircleCollider>(), damage, knockBack); };

@@ -24,6 +24,9 @@
 #include "Artifact.h"
 #include "TowerBase.h"
 #include "Music.h"
+#include "EndingWrold.h"
+#include "FadeOut.h"
+#include "SceneManager.h"
 #include "D2DFontManager.h"
 #include "ProductionCamera.h"
 
@@ -125,8 +128,8 @@ void BattleWorld::RegisterEvent()
 			}
 		}
 		goldText->SetDialog(std::to_wstring(gameManager->GetGold()));
-		};
-
+	};
+	gameManager->events[Event::GameClearEvent] = [this]() {Make(FadeOut)([]() {SceneManager::GetInstance().get()->ChangeScene(new EndingWrold); }, true); };
 	gameManager->events[Event::GameOverEvent] = [this]() {Objs["GameOver"]->SetActive(true);
 	Music::soundManager->PlayMusic(Music::eSoundList::NexusDestroy, Music::eSoundChannel::Effect2);
 	Music::soundManager->PlayMusic(Music::eSoundList::GameOver, Music::eSoundChannel::BGM);

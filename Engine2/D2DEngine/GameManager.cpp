@@ -20,7 +20,7 @@ void GameManager::Update()
 	{
 		if (WaveLevel == 8)
 		{
-			events[Event::GameOverEvent]();
+			events[Event::GameClearEvent]();
 			isBattle = false;
 			return;
 		}

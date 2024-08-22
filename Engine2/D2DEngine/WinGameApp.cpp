@@ -165,6 +165,10 @@ void WinGameApp::Run()
  			Update(timeManager->GetDeltaTime());
 			Render(D2DRenderer::GetInstance()->GetRenderTarget());
 			inputSystem->ResetInput();
+			if (sceneManager->isChange == true)
+			{
+				sceneManager->Change();
+			}
 		}	
 	}
 	
@@ -178,7 +182,7 @@ void WinGameApp::Update(float fTimeElapsed)
 void WinGameApp::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
 	D2DRenderer::GetInstance()->GetRenderTarget()->BeginDraw();
-	D2DRenderer::GetInstance()->GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::CadetBlue));
+	D2DRenderer::GetInstance()->GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 	SceneManager::GetInstance().get()->GetCurWorld()->Render(pRenderTarget);
 	D2DRenderer::GetInstance()->GetRenderTarget()->EndDraw();
 }
