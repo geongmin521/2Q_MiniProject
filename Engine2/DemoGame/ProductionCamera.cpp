@@ -9,6 +9,8 @@
 
 #include "Image.h"
 #include "TimeSystem.h"
+#include "Music.h"
+
 ProductionCamera::ProductionCamera()
 {
 	AddComponent(new CameraScene());
@@ -65,6 +67,9 @@ void ProductionCamera::Update(float deltaTime)
 
 void ProductionCamera::BossAwake(float deltaTime)
 {
+	Music::soundManager->SetVolume(1.0f, Music::eSoundChannel::Effect1);
+	Music::soundManager->PlayMusic(Music::eSoundList::BossAppear, Music::eSoundChannel::Effect1);
+
 	auto& scale = transform->relativeScale;
 	auto& loca = transform->relativeLocation;
 
@@ -114,6 +119,7 @@ void ProductionCamera::ResetPos()
 
 void ProductionCamera::Earthquake()
 {
+	Music::soundManager->PlayMusic(Music::eSoundList::BossWave, Music::eSoundChannel::BGM);
 	auto& loca = transform->relativeLocation;
 	auto& scale = transform->relativeScale;
 

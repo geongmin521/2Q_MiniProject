@@ -40,7 +40,6 @@ void EnemyFunc::BossAttack(EnemyBase* origin, GameObject* target, float Damage)
 	effect->Init({ target->GetWorldLocation().x,  target->GetWorldLocation().y + 50 }, 1.0f); //이펙트 생성
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
 	nofity->Hit(Damage);
-	origin->Heal(Damage / 4);
 }
 
 void EnemyFunc::spawnBat(MathHelper::Vector2F pos)

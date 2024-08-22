@@ -21,6 +21,8 @@
 #include "Arrow.h"
 
 #include "Artifact.h"
+#include "DataManager.h"
+#include "GameManager.h"
 
 Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,float knockBack) //총알도 애니메이션 있는건가?그냥 이미지면 되는게 아닌가? 일단은 그냥 비트맵으로 해볼까? 
 {
@@ -72,7 +74,9 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 	{
 		AddComponent(new BezierMovement(transform, speed));
 		transform->SetRelativeScale({ 0.3f,0.3f });
-		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::AttackTower(this, this->target, type, damage, knockBack); };
+
+		float WaveLevel = dataManager->getWaveData(gameManager->WaveLevel).levelPower;
+		AttackFunc = [this, type, damage, knockBack, WaveLevel]() { ArrowFunc::AttackTower(this, this->target, type, damage * WaveLevel, knockBack); };
 		id = 601;
 	}
 }
