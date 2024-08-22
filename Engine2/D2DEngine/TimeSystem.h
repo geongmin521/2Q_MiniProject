@@ -26,5 +26,5 @@ private:
 
 	float _DeltaTime;
 	float _TimeScale;
-	float _BeforeTimeScale = 1.f;
+	float _BeforeTimeScale = 2.f;
 };

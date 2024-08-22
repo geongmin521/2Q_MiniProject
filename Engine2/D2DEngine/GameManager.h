@@ -21,8 +21,9 @@ class GameObject;
 class GameManager :public SingletonBase<GameManager>//싱글톤에 리셋을 부여하던가 아니면 데이터는 싱글톤이 아니고 관리만 싱글톤으로 하는것도 방법이긴하네.. 
 {
 private:
-	int gold = 0;
+	
 public:
+	int gold = 0;
 	bool isBattle;
 	bool isDrag = false;
 	int WaveLevel = 1;
