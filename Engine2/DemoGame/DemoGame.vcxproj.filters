@@ -111,9 +111,6 @@
     <ClInclude Include="Artifact.h">
       <Filter>Artifact</Filter>
     </ClInclude>
-    <ClInclude Include="Container.h">
-      <Filter>UIBase</Filter>
-    </ClInclude>
     <ClInclude Include="Pools.h">
       <Filter>Factory</Filter>
     </ClInclude>
@@ -154,6 +151,11 @@
     <ClInclude Include="ProductionCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Container.h" />
+    <ClInclude Include="EndingWrold.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeOut.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">
@@ -219,9 +221,6 @@
     <ClCompile Include="Artifact.cpp">
       <Filter>Artifact</Filter>
     </ClCompile>
-    <ClCompile Include="Container.cpp">
-      <Filter>UIBase</Filter>
-    </ClCompile>
     <ClCompile Include="Pools.cpp">
       <Filter>Factory</Filter>
     </ClCompile>
@@ -262,5 +261,10 @@
     <ClCompile Include="ProductionCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Container.cpp" />
+    <ClCompile Include="EndingWrold.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeOut.cpp" />
   </ItemGroup>
 </Project>
