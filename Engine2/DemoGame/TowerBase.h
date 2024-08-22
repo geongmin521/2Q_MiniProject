@@ -63,7 +63,7 @@ public:
     // 재료가 트루되면 메인타워로 가
     // 가서 없어져
     // 재료타워 합성(mainTower)
-    void Init(MathHelper::Vector2F pos);
+    void Init(MathHelper::Vector2F pos,bool isMearge =false);
 
     void StatUpdate();
 

@@ -21,7 +21,11 @@ Artifact::~Artifact()
 
 void Artifact::reset()
 {
-
+	ownedArtifact.clear();
+	ResetStat(WaterPower);
+	ResetStat(PilePower);
+	ResetStat(CrossbowPower);
+	ResetStat(HolyPower);
 }
 
 void Artifact::SelectArtifact(int id)
