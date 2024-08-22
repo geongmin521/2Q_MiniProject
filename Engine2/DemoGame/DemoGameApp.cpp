@@ -16,6 +16,7 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::MainTheme, true, "../Data/Sound/BGM/MainMenu.wav");						// bgm
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::BossWave, true, "../Data/Sound/BGM/BossWave.wav");							// bgm  보스 등장연출과 할것
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::Ending, true, "../Data/Sound/BGM/Ending.wav");								// bgm  엔딩?
+	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::Intro, true, "../Data/Sound/BGM/Intro.wav");								// bgm  
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::BatDestroy, false , "../Data/Sound/Enemy/BatDestroy.wav");					// EnemyHitted
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::BatBombDestroy, false , "../Data/Sound/Enemy/BatBombDestroy.mp3");			// EnemyHitted
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::DeffendDestroy, false , "../Data/Sound/Enemy/DefDestroy.wav");				// EnemyHitted
