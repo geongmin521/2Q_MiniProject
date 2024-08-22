@@ -76,7 +76,7 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 		transform->SetRelativeScale({ 0.3f,0.3f });
 
 		float WaveLevel = dataManager->getWaveData(gameManager->WaveLevel).levelPower;
-		AttackFunc = [this, type, damage, knockBack, WaveLevel]() { ArrowFunc::AttackTower(this, this->target, type, damage * WaveLevel, knockBack); };
+		AttackFunc = [this, type, damage, knockBack, WaveLevel]() { ArrowFunc::AttackTower(this, this->target, type, damage, knockBack); };
 		id = 601;
 	}
 }
