@@ -19,9 +19,10 @@ public:
     float elapsedTime;
     float attackTime = 0.1f;
     float elapsedTime2;
+    float level;
 
     std::function<void()> AttackFunc;
-    void Init(MathHelper::Vector2F location, GameObject* target = nullptr);
+    void Init(MathHelper::Vector2F location, GameObject* target = nullptr,float level =0);
 
     virtual void Update(float deltaTime);
     virtual void Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha =1);

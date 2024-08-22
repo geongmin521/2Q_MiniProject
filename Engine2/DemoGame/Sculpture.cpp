@@ -19,7 +19,7 @@ Sculpture::Sculpture() //얘가 iclickable을 상속받을까?
 	GetComponent<CircleCollider>()->SetOffset({ -300,0 });
 	eventSystem->Ui.insert(this);
 	hp = 100; 
-	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2006));
+	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
 	effect->Init({ GetWorldLocation().x +100 ,GetWorldLocation().y + 300}, 1.3f,true); //이펙트 생성
 }
 

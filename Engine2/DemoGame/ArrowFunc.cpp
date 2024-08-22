@@ -10,13 +10,13 @@
 #include "ArrowFunc.h"
 #include "Artifact.h"
 
-void ArrowFunc::AttackEnemy(GameObject* my,GameObject* target,std::string type, float damage, float knockBack)
+void ArrowFunc::AttackEnemy(Arrow* my,GameObject* target,std::string type, float damage, float knockBack)
 {
 	// 추후에 아티팩트 기반으로 데미지 고정값 증가
 	EnemyBase* enemy = dynamic_cast<EnemyBase*>(target);	
 	MathHelper::Vector2F dir = (enemy->GetWorldLocation() - my->GetWorldLocation()).Normalize();
 	enemy->Hit(Utility::CalCul(type, enemy->enemyData.Type, damage + (artifact->CrossbowPower.atkLevel * 2)), knockBack); //일단 100 넉백수치 받아오기필요
-	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2001));
+	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2004+ my->level));
 	effect->Init(my->GetWorldLocation(), 1.0f); //이펙트 생성
 	Pools::GetInstance().get()->AddPool(my);
 }
@@ -31,7 +31,7 @@ void ArrowFunc::AttackTower(GameObject* my, GameObject* target, std::string type
 	//effect->Init(my->GetWorldLocation(), 1.0f); //이펙트 생성
 	Pools::GetInstance().get()->AddPool(my);
 }
-void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damage, float knockBack)
+void ArrowFunc::WaterAttack(Arrow* my,CircleCollider& myCol, std::string type, float damage, float knockBack)
 {
 	std::vector<GameObject*> targets;
 	CommonFunc::FindTargets(myCol, "Enemy", targets, myCol.circle->radius);  
@@ -45,7 +45,7 @@ void ArrowFunc::WaterAttack(CircleCollider& myCol, std::string type, float damag
 		}
 	}
 	
-	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2002));
+	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2007+my->level));
 	effect->Init(myCol.owner->GetWorldLocation(), 1.0f); //이펙트 생성
 	myCol.SetCollisionType(CollisionType::NoCollision); 
 	Pools::GetInstance().get()->AddPool(myCol.owner);

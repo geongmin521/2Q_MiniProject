@@ -49,7 +49,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 	maxHP = towerData.HP;
 	curSpeed = towerData.attackSpeed;
 	knockBack = towerData.knockBack;
-
+	AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\Holyaura" + to_wstring(towerData.level) + L".png"));
 	if (towerData.Type == "Pile")
 	{
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
@@ -110,8 +110,8 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 
 void TowerBase::Init(MathHelper::Vector2F pos)
 {
-	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2003));
-			effect->Init({ pos.x - 5, pos.y + 53}, 0.90f); //이펙트 생성
+	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000 + towerData.level));
+			effect->Init({ pos.x - 10, pos.y + 15}, 1.0f); //이펙트 생성
 
 	hitEffct = false;
 	StatUpdate();

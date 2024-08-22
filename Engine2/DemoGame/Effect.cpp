@@ -8,12 +8,13 @@
 
 Effect::Effect(int id)
 {
+	renderOrder = 106;
 	std::wstring effect = idtoString(static_cast<EffectId>(id));
 	this->id = id;
 	AddComponent(new Animation(L"..\\Data\\Image\\Effect\\" + effect + L"Effect.png", L"..\\Data\\CSV\\Effect\\" + effect + L".csv"));
-	renderOrder = 102;
+	if(!(effect.find(L"Summon") == std::wstring::npos))
+		renderOrder = 93;
 	GetComponent<Animation>()->SetAnimation(0, false, false);
-	this->renderOrder = renderOrder;
 }
 
 Effect::~Effect()
@@ -23,7 +24,6 @@ Effect::~Effect()
 
 void Effect::Init(MathHelper::Vector2F location,float _scale,bool loop)
 {
-//GetComponent<Bitmap>()->LoadD2DBitmap(L"..\\Data\\Image\\" + imagePath);
 	transform->SetRelativeScale({ _scale,_scale });
 	transform->SetRelativeLocation(location);
 	if (GetComponent<Animation>() != nullptr)
