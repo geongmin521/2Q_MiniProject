@@ -334,7 +334,7 @@ void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게..
 		return;
 	if (container)
 		container->Clear();
-
+	gameManager->isDrag = true;
 	// GetComponent<CircleCollider>()->circle->radius 이걸로 공격 범위 알 수 있고
 	AttackRangeCircle = true;
 }
@@ -352,6 +352,7 @@ void TowerBase::EndDrag(const MouseState& state) //드래그앤 드롭이니까..
 	Music::soundManager->PlayMusic(Music::eSoundList::TowerReplace, Music::eSoundChannel::Effect1);
 	//container
 	AttackRangeCircle = false;
+	gameManager->isDrag = false;
 }
 
 void TowerBase::FailDrop()

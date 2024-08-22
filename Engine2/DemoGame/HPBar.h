@@ -6,7 +6,6 @@ class HPBar : public GameObject
 private:
 	float& curHp;
 	float maxHp;
-	float scale = 1.0f;
 public:
 	Bitmap* hpBar;
 	bool isFrame = false;

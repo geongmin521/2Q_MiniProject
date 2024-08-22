@@ -117,9 +117,6 @@
     <ClInclude Include="HPBar.h">
       <Filter>InGameUI</Filter>
     </ClInclude>
-    <ClInclude Include="TowerStar.h">
-      <Filter>InGameUI</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GodStore.h">
       <Filter>UI</Filter>
@@ -156,6 +153,9 @@
       <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="FadeOut.h" />
+    <ClInclude Include="TowerStar.h">
+      <Filter>InGameUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">

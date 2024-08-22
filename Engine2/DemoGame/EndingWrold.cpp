@@ -32,7 +32,7 @@ void EndingWrold::MakeObject()
 {
 	Make(Image)(L"Ending_Cut.png").setPosition(WinHalfSizeXY);
 	Make(FadeOut)([this]() {
-		Make(Image)(L"endingCredit.png").setPosition(WinHalfSizeXY).setRenderOrder(1800).Get<Image>(endCredit); }, true);
+		Make(Image)(L"endingCredit.png").setPosition({ WinHalfSizeX,WinHalfSizeY + 500 }).setRenderOrder(1800).Get<Image>(endCredit); }, true);
 
 
 }

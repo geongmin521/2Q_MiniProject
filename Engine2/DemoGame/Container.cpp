@@ -54,9 +54,19 @@ bool Container::OnDrop(GameObject* ui)
 
 void Container::OnMouse() //아 컨테어너의 onmouse는 밑에있어도 적용이되어있어야하는데.. //on마우스는 모두 적용하는건어떰? 지금 on마우스가 모두 적용되는게 툴팁이랑 그리드ㅡ뿐이잖아.
 {
+	if (gameManager->isDrag == false)
+		return;
 	if (containerId < 4)
 		return;
-	GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/GridActive.png");
+	if (isContain == false)
+	{
+		GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/GridActive.png");
+	}
+	else if (isContain == true)
+	{
+		GetComponent<Bitmap>()->LoadD2DBitmap(L"../Data/Image/GridDeactivate.png");
+	}
+	
 }
 
 void Container::OutMouse()
