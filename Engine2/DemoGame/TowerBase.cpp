@@ -55,6 +55,7 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 		AddComponent(new Bitmap(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png"));
 		Bitmap* bitmapEffect = dynamic_cast<Bitmap*>(ownedComponents[2]);
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), bitmapEffect->bitmap, redEmphasis);
+		D2DEffectManager::GetInstance()->CreateBorderEffect(Utility::convertFromString(towerData.name) + L"Border", bitmapEffect->bitmap);
 	}
 	else if (towerData.Type == "Hidden")
 	{
@@ -62,11 +63,13 @@ TowerBase::TowerBase(TowerData data) //최대한위로빼고 달라지는 로직만 적용해야하
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Animation>()->bitmap, redEmphasis); // 히트 이펙트
 		D2DEffectManager::GetInstance()->CreatePointSpecularEffect(L"HiddenSpecular", GetComponent<Animation>()->bitmap, 0, 0);
 		D2DEffectManager::GetInstance()->FindIEffect<PointSpecularEffect>(L"HiddenSpecular")->LightZonter = 300;	
+		D2DEffectManager::GetInstance()->CreateBorderEffect(Utility::convertFromString(towerData.name) + L"Border", GetComponent<Animation>()->bitmap);
 	}
 	else
 	{
 		AddComponent(new Animation(L"..\\Data\\Image\\Tower\\" + Utility::convertFromString(towerData.name) + L".png", L"..\\Data\\CSV\\TowerAni\\TowerBase.csv"));
 		D2DEffectManager::GetInstance()->CreateColorMatrixEffect(Utility::convertFromString(towerData.name), GetComponent<Animation>()->bitmap, redEmphasis);
+		D2DEffectManager::GetInstance()->CreateBorderEffect(Utility::convertFromString(towerData.name) + L"Border", GetComponent<Animation>()->bitmap);
 	}
 
 	SetBoundBox(0, 0, 150,150);
@@ -224,21 +227,12 @@ void TowerBase::Update(float deltaTime)
 		isMerged = false;
 	}
 }
-
+ //  D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->FindEffect(Utility::convertFromString(towerData.name) + L"Border"), { 0 ,0 }, GetComponent<Animation>()->srcRect);
 void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 {
-
-
 	if (towerData.Type == "Hidden")
 	{
-		Animation* animationComponent = GetComponent<Animation>();
-		static_cast<Renderer*>(animationComponent);
-	
-		D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(animationComponent)->imageTransform *
-			transform->worldTransform *
-			D2DRenderer::cameraTransform;
-
-		pRenderTarget->SetTransform(Transform);
+		RenderTransform(GetComponent<Animation>());
 		D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
 			FindEffect(L"HiddenSpecular"),
 			{ 0 ,0 }, GetComponent<Animation>()->srcRect);
@@ -253,7 +247,7 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	if (hitEffct == false )
 	{
 		if(towerData.Type != "Hidden")
-		__super::Render(pRenderTarget,alpha);
+		__super::Render(pRenderTarget, alpha);
 		
 		if (AttackRangeCircle && towerData.Type != "Pile")
 		{
@@ -264,36 +258,46 @@ void TowerBase::Render(ID2D1HwndRenderTarget* pRenderTarget,float Alpha)
 	{
 		if (towerData.Type == "Pile")
 		{
-			Bitmap* BitmapComponent = dynamic_cast<Bitmap*>(ownedComponents[2]);
-			static_cast<Renderer*>(BitmapComponent);
-
-			D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(BitmapComponent)->imageTransform *
-				transform->worldTransform *
-				D2DRenderer::cameraTransform;
-
-			pRenderTarget->SetTransform(Transform);
-
+			RenderTransform(GetComponent<Bitmap>());
 			D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
 				FindEffect(Utility::convertFromString(towerData.name)));
 		}
 		else
 		{
-			Animation* animationComponent = GetComponent<Animation>();
-			static_cast<Renderer*>(animationComponent);
-
-			D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(animationComponent)->imageTransform *
-				transform->worldTransform *
-				D2DRenderer::cameraTransform;
-
-			pRenderTarget->SetTransform(Transform);
-
+			RenderTransform(GetComponent<Bitmap>());
 			D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->
 				FindEffect(Utility::convertFromString(towerData.name)),
 				{ 0 ,0 }, GetComponent<Animation>()->srcRect);
 		}
-		
 		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 	}
+
+	if (isBorder)
+	{
+		if (towerData.Type != "Pile")
+		{
+			RenderTransform(GetComponent<Animation>());
+			D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->FindEffect(Utility::convertFromString(towerData.name) + L"Border"), { 0 ,0 }, GetComponent<Animation>()->srcRect);
+		}
+		else
+		{
+			RenderTransform(GetComponent<Bitmap>());
+			if (towerData.name == "PileTower")
+			{
+				D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->FindEffect(Utility::convertFromString(towerData.name) + L"Border"), { -23 ,0 });
+			}
+			else if (towerData.name == "2StarPileTower")
+			{
+				D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->FindEffect(Utility::convertFromString(towerData.name) + L"Border"), { -23 , 10 });
+			}
+			else
+			{
+				D2DRenderer::GetInstance()->DeviceContext->DrawImage(D2DEffectManager::GetInstance()->FindEffect(Utility::convertFromString(towerData.name) + L"Border"), { 13 , 30 });
+			}	
+		}
+		pRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	}
+
 }
 
 void TowerBase::Attack(float deltaTime)
@@ -337,6 +341,7 @@ void TowerBase::BeginDrag(const MouseState& state)//이 부분은 이동가능하게..
 	gameManager->isDrag = true;
 	// GetComponent<CircleCollider>()->circle->radius 이걸로 공격 범위 알 수 있고
 	AttackRangeCircle = true;
+	isBorder = true;
 }
 
 void TowerBase::StayDrag(const MouseState& state) 
@@ -353,6 +358,7 @@ void TowerBase::EndDrag(const MouseState& state) //드래그앤 드롭이니까..
 	//container
 	AttackRangeCircle = false;
 	gameManager->isDrag = false;
+	isBorder = false;
 }
 
 void TowerBase::FailDrop()
@@ -450,4 +456,18 @@ void TowerBase::OnMouse()
 void TowerBase::OutMouse() 
 {
 	gameManager->getObject("ToolTip")->SetActive(false);
+}
+
+void TowerBase::RenderTransform(Component* _Component)
+{
+	if (!_Component) {
+		return;
+	}
+
+	// Assuming Component has methods for getting transform and rendering
+	D2D1_MATRIX_3X2_F Transform = static_cast<Renderer*>(_Component)->imageTransform *
+		transform->worldTransform *
+		D2DRenderer::cameraTransform;
+
+	D2DRenderer::GetInstance()->GetRenderTarget()->SetTransform(Transform);
 }

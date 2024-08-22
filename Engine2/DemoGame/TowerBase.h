@@ -52,7 +52,7 @@ public: //나중에 은닉화할 데이터는 빼기
     float mergeTime = 0;
 
     bool AttackRangeCircle = false;
-
+    bool isBorder = false;
 public:
     
     TowerBase(TowerData data);
@@ -83,4 +83,9 @@ public:
 
     virtual void OnMouse() override;
     virtual void OutMouse() override;
+
+private:
+    void RenderTransform(Component* _Component);
+
 };
+
