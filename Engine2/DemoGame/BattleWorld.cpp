@@ -30,7 +30,7 @@
 BattleWorld::BattleWorld()
 {
 	// 낮 밤 바뀌는거 물어볼 것 따로 변수가 있는지?
-	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
+	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::GameTheme, Music::eSoundChannel::BGM);
 	//artifact->SelectArtifact(510);
 
 }

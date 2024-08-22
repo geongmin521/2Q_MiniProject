@@ -10,6 +10,7 @@
 #include "Pools.h"
 #include "EventSystem.h"
 #include "CollisionManager.h"
+#include "IntroWorld.h"
 
 #include "Music.h"
 TitleWorld::TitleWorld()
@@ -26,7 +27,7 @@ void TitleWorld::MakeObject()
 {
 	Make(Image)(L"title.png").setRenderOrder(-100).setScale({0.75f,0.75f}).setPosition(WinHalfSizeXY);
 	Make(Image)(L"UI/Title/title.png").setRenderOrder(-100).setScale({0.75f,0.75f}).setPosition(WinHalfSizeXYAdd(0, -200));
-	Make(Button)(L"Start", []() { SceneManager::GetInstance().get()->ChangeScene(new BattleWorld); 
+	Make(Button)(L"Start", []() { SceneManager::GetInstance().get()->ChangeScene(new IntroWorld); 
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainButtonClick, Music::eSoundChannel::Effect1); }).setPosition({ WinHalfSizeX, WinHalfSizeY + 200 });//게임시작
 	Make(Button)(L"EXIT", []() { 
 		Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainButtonClick, Music::eSoundChannel::Effect1);

@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "SceneManager.h"
 #include "TitleWorld.h" 
+#include "BattleWorld.h" 
 #include "GameManager.h"
 IntroWorld::IntroWorld()
 {
@@ -21,7 +22,7 @@ void IntroWorld::Update(float deltaTime)
 	{
 		if (introNum >= 3)           //3이 총 페이지 숫자가 될 예정
 		{
-			SceneManager::GetInstance().get()->ChangeScene(new TitleWorld);
+			SceneManager::GetInstance().get()->ChangeScene(new BattleWorld);
 			return;
 		}			
 		else
@@ -37,5 +38,5 @@ void IntroWorld::Update(float deltaTime)
 
 void IntroWorld::MakeObject()
 {
-	Make(Image)(L"Intro.png").setPosition(WinHalfSizeXY).Get<Image>(image);
+	Make(Image)(L"Intro0.png").setPosition(WinHalfSizeXY).Get<Image>(image);
 }
