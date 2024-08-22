@@ -50,7 +50,6 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::WaterEffect, false, "../Data/Sound/Tower/WaterEffect.wav");				// TowerEffect
 	Music::soundManager->GetInstance()->LoadMusic(Music::eSoundList::HiddenEffect, false, "../Data/Sound/Tower/HiddenEffect.wav");				// TowerEffect
 	
-
 	SceneManager::GetInstance().get()->ChangeScene(new TitleWorld); //인트로 추가해달래서
 	sceneManager->Change();
 } 
