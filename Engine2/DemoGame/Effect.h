@@ -34,7 +34,7 @@ public:
 	{
 		switch (id) {
 		case EffectId::Place: return L"Place";
-		case EffectId::Summon: return L"Summon3";
+		case EffectId::Summon: return L"Summon";
 		case EffectId::Summon2: return L"Summon2";
 		case EffectId::Summon3: return L"Summon3";
 		case EffectId::Heal: return L"Heal";
