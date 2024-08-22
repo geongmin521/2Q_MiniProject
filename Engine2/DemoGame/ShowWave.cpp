@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "D2DFontManager.h"
 #include "D2DFont.h"
+#include "Music.h"
 
 ShowWave::ShowWave()
 {
@@ -20,7 +21,8 @@ ShowWave::ShowWave()
 	Make(Image)(L"UI/Pop_up/popup_Round.png").setParent(this->transform);
 	for (int i = 0; i < 4; i++)	
 		Make(Image)(L"Enemy/One/NormalEnemy.png").setPos_Parent({LPad + i * 400 ,0}, transform).AddText(L"", 70,0,95).Get<Image>(images[i]);		
-	Make(Button)(L"Ready", [this]() { SetActive(false); }).setScale({0.75f,0.75f}).setPos_Parent({ 820, -480 }, transform);
+	Make(Button)(L"Ready", [this]() { SetActive(false); 
+	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect1);	}).setScale({0.75f,0.75f}).setPos_Parent({ 820, -480 }, transform);
 	SetActive(false);
 }
 
@@ -59,7 +61,8 @@ void ShowWave::Update(float deltatime)
 
 void ShowWave::Show()  
 {
-	dataManager->ChoseWave();
+	Music::soundManager->PlayMusic(Music::eSoundList::WaveStart, Music::eSoundChannel::Effect1);
+	dataManager->ChoseWave(); 
 	isMid = false;
 	isExit = false;
 	elapsedTime = 0;

@@ -120,7 +120,11 @@ void EnemyAttack::EnterState()
 
 	if (enemy->enemyData.name == "BombEnemy")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::BatBombDestroy, Music::eSoundChannel::EnemyHitted);
+		Music::soundManager->PlayMusic(Music::eSoundList::BatBombDestroy, Music::eSoundChannel::Enemy1);
+	}
+	else if (enemy->enemyData.Type == "Boss")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::BossAttack, Music::eSoundChannel::Enemy1);
 	}
 
 }
@@ -154,13 +158,23 @@ void EnemyDead::EnterState()
 	}
 	// 데스 애니메이션
 	ani->SetAnimation(2, false, false);
+	//enemy->hitEffct = false;
+
 	if (enemy->enemyData.Type == "Speed")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::BatDestroy, Music::eSoundChannel::EnemyHitted2);
+		Music::soundManager->PlayMusic(Music::eSoundList::BatDestroy, Music::eSoundChannel::Enemy2);
 	}
 	else if (enemy->enemyData.Type == "Deffend")
 	{
-		Music::soundManager->PlayMusic(Music::eSoundList::DeffendDestroy, Music::eSoundChannel::EnemyHitted2);
+		Music::soundManager->PlayMusic(Music::eSoundList::DeffendDestroy, Music::eSoundChannel::Enemy2);
+	}
+	else if (enemy->enemyData.Type == "Boss")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::BossDestroy, Music::eSoundChannel::Enemy2);
+	}
+	else
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::EnemyDestroy, Music::eSoundChannel::Enemy1);
 	}
 }
 
@@ -182,6 +196,10 @@ void EnemyAbility::EnterState()
 	enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	ani->SetAnimation(3, false, false);
 	ani->isLoop = false;
+	if (enemy->enemyData.ability == "SpawnVat")
+	{
+		Music::soundManager->PlayMusic(Music::eSoundList::BossSummon, Music::eSoundChannel::Enemy2);
+	}
 }
 
 void EnemyAbility::Update(float deltaTime)

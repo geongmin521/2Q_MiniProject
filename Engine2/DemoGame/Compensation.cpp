@@ -50,8 +50,8 @@ Compensation::Compensation()
 	}
 	//보상확정 버튼 
 	Make(Button)(L"Commit", [this]() {GetCompensation();
-	Music::soundManager->PlayMusic(Music::eSoundList::Reward, Music::eSoundChannel::Effect1); }).
-		setPos_Parent({ 0, 410 }, this->transform).Get(btn);
+	Music::soundManager->PlayMusic(Music::eSoundList::RewardClose, Music::eSoundChannel::Effect2);
+	}).setPos_Parent({ 0, 410 }, this->transform).Get(btn);
 	SetActive(false);
 }
 
@@ -102,6 +102,7 @@ void Compensation::ChoseCompensation(bool special)
 		compensationId[i] = result[i];
 		img[i]->ChangeImage(L"../Data/Image/Artifact/"+ artifactPath +L".png");
 	}
+	Music::soundManager->PlayMusic(Music::eSoundList::RewardOpen, Music::eSoundChannel::Effect1);
 }
 
 void Compensation::ButtonSelect(int num)

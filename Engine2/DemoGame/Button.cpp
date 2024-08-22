@@ -6,6 +6,7 @@
 #include "D2DFont.h"
 #include "Button.h"
 #include "Utility.h"
+#include "Music.h"
 
 Button::Button(std::wstring imagePath, std::function<void(void)> func ,ButtonType type)
 {

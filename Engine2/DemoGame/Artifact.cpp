@@ -9,7 +9,7 @@
 #include "GameManager.h"
 
 Artifact::Artifact()
-{					
+{
 	gameManager->Reset.push_back([this]() { reset(); });
 	Init();
 }
@@ -27,8 +27,8 @@ void Artifact::reset()
 void Artifact::SelectArtifact(int id)
 {
 	levelUp(id);
-	if(id >= 500)
-	{ 
+	if (id >= 512)
+	{
 		ownedArtifact.push_back(id);
 		Make(ArtifactObject)(id, 60.f * ownedArtifact.size(), 80);
 	}
@@ -57,13 +57,13 @@ void Artifact::Init()
 	levelUpActions[509] = [this]() { PilePower.increaseSpd(); };
 	levelUpActions[510] = [this]() { CrossbowPower.increaseSpd(); };
 	levelUpActions[511] = [this]() { HolyPower.increaseSpd(); };
-	
+
 }
 
 void Artifact::levelUp(int id)
 {
 	auto action = levelUpActions.find(id);
-	if (action != levelUpActions.end()) 
+	if (action != levelUpActions.end())
 	{
 		action->second();
 	}

@@ -39,7 +39,6 @@ void EnemyFunc::BossAttack(EnemyBase* origin, GameObject* target, float Damage)
 	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2012));
 	effect->Init({ target->GetWorldLocation().x,  target->GetWorldLocation().y + 50 }, 1.0f); //이펙트 생성
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
-	Damage = 4;
 	nofity->Hit(Damage);
 	origin->Heal(Damage / 4);
 }
