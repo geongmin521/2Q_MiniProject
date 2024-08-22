@@ -67,7 +67,6 @@ void ProductionCamera::Update(float deltaTime)
 
 void ProductionCamera::BossAwake(float deltaTime)
 {
-	Music::soundManager->SetVolume(1.0f, Music::eSoundChannel::Effect1);
 	Music::soundManager->PlayMusic(Music::eSoundList::BossAppear, Music::eSoundChannel::Effect1);
 
 	auto& scale = transform->relativeScale;

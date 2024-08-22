@@ -47,7 +47,7 @@ namespace Music
 
     void SoundManager::SetVolume(float volume, eSoundChannel chanel)
     {
-        mChannel[(int)chanel]->setVolume(volume);
+        mChannel[static_cast<int>(chanel)]->setVolume(volume);
     }
 
     void SoundManager::SetPause(eSoundChannel channel, bool isPaused)
