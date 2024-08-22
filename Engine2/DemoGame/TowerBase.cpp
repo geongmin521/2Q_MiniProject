@@ -376,7 +376,7 @@ void TowerBase::FailDrop()
 {
 	if (container != nullptr) //이거 널검사하는거 겁나 귀찮은데 define으로 만들까?
 	{
-		transform->SetRelativeLocation(container->GetWorldLocation());
+		transform->SetRelativeLocation({ container->GetWorldLocation().x ,container->GetWorldLocation().y -50});
 		container->isContain = true;
 	}
 }

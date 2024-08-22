@@ -1,9 +1,14 @@
 #pragma once
 #include "GameObject.h"
-class ArtifactObject : public GameObject
+#include "IOnMouse.h"
+class ArtifactData;
+class ArtifactObject : public GameObject, public IOnMouse
 {
 public:
+	ArtifactData* data;
 	ArtifactObject(int id, float targetPosX, float targetPosY);
 	virtual ~ArtifactObject();
+	virtual void OnMouse() override;
+	virtual void OutMouse() override;
 };
 

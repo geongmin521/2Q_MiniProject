@@ -5,7 +5,7 @@ int,string,int,string,float,float,float,float,float,float,string
 2,3StarCrossbowTower,3,Crossbow,10,1000,100,0.5,0,30,double
 3,WaterTower,1,Water,5,700,20,1.75,20,10,None
 4,2StarWaterTower,2,Water,12,750,50,1.5,20,10,None
-5,3StaWaterTower,3,Water,15,800,100,1.25,30,10,double
+5,3StarWaterTower,3,Water,15,800,100,1.25,30,10,double
 6,PileTower,1,Pile,3,100,50,2,1,0,None
 7,2StarPileTower,2,Pile,5,100,150,2,1,0,None
 8,3StarPileTower,3,Pile,10,100,400,2,1,0,None
