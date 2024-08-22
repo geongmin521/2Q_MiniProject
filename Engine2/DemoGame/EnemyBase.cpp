@@ -26,6 +26,7 @@ EnemyBase::EnemyBase(EnemyData data)
 	name = "Enemy";
 	id = 1001;
 	curHP = enemyData.HP;
+	curMaxHP = enemyData.HP;
 	SetBoundBox(0, 0, 50, 50); 
 	if (artifact->isOwned(static_cast<int>(ArtifactId::Wine)))
 	{
@@ -47,8 +48,8 @@ EnemyBase::EnemyBase(EnemyData data)
 
 	transform->SetRelativeScale({ 0.5f,0.5f });
 	AddComponent(new CircleCollider(boundBox,new Circle(transform->GetWorldLocation(), enemyData.detectRange), CollisionType::Overlap, this, CollisionLayer::Enemy));
-	Make(HPBar)(curHP, enemyData.HP,enemyData.Type,true).setPosition({ 20 , -200}).setParent(transform).Get<HPBar>();
-	Make(HPBar)(curHP, enemyData.HP,enemyData.Type).setPosition({ 0 , -200}).setParent(transform).Get<HPBar>();
+	Make(HPBar)(curHP, curMaxHP,enemyData.Type,true).setPosition({ 20 , -200}).setParent(transform).Get<HPBar>();
+	Make(HPBar)(curHP, curMaxHP,enemyData.Type).setPosition({ 0 , -200}).setParent(transform).Get<HPBar>();
 	FiniteStateMachine* fsm = new FiniteStateMachine();
 	AddComponent(fsm);
 	fsm->CreateState<EnemyIdle>("Idle");

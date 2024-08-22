@@ -80,27 +80,14 @@ void Shop::Update(float deltaTime)
 	goldText->SetDialog(L"신앙심:" + std::to_wstring(gameManager->GetGold()));
 	if (curState == ButtonState::EnemySpawn) 
 	{
-		int count = 0;
-		for (int i = 0; i < Containers.size(); i++)
-		{
-			if (Containers[i]->isContain == false)
-				count++;
-		}
-		if (count == 4 && gameManager->isBattle == false)  //타워가 전부 비어있는지 검사
-		{
-			shop_spawnButton->SetInteractive(true);	
-//			TowerBase* tower = dynamic_cast<TowerBase*>(Pools::GetInstance().get()->PopPool(12));
-//			tower->Init({ 0,0 });
-		}
-		else
-		{
-			shop_spawnButton->SetInteractive(false);
-		}
+		EmptyInven();
 	}
 	else if (curState = ButtonState::TowerSpawn)
 	{
-		if (child->GetActive() == false) //상점이 꺼져있는상태면 활성화
-			shop_spawnButton->SetInteractive(true);	
+		if (child->GetActive() == false) //상점이 꺼져있는상태면서
+		{
+			EmptyInven(); //인벤이 비어있어야지만
+		}
 	}
 	
 	if (gameManager->isBattle == true)
@@ -287,6 +274,20 @@ void Shop::ChangeButton(ButtonState state)
 		shop_spawnButton->SetListener([this]() { child->SetActive(true); init();  Reroll(); gameManager->chance--; });
 	}	
 	shop_spawnButton->SetInteractive(false);
+}
+
+void Shop::EmptyInven()
+{
+	int count = 0;
+	for (int i = 0; i < Containers.size(); i++)
+	{
+		if (Containers[i]->isContain == false)
+			count++;
+	}
+	if (count == 4 && gameManager->isBattle == false)  //타워가 전부 비어있는지 검사		
+		shop_spawnButton->SetInteractive(true);
+	else
+		shop_spawnButton->SetInteractive(false);
 }
 
 

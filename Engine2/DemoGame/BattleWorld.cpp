@@ -63,11 +63,11 @@ void BattleWorld::MakeUI()
 	Music::soundManager->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect1);
 	Music::soundManager->SetPause(Music::eSoundChannel::BGM, true);
 		}, ButtonType::Single).setPosition({ WinSizeX - 330, 75 }).Get(TimeScaleButton[0]); //시간 조절 버튼
-	Make(Button)(L"Resume", [this]() {timeManager->SetTimeScale(1); TimeScaleIsClick(1), timeManager->SetBeforeTimeScale(1);
+	Make(Button)(L"Resume", [this]() {timeManager->SetTimeScale(2); TimeScaleIsClick(1), timeManager->SetBeforeTimeScale(1);
 	Music::soundManager->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect1);
 	Music::soundManager->SetPause(Music::eSoundChannel::BGM, false);
 		}, ButtonType::Single).setPosition({ WinSizeX - 210, 75 }).Get(TimeScaleButton[1]);
-	Make(Button)(L"Multi", [this]() {timeManager->SetTimeScale(2); TimeScaleIsClick(2), timeManager->SetBeforeTimeScale(2);
+	Make(Button)(L"Multi", [this]() {timeManager->SetTimeScale(3); TimeScaleIsClick(2), timeManager->SetBeforeTimeScale(2);
 	Music::soundManager->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect1);
 	Music::soundManager->SetPause(Music::eSoundChannel::BGM, false);
 		}, ButtonType::Single).setPosition({ WinSizeX - 90, 75 }).Get(TimeScaleButton[2]);

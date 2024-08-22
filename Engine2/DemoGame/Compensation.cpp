@@ -29,7 +29,7 @@ Compensation::Compensation()
 	for (int i = 0; i < 3; i++)
 	{
 		explain[i] = new D2DFont(L"");
-		explain[i]->SetPos(0, 120);
+		explain[i]->SetPos(0, 125);
 		explain[i]->SetSize(40, { 0,0 });
 		explain[i]->SetBoxSize({ 380,180 });
 	}

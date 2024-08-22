@@ -29,7 +29,7 @@ public:
 	int curWaveId = 1000;
 	int LiveEenmy = 0; 
 	int chance = 1; 
-	int goldReward[9] = { 0,12,14,18,18,20,24,26,0 };
+	int goldReward[9] = { 0,10,12,14,16,18,20,24,0 };
 	std::map<Event, std::function<void(void)>> events; 
 	std::function<GameObject*(std::string key)> getObject; 
 	std::function<void(bool)> Compensation; 

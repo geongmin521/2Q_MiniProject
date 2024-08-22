@@ -48,6 +48,7 @@ public:
 	void SetOtherUI(GameObject* combination) {this->combination = combination;}
 	int TowerNameToID(std::wstring name);
 	void ChangeButton(ButtonState state);
+	void EmptyInven();
 	Button* GetSwapButton() { return shop_spawnButton; }
 
 };
