@@ -132,6 +132,9 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../D2DEngine/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -167,6 +170,7 @@
     <ClInclude Include="IntroWorld.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Pools.h" />
+    <ClInclude Include="ProductionCamera.h" />
     <ClInclude Include="Sculpture.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="ShowWave.h" />
@@ -204,6 +208,7 @@
     <ClCompile Include="IntroWorld.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Pools.cpp" />
+    <ClCompile Include="ProductionCamera.cpp" />
     <ClCompile Include="Sculpture.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShowWave.cpp" />

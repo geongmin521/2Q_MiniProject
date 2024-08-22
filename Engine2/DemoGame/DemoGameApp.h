@@ -8,5 +8,4 @@ public:
 	virtual void Run() override;
 	virtual void Uninitialize() override;
 
-	void SetCustomCursor(HINSTANCE hInstance, std::wstring bitmapPath);
 };

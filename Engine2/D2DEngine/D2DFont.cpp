@@ -6,6 +6,8 @@
 #include "transform.h"
 #include "GameObject.h"
 
+#include "D2DFontManager.h"
+
 #pragma comment(lib,"dwrite.lib") // 폰트
 #pragma comment(lib,"dxgi.lib") // 폰트
 
@@ -16,6 +18,9 @@ D2DFont::D2DFont(const std::wstring _Dialog)
 	Dialog = _Dialog;
 	LoadFont(L"Arial");
 	CreateLayoutText(Dialog);
+
+	FontBrush->SetColor(D2D1::ColorF(D2D1::ColorF::White));
+	SetWriteTextFormat(D2DFontManager::GetInstance()->FindFont(L"Result"));
 }
 
 D2DFont::~D2DFont()

@@ -37,6 +37,9 @@
     <Filter Include="Func">
       <UniqueIdentifier>{4cfd6d47-ec54-45c3-ac0b-d4ff8b7daaf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{4cbf1720-33d0-4033-aac1-a27b4e03a3a4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="UI\UIBase">
       <UniqueIdentifier>{6aff8257-2e2b-460c-a1c0-9169bfdbe870}</UniqueIdentifier>
     </Filter>
@@ -148,6 +151,9 @@
     <ClInclude Include="Container.h">
       <Filter>UI\UIBase</Filter>
     </ClInclude>
+    <ClInclude Include="ProductionCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TowerBase.cpp">
@@ -252,6 +258,9 @@
     </ClCompile>
     <ClCompile Include="Container.cpp">
       <Filter>UI\UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="ProductionCamera.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

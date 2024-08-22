@@ -33,10 +33,10 @@ public: //나중에 은닉화할 데이터는 빼기
     std::function<void(void)> Search; //아이디로 타입구분해서 각각의 타워에 맞는 기능을 넣어주기
     std::function<void(void)> AttackFunc;
     float cooldown = 0;
-    //test 이펙트
+
+    // 사용하는 것들
     bool hitEffct = false;
     float hitEffctDelay = 0.0f;
-    bool isBlurEffect = false;
 
     HPBar* hpbar;
     float curHP;        //타워각자가 가질 현재 체력 //hp 참조로 넘겨주면될듯? 그럼 게임오브젝트에 필요없겠지? 

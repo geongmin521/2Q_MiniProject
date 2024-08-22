@@ -33,46 +33,37 @@ void EnemyIdle::EnterState()
 
 void EnemyIdle::Update(float deltaTime)
 {
-	AttackTimer += deltaTime;
-	if (enemy->target.empty() == false)
-	{
-		if (enemy->enemyData.name == "BossEnemy")
+	if(enemy->isProduction == false)
+	{ 
+		if (enemy->target.empty() == false )
 		{
-			enemy->spawnTime += deltaTime;
-			if (enemy->spawnTime > 5.f)
+			MathHelper::Vector2F targetPos = enemy->target[0]->GetWorldLocation();
+			MathHelper::Vector2F curPos = enemy->GetWorldLocation();
+			float length = (targetPos - curPos).Length();
+			if (enemy->target.back()->GetActive() == false)
+				enemy->target.clear();
+			if (length < enemy->enemyData.attackRange) //공격사거리 안쪽이다.
 			{
-				enemy->spawnTime = 0;
-				owner->SetNextState("Ability");
-				enemy->spawnTime = 0;
-			}
-		}
-		MathHelper::Vector2F targetPos = enemy->target[0]->GetWorldLocation();
-		MathHelper::Vector2F curPos = enemy->GetWorldLocation();
-		float length = (targetPos - curPos).Length();
-		if (enemy->target.back()->GetActive() == false)
-			enemy->target.clear();
-		if (length < enemy->enemyData.attackRange) //공격사거리 안쪽이다.
-		{
-			if (!enemy->isHited)
-			enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
-			if (enemy->enemyData.attackSpeed < AttackTimer)
-			{
-				AttackTimer = 0;
+				enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 				owner->SetNextState("Attack");
+			}
+			else
+			{
+				MathHelper::Vector2F moveDir = (targetPos - curPos).Normalize(); 
+				if(!enemy->isHited)
+				enemy->GetComponent<Movement>()->SetVelocity({ moveDir * enemy->enemyData.speed * 100 }); //테스트용 그리고 csv에서는 스피드와 탐지 범위가 너무작아서 일단이렇게 박아놓음
 			}
 		}
 		else
 		{
-			MathHelper::Vector2F moveDir = (targetPos - curPos).Normalize(); 
-			if(!enemy->isHited)
-			enemy->GetComponent<Movement>()->SetVelocity({ moveDir * enemy->enemyData.speed * 100 }); //테스트용 그리고 csv에서는 스피드와 탐지 범위가 너무작아서 일단이렇게 박아놓음
+			CommonFunc::FindTarget(*enemy->GetComponent<CircleCollider>(),"Tower",enemy->target, enemy->enemyData.detectRange);
+			if (!enemy->isHited)
+			enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed * 100, 0 }); 
 		}
 	}
-	else
+	else // 멈춘 상태
 	{
-		CommonFunc::FindTarget(*enemy->GetComponent<CircleCollider>(),"Tower",enemy->target, enemy->enemyData.detectRange);
-		if (!enemy->isHited)
-		enemy->GetComponent<Movement>()->SetVelocity({ -enemy->enemyData.speed * 100, 0 }); 
+		enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
 	}
 }
 

@@ -10,7 +10,6 @@ enum Setting // 용도 정렬 선택 하기 위해서
 	EXIT
 };
 
-
 class Transform;
 class Component;
 class D2DFont : public Renderer 
@@ -47,15 +46,10 @@ public:
 	
 	// 폰트 정렬 잘못 넣어졌을 경우 중앙으로 정렬되게 예외함 
 	void Sort(Setting _SortX, Setting _SortY); // 왼쪽, 가운데, 오른쪽 정렬
-
-	void SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat);
-	void CreateLayoutText(std::wstring detail); // 텍스트 내용을 작성
-private:
 	
-};
+	// IDWriteTextFormat 변경 사용 용도  
+	void SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat);
 
-/// 사용 설명서 /// 
-// 아래의 2개를 먼저 설정을 하고선 LoadFont(L"제어판의 글꼴");을 하면 된다.
-// 생성법 D2DFont test(std::wstring n 또는 L"안녕하세요"); 
-// 트랜스폼을 사용하는 경우는 OnTransform() 함수를 사용하고선 이후 GetTransform()->SetParent(오브젝트의 트랜스폼을 하면 된다.)
-// 이렇게 사용할거면 업데이트에 트랜스폼 Update()를 해주어야 한다
+private:
+	void CreateLayoutText(std::wstring detail); // 텍스트 내용을 작성
+};

@@ -25,12 +25,13 @@
 #include "TowerBase.h"
 #include "Music.h"
 #include "D2DFontManager.h"
+#include "ProductionCamera.h"
 
 BattleWorld::BattleWorld()
-{	
-	// 낮 밤 바뀌는거 물어볼 것 따로 변수가 있는지?
-	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::GameTheme, Music::eSoundChannel::BGM);
-	//artifact->SelectArtifact(510);
+{
+	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
+	artifact->SelectArtifact(8);
+	
 }
 
 BattleWorld::~BattleWorld()
@@ -40,8 +41,7 @@ BattleWorld::~BattleWorld()
 
 void BattleWorld::MakeObject()
 {
-	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\DNFBitBitv2.ttf", L"Test");
-	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\Maplestory Bold.ttf", L"Map");
+	D2DFontManager::GetInstance()->LoadFont(L"..\\Data\\Font\\Pretendard-Bold.otf", L"Result");
 
 	Make(Image)(L"afternoon.png").setScale({ 0.75f,0.75f }).setRenderOrder(-100).setPosition(WinHalfSizeXY); //효과를 위한 오파시티 맵
 	Make(Image)(L"UI/mainUI/MainFrame.png").setScale({ 0.75f,0.75f }).AddText(L"0",80,-430,260).setRenderOrder(-90).setPosition(WinHalfSizeXY).GetComponent<D2DFont>(goldText); //UI 프레임
@@ -79,6 +79,11 @@ void BattleWorld::MakeUI()
 	Make(GameOver)().setPosition({ WinHalfSizeXY }).setScale({ 0.75f,0.75f }).Get(Objs["GameOver"]);
 	Make(Image)(L"UI/tooltip/HolyCrossTower.png").setScale({ 0.65f,0.65f }).setActive(false).setBoundBox(0,0).Get(Objs["ToolTip"]);
 	Make(Image)(L"UI/mainUI/gauge0.png").setScale({0.75,0.75}).setPosition({ WinHalfSizeX , 65 }).Get(Objs["WaveCount"]); //웨이브 주기.. 
+	Make(ProductionCamera)().Get()->name = "Camera";
+
+	 Make(Image)(L"UI/mainUI/Special_inven.png").setScale({ 0.5 , 0.5 }).setPosition({ 1280, 350 }).AddText(L"크하하하", 50,0,0, &BossDialogue).Get()->name = "BossDialogue";
+	 BossDialogue->SetBoxSize(400, 200);
+	 FindObject<Image>("BossDialogue")->SetActive(false);
 }
 
 void BattleWorld::RegisterEvent()
