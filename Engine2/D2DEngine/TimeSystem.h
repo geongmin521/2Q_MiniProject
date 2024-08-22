@@ -17,6 +17,8 @@ public:
 	void SetTimeScale(float scale);
 	float GetTimeScale() { return _TimeScale; }
 
+	void SetBeforeTimeScale(float _scale) { _BeforeTimeScale = _scale; }
+	float GetBeforeTimeScale() { return _BeforeTimeScale; }
 private:
 	LARGE_INTEGER _CurTime;
 	LARGE_INTEGER _PrevTime;
@@ -24,4 +26,5 @@ private:
 
 	float _DeltaTime;
 	float _TimeScale;
+	float _BeforeTimeScale = 1.f;
 };

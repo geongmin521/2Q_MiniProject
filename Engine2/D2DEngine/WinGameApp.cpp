@@ -54,7 +54,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		inputSystem->UpdateKey();
 		break;
 	case WM_SETFOCUS:
-		timeManager->SetTimeScale(1); 
+		timeManager->SetTimeScale(timeManager->GetBeforeTimeScale());
 		break;
 	case WM_KILLFOCUS:
 		timeManager->SetTimeScale(0);
@@ -64,7 +64,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_EXITSIZEMOVE:
 		timeManager->InitTime(); 
-		timeManager->SetTimeScale(1);
+		timeManager->SetTimeScale(timeManager->GetBeforeTimeScale());
 		break;
 
 	case WM_LBUTTONDBLCLK:
