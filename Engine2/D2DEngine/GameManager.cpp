@@ -22,6 +22,7 @@ void GameManager::Update()
 		if (WaveLevel == 8)
 		{
 			events[Event::GameOverEvent]();
+			// 아마 엔딩
 			return;
 		}
 		else

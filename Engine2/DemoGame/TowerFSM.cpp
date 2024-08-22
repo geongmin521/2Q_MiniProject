@@ -78,7 +78,8 @@ void TowerAttack::EnterState()
 	if (ani != nullptr)
 	ani->SetAnimation(1, false,false);
 	std::string str = tower->towerData.Type + "Attack";
-	Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), Music::eSoundChannel::TowerAttack);
+	int random = Utility::RandomBetween(6, 8);
+	Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), static_cast<Music::eSoundChannel>(random));
 	
 }
 
@@ -111,8 +112,9 @@ void TowerAttack::Update(float DeltaTime) //공속이 애니메이션보다 빨라지면.. 공�
 
 void TowerAttack::ExitState()
 {
+	int random = Utility::RandomBetween(9, 11);
 	std::string str = tower->towerData.Type + "Effect";
-	Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), Music::eSoundChannel::TowerEffect);
+	Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), static_cast<Music::eSoundChannel>(random));
 }
 
 void TowerDeath::EnterState()
@@ -121,6 +123,7 @@ void TowerDeath::EnterState()
 	tower->container->Clear();
 	if (ani != nullptr)
 	ani->SetAnimation(2, false,false); 
+	Music::soundManager->PlayMusic(Music::eSoundList::TowerDestroy, Music::eSoundChannel::TowerDeath);
 }
 
 void TowerDeath::Update(float DeltaTime)

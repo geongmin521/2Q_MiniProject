@@ -441,7 +441,6 @@ void TowerBase::OnDoubleClick()
 			dynamic_cast<TowerBase*>(newTower)->container = this->container;
 			this->container->Clear();//여기서 컨테이너를 새타워에 넘겨주고 자기껀 없애고?
 		}
-		Music::soundManager->PlayMusic(Music::eSoundList::TowerUpgrade, Music::eSoundChannel::TowerHitted);
 	}
 }
 

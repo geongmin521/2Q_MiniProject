@@ -40,8 +40,10 @@ Shop::Shop()
 	//소환하기 버튼
 	//리롤 횟수 텍스트박스
 	//상점 활성화 버튼
-	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"",40,50, 0, &rerollButtonText).AddText(L"", 50, 50, 0, &rerollText).setPos_Parent({0, 320}, child->transform);
-	Make(Button)(L"Create", [this]() {combination->SetActive(true); }).setScale({ 1.4f,1.4f }).setPos_Parent({ -980, +400 }, child->transform);
+	Make(Button)(L"Reroll", std::bind(&Shop::Reroll, this)).AddText(L"", 40, 50, 0, &rerollButtonText).AddText(L"", 50, 50, 0, &rerollText).setPos_Parent({ 0, 320 }, child->transform);
+	Make(Button)(L"Create", [this]() {combination->SetActive(true);
+	Music::soundManager->PlayMusic(Music::eSoundList::PopupOpen, Music::eSoundChannel::Effect1);
+		}).setScale({ 1.4f,1.4f }).setPos_Parent({ -980, +400 }, child->transform);
 	Make(Button)(L"summon", std::bind(&Shop::Spawn, this)).setPos_Parent({980, +400 }, child->transform);
 	Make(Button)(L"CS", []() {}).setPosition(WinSizeXYAdd(-200, -100)).setScale({ 0.9,0.9 }).Get<Button>(shop_spawnButton);
 
@@ -108,10 +110,12 @@ void Shop::Update(float deltaTime)
 
 void Shop::Reroll() 
 {
+	Music::soundManager->PlayMusic(Music::eSoundList::Reroll, Music::eSoundChannel::Effect1);
 	if (reroll <= 0)
 		rerollButtonText->SetDialog(L" - 10 신앙심"); 
-	if(reroll > 0)
+	if (reroll > 0) 	
 		reroll--;
+	
 	else if(gameManager->GetGold() >= 10)
 	{
 		gameManager->UseGold(10);
@@ -179,9 +183,21 @@ void Shop::Spawn()
 			Containers[inven]->OnDrop(tower);			
 		}
 		
-		if (var != 0 && var != 3 && var != 6 && var != 9)
+		if (var == 0 || var == 3 || var == 6 || var == 9)
 		{
-			Music::soundManager->PlayMusic(Music::eSoundList::TowerUpgrade, Music::eSoundChannel::Effect1);
+			Music::soundManager->PlayMusic(Music::eSoundList::Tower1Star, Music::eSoundChannel::Effect1);
+		}
+		else if (var == 1 || var == 4 || var == 7 || var == 10)
+		{
+			Music::soundManager->PlayMusic(Music::eSoundList::Tower2Star, Music::eSoundChannel::Effect1);
+		}
+		else if (var == 12)
+		{
+			Music::soundManager->PlayMusic(Music::eSoundList::HiddenSummon, Music::eSoundChannel::Effect1);
+		}
+		else
+		{
+			Music::soundManager->PlayMusic(Music::eSoundList::Tower3Star, Music::eSoundChannel::Effect1);
 		}
 		inven++;
 	}

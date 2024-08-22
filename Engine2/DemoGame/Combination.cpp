@@ -3,6 +3,7 @@
 #include "Factory.h"
 #include "Button.h"
 #include "Image.h"
+#include "Music.h"
 
 Combination::Combination()
 {
@@ -10,14 +11,18 @@ Combination::Combination()
 
 	Make(Image)(L"UI/Pop_up/popup_Recipe.png").setParent(this->transform);	//배경	
 	Make(Image)(L"UI/Pop_up/popup_Recipe1p.png").setParent(this->transform).Get(recipe);	//조합표	
-	Make(Button)(L"Left", [this]() { NextPage(true); }, ButtonType::Single).setPos_Parent({ -1100, 0 }, this->transform);//왼쪽 페이지로 교체
-	Make(Button)(L"Right", [this]() { NextPage(false); }, ButtonType::Single).setPos_Parent({ 1100, 0 }, this->transform);//오른쪽 페이조교체
-	Make(Button)(L"Return", [this]() { SetActive(false); }).setPos_Parent({0, 450},this->transform);//나가기 버튼
+	Make(Button)(L"Left", [this]() { NextPage(true);
+	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect1); }, ButtonType::Single).setPos_Parent({ -1100, 0 }, this->transform);//왼쪽 페이지로 교체
+	Make(Button)(L"Right", [this]() { NextPage(false); 
+	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::ButtonClick, Music::eSoundChannel::Effect1); }, ButtonType::Single).setPos_Parent({ 1100, 0 }, this->transform);//오른쪽 페이조교체
+	Make(Button)(L"Return", [this]() { SetActive(false);
+	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::PopupClose, Music::eSoundChannel::Effect1); }).setPos_Parent({0, 450},this->transform);//나가기 버튼
 	SetActive(false);
 }
 
 Combination::~Combination()
 {
+
 }
 
 void Combination::NextPage(bool left)
