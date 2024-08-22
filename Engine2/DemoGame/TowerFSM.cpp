@@ -78,9 +78,11 @@ void TowerAttack::EnterState()
 	if (ani != nullptr)
 	ani->SetAnimation(1, false,false);
 	std::string str = tower->towerData.Type + "Attack";
-	int random = Utility::RandomBetween(6, 8);
-	Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), static_cast<Music::eSoundChannel>(random));
-	
+	int random = Utility::RandomBetween(6, 12);
+	if (str != "HiddenAttack")
+		Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), static_cast<Music::eSoundChannel>(random));
+	else
+		Music::soundManager->PlayMusic(Music::eSoundList::HiddenAttack, Music::eSoundChannel::HiddenAttack);
 }
 
 
@@ -112,9 +114,11 @@ void TowerAttack::Update(float DeltaTime) //공속이 애니메이션보다 빨라지면.. 공�
 
 void TowerAttack::ExitState()
 {
-	int random = Utility::RandomBetween(9, 11);
+	int random = Utility::RandomBetween(9, 19);
 	std::string str = tower->towerData.Type + "Effect";
-	Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), static_cast<Music::eSoundChannel>(random));
+	
+	if(str!= "HiddenEffect")
+		Music::soundManager->PlayMusic(Music::soundManager->toEnum(str), static_cast<Music::eSoundChannel>(random));
 }
 
 void TowerDeath::EnterState()

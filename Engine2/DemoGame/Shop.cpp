@@ -192,7 +192,6 @@ void Shop::Spawn()
 		
 		if (var == 0 || var == 3 || var == 6 || var == 9)
 		{
-			Music::soundManager->SetVolume(1.0f, Music::eSoundChannel::Effect1);
 			Music::soundManager->PlayMusic(Music::eSoundList::Tower1Star, Music::eSoundChannel::Effect1);
 		}
 		else if (var == 1 || var == 4 || var == 7 || var == 10)

@@ -47,6 +47,7 @@ void ProductionCamera::Update(float deltaTime)
 		BossAwakeTime += deltaTime * speed;
 		if (BossAwakeTime > 3)
 		{
+			Music::soundManager->PlayMusic(Music::eSoundList::BossAppear, Music::eSoundChannel::Boss);
 			owner->FindObject<Image>("BossDialogue")->SetActive(true);
 			isDialogueDelay = false;
 			BossAwakeTime = 0;
@@ -67,8 +68,6 @@ void ProductionCamera::Update(float deltaTime)
 
 void ProductionCamera::BossAwake(float deltaTime)
 {
-	Music::soundManager->PlayMusic(Music::eSoundList::BossAppear, Music::eSoundChannel::Effect1);
-
 	auto& scale = transform->relativeScale;
 	auto& loca = transform->relativeLocation;
 

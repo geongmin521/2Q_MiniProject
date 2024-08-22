@@ -34,7 +34,6 @@ BattleWorld::BattleWorld()
 {
 	// 낮 밤 바뀌는거 물어볼 것 따로 변수가 있는지?
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::GameTheme, Music::eSoundChannel::BGM);
-	//artifact->SelectArtifact(510);
 
 }
 
@@ -119,7 +118,7 @@ void BattleWorld::RegisterEvent()
 				{
 					if (tower->curHP <= 0)
 					{
-						tower->curHP = tower->towerData.HP;
+						tower->curHP = tower->maxHP;
 					}
 					tower->prevHp = tower->curHP;
 					tower->StatUpdate();
@@ -158,7 +157,6 @@ void BattleWorld::TimeScaleIsClick(int num)
 
 void BattleWorld::Update(float deltaTime)
 {
-	
 	__super::Update(deltaTime);
 	
 	gameManager->Update();

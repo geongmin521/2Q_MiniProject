@@ -124,7 +124,7 @@ void EnemyBase::Update(float deltaTime)
 
 		if (damageTimer >= 1.f)
 		{
-			Hit(5.f);
+			Hit(dataManager->getArtifactData(static_cast<int>(ArtifactId::Garlic)).power);
 			damageTimer = 0.f;
 		}
 		if (ticTime > 5.f)

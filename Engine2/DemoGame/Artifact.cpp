@@ -34,7 +34,7 @@ void Artifact::SelectArtifact(int id)
 	if (id >= 512)
 	{
 		ownedArtifact.push_back(id);
-		Make(ArtifactObject)(id, 60.f * ownedArtifact.size(), 80);
+		Make(ArtifactObject)(id, 80.f * ownedArtifact.size(), 80);
 	}
 	//아티팩트 csv이름이랑 이미지 이름 일치시키기
 }
