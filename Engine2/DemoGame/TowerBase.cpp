@@ -424,7 +424,7 @@ void TowerBase::OnDoubleClick()
 		if (this->container)
 		{
 			dynamic_cast<TowerBase*>(newTower)->container = this->container;
-			this->container->Clear();//여기서 컨테이너를 새타워에 넘겨주고 자기껀 없애고?
+			//this->container->Clear();//여기서 컨테이너를 새타워에 넘겨주고 자기껀 없애고? 
 		}
 	}
 }
