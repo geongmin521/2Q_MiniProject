@@ -14,7 +14,7 @@ void TowerFunc::FireBullet(TowerBase* my,GameObject* target, MathHelper::Vector2
 	if (target != nullptr)
 	{
 		Arrow* arrow = dynamic_cast<Arrow*>(Pools::GetInstance().get()->PopPool(id + 500));
-		arrow->Init(pos, target);
+		arrow->Init(pos, target,my->towerData.level);
 	}
 	else
 	{
@@ -31,7 +31,7 @@ void TowerFunc::Heal(GameObject* my, std::vector<GameObject*>& targets)
 		if (healTower != nullptr)
 		{
 			healTower->Heal(myTower->towerData.ATK + (artifact->HolyPower.atkLevel * 5));
-			Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2000));
+			Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2004));
 			effect->Init(tower->GetWorldLocation(), 0.25f); //이펙트 생성
 		}
 	}

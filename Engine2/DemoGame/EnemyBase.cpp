@@ -37,6 +37,13 @@ EnemyBase::EnemyBase(EnemyData data)
 		this->enemyData.speed *= 0.75f;
 	}
 	
+	if(enemyData.Type =="Boss")  //일단 넣긴해야되서 나중에수정
+		AddComponent(new Bitmap(L"..\\Data\\Image\\Enemy\\DarkauraBoss.png" ));
+	else
+		AddComponent(new Bitmap(L"..\\Data\\Image\\Enemy\\DarkauraNormal.png"));
+
+
+
 	AddComponent(new Animation(L"..\\Data\\Image\\Enemy\\" + Utility::convertFromString(enemyData.name) + L".png", L"..\\Data\\CSV\\EnemyAni\\" + Utility::convertFromString(enemyData.name) + L".csv"));
 
 	transform->SetRelativeScale({ 0.5f,0.5f });

@@ -37,9 +37,24 @@ void EnemyIdle::Update(float deltaTime)
 	{ 
 		if (enemy->target.empty() == false )
 		{
-			MathHelper::Vector2F targetPos = enemy->target[0]->GetWorldLocation();
-			MathHelper::Vector2F curPos = enemy->GetWorldLocation();
-			float length = (targetPos - curPos).Length();
+			enemy->spawnTime += deltaTime;
+			if (enemy->spawnTime > 5.f)
+			{
+				enemy->spawnTime = 0;
+				owner->SetNextState("Ability");
+				enemy->spawnTime = 0;
+			}
+		}
+		MathHelper::Vector2F targetPos = enemy->target[0]->GetWorldLocation();
+		MathHelper::Vector2F curPos = enemy->GetWorldLocation();
+		float length = (targetPos - curPos).Length();
+		if (length < enemy->enemyData.attackRange) //공격사거리 안쪽이다.
+		{
+			if (!enemy->isHited)
+			enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
+			if (enemy->enemyData.attackSpeed < AttackTimer)
+			{
+				AttackTimer = 0;
 			if (length < enemy->enemyData.attackRange) //공격사거리 안쪽이다.
 			{
 				enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });

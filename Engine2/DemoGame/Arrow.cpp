@@ -47,7 +47,7 @@ Arrow::Arrow(std::string name,std::string type,float damage,float attackArea,flo
 	{
 		AddComponent(new BezierMovement(transform, speed));
 		AddComponent(new CircleCollider(boundBox, new Circle(transform->GetWorldLocation(), attackArea), CollisionType::Overlap, this, CollisionLayer::Bullet));
-		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::WaterAttack(*GetComponent<CircleCollider>(),type,damage, knockBack); };
+		AttackFunc = [this, type, damage, knockBack]() { ArrowFunc::WaterAttack(this,*GetComponent<CircleCollider>(),type,damage, knockBack); };
 		id = 503;
 	}
 	if (type == "Hidden")
@@ -82,8 +82,9 @@ Arrow::~Arrow()
 }
 
 
-void Arrow::Init(MathHelper::Vector2F location, GameObject* target)
+void Arrow::Init(MathHelper::Vector2F location, GameObject* target,float level)
 {
+	this->level = level;
 	if(target !=nullptr)
 	this->target = target;
 	if (GetComponent<BezierMovement>() != nullptr)

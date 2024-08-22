@@ -17,7 +17,7 @@ void EnemyFunc::BombAttack(EnemyBase* origin, GameObject* target, float Damage)
 {
 	if (origin->enemyData.name == "BombEnemy")
 	{
-		Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2004));
+		Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2011));
 		effect->Init(origin->GetWorldLocation(), 1.3f); //捞棋飘 积己
 	}
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
@@ -36,7 +36,7 @@ void EnemyFunc::RangedAttack(GameObject* target, MathHelper::Vector2F pos, float
 }
 void EnemyFunc::BossAttack(EnemyBase* origin, GameObject* target, float Damage)
 {
-	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2005));
+	Effect* effect = dynamic_cast<Effect*>(Pools::GetInstance().get()->PopPool(2012));
 	effect->Init({ target->GetWorldLocation().x,  target->GetWorldLocation().y + 50 }, 1.0f); //捞棋飘 积己
 	IDamageNotify* nofity = dynamic_cast<IDamageNotify*>(target);
 	Damage = 4;
