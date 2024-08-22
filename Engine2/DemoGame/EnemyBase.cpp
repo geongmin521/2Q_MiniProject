@@ -14,7 +14,6 @@
 #include "CircleCollider.h"
 #include "Circle.h"
 #include "Artifact.h"
-
 #include "D2DEffectManager.h"
 #include "ColorMatrixEffect.h"
 #include "World.h"

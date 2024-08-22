@@ -54,6 +54,7 @@ void DemoGameApp::Initialize(HINSTANCE hInstance, int nShowCmd)
 	
 
 	SceneManager::GetInstance().get()->ChangeScene(new TitleWorld); //인트로 추가해달래서
+	sceneManager->Change();
 } 
 
 void DemoGameApp::Run()

@@ -1,0 +1,37 @@
+#include "pch.h"
+#include "EndingWrold.h"
+#include "Factory.h"
+#include "Image.h"
+#include "Transform.h"
+#include "SceneManager.h"
+#include "TitleWorld.h" 
+#include "FadeOut.h"
+
+EndingWrold::EndingWrold()
+{
+}
+
+EndingWrold::~EndingWrold()
+{
+}
+
+void EndingWrold::Update(float deltaTime)
+{
+	__super::Update(deltaTime);
+	
+	if(!endCredit)
+		return;
+	endCredit->transform->AddRelativeLocation(0, -creSpeed * deltaTime);
+	if(endCredit->transform->GetWorldLocation().y <= -530 )
+		SceneManager::GetInstance().get()->ChangeScene(new TitleWorld);
+	
+}
+
+void EndingWrold::MakeObject()
+{
+	Make(Image)(L"Ending_Cut.png").setPosition(WinHalfSizeXY);
+	Make(FadeOut)([this]() {
+		Make(Image)(L"endingCredit.png").setPosition(WinHalfSizeXY).setRenderOrder(1800).Get<Image>(endCredit); }, true);
+
+
+}

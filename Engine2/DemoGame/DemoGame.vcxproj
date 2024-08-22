@@ -158,11 +158,13 @@
     <ClInclude Include="DemoGame.h" />
     <ClInclude Include="DemoGameApp.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EndingWrold.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyFSM.h" />
     <ClInclude Include="EnemyFunc.h" />
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="FadeOut.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="GodStore.h" />
     <ClInclude Include="HPBar.h" />
@@ -196,11 +198,13 @@
     <ClCompile Include="DemoGame.cpp" />
     <ClCompile Include="DemoGameApp.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EndingWrold.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyFSM.cpp" />
     <ClCompile Include="EnemyFunc.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="FadeOut.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GodStore.cpp" />
     <ClCompile Include="HPBar.cpp" />

@@ -43,8 +43,6 @@ Map::Map()
 	int order[4] = { 0,1,3,2 };
 	for(int i=0;i< 4;i++)
 		grid[i][1]->OnDrop(Pools::GetInstance().get()->PopPool(order[i]*3));
-	grid[2][2]->OnDrop(Pools::GetInstance().get()->PopPool(12));
-	//grid[3][2]->OnDrop(Pools::GetInstance().get()->PopPool(8));
 
 	Make(Sculpture)().setPosition({ 113 + 117 / 2, 374 + 176 / 2 }).setScale({ 0.75f,0.75f });
 }

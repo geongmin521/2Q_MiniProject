@@ -10,6 +10,7 @@ enum Event
 	UseGold,
 	OpenCombination,
 	OpenGodStore,
+	GameClearEvent,
 	//Reset
 };
 
