@@ -78,7 +78,7 @@ void Shop::Update(float deltaTime)
 		ChangeButton(ButtonState::EnemySpawn);
 	else
 		ChangeButton(ButtonState::TowerSpawn); 
-	goldText->SetDialog(L"신암심:" + std::to_wstring(gameManager->GetGold()));
+	goldText->SetDialog(L"신앙심:" + std::to_wstring(gameManager->GetGold()));
 	if (curState == ButtonState::EnemySpawn) 
 	{
 		int count = 0;

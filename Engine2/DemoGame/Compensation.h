@@ -14,6 +14,7 @@ private:
 	D2DFont* name[3];
 	D2DFont* explain[3];
 	Image* img[3];
+	std::vector<int> SpecialArtifactID; //존재가 고유해야해서.. 뽑고나면 지우자
 public:
 	Compensation();
 	~Compensation();

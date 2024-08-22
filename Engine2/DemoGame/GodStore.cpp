@@ -20,7 +20,7 @@ GodStore::GodStore()
 			AddText(name[i], 50, 0, -110).
 			AddText(costtext[i], 50, 0, 120).
 			AddText(compensation[i], 50, 0, 150).
-			setPos_Parent({ -810.0f + (i * 810), -110 }, transform).
+			setPos_Parent({ -811.0f + (i * 812), -110 }, transform).
 			Get(CompensationBtn[i]);
 	}
 	for(int i=0;i< 3;i++)
@@ -68,6 +68,7 @@ void GodStore::Enable()
 {
 	for (int i = 0; i < 3; i++)
 		CompensationBtn[i]->SetIsEnable(false);
+	btn->SetInteractive(false);
 }
 
 void GodStore::TimeScaleIsClick(int num)

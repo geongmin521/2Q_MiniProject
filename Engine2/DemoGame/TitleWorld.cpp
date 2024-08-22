@@ -13,6 +13,7 @@
 #include "IntroWorld.h"
 
 #include "Music.h"
+
 TitleWorld::TitleWorld()
 {
 	Music::soundManager->PlayMusic(Music::eSoundList::MainTheme, Music::eSoundChannel::BGM);
@@ -26,7 +27,7 @@ TitleWorld::~TitleWorld()
 void TitleWorld::MakeObject()
 {
 	Make(Image)(L"title.png").setRenderOrder(-100).setScale({0.75f,0.75f}).setPosition(WinHalfSizeXY);
-	Make(Image)(L"UI/Title/title.png").setRenderOrder(-100).setScale({0.75f,0.75f}).setPosition(WinHalfSizeXYAdd(0, -200));
+	Make(Image)(L"UI/Title/title.png").setRenderOrder(-100).setScale({0.75f,0.75f}).setPosition(WinHalfSizeXYAdd(-399 + 860 / 2, -495 + 562 / 2));
 	Make(Button)(L"Start", []() { SceneManager::GetInstance().get()->ChangeScene(new IntroWorld); 
 	Music::soundManager->GetInstance()->PlayMusic(Music::eSoundList::MainButtonClick, Music::eSoundChannel::Effect1); }).setPosition({ WinHalfSizeX, WinHalfSizeY + 200 });//게임시작
 	Make(Button)(L"EXIT", []() { 
