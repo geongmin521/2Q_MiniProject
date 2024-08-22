@@ -22,7 +22,7 @@ void IntroWorld::Update(float deltaTime)
 {
 	__super::Update(deltaTime);
 	elapsedTime += deltaTime;
-	if (elapsedTime > 1.5f)          //한페이지 넘기는 시간은 기획이랑 논의 
+	if (elapsedTime > 2.5f)          //한페이지 넘기는 시간은 기획이랑 논의 
 	{
 		if (introNum < 3)
 		introNum++;
