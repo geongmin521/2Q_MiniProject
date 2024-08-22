@@ -10,7 +10,7 @@ public:
 	virtual void Update(float deltaTime) override;
 	void MakeObject() override;
 	Image* endCredit;
-	float creSpeed = 40;
+	float creSpeed = 85;
 	float Timer = 0;
 	bool onceFade = false;
 };

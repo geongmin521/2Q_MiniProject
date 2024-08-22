@@ -6,10 +6,12 @@
 #include "SceneManager.h"
 #include "TitleWorld.h" 
 #include "FadeOut.h"
+#include "TimeSystem.h"
 #include "Music.h"
 EndingWrold::EndingWrold()
 {
 	Music::soundManager->PlayMusic(Music::eSoundList::Ending, Music::eSoundChannel::BGM);
+	timeManager->SetTimeScale(1);
 }
 
 EndingWrold::~EndingWrold()
@@ -24,7 +26,7 @@ void EndingWrold::Update(float deltaTime)
 	{
 		onceFade = true;
 		Make(FadeOut)([this]() {
-			Make(Image)(L"endingCredit.png").setPosition(WinHalfSizeXY).setRenderOrder(1800).Get<Image>(endCredit); }, true);
+			Make(Image)(L"endingCredit.png").setPosition({ WinHalfSizeX,WinHalfSizeY + 500.0f }).setRenderOrder(1800).Get<Image>(endCredit); }, true);
 	}
 	if(!endCredit)
 		return;
@@ -36,8 +38,4 @@ void EndingWrold::Update(float deltaTime)
 void EndingWrold::MakeObject()
 {
 	Make(Image)(L"Ending_Cut.png").setPosition(WinHalfSizeXY);
-	Make(FadeOut)([this]() {
-		Make(Image)(L"endingCredit.png").setPosition(WinHalfSizeXY).setRenderOrder(1800).Get<Image>(endCredit); }, true);
-
-
 }
