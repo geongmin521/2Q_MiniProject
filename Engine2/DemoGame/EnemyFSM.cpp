@@ -40,8 +40,6 @@ void EnemyIdle::Update(float deltaTime)
 			MathHelper::Vector2F targetPos = enemy->target[0]->GetWorldLocation();
 			MathHelper::Vector2F curPos = enemy->GetWorldLocation();
 			float length = (targetPos - curPos).Length();
-			if (enemy->target.back()->GetActive() == false)
-				enemy->target.clear();
 			if (length < enemy->enemyData.attackRange) //공격사거리 안쪽이다.
 			{
 				enemy->GetComponent<Movement>()->SetVelocity({ 0 ,0 });
